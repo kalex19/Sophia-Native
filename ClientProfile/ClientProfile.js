@@ -6,7 +6,7 @@ class ClientProfile extends ( Component ) {
 
   render() {
     return (
-      <View>
+      <View style={styles.client}>
         <Text>Client Profile</Text>
         <Text>Username: </Text>
         <Text>Name: </Text>
@@ -26,3 +26,9 @@ class ClientProfile extends ( Component ) {
 }
 
 export default ClientProfile;
+
+const styles = StyleSheet.create({
+  client: {
+    backgroundColor: 'yellow'
+  }
+})
