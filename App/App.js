@@ -24,26 +24,52 @@ class App extends Component {
       dietary_restrictions: [],
       medications: ["Med1", "Med2", "Med3"]
     },
-    lists: [{ id: 1, name: "Groceries" }, { id: 2, name: "Laundry" }],
-    items: [
-      { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala" },
-      { id: 1001, list_id: 1, name: "Oranges", notes: "" },
+    lists: [
       {
-        id: 1002,
-        list_id: 1,
-        name: "Bananas",
-        notes: "organic, no black spots"
+        id: 1,
+        name: "Groceries",
+        items: [
+          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala" },
+          { id: 1001, list_id: 1, name: "Oranges", notes: "" },
+          {
+            id: 1002,
+            list_id: 1,
+            name: "Bananas",
+            notes: "organic, no black spots"
+          }
+        ]
       },
-      { id: 1003, list_id: 2, name: "Whites", notes: "Use special detergent" },
-      { id: 1004, list_id: 2, name: "Colors", notes: "Don't use bleach" }
+      {
+        id: 2,
+        name: "Laundry",
+        items: [
+          {
+            id: 1003,
+            list_id: 2,
+            name: "Whites",
+            notes: "Use special detergent"
+          },
+          { id: 1004, list_id: 2, name: "Colors", notes: "Don't use bleach" }
+        ]
+      }
     ]
   };
 
   render() {
     return (
       <View style={styles.container}>
-      <Button title="Profile" onPress={() => this.props.navigation.navigate('Profile')} />
-      <Button title="Lists" onPress={() => this.props.navigation.navigate('Lists', this.state.lists)} />
+        <Button
+          title="Profile"
+          onPress={() =>
+            this.props.navigation.navigate("Profile", this.state.profile)
+          }
+        />
+        <Button
+          title="Lists"
+          onPress={() =>
+            this.props.navigation.navigate("Lists", this.state.lists)
+          }
+        />
       </View>
     );
   }
@@ -62,7 +88,8 @@ const AppNavigator = createStackNavigator(
   {
     Home: App,
     Profile: ClientProfile,
-    Lists: ClientList
+    Lists: ClientList,
+    IndividualList: IndividualList
   },
   {
     initialRouteName: "Home"
@@ -70,4 +97,3 @@ const AppNavigator = createStackNavigator(
 );
 
 export default createAppContainer(AppNavigator);
-

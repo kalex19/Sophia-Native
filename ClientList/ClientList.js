@@ -1,15 +1,17 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import ClientProfile from "../ClientProfile/ClientProfile";
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
-import HeaderNav from "../HeaderNav/HeaderNav";
+import React from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 const ClientList = props => {
   const allLists = props.navigation.state.params.map(list => {
     return (
       <View style={styles.lists} key={list.id}>
-        <Text>{list.name}</Text>
+        {/* <Text>{list.name}</Text> */}
+        <Button
+          title={`${list.name}`}
+          onPress={() =>
+            props.navigation.navigate("IndividualList", list)
+          }
+        />
       </View>
     );
   });
