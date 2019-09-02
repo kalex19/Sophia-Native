@@ -71,9 +71,6 @@ class App extends Component {
             }
           />
         </View>
-        <View>
-          <Text>HIHIHIHIHI</Text>
-        </View>
       </View>
     );
   }
