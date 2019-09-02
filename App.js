@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import ClientProfile from "../ClientProfile/ClientProfile";
-import ClientList from "../ClientList/ClientList";
-import AddListForm from "../AddListForm/AddListForm";
-import IndividualList from "../IndividualList/IndividualList";
+import ClientProfile from "./ClientProfile/ClientProfile";
+import ClientList from "./ClientList/ClientList";
+import AddListForm from "./AddListForm/AddListForm";
+import IndividualList from "./IndividualList/IndividualList";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
