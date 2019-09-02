@@ -1,29 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const ClientList = props => {
-  return (
-    <View>
-      <Text style={styles.title}>Sophia's Lists</Text>
-      <View style={styles.lists}>
-        <Text>Route to List 1</Text>
-        <Text>Route to List 2</Text>
-        <Text>Route to List 3</Text>
+  const allLists = props.lists.map(list => {
+    return (
+      <View style={styles.lists} key={list.id}>
+        <Text>{list.name}</Text>
       </View>
-    </View>
-  );
+    );
+  });
+  return allLists;
 };
 
 export default ClientList;
 
 const styles = StyleSheet.create({
   title: {
-    fontWeight: 'bold',  
+    fontWeight: "bold",
     fontSize: 30,
-    backgroundColor: 'green'
+    backgroundColor: "green"
   },
   lists: {
     backgroundColor: "red",
-    alignItems: 'center'
+    alignItems: "center"
   }
 });

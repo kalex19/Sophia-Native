@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
 class AddListForm extends Component {
-  state = {}
+  state = {
+    title_input: '',
+    item_input: '',
+    note_input: ''
+  }
 
   render() {
     return(
       <View style={styles.list}>
-        <View>
-          <Text>Here is the Form</Text>
-        </View>
         <View>
           <Text>Add List Title</Text>
           <TextInput style={styles.input}></TextInput>
