@@ -11,16 +11,21 @@ const ClientList = props => {
             props.navigation.navigate("IndividualList", list)
           }
         />
+      </View>
+    );
+  });
+  return (
+    <View>
+      {allLists}
         <Button
-          title="Add New List"
+          title="+ Add New List"
           onPress={() =>
             props.navigation.navigate("AddListForm")
           }
         />
-      </View>
-    );
-  });
-  return allLists;
+
+    </View>
+  )
 };
 
 export default ClientList;
