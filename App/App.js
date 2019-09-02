@@ -31,15 +31,14 @@ class App extends Component {
   ]
   };
 
-
   render() {
     return (
       <View style={styles.container}>
         <ClientProfile />
         <Text style={styles.title}>{this.state.profile.name}'s Lists</Text>
         <ClientList lists={this.state.lists}/>
-        <AddListForm />
-        <IndividualList />
+        {/* <AddListForm /> */}
+        <IndividualList name={this.selectListName} items={this.selectItems}/>
       </View>
     );
   }
