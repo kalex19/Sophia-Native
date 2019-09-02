@@ -5,21 +5,22 @@ class AddListForm extends Component {
   state = {
     list_title_input: '',
     item_input: '',
-    note_input: ''
+    note_input: '',
+    due_date_input: ''
   }
 
   render() {
     return(
       <View style={styles.list}>
         <View style={styles.box}>
-          <TextInput style={styles.input} placeholder="Title of List"></TextInput>
-          <Button title="ADD A TITLE TO THE LIST"/>
+          <TextInput style={styles.input} placeholder="Title of List" onChangeText={(textInput => this.setState({list_title_input : textInput }))} value={this.state.list_title_input}></TextInput>
+          <Button title="+ Add a Title to the List"/>
         </View>
         <View style={styles.box}>
-          <TextInput style={styles.input} placeholder="Item name"></TextInput>
-          <TextInput style={styles.input} placeholder="Note"></TextInput>
-          <TextInput style={styles.input} placeholder="Due Date"></TextInput>
-          <Button title="ADD ITEM"/>
+          <TextInput style={styles.input} placeholder="Item name" onChangeText={(textInput => this.setState({item_input : textInput }))} value={this.state.item_input}></TextInput>
+          <TextInput style={styles.input} placeholder="Note" onChangeText={(textInput => this.setState({note_input : textInput }))} value={this.state.note_input}></TextInput>
+          <TextInput style={styles.input} placeholder="Due Date" onChangeText={(textInput => this.setState({due_date_input : textInput }))} value={this.state.due_date_input}></TextInput>
+          <Button title="+ Add Item"/>
         </View>
       </View>
     )
