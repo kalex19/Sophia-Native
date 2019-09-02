@@ -28,27 +28,16 @@ class App extends Component {
         id: 1,
         name: "Groceries",
         items: [
-          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala" },
-          { id: 1001, list_id: 1, name: "Oranges", notes: "" },
-          {
-            id: 1002,
-            list_id: 1,
-            name: "Bananas",
-            notes: "organic, no black spots"
-          }
+          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala", due_date: "09/15", completed: false },
+          { id: 1001, list_id: 1, name: "Oranges", notes: "", due_date: "", completed: false },
+          { id: 1002, list_id: 1, name: "Bananas", notes: "organic, no black spots", due_date: "", completed: false }
         ]
       },
-      {
-        id: 2,
+      { id: 2,
         name: "Laundry",
         items: [
-          {
-            id: 1003,
-            list_id: 2,
-            name: "Whites",
-            notes: "Use special detergent"
-          },
-          { id: 1004, list_id: 2, name: "Colors", notes: "Don't use bleach" }
+          { id: 1003, list_id: 2, name: "Whites", notes: "Use special detergent", due_date: "", completed: false },
+          { id: 1004, list_id: 2, name: "Colors", notes: "Don't use bleach", due_date: "09/11", completed: false }
         ]
       }
     ]
@@ -84,10 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   routes: {
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    width: '100%',
-    justifyContent: 'space-around'
+    flexDirection: "row",
+    backgroundColor: "red",
+    width: "100%",
+    justifyContent: "space-around"
   }
 });
 
