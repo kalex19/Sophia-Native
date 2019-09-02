@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import ClientProfile from "../ClientProfile/ClientProfile";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import HeaderNav from "../HeaderNav/HeaderNav";
 
 const ClientList = props => {
-  const allLists = props.lists.map(list => {
+  const allLists = props.navigation.state.params.map(list => {
     return (
       <View style={styles.lists} key={list.id}>
         <Text>{list.name}</Text>
@@ -25,3 +29,4 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+

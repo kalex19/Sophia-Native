@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import HeaderNav from "../HeaderNav/HeaderNav";
 
 class ClientProfile extends ( Component ) {
   state = {}
