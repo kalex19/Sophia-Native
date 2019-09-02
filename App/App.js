@@ -4,7 +4,6 @@ import ClientProfile from "../ClientProfile/ClientProfile";
 import ClientList from "../ClientList/ClientList";
 import AddListForm from "../AddListForm/AddListForm";
 import IndividualList from "../IndividualList/IndividualList";
-import HeaderNav from "../HeaderNav/HeaderNav";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
@@ -58,18 +57,23 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          title="Profile"
-          onPress={() =>
-            this.props.navigation.navigate("Profile", this.state.profile)
-          }
-        />
-        <Button
-          title="Lists"
-          onPress={() =>
-            this.props.navigation.navigate("Lists", this.state.lists)
-          }
-        />
+        <View style={styles.routes}>
+          <Button
+            title="Profile"
+            onPress={() =>
+              this.props.navigation.navigate("Profile", this.state.profile)
+            }
+          />
+          <Button
+            title="Lists"
+            onPress={() =>
+              this.props.navigation.navigate("Lists", this.state.lists)
+            }
+          />
+        </View>
+        <View>
+          <Text>HIHIHIHIHI</Text>
+        </View>
       </View>
     );
   }
@@ -77,10 +81,16 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
+  },
+  routes: {
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    width: '100%',
+    justifyContent: 'space-around'
   }
 });
 
