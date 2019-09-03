@@ -5,7 +5,6 @@ const ClientList = props => {
   const allLists = props.navigation.state.params.map(list => {
     return (
       <View style={styles.lists} key={list.id}>
-        {/* <Text>{list.name}</Text> */}
         <Button
           title={`${list.name}`}
           onPress={() =>
@@ -15,7 +14,18 @@ const ClientList = props => {
       </View>
     );
   });
-  return allLists;
+  return (
+    <View>
+      {allLists}
+        <Button
+          title="+ Add New List"
+          onPress={() =>
+            props.navigation.navigate("AddListForm")
+          }
+        />
+
+    </View>
+  )
 };
 
 export default ClientList;
