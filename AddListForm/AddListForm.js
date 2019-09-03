@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
 class AddListForm extends Component {
   state = {
-    title_input: '',
+    list_title_input: '',
     item_input: '',
-    note_input: ''
+    note_input: '',
+
   }
 
   render() {
