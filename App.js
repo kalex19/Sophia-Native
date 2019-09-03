@@ -20,6 +20,7 @@ class App extends Component {
       email: "sophia@sophia.com",
       phone: "720-999-3333",
       username: "Sophie",
+      needs: "Cleaning, Yardwork, Errands",
       allergies: ["gluten"],
       dietary_restrictions: [],
       medications: ["Med1", "Med2", "Med3"]
@@ -29,8 +30,8 @@ class App extends Component {
         id: 1,
         name: "Groceries",
         items: [
-          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala" },
-          { id: 1001, list_id: 1, name: "Oranges", notes: "" },
+          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala", due_date: 'Today' },
+          { id: 1001, list_id: 1, name: "Oranges"},
           {
             id: 1002,
             list_id: 1,

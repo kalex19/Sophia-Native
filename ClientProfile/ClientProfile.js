@@ -29,7 +29,7 @@ class ClientProfile extends ( Component ) {
         <Text style={styles.clientInfo}>Zip Code: {client.zip}</Text>
         <Text style={styles.clientInfo}>Email: {client.email}</Text>
         <Text style={styles.clientInfo}>Phone Number: {client.phone}</Text>
-        {/* <Text>Needs: </Text> */}
+        <Text style={styles.clientInfo}>Needs: {client.needs}</Text>
         <View style={styles.infoCntainer}>
           <Text style={styles.clientInfoList}>Allergies: </Text>
             {allAllergies}
