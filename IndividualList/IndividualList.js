@@ -9,7 +9,7 @@ const IndividualList = props => {
     }
     return (
       <View key={Math.random()}>
-        <Text>{item.name} - note*: {item.notes}</Text>
+      <Text>{item.name} - note*: {item.notes}   -Due date: {item.due_date} - Completed: {item.completed ? "Yes" : "No"}</Text>
       </View>
     );
   });
