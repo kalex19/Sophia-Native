@@ -57,6 +57,7 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <Text style={styles.header}>SOPHIA</Text>
         <View style={styles.routes}>
           <Button
             title="Profile"
@@ -77,6 +78,10 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    fontSize: 50,
+
+  },
   container: {
     // flex: 1,
     backgroundColor: "#fff",
