@@ -1,39 +1,45 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-const ClientList = props => {
-  const allLists = props.navigation.state.params.map(list => {
+class ClientList extends Component {
+  state ={
+    addList: false
+  }
+
+  render() {
+    const allLists = props.navigation.state.params.map(list => {
+      return (
+        <View style={styles.lists} key={list.id}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
+            accessible={true}
+            onPress={() => props.navigation.navigate("IndividualList", list)}
+          >
+            <Text style={styles.listName}>{`${list.name}`}</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    });
     return (
-      <View style={styles.lists} key={list.id}>
+      <View>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>My Todo Lists</Text>
+        </View>
+        {allLists}
         <TouchableHighlight
           underlayColor="black"
-          accessibilityLabel="Tap me to navigate to your `${list.name}` list. From there view or create your tasks."
+          accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
           accessible={true}
-          onPress={() => props.navigation.navigate("IndividualList", list)}
+          onPress={() => props.navigation.navigate("AddListForm")}
+          style={styles.addListContainer}
         >
-          <Text style={styles.listName}>{`${list.name}`}</Text>
+          <Text style={styles.listName}> + ADD NEW LIST </Text>
         </TouchableHighlight>
       </View>
     );
-  });
-  return (
-    <View>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>My Todo Lists</Text>
-      </View>
-      {allLists}
-      <TouchableHighlight
-        underlayColor="black"
-        accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
-        accessible={true}
-        onPress={() => props.navigation.navigate("AddListForm")}
-        style={styles.addListContainer}
-      >
-        <Text style={styles.listName}> + ADD NEW LIST </Text>
-      </TouchableHighlight>
-    </View>
-  );
+  }
 };
 
 export default ClientList;
