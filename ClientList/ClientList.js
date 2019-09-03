@@ -6,9 +6,14 @@ const ClientList = props => {
   const allLists = props.navigation.state.params.map(list => {
     return (
       <View style={styles.lists} key={list.id}>
-        <TouchableHighlight underlayColor='black' accessibilityLabel="Tap me to navigate to your `${list.name}` list. From there view or create your tasks." accessible={true}
+        <TouchableHighlight
+          underlayColor="black"
+          accessibilityLabel="Tap me to navigate to your `${list.name}` list. From there view or create your tasks."
+          accessible={true}
           onPress={() => props.navigation.navigate("IndividualList", list)}
-        ><Text style={styles.listName}>{`${list.name}`}</Text></TouchableHighlight>
+        >
+          <Text style={styles.listName}>{`${list.name}`}</Text>
+        </TouchableHighlight>
       </View>
     );
   });
@@ -18,9 +23,15 @@ const ClientList = props => {
         <Text style={styles.header}>My Todo Lists</Text>
       </View>
       {allLists}
-      <TouchableHighlight underlayColor='black'           accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks." accessible={true}
+      <TouchableHighlight
+        underlayColor="black"
+        accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
+        accessible={true}
         onPress={() => props.navigation.navigate("AddListForm")}
-      style={styles.addListContainer}><Text style={styles.listName}> + ADD NEW LIST </Text></TouchableHighlight>
+        style={styles.addListContainer}
+      >
+        <Text style={styles.listName}> + ADD NEW LIST </Text>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -29,15 +40,15 @@ export default ClientList;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    borderColor: 'maroon',
+    borderColor: "maroon",
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 20,
-    padding: 10,
+    padding: 10
   },
   header: {
     fontSize: 40,
-    fontFamily: 'Didot',
-    textAlign: 'center',
+    fontFamily: "Didot",
+    textAlign: "center"
   },
   addListContainer: {
     backgroundColor: "maroon",
@@ -46,18 +57,18 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     padding: 20,
     borderRadius: 40,
-    width: '80%',
-    justifyContent: 'center',
+    width: "80%",
+    justifyContent: "center"
   },
   lists: {
     backgroundColor: "maroon",
     alignItems: "center",
     margin: 10,
-    padding: 20,
+    padding: 20
   },
   listName: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
-    fontFamily: 'Didot',
-  },
+    fontFamily: "Didot"
+  }
 });

@@ -59,23 +59,40 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.header} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Text>
+          <Text
+            style={styles.header}
+            accessibilityLabel="Speech Operated Personal Household Interactive Assistant"
+          >
+            SOPHIA
+          </Text>
         </View>
-        <Text style={styles.greeting}>Welcome Back {this.state.profile.username}!</Text>
-          <View style={styles.routes}>
-           <TouchableHighlight underlayColor='black'
-             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information" nextFocusDown='20' accessible={true}
-              onPress={() =>
-              this.props.navigation.navigate("Profile", this.state.profile)
-              }
-            ><Text style={styles.button}>My Account</Text></TouchableHighlight>
-          </View>
+        <Text style={styles.greeting}>
+          Welcome Back {this.state.profile.username}!
+        </Text>
         <View style={styles.routes}>
-            <TouchableHighlight underlayColor='black'
-              accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks." accessible={true}
-              onPress={() =>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            nextFocusDown="20"
+            accessible={true}
+            onPress={() =>
+              this.props.navigation.navigate("Profile", this.state.profile)
+            }
+          >
+            <Text style={styles.button}>My Account</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.routes}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
+            accessible={true}
+            onPress={() =>
               this.props.navigation.navigate("Lists", this.state.lists)
-              }><Text style={styles.button}>My Todo Lists</Text></TouchableHighlight>
+            }
+          >
+            <Text style={styles.button}>My Todo Lists</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -84,41 +101,40 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    borderBottomColor: 'maroon',
+    borderBottomColor: "maroon",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 40,
+    marginBottom: 40
   },
   header: {
     fontSize: 50,
-    fontFamily: 'Didot',
+    fontFamily: "Didot"
   },
   greeting: {
     fontSize: 30,
-    fontFamily: 'Didot',
+    fontFamily: "Didot",
     margin: 10,
-    marginBottom: 30,
+    marginBottom: 30
   },
   button: {
-    color: 'white',
+    color: "white",
     fontSize: 25,
-    fontFamily: 'Didot',
-    textAlign: 'center'
+    fontFamily: "Didot",
+    textAlign: "center"
   },
   container: {
     // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    height: '100%',
+    height: "100%"
   },
   routes: {
-    flexDirection: 'column',
-    backgroundColor: 'maroon',
-    width: '80%',
-    height: '20%',
-    justifyContent: 'space-around',
-    margin: 10,
-   
+    flexDirection: "column",
+    backgroundColor: "maroon",
+    width: "80%",
+    height: "20%",
+    justifyContent: "space-around",
+    margin: 10
   }
 });
 
