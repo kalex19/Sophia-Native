@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { PinchZoomView } from 'react-native-pinch-zoom-view';
 
 class ClientProfile extends ( Component ) {
   state = {}
@@ -7,33 +8,41 @@ class ClientProfile extends ( Component ) {
   render() {
     let client = this.props.navigation.state.params
     let allMedications = client.medications.map(med => {
-      return <Text key={Math.random()}>- {med}</Text>
+      return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
     })
     let allAllergies = client.allergies.map(allergy => {
-      return <Text key={Math.random()}>- {allergy}</Text>
+      return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
     })
     let allRestrictions = client.dietary_restrictions.map(restr => {
-      return <Text key={Math.random()}>- {restr}</Text>
+      return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
     })
     return (
-      <View style={styles.client}>
-        <Text>Client Profile</Text>
-        <Text>Username: {client.username}</Text>
-        <Text>Name: {client.name}</Text>
-        <Text>Street Adress: {client.street_address}</Text>
-        <Text>City: {client.city}</Text>
-        <Text>State: {client.state}</Text>
-        <Text>Zip Code: {client.zip}</Text>
-        <Text>Email: {client.email}</Text>
-        <Text>Phone Number: {client.phone}</Text>
+      <ScrollView style={styles.profileContainer}>
+        <View style={styles.headerCntainer}>
+          <Text style={styles.header}>Client Profile</Text>
+        </View>
+        <Text style={styles.clientInfo}>Username: {client.username}</Text>
+        <Text style={styles.clientInfo}>Name: {client.name}</Text>
+        <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
+        <Text style={styles.clientInfo}>City: {client.city}</Text>
+        <Text style={styles.clientInfo}>State: {client.state}</Text>
+        <Text style={styles.clientInfo}>Zip Code: {client.zip}</Text>
+        <Text style={styles.clientInfo}>Email: {client.email}</Text>
+        <Text style={styles.clientInfo}>Phone Number: {client.phone}</Text>
         {/* <Text>Needs: </Text> */}
-        <Text>Allergies: </Text>
-          {allAllergies}
-        <Text>Dietary restrictions: </Text>
-          {allRestrictions}
-        <Text>Medications: </Text>
-          {allMedications}
-      </View>
+        <View style={styles.infoCntainer}>
+          <Text style={styles.clientInfoList}>Allergies: </Text>
+            {allAllergies}
+        </View>
+        <View style={styles.infoCntainer}>
+          <Text style={styles.clientInfoList}>Dietary Restrictions: </Text>
+            {allRestrictions}
+        </View>
+        <View style={styles.infoCntainer}>
+          <Text style={styles.clientInfoList}>Medications:</Text>
+           {allMedications}
+        </View>
+      </ScrollView>
     )
   }
 }
@@ -41,7 +50,37 @@ class ClientProfile extends ( Component ) {
 export default ClientProfile;
 
 const styles = StyleSheet.create({
-  client: {
-    backgroundColor: 'yellow'
+  profileContainer: {
+    margin: 30,
+  },
+  headerCntainer: {
+    borderBottomColor: 'maroon',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    paddingBottom: 10,
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 30,
+    fontFamily: 'Didot',
+  },
+  clientInfo: {
+    fontSize: 20,
+    fontFamily: 'Didot',
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: 'maroon',
+    color: 'white',
+    padding: 20,
+  },
+  infoCntainer: {
+    backgroundColor: 'maroon',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+  },
+  clientInfoList: {
+    fontSize: 20,
+    fontFamily: 'Didot',
+    color: 'white',
   }
 })
