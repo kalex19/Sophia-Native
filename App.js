@@ -6,7 +6,6 @@ import AddListForm from "./AddListForm/AddListForm";
 import IndividualList from "./IndividualList/IndividualList";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import {ThemeProvider} from 'react-native-elements';
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 class App extends Component {
@@ -19,7 +18,7 @@ class App extends Component {
       state: "CO",
       zip: "80300",
       email: "sophia@sophia.com",
-      phone: "7209993333",
+      phone: "720-999-3333",
       username: "Sophie",
       allergies: ["gluten"],
       dietary_restrictions: [],
@@ -63,25 +62,20 @@ class App extends Component {
           <Text style={styles.header} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Text>
         </View>
         <Text style={styles.greeting}>Welcome Back {this.state.profile.username}!</Text>
-        {/* <TouchableHighlight accessibilityLabel='Tap me' accessible={true}> */}
           <View style={styles.routes}>
-           <Button
-              title=" My Profile" color='white' accessibilityLabel="Navigate to your profile. From there, view your personal information" nextFocusDown='20'
+           <TouchableHighlight underlayColor='black'
+             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information" nextFocusDown='20' accessible={true}
               onPress={() =>
               this.props.navigation.navigate("Profile", this.state.profile)
               }
-            />
+            ><Text style={styles.button}>My Account</Text></TouchableHighlight>
           </View>
-        {/* </TouchableHighlight> */}
         <View style={styles.routes}>
-        {/* <TouchableHighlight accessibilityLabel='Tap me' accessible={true}> */}
-            <Button
-               title="My Todo Lists" color='white' accessibilityLabel="Navigate to your todo lists. From there view or create your tasks."
+            <TouchableHighlight underlayColor='black'
+              accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks." accessible={true}
               onPress={() =>
               this.props.navigation.navigate("Lists", this.state.lists)
-              }
-            />
-        {/* </TouchableHighlight> */}
+              }><Text style={styles.button}>My Todo Lists</Text></TouchableHighlight>
         </View>
       </View>
     );
@@ -90,7 +84,7 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    borderBottomColor: 'red',
+    borderBottomColor: 'maroon',
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 40,
   },
@@ -104,6 +98,12 @@ const styles = StyleSheet.create({
     margin: 10,
     marginBottom: 30,
   },
+  button: {
+    color: 'white',
+    fontSize: 25,
+    fontFamily: 'Didot',
+    textAlign: 'center'
+  },
   container: {
     // flex: 1,
     backgroundColor: "#fff",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   routes: {
     flexDirection: 'column',
-    backgroundColor: 'red',
+    backgroundColor: 'maroon',
     width: '80%',
     height: '20%',
     justifyContent: 'space-around',

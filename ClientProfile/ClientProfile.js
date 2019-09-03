@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { PinchZoomView } from 'react-native-pinch-zoom-view';
 
 class ClientProfile extends ( Component ) {
   state = {}
@@ -17,7 +18,9 @@ class ClientProfile extends ( Component ) {
     })
     return (
       <ScrollView style={styles.profileContainer}>
-        <Text style={styles.header}>Client Profile</Text>
+        <View style={styles.headerCntainer}>
+          <Text style={styles.header}>Client Profile</Text>
+        </View>
         <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
@@ -48,26 +51,29 @@ export default ClientProfile;
 
 const styles = StyleSheet.create({
   profileContainer: {
-    margin: 20,
+    margin: 30,
+  },
+  headerCntainer: {
+    borderBottomColor: 'maroon',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    paddingBottom: 10,
   },
   header: {
     textAlign: 'center',
     fontSize: 30,
     fontFamily: 'Didot',
-    borderBottomColor: 'red',
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   clientInfo: {
     fontSize: 20,
     fontFamily: 'Didot',
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: 'navy',
+    backgroundColor: 'maroon',
     color: 'white',
     padding: 20,
   },
   infoCntainer: {
-    backgroundColor: 'navy',
+    backgroundColor: 'maroon',
     marginTop: 10,
     marginBottom: 10,
     padding: 10,
