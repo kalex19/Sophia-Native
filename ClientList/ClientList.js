@@ -12,7 +12,6 @@ class ClientList extends Component {
   };
 
   render() {
-    console.log(this.state.addList);
     const allLists = this.props.navigation.state.params.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
