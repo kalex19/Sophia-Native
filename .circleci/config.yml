@@ -15,7 +15,7 @@ steps:
       - run: npm test
 workflows:
   version: 2
-  # node-android-ios:
+  node-android-ios:
     jobs:
       - node
       - ios:
