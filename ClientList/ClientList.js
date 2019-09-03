@@ -8,14 +8,14 @@ class ClientList extends Component {
   }
 
   render() {
-    const allLists = props.navigation.state.params.map(list => {
+    const allLists = this.props.navigation.state.params.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
             accessible={true}
-            onPress={() => props.navigation.navigate("IndividualList", list)}
+            onPress={() => this.props.navigation.navigate("IndividualList", list)}
           >
             <Text style={styles.listName}>{`${list.name}`}</Text>
           </TouchableHighlight>
@@ -32,7 +32,7 @@ class ClientList extends Component {
           underlayColor="black"
           accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
           accessible={true}
-          onPress={() => props.navigation.navigate("AddListForm")}
+          onPress={() => this.props.navigation.navigate("AddListForm")}
           style={styles.addListContainer}
         >
           <Text style={styles.listName}> + ADD NEW LIST </Text>
