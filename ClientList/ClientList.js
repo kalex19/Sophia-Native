@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 class ClientList extends Component {
-  state ={
+  state = {
     addList: false
-  }
+  };
+
+  toggleAddList = () => {
+    this.setState({ addList: !this.state.addList });
+  };
 
   render() {
+    console.log(this.state.addList);
     const allLists = this.props.navigation.state.params.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
@@ -15,7 +20,9 @@ class ClientList extends Component {
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
             accessible={true}
-            onPress={() => this.props.navigation.navigate("IndividualList", list)}
+            onPress={() =>
+              this.props.navigation.navigate("IndividualList", list)
+            }
           >
             <Text style={styles.listName}>{`${list.name}`}</Text>
           </TouchableHighlight>
@@ -32,15 +39,29 @@ class ClientList extends Component {
           underlayColor="black"
           accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
           accessible={true}
-          onPress={() => this.props.navigation.navigate("AddListForm")}
+          onPress={this.toggleAddList}
           style={styles.addListContainer}
         >
           <Text style={styles.listName}> + ADD NEW LIST </Text>
         </TouchableHighlight>
+        {this.state.addList && (
+          <View style={styles.align} >
+            <TextInput style={styles.input} placeholder="List name"></TextInput>
+            <TouchableHighlight
+              underlayColor="black"
+              accessibilityLabel="Tap me to submit the title of your list."
+              accessible={true}
+              onPress={this.addList}
+              style={styles.addListContainer}
+            >
+              <Text style={styles.plus}> + </Text>
+            </TouchableHighlight>
+          </View>
+        )}
       </View>
     );
   }
-};
+}
 
 export default ClientList;
 
@@ -76,5 +97,22 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontFamily: "Didot"
+  },
+  input: {
+    height: 70,
+    borderColor: "gray",
+    borderWidth: 1,
+    margin: 10,
+    fontSize: 40,
+    textAlign: "center"
+  },
+  align: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  plus: {
+    fontSize: 30,
+    color: 'white',
   }
 });
