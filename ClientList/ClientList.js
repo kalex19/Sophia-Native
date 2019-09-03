@@ -16,7 +16,7 @@ const ClientList = props => {
     <View>
       {allLists}
       <Button
-        title="Add New List"
+        title="+ Add New List"
         onPress={() => props.navigation.navigate("AddListForm")}
       />
     </View>
