@@ -230,6 +230,8 @@
 version: 2
 jobs:
   node:
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
       - run: npm install
