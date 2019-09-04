@@ -62,7 +62,7 @@ class ClientList extends Component {
         </TouchableHighlight>
         {this.state.addList && (
           <View style={styles.align} >
-            <TextInput style={styles.input} placeholder="List name" onChangeText={this.handleChange}}></TextInput>
+            <TextInput style={styles.input} placeholder="List name" onChangeText={this.handleChange}></TextInput>
             <TouchableHighlight
               underlayColor="black"
               accessibilityLabel="Tap me to submit the title of your list."
