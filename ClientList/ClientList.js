@@ -1,18 +1,35 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { addList, loadLists } from '../actions';
 
 class ClientList extends Component {
   state = {
-    addList: false
+    addList: false,
+    list_title: ''
   };
 
   toggleAddList = () => {
     this.setState({ addList: !this.state.addList });
   };
 
+  handleChange = input => {
+    this.setState({ list_title: input })
+  }
+
+  handleSubmit = (newList) => {
+    newList = { id: Date.now(), name: this.state.list_title, items:[] }
+    this.props.addList(newList)
+    this.clearInput();
+  }
+  
+  clearInput = () => {
+    this.setState({ list_title:''})
+  }
+  
   render() {
-    const allLists = this.props.navigation.state.params.map(list => {
+    const allLists = this.props.lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
           <TouchableHighlight
@@ -45,12 +62,12 @@ class ClientList extends Component {
         </TouchableHighlight>
         {this.state.addList && (
           <View style={styles.align} >
-            <TextInput style={styles.input} placeholder="List name"></TextInput>
+            <TextInput style={styles.input} placeholder="List name" onChangeText={this.handleChange}}></TextInput>
             <TouchableHighlight
               underlayColor="black"
               accessibilityLabel="Tap me to submit the title of your list."
               accessible={true}
-              onPress={this.addList}
+              onPress={() => this.handleSubmit()}
               style={styles.addListContainer}
             >
               <Text style={styles.plus}> + </Text>
@@ -61,8 +78,6 @@ class ClientList extends Component {
     );
   }
 }
-
-export default ClientList;
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -115,3 +130,14 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
+
+export const mapStateToProps = state => ({
+  lists: state.lists
+})
+
+export const mapDispatchToProps = dispatch => ({
+  loadLists: lists => dispatch(loadLists(lists)),
+  addList: newList => dispatch(addList(newList))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClientList)

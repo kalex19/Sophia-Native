@@ -7,3 +7,8 @@ export const loadLists = lists => ({
   type: "LOAD_LISTS",
   lists
 })
+
+export const addList = newList => ({
+  type: "ADD_LIST",
+  newList
+})
