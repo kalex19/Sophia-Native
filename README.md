@@ -134,7 +134,7 @@ coming soon...
 👤 **Katie Lewis, Andreea Hanson, Noah Flint, Vince Carollo**
 
 * Github: [@Kalex19](https://github.com/Kalex19)
-* Github: [@](https://github.com/)
+* Github: [@andreeahanson](https://github.com/andreeahanson)
 * Github: [@n-flint](https://github.com/n-flint)
 * Github: [@VinceCarollo](https://github.com/VinceCarollo)
 
