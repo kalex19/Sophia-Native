@@ -30,6 +30,7 @@ class ClientList extends Component {
   }
   
   render() {
+    console.log(this.props.lists)
     const allLists = this.props.lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
