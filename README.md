@@ -1,5 +1,6 @@
-   # SOPHIA
-### Speech Operated Personal Household Interactive Assistant
+<h1 align="center">SOPHIA</h1>
+
+<h3 align="center">Speech Operated Personal Household Interactive Assistant</h3>
 
 
 ## Table of Contents
