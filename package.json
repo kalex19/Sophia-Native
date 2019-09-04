@@ -7,7 +7,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest app --forceExit",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "build": "webpack"
   },
   "dependencies": {
     "expo": "^34.0.1",
@@ -20,6 +21,7 @@
     "react-native-web": "^0.11.4",
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.1",
+    "react-test-renderer": "^16.9.0",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
@@ -29,5 +31,9 @@
     "enzyme-to-json": "^3.4.0",
     "jest": "^24.9.0"
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": "v12.9.1",
+    "npm": "6.11.2"
+  }
 }
