@@ -5,7 +5,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest app --forceExit",
+    "test:watch": "jest --watchAll",
+    "build": "webpack",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "expo": "^34.0.1",
@@ -18,12 +22,19 @@
     "react-native-web": "^0.11.4",
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.1",
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4",
+    "react-test-renderer": "^16.9.0",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
-    "babel-preset-expo": "^6.0.0"
+    "babel-preset-expo": "^6.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
+    "jest": "^24.9.0"
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": "v12.9.1",
+    "npm": "6.11.2"
+  }
 }
