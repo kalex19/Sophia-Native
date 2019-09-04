@@ -8,7 +8,8 @@
     "eject": "expo eject",
     "test": "jest app --forceExit",
     "test:watch": "jest --watchAll",
-    "build": "webpack"
+    "build": "webpack",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "expo": "^34.0.1",
