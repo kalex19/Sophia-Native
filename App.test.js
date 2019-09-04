@@ -1,27 +1,9 @@
-// import React from 'react';
-// import App from './App';
-// import renderer from 'react-test-renderer';
-
-// test('renders correctly', () => {
-//   const tree = renderer.create(<App />).toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
-
 import React from 'react';
-import { App } from './App';
-import { shallow } from 'enzyme';
+import App from './App';
+import renderer from 'react-test-renderer';
+import 'react-native';
 
-describe('App', () => {
-	let wrapper, instance;
-
-	beforeEach(() => {
-		wrapper = shallow(
-			<App />
-		);
-		instance = wrapper.instance();
-	});
-
-	it(`matches snapshot`, () => {
-		expect(wrapper).toMatchSnapshot();
-  });
+test('App renders correctly', () => {
+  const snapshot = renderer.create(<App />).toJSON();
+  expect(snapshot).toMatchSnapshot();
 });

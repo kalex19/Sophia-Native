@@ -21,6 +21,7 @@
     "react-native-web": "^0.11.4",
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.1",
+    "react-test-renderer": "^16.9.0",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
@@ -36,5 +37,3 @@
     "npm": "6.11.2"
   }
 }
-
-
