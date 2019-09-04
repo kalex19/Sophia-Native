@@ -4,14 +4,52 @@
 
 
 ## Table of Contents
+* [Description](#Description)
+* [User Stories](#User-Stories)
+* [Tech Stack](#Tech-Stack)
+* [How To Use](#How-To-Use)
+* [Screenshots](#Screenshots)
+* [Demo](#Demo)
 * [Learning Goals](#Learning-Goals)
 * [Challenges](#Challenges)
 * [Successes](#Successes)
-* [Tech Stack](#Tech-Stack)
-* [How To Use](#How-To-Use)
-* [Developers](#Developer)
+* [Extensions](#Extensions)
+* [Developers](#Developers)
 
-Palette Picker was created to help designers and developers pick the perfect color palette for their site or application. The project was developed with Express, Knex, Node.js, and React. It is deployed on Heroku and tested using Supertest. 
+## Description
+
+SOPHIA is a speech operated personal household interactive assistant. This app is built for two audiences: Clients and Caretakers. Clients are anyone with a disability (physical, cognitive, long-term, temporary) who needs care. Caretakers include anyone who is willing to help take care of clients. Taking care could include running errands, cleaning, yardwork, paying bills, grocery shopping, etc. SOPHIA was built to connect clients to caretakers to help meet their daily needs. 
+
+Please reference the user stories to understand the full functionality of SOPHIA. 
+
+SOPHIA is an A11Y app with a large focus on accessibility.
+
+## User Stories
+
+### Client
+
+*
+*
+*
+*
+*
+*
+*
+*
+*
+
+### Caretaker
+
+*
+*
+*
+*
+*
+*
+*
+*
+*
+
 
 ## Learning Goals
 
@@ -49,6 +87,8 @@ The biggest success was rendering the randomly generated colors and saving the p
 * Redux
 * Supertest
 * Jest
+
+add badges!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
