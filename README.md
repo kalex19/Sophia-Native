@@ -22,75 +22,53 @@ SOPHIA is a speech operated personal household interactive assistant. This app i
 
 Please reference the user stories to understand the full functionality of SOPHIA. 
 
-SOPHIA is an A11Y app with a large focus on accessibility.
+SOPHIA is an A11Y app with a large focus on accessibility. 
 
 ## User Stories
 
 ### Client
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
+* User can create an account
+* User can create a profile
+* User can log in
+* User can log out
+* User can list personal information, contact information, needs, allergies, medications, and dietary restrictions in profile
+* User can create task lists
+* User can edit list name
+* User can delete lists
+* User can add tasks to lists
+* User can edit tasks
+* User can delete tasks
+* User can increase/decrease importance of tasks
+* User can add a due date to a task
+* User can add details to a task note
+* User can share a list with a caretaker
+* User can receive a notification when list/task is completed
+* User can use built in microphone to create lists and tasks
 
 ### Caretaker
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-
-
-## Learning Goals
-
-The primary learning goals for this project are:
-
-* server-side testing
-* further understanding of complete CRUD endpoints
-* connecting BE & FE repositories using CORS
-* multiple environments:
-* testing
-* making use of automatic continuous integration with TravisCI
-* deployment with Heroku
-
-The second focus for this project is developing professional-level workflow habits. This includes:
-
-* using a PR template
-* conducting actual code reviews in your PRs
-* detailed agile workflow using a kanban system or GH issues
-* keeping track of MVP features and nice-to-have features
-* agreeing to a commit message template
-* exploring git rebase and squashing
-* Highly semantic, specific, professional documentation (README, API documentation, etc)
-
-## Challenges
-
-The developers had developed frontend applications and backend applications, but had never before combined backend and frontend. Although it was not challenging, there was a learning curve to overcome. The biggest challenge was understanding how to incorporate the datatable information and format into the frontend.
-
-## Successes
-
-The biggest success was rendering the randomly generated colors and saving the palettes with their associated projects on the backend. Users can also lock colors to create a customized palette.
+* User can create an account
+* User can create a profile
+* User can log in
+* User can log out
+* User can list personal information, contact information, and abilities in profile
+* User can subscribe to a client's list(s)
+* User can view lists/tasks
+* User can view task details
+* User can complete tasks
+* User can complete notes
+* User can send a notification of task/list completion to the client
 
 ## Tech Stack
 
 * React
 * Redux
-* Supertest
+* React Native
 * Jest
+* Enzyme
 
 add badges!
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # How To Use
 
@@ -117,16 +95,49 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+## Screenshots
+
+coming soon...
+
+## Demo
+
+coming soon...
+
+## Learning Goals
+
+This is a unique opportunity that presents some valuable goals:
+
+* Ultimately, demonstrate knowledge you’ve gained throughout Turing
+* Use an agile process to turn well defined requirements into deployed and production ready software
+* Gain experience dividing applications into components and domains of responsibilities to facilitate multi-developer teams. 
+* Service oriented architecture concepts and patterns are highly encouraged.
+* Explore and implement new concepts, patterns, or libraries that have not been explicitly taught while at Turing
+* Practice an advanced, professional git workflow (see whole-team expectations)
+* Gain more experience using continuous integration tools to build and automate the deployment of features in various environments
+* Build applications that execute in development, test, CI, and production environments
+* Focus on communication between front-end and back-end teams in order to complete and deploy features that have been outlined by the project spec
+
+## Challenges
+
+coming soon...
+
+## Successes
+
+coming soon...
+
+## Extensions
+
+coming soon...
+
 ## Developers
 
-👤 **Katie Lewis and Antonio Fry**
+👤 **Katie Lewis, Andreea Hanson, Noah Flint, Vince Carollo**
 
 * Github: [@Kalex19](https://github.com/Kalex19)
-* Github: [@AntonioFry](https://github.com/AntonioFry)
+* Github: [@](https://github.com/)
+* Github: [@n-flint](https://github.com/n-flint)
+* Github: [@VinceCarollo](https://github.com/VinceCarollo)
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)
