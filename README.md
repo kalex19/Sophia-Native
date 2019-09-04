@@ -1,4 +1,4 @@
-                                              <U>#SOPHIA</U>
+                                                  #SOPHIA
                                                     
                             ### Speech Operated Personal Household Interactive Assistant
 
