@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from 'react-redux';
 import { loadProfile } from '../actions';
 
-class Homescreen extends Component {
+const Homescreen = (props) => {
   
 
-  uploadProfile = async () => {
+  useEffect(() => {
     const allInfo = {
       profile: {
         id: 9999,
@@ -53,12 +53,9 @@ class Homescreen extends Component {
         }
       ]
     };
-    await this.props.loadProfile(allInfo)
-    console.log("PROPS AFTER LOAD", this.props.profile)
-  }
-
-  render() {
-    // console.log(this.props)
+      props.loadProfile(allInfo)
+    })
+    
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -70,7 +67,7 @@ class Homescreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          {/* Welcome Back {this.props.profile.username}! */}
+          {/* Welcome Back {props.profile.profile.username}! */}
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight
@@ -78,27 +75,25 @@ class Homescreen extends Component {
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             nextFocusDown="20"
             accessible={true}
-            onPress={() => this.uploadProfile()
+            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
             }
           >
             <Text style={styles.button}>My Account</Text>
           </TouchableHighlight>
         </View>
-        {/* <View style={styles.routes}>
+        <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() =>
-              this.props.navigation.navigate("Lists", this.state.lists)
+            onPress={() => props.navigation.navigate("Lists", props.profile.lists)
             }
           >
             <Text style={styles.button}>My Todo Lists</Text>
           </TouchableHighlight>
-        </View> */}
+        </View>
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
 });
 
 export const mapStateToProps = state => ({
-  profile: state
+  profile: state.profile
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -149,5 +144,3 @@ export const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homescreen)
-
-//               {/* this.props.navigation.navigate("Profile", this.props.profile) */}

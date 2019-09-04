@@ -1,6 +1,4 @@
-const test = { test: "test"}
-
-export const profileReducer = (state = test, action) => {
+export const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case "LOAD_PROFILE":
       return action.profile;
