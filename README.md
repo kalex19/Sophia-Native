@@ -1,6 +1,6 @@
-                                                  #SOPHIA
-                                                    
-                            ### Speech Operated Personal Household Interactive Assistant
+# SOPHIA
+### Speech Operated Personal Household Interactive Assistant
+
 
 ## Table of Contents
 * [Learning Goals](#Learning-Goals)
