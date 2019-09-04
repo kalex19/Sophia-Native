@@ -1,4 +1,4 @@
-# SOPHIA
+   # SOPHIA
 ### Speech Operated Personal Household Interactive Assistant
 
 
