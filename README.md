@@ -15,6 +15,7 @@
 * [Successes](#Successes)
 * [Extensions](#Extensions)
 * [Developers](#Developers)
+* [Backend Repo](#Backend-Repo)
 
 ## Description
 
@@ -137,6 +138,10 @@ coming soon...
 * Github: [@andreeahanson](https://github.com/andreeahanson)
 * Github: [@n-flint](https://github.com/n-flint)
 * Github: [@VinceCarollo](https://github.com/VinceCarollo)
+
+## Backend Repo
+
+* Github: [Sophia Repo](https://github.com/n-flint/Sophia-Rails)
 
 ## Show your support
 
