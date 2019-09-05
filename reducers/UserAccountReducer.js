@@ -1,4 +1,4 @@
-export default userAccountReducer = (state = null, action) => {
+export const userAccountReducer = (state = null, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case 'LOG_IN':

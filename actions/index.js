@@ -13,16 +13,6 @@ export const addList = newList => ({
   newList
 })
 
-export const createClientAccount = newClientProfile => ({
-  type: "CREATE_CLIENT_ACCOUNT",
-  newClientProfile
-})
-
-export const createCaretakerAccount = newCaretakerProfile => ({
-  type: "CREATE_CARETAKER_ACCOUNT",
-  newCaretakerProfile
-})
-
 export const logIn = (user) => ({
   type:'LOG_IN',
   user
@@ -32,10 +22,7 @@ export const logOut = () => ({
   type:'LOG_OUT'
 })
 
-export const toggleLogIn = (bool) => ({
-  type: "TOGGLE_LOGIN",
-  bool
-})
+
 
 
 //may need to have log in and log out for clients and caretakers 
