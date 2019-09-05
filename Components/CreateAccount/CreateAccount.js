@@ -3,87 +3,138 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
+const initialState = {
+user: '',
+username: '',
+password: '',
+name: '',
+address: '',
+city: '',
+state: '',
+zip: '',
+email: '',
+phone: '',
+needs: [],
+allergies: [],
+diet: [],
+medications: [],
+abilities: [],
+}
+
 export class CreateAccount extends Component {
-	state = {
-		user: ''
-	};
+  state = initialState;
 
-	// handleChange = () => {
-	//   this.setState({
+	handleChange = (name, value) => {
+    const multiResponseInputs = ['needs', 'allergies', 'diet', 'medications', 'abilities']
+    if(multiResponseInputs.includes(name)){
+      value = value.split(',')
+    }
+	  this.setState({
+      [name]: value
+	  })
+	}
 
-	//   })
-	// }
+  handleClientSubmit = () => {
+  const { username,
+  password,
+  name,
+  address,
+  city,
+  state,
+  zip,
+  email,
+  phone,
+  needs,
+  allergies,
+  diet,
+  medications } = this.state
 
-	// handleSubmit = () => {
+  const newClientProfile = { 
+    username,
+    password,
+    name,
+    street_address: address,
+    city,
+    state,
+    zip,
+    email,
+    phone_number: phone,
+    needs,
+    allergies,
+    diet,
+    medications
+   }
+  this.postClient(newClientProfile)
+}
 
-	// }
+handleCaretakerSubmit = () => {
+  const { username,
+  password,
+  name,
+  email,
+  phone,
+  abilities } = this.state
 
-	//    // handleSubmit = (newList) => {
-	//   //   const { list_title } = this.state
-	//   //   newList = { id: Date.now(), name: list_title, items:[] }
-	//   //   this.props.addList(newList)
-	//   //   this.clearInput();
-	//   // }
+  const newCaretakerProfile = { 
+    username,
+    password,
+    name,
+    email,
+    phone_number: phone,
+    abilities,
+   }
+  this.postCaretaker(newCaretakerProfile)
+}
 
-	//   clearInput = () => {
-	//     this.setState({
+postClient = async (profile) => {
+  
+  this.setState(initialState)
+}
 
-	//   })
-	//   }
+postCaretaker = async (profile) => {
+  this.setState(initialState)
+}
+  
+  renderClientInput = () => {
+    return (
+			<View>
+				<TextInput style={styles.input} placeholder="Street Address" onChangeText={value => this.handleChange('address', value)} />
+				<TextInput style={styles.input} placeholder="City" onChangeText={value => this.handleChange('city', value)} />
+				<TextInput style={styles.input} placeholder="State" onChangeText={value => this.handleChange('state', value)} />
+				<TextInput style={styles.input} placeholder="Zip Code" onChangeText={value => this.handleChange('zip', value)} />
+				<TextInput style={styles.input} placeholder="Caretaking Needs" onChangeText={value => this.handleChange('needs', value)} />
+				<TextInput style={styles.input} placeholder="Allergies" onChangeText={value => this.handleChange('allergies', value)} />
+				<TextInput style={styles.input} placeholder="Dietary Restrictions" onChangeText={value => this.handleChange('diet', value)} />
+				<TextInput style={styles.input} placeholder="Medications" onChangeText={value => this.handleChange('medications', value)} />
+        <View style={styles.routes}>
+       <TouchableHighlight
+         underlayColor="black"
+         accessibilityLabel="Tap me to create your client account."
+         accessible={true}
+         onPress={this.handleClientSubmit}>
+         <Text style={styles.button}>Register as Client</Text>
+       </TouchableHighlight>
+     </View>
+			</View>
+		);
+  }
+
+  renderCaretakerInput = () => {
+    return <View>
+      <TextInput style={styles.input} placeholder="Caretaking Abilities" onChangeText={value => this.handleChange('abilities', value)} />
+        <View style={styles.routes}>
+      <TouchableHighlight
+        underlayColor="black"
+        accessibilityLabel="Tap me to create your caretaker account."
+        accessible={true}
+        onPress={this.handleCaretakerSubmit}>
+        <Text style={styles.button}>Register as Caretaker</Text>
+      </TouchableHighlight>
+    </View>
+    </View>
+  };
 
 	render () {
-		const ClientInput = (
-			<View>
-				<TextInput style={styles.input} placeholder="Username" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Password" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Your Name" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Street Address" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="City" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="State" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Zip Code" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Email" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Phone" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Caretaking Needs" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Allergies" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Dietary Restrictions" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Medications" onChangeText={this.handleChange} />
-			</View>
-		);
-
-		const CaretakerInput = (
-			<View>
-				<TextInput style={styles.input} placeholder="Username" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Password" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Your Name" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Email" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Phone" onChangeText={this.handleChange} />
-				<TextInput style={styles.input} placeholder="Caretaking Abilities" onChangeText={this.handleChange} />
-			</View>
-		);
-
-		const ClientPageBtn = (
-			<View style={styles.routes}>
-				<TouchableHighlight
-					underlayColor="black"
-					accessibilityLabel="Tap me to create your client account."
-					accessible={true}
-					onPress={() => props.navigation.navigate('ClientHome')}>
-					<Text style={styles.button}>Register as Client</Text>
-				</TouchableHighlight>
-			</View>
-		);
-
-		const CaretakerPageBtn = (
-			<View style={styles.routes}>
-				<TouchableHighlight
-					underlayColor="black"
-					accessibilityLabel="Tap me to create your caretaker account."
-					accessible={true}
-					onPress={() => props.navigation.navigate('CaretakerHome')}>
-					<Text style={styles.button}>Register as Caretaker</Text>
-				</TouchableHighlight>
-			</View>
-		);
 
 		return (
 			<View style={styles.container}>
@@ -112,21 +163,24 @@ export class CreateAccount extends Component {
 							<Text style={styles.button}>Caretaker</Text>
 						</TouchableHighlight>
 					</View>
-					{this.state.user === 'client' && ClientInput}
-					{this.state.user === 'client' && ClientPageBtn}
-					{this.state.user === 'caretaker' && CaretakerInput}
-					{this.state.user === 'caretaker' && CaretakerPageBtn}
+          <TextInput style={styles.input} placeholder="Username" onChangeText={value => this.handleChange('username', value)} />
+				<TextInput style={styles.input} placeholder="Password" onChangeText={value => this.handleChange('password', value)} />
+				<TextInput style={styles.input} placeholder="Your Name" onChangeText={value => this.handleChange('name', value)} />
+        <TextInput style={styles.input} placeholder="Email" onChangeText={value => this.handleChange('email', value)} />
+				<TextInput style={styles.input} placeholder="Phone" onChangeText={value => this.handleChange('phone', value)} />
+					{this.state.user === 'client' && this.renderClientInput()}
+					{this.state.user === 'caretaker' && this.renderCaretakerInput()}
 				</ScrollView>
 			</View>
 		);
 	}
 }
 
-const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => {
 
-const mapDispatchToProps = {};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
+export default connect(null, mapDispatchToProps)(CreateAccount);
 
 const styles = StyleSheet.create({
 	headerContainer: {
