@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-// import { connect } from 'react-redux';
 
-const Homescreen = (props) => {
+const UserHomeScreen = (props) => {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -14,30 +13,26 @@ const Homescreen = (props) => {
             SOPHIA
           </Text>
         </View>
-        {/* <Text style={styles.greeting}>
-          Welcome Back {props.profile.profile.username}!
-        </Text> */}
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
-            nextFocusDown="20"
+            accessibilityLabel="Tap to log in to your account"
             accessible={true}
-            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            onPress={() => props.navigation.navigate("Login")
             }
           >
-            <Text style={styles.button}>My Account</Text>
+            <Text style={styles.button}>Log In</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
+            accessibilityLabel="Tap me to create your account."
             accessible={true}
-            onPress={() => props.navigation.navigate("Lists", props.lists)
+            onPress={() => props.navigation.navigate("CreateAccount")
             }
           >
-            <Text style={styles.button}>My Todo Lists</Text>
+            <Text style={styles.button}>Create Account</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -83,10 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// export const mapStateToProps = state => ({
-//   profile: state.profile
-// })
-
-// export default connect(mapStateToProps)(Homescreen)
-
-export default Homescreen
+export default UserHomeScreen
