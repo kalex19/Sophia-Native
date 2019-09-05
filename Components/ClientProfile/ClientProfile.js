@@ -6,21 +6,23 @@ class ClientProfile extends ( Component ) {
   state = {}
 
   render() {
-    let client = this.props.navigation.state.params
-    let allMedications = client.medications.map(med => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
-    })
-    let allAllergies = client.allergies.map(allergy => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
-    })
-    let allRestrictions = client.dietary_restrictions.map(restr => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
-    })
+    // let client = this.props.navigation.state.params
+    // let allMedications = client.medications.map(med => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
+    // })
+    // let allAllergies = client.allergies.map(allergy => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
+    // })
+    // let allRestrictions = client.dietary_restrictions.map(restr => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
+    // })
     return (
-      <ScrollView style={styles.profileContainer}>
-        <View style={styles.headerCntainer}>
+      <View>
+      <View style={styles.headerCntainer}>
           <Text style={styles.header}>Client Profile</Text>
         </View>
+      {/* <ScrollView style={styles.profileContainer}>
+        
         <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
@@ -42,7 +44,8 @@ class ClientProfile extends ( Component ) {
           <Text style={styles.clientInfoList}>Medications:</Text>
            {allMedications}
         </View>
-      </ScrollView>
+      </ScrollView> */}
+      </View>
     )
   }
 }
