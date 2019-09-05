@@ -1,4 +1,6 @@
 export default {
   primary: 'maroon',
-  accent: 'white'
+  accentOne: 'white',
+  accentTwo: 'black',
+  accentThree: 'lightgray'
 }

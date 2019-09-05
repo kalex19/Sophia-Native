@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import theme from '../../theme';
 
 const initialState = {
 user: '',
@@ -105,28 +106,30 @@ postCaretaker = async (profile) => {
   renderClientInput = () => {
     return (
 			<View>
-				<TextInput style={styles.input} placeholder="Street Address" onChangeText={value => this.handleChange('address', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="City" onChangeText={value => this.handleChange('city', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="State" onChangeText={value => this.handleChange('state', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Zip Code" onChangeText={value => this.handleChange('zip', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Caretaking Needs" onChangeText={value => this.handleChange('needs', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Allergies" onChangeText={value => this.handleChange('allergies', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Dietary Restrictions" onChangeText={value => this.handleChange('diet', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Medications" onChangeText={value => this.handleChange('medications', value)} placeholderTextColor="maroon"/>
+				<TextInput style={styles.input} placeholder="Street Address" onChangeText={value => this.handleChange('address', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="City" onChangeText={value => this.handleChange('city', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="State" onChangeText={value => this.handleChange('state', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Zip Code" onChangeText={value => this.handleChange('zip', value)} placeholderTextColor={theme.primary}/>
+        <Text style={styles.text}>Seperate multiple input values by commas</Text>
+				<TextInput style={styles.input} placeholder="Caretaking Needs" onChangeText={value => this.handleChange('needs', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Allergies" onChangeText={value => this.handleChange('allergies', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Dietary Restrictions" onChangeText={value => this.handleChange('diet', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Medications" onChangeText={value => this.handleChange('medications', value)} placeholderTextColor={theme.primary}/>
 			</View>
 		);
   }
 
   renderCaretakerInput = () => {
     return <View>
-      <TextInput style={styles.input} placeholder="Caretaking Abilities" onChangeText={value => this.handleChange('abilities', value)} placeholderTextColor="maroon"/>
+      <Text style={styles.text}>Seperate multiple input values by commas</Text>
+      <TextInput style={styles.input} placeholder="Caretaking Abilities" onChangeText={value => this.handleChange('abilities', value)} placeholderTextColor={theme.primary}/>
     </View>
   };
 
   renderClientBtn = () => {
     return <View style={styles.routes}>
     <TouchableHighlight
-      underlayColor="black"
+      underlayColor={theme.accentTwo}
       accessibilityLabel="Tap me to create your caretaker account."
       accessible={true}
       onPress={this.handleClientSubmit()}
@@ -140,7 +143,7 @@ postCaretaker = async (profile) => {
   renderCaretakerBtn = () => {
     return <View style={styles.routes}>
         <TouchableHighlight
-          underlayColor="black"
+          underlayColor={theme.accentTwo}
           accessibilityLabel="Tap me to create your caretaker account."
           accessible={true}
           onPress={this.handleCaretakerSubmit()}
@@ -162,7 +165,7 @@ postCaretaker = async (profile) => {
 				</View>
 					<View style={styles.routes}>
 						<TouchableHighlight
-							underlayColor="black"
+							underlayColor={theme.accentTwo}
 							accessibilityLabel="Tap me to create your client account."
 							accessible={true}
 							onPress={() => this.setState({ user: 'client' })}
@@ -172,7 +175,7 @@ postCaretaker = async (profile) => {
 					</View>
 					<View style={styles.routes}>
 						<TouchableHighlight
-							underlayColor="black"
+							underlayColor={theme.accentTwo}
 							accessibilityLabel="Tap me to create your caretaker account."
 							accessible={true}
 							onPress={() => this.setState({ user: 'caretaker' })}
@@ -182,11 +185,11 @@ postCaretaker = async (profile) => {
 					</View>
           <ScrollView>
           <Text style={styles.text}>Scroll to fill out the form below:</Text>
-          <TextInput style={styles.input} placeholder="Username" onChangeText={value => this.handleChange('username', value)}   placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Password" onChangeText={value => this.handleChange('password', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Your Name" onChangeText={value => this.handleChange('name', value)} placeholderTextColor="maroon"/>
-        <TextInput style={styles.input} placeholder="Email" onChangeText={value => this.handleChange('email', value)} placeholderTextColor="maroon"/>
-				<TextInput style={styles.input} placeholder="Phone" onChangeText={value => this.handleChange('phone', value)} placeholderTextColor="maroon"/>
+          <TextInput style={styles.input} placeholder="Username" onChangeText={value => this.handleChange('username', value)}   placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Password" onChangeText={value => this.handleChange('password', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Your Name" onChangeText={value => this.handleChange('name', value)} placeholderTextColor={theme.primary}/>
+        <TextInput style={styles.input} placeholder="Email" onChangeText={value => this.handleChange('email', value)} placeholderTextColor={theme.primary}/>
+				<TextInput style={styles.input} placeholder="Phone" onChangeText={value => this.handleChange('phone', value)} placeholderTextColor={theme.primary}/>
 					{this.state.user === 'client' && this.renderClientInput()}
 					{this.state.user === 'caretaker' && this.renderCaretakerInput()}
 				</ScrollView>
@@ -205,13 +208,13 @@ export default connect(null, mapDispatchToProps)(CreateAccount);
 
 const styles = StyleSheet.create({
   container: {
-		backgroundColor: '#fff',
+		backgroundColor: theme.accentOne,
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: '100%'
 	},
 	headerContainer: {
-		borderBottomColor: 'maroon',
+		borderBottomColor: theme.primary,
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		marginBottom: 10
 	},
@@ -221,7 +224,7 @@ const styles = StyleSheet.create({
   },
 	routes: {
 		flexDirection: 'column',
-		backgroundColor: 'maroon',
+		backgroundColor: theme.primary,
 		width: '90%',
     height: '10%',
     borderRadius: 30,
@@ -229,7 +232,7 @@ const styles = StyleSheet.create({
     margin: 5,
 	},
 	button: {
-		color: 'white',
+		color: theme.accentOne,
 		fontSize: 35,
     fontFamily: 'Didot',
     textAlign: 'center',
@@ -242,23 +245,23 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    width: '100%',
+    width: '90%',
     height: 80,
     fontSize: 25,
     fontFamily: 'Didot',
     paddingLeft: 5, 
     marginTop: 10,
-    backgroundColor: 'lightgray',
-    color: 'black'
+    backgroundColor: theme.accentThree,
+    color: theme.accentTwo
   },
   touchExpander: {
     height: '90%',
     borderRadius: 30,
-    width: '100%'
+    width: '90%'
   },
   registerButton: {
     fontSize: 25,
-    color: 'white',
+    color: theme.accentOne,
 		fontFamily: 'Didot',
     textAlign: 'center',
     marginTop: 10,
