@@ -22,19 +22,13 @@ class ClientList extends Component {
     const { list_title } = this.state
     newList = { id: Date.now(), name: list_title, items:[] }
     this.props.addList(newList)
-    this.clearInput();
-  }
-  
-  clearInput = () => {
     this.setState({ list_title:''})
   }
   
   render() {
-    console.log(this.props.lists)
     const allLists = this.props.lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
-          <Text>{this.props.lists.length}</Text>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
@@ -65,7 +59,7 @@ class ClientList extends Component {
         </TouchableHighlight>
         {this.state.addList && (
           <View style={styles.align} >
-            <TextInput style={styles.input} placeholder="List name" onChangeText={this.handleChange}></TextInput>
+            <TextInput style={styles.input} placeholder="List name" value={this.state.list_title} onChangeText={this.handleChange}></TextInput>
             <TouchableHighlight
               underlayColor="black"
               accessibilityLabel="Tap me to submit the title of your list."
