@@ -11,6 +11,7 @@ import {
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
 // import { PropTypes } from 'prop-types';
+import { logIn } from '../../actions';
 
 const initialState = {
 	user: '',
@@ -123,7 +124,7 @@ export class CreateAccount extends Component {
 		}
   };
   
-  logInClient = (username, password) => {
+  logInClient = async (username, password) => {
     const options = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -141,7 +142,7 @@ export class CreateAccount extends Component {
 		} 
   }
 
-  // logInCaretaker= (username, password) => {
+  // logInCaretaker = async (username, password) => {
   //   const options = {
 	// 		method: 'POST',
 	// 		headers: { 'Content-Type': 'application/json' },
