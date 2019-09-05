@@ -17,3 +17,14 @@ export const deleteList = listId => ({
   type: "DELETE_LIST",
   listId
 })
+
+export const loadTasks = (listId, tasks) => ({
+  type: "LOAD_TASKS",
+  listId,
+  tasks
+})
+
+export const addTask = newTask => ({
+  type: "ADD_TASK",
+  newTask
+})

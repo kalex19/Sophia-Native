@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { addTask } from "../../actions";
 
 class IndividualList extends Component {
   constructor() {
     super();
     this.state = {
-      addTask: false,
+      addingTask: false,
       task_input: "",
       note_input: "",
       due_date: "",
@@ -15,18 +17,33 @@ class IndividualList extends Component {
   }
 
   toggleAddTask = () => {
-    this.setState({ addTask: !this.state.addTask });
+    this.setState({ addingTask: !this.state.addingTask });
   };
 
-  handleChange = input => {
+  handleChangeTask = (input) => {
     this.setState({ task_input: input });
   };
 
-  handleSubmit = newTask => {
-    const { task_input } = this.state;
-    newTask = { id: Date.now(), name: task_input, due_date: '', completed: false };
-    this.props.addTask(newTask);
-    this.setState({ task_input: "" });
+  handleChangeNote = (input) => {
+    this.setState({ note_input: input });
+  };
+
+  handleChangeDate = (input) => {
+    this.setState({ due_date: input });
+  };
+
+  handleSubmit = async newTask => {
+    const { task_input, note_input, due_date } = this.state;
+    newTask = {
+      id: Date.now(),
+      name: task_input,
+      note: note_input,
+      due_date: due_date,
+      completed: false
+    };
+    await this.props.addTask(newTask);
+    this.setState({ task_input: "", note_input: "", due_date: "" });
+    console.log(this.props.items)
   };
 
   render() {
@@ -95,17 +112,31 @@ class IndividualList extends Component {
         >
           <Text style={styles.addTask}> + ADD NEW TASK </Text>
         </TouchableHighlight>
-        {this.state.addTask && (
+        {this.state.addingTask && (
+          <View>
           <View style={styles.align}>
             <TextInput
               style={styles.input}
               placeholder="Task name"
               value={this.state.task_input}
-              onChangeText={this.handleChange}
+              onChangeText={this.handleChangeTask}
             ></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Note"
+              value={this.state.note_input}
+              onChangeText={this.handleChangeNote}
+            ></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Due date: mm/dd"
+              value={this.state.due_date}
+              onChangeText={this.handleChangeDate}
+            ></TextInput>
+          </View>
             <TouchableHighlight
               underlayColor="black"
-              accessibilityLabel="Tap me to submit the title of your task."
+              accessibilityLabel="Tap me to submit your task."
               accessible={true}
               onPress={() => this.handleSubmit()}
             >
@@ -118,7 +149,15 @@ class IndividualList extends Component {
   }
 }
 
-export default IndividualList;
+export const mapStateToProps = state => ({
+  items: state.items
+})
+
+export const mapDispatchToProps = dispatch => ({
+  addTask: newTask => dispatch(addTask(newTask))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndividualList);
 
 const styles = StyleSheet.create({
   listHeader: {
@@ -170,20 +209,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Didot"
   },
-
-
-
   input: {
     height: 70,
     borderColor: "gray",
     borderWidth: 1,
-    margin: 10,
-    fontSize: 40,
-    textAlign: "center"
+    margin: 2,
+    fontSize: 25,
+    textAlign: "center",
+    width: 140
   },
   align: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
   },
+  plus: {
+    color: "white",
+    backgroundColor: "maroon",
+    width: 80,
+    alignSelf: 'center',
+    textAlign: 'center',
+    height: 70,
+    fontSize: 50
+  }
 });
