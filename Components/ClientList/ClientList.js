@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addList, loadLists } from '../actions';
+import { addList, loadLists } from '../../actions';
 
 class ClientList extends Component {
   state = {
@@ -30,6 +30,7 @@ class ClientList extends Component {
   }
   
   render() {
+    console.log(this.props.lists)
     const allLists = this.props.lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>

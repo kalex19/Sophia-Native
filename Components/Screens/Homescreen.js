@@ -1,62 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-import { connect } from 'react-redux';
-import { loadProfile, loadLists } from '../actions';
+// import { connect } from 'react-redux';
 
 const Homescreen = (props) => {
-  
-
-  useEffect(() => {
-    const allInfo = {
-      profile: {
-        id: 9999,
-        name: "Sophia Apps",
-        street_address: "13424 Sophia Dr",
-        city: "Denver",
-        state: "CO",
-        zip: "80300",
-        email: "sophia@sophia.com",
-        phone: "720-999-3333",
-        username: "Sophie",
-        allergies: ["gluten"],
-        dietary_restrictions: [],
-        medications: ["Med1", "Med2", "Med3"]
-      }
-    };
-    const allLists = [
-      {
-        id: 1,
-        name: "Groceries",
-        items: [
-          { id: 1000, list_id: 1, name: "Apples", notes: "Fuji, not Gala" },
-          { id: 1001, list_id: 1, name: "Oranges", notes: "" },
-          {
-            id: 1002,
-            list_id: 1,
-            name: "Bananas",
-            notes: "organic, no black spots"
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: "Laundry",
-        items: [
-          {
-            id: 1003,
-            list_id: 2,
-            name: "Whites",
-            notes: "Use special detergent"
-          },
-          { id: 1004, list_id: 2, name: "Colors", notes: "Don't use bleach" }
-        ]
-      }
-    ]
-      props.loadProfile(allInfo)
-      props.loadLists(allLists)
-    })
-    
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -67,9 +14,9 @@ const Homescreen = (props) => {
             SOPHIA
           </Text>
         </View>
-        <Text style={styles.greeting}>
-          {/* Welcome Back {props.profile.profile.username}! */}
-        </Text>
+        {/* <Text style={styles.greeting}>
+          Welcome Back {props.profile.profile.username}!
+        </Text> */}
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
@@ -136,14 +83,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export const mapStateToProps = state => ({
-  profile: state.profile,
-  lists: state.lists
-})
+// export const mapStateToProps = state => ({
+//   profile: state.profile
+// })
 
-export const mapDispatchToProps = dispatch => ({
-  loadProfile: profile => dispatch(loadProfile(profile)),
-  loadLists: lists => dispatch(loadLists(lists))
-})
+// export default connect(mapStateToProps)(Homescreen)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homescreen)
+export default Homescreen

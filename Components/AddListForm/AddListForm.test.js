@@ -1,5 +1,5 @@
 import React from 'react';
-import AddListForm from './AddListForm';
+import AddListForm from '../AddListForm/AddListForm';
 import renderer from 'react-test-renderer';
 import 'react-native';
 
