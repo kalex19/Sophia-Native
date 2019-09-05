@@ -16,6 +16,18 @@ const CaretakerHomeScreen = (props) => {
         {/* <Text style={styles.greeting}>
           Welcome Back {props.profile.profile.username}!
         </Text> */}
+         {/* <View style={styles.routes}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            nextFocusDown="20"
+            accessible={true}
+            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            }
+          >
+            <Text style={styles.button}>Log Out</Text>
+          </TouchableHighlight>
+        </View> */}
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
