@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
+// import { PropTypes } from 'prop-types';
 
 const initialState = {
 user: '',
@@ -183,15 +184,18 @@ postCaretaker = async (profile) => {
 							<Text style={styles.button}>I'm a Caretaker</Text>
 						</TouchableHighlight>
 					</View>
-          <ScrollView>
-          <Text style={styles.text}>Scroll to fill out the form below:</Text>
-          <TextInput style={styles.input} placeholder="Username" onChangeText={value => this.handleChange('username', value)}   placeholderTextColor={theme.primary}/>
-				<TextInput style={styles.input} placeholder="Password" onChangeText={value => this.handleChange('password', value)} placeholderTextColor={theme.primary}/>
-				<TextInput style={styles.input} placeholder="Your Name" onChangeText={value => this.handleChange('name', value)} placeholderTextColor={theme.primary}/>
-        <TextInput style={styles.input} placeholder="Email" onChangeText={value => this.handleChange('email', value)} placeholderTextColor={theme.primary}/>
-				<TextInput style={styles.input} placeholder="Phone" onChangeText={value => this.handleChange('phone', value)} placeholderTextColor={theme.primary}/>
-					{this.state.user === 'client' && this.renderClientInput()}
-					{this.state.user === 'caretaker' && this.renderCaretakerInput()}
+          <ScrollView style={styles.scrollContainer}>
+            {/* <KeyboardAvoidingView style={styles.container} behavior='padding' enabled> */}
+              <Text style={styles.text}>Scroll to fill out the form below:</Text>
+              <TextInput style={styles.input} placeholder="Username" onChangeText={value => this.handleChange('username', value)}   placeholderTextColor={theme.primary}/>
+              <TextInput style={styles.input} placeholder="Password" onChangeText={value => this.handleChange('password', value)} placeholderTextColor={theme.primary}/>
+              <TextInput style={styles.input} placeholder="Your Name" onChangeText={value => this.handleChange('name', value)} placeholderTextColor={theme.primary}/>
+              <TextInput style={styles.input} placeholder="Email" onChangeText={value => this.handleChange('email', value)} placeholderTextColor={theme.primary}/>
+              <TextInput style={styles.input} placeholder="Phone" onChangeText={value => this.handleChange('phone', value)} placeholderTextColor={theme.primary}/>
+              {this.state.user === 'client' && this.renderClientInput()}
+              {this.state.user === 'caretaker' && this.renderCaretakerInput()}
+              {/* <View style={{ height: 100 }} />
+          </KeyboardAvoidingView>; */}
 				</ScrollView>
         {this.state.user === 'client' ? this.renderClientBtn() : null}
         {this.state.user === 'caretaker' ? this.renderCaretakerBtn() : null}
@@ -230,7 +234,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'space-evenly',
     margin: 5,
-	},
+  },
+  scrollContainer: {
+    width: '90%',
+    marginTop: 10,
+  },
 	button: {
 		color: theme.accentOne,
 		fontSize: 35,
@@ -267,3 +275,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   }
 });
+
+// CreateAccount.propTypes = {
+// };
