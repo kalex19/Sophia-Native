@@ -38,5 +38,11 @@
   "engines": {
     "node": "v12.9.1",
     "npm": "6.11.2"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": [
+      "<rootDir>/setupTests.js"
+    ]
   }
 }

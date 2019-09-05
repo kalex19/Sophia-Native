@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addList, loadLists } from '../actions';
+import { addList, loadLists } from '../../actions';
 
 class ClientList extends Component {
   state = {
