@@ -5,7 +5,8 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 class IndividualList extends Component {
   render() {
   let task;
-  const list = props.navigation.state.params;
+  const list = this.props.navigation.state.params;
+  console.log(list)
   const noItems = <View style={styles.listItemContainer} key={Math.random()}><Text style={styles.listItem}>No Tasks</Text></View>;
   const allItems = list.items.map(item => {
       <View style={styles.listItemContainer} key={Math.random()}>
@@ -38,7 +39,7 @@ class IndividualList extends Component {
       {/* {!list.items.length ? noItems : allItems} */}
       {/* {task} */}
       <TouchableHighlight underlayColor='black'           accessibilityLabel="Tap me to add a task." accessible={true}
-        onPress={() => props.navigation.navigate("AddListForm")}
+        onPress={() => this.props.navigation.navigate("AddListForm")}
       style={styles.addTaskContainer}><Text style={styles.addTask}> + ADD NEW TASK </Text></TouchableHighlight>
     </View>
     );
