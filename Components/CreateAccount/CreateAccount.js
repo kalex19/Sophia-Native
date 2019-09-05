@@ -87,12 +87,35 @@ handleCaretakerSubmit = () => {
 }
 
 postClient = async (profile) => {
-  
-  this.setState(initialState)
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(profile)
+    }
+    try {
+      const response = await fetch('/api/v1/clients/', options);
+      const profile = await response.json();
+    } catch (error) {
+      throw new Error(`failed to post profile: ${error.message}`)
+    }
+    this.setState(initialState)
+    this.props.navigation.navigate('ClientProfile')
 }
 
 postCaretaker = async (profile) => {
+  const options = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(profile)
+  }
+  try {
+    const response = await fetch('/api/v1/caretakers/', options);
+    const profile = await response.json();
+  } catch (error) {
+    throw new Error(`failed to post profile: ${error.message}`)
+  }
   this.setState(initialState)
+  this.props.navigation.navigate("CaretakerProfile")
 }
   
   renderClientInput = () => {
@@ -176,9 +199,9 @@ postCaretaker = async (profile) => {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => ({
 
-};
+});
 
 export default connect(null, mapDispatchToProps)(CreateAccount);
 
