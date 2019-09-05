@@ -20,15 +20,15 @@ class IndividualList extends Component {
     this.setState({ addingTask: !this.state.addingTask });
   };
 
-  handleChangeTask = (input) => {
+  handleChangeTask = input => {
     this.setState({ task_input: input });
   };
 
-  handleChangeNote = (input) => {
+  handleChangeNote = input => {
     this.setState({ note_input: input });
   };
 
-  handleChangeDate = (input) => {
+  handleChangeDate = input => {
     this.setState({ due_date: input });
   };
 
@@ -43,51 +43,60 @@ class IndividualList extends Component {
     };
     await this.props.addTask(newTask);
     this.setState({ task_input: "", note_input: "", due_date: "" });
-    console.log(this.props.items)
   };
 
   render() {
     let task;
     const list = this.props.navigation.state.params;
+    // const list = this.props.items
+    const allTasks = this.props.items.map(item => {
+      return (
+        <View>
+          <Text>{item.name}</Text>
+        </View>
+      );
+    });
     const noItems = (
       <View style={styles.listItemContainer} key={Math.random()}>
         <Text style={styles.listItem}>No Tasks</Text>
       </View>
     );
-    const allItems = list.items.map(item => {
-      <View style={styles.listItemContainer} key={Math.random()}>
-        <View style={styles.listItemHeaderContainer}>
-          <TouchableHighlight
-            underlayColor="black"
-            accessibilityLabel="Tap me to complete or uncomplete your todo task."
-            accessible={true}
-            onPress={() =>
-              this.props.navigation.navigate("Lists", this.state.lists)
-            }
-          >
-            <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text>
-          </TouchableHighlight>
-          <Text style={styles.listItemHeader}>{item.name}</Text>
-          <TouchableHighlight
-            underlayColor="black"
-            accessibilityLabel="Tap me to delete your todo task."
-            accessible={true}
-            onPress={() =>
-              this.props.navigation.navigate("Lists", this.state.lists)
-            }
-          >
-            <Text style={styles.listItem}>🗑</Text>
-          </TouchableHighlight>
+    const allItems = this.props.items.map(item => {
+      return (
+        <View style={styles.listItemContainer} key={Math.random()}>
+          <View style={styles.listItemHeaderContainer}>
+            <TouchableHighlight
+              underlayColor="black"
+              accessibilityLabel="Tap me to complete or uncomplete your todo task."
+              accessible={true}
+              onPress={() =>
+                this.props.navigation.navigate("Lists", this.state.lists)
+              }
+            >
+              <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text>
+            </TouchableHighlight>
+            <Text style={styles.listItemHeader}>{item.name}</Text>
+            <TouchableHighlight
+              underlayColor="black"
+              accessibilityLabel="Tap me to delete your todo task."
+              accessible={true}
+              onPress={() =>
+                this.props.navigation.navigate("Lists", this.state.lists)
+              }
+            >
+              <Text style={styles.listItem}>🗑</Text>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.listItemInfoContainer}>
+            <Text style={styles.listItem}>
+              {item.notes ? `Note: ${item.notes}` : "No Details"}
+            </Text>
+            <Text style={styles.listItem}>
+              {item.due_date ? `Due: ${item.due_date}` : ""}
+            </Text>
+          </View>
         </View>
-        <View style={styles.listItemInfoContainer}>
-          <Text style={styles.listItem}>
-            {item.notes ? `Note: ${item.notes}` : "No Details"}
-          </Text>
-          <Text style={styles.listItem}>
-            {item.due_date ? `Due: ${item.due_date}` : ""}
-          </Text>
-        </View>
-      </View>;
+      );
     });
 
     // if(!list.items.length){
@@ -114,26 +123,26 @@ class IndividualList extends Component {
         </TouchableHighlight>
         {this.state.addingTask && (
           <View>
-          <View style={styles.align}>
-            <TextInput
-              style={styles.input}
-              placeholder="Task name"
-              value={this.state.task_input}
-              onChangeText={this.handleChangeTask}
-            ></TextInput>
-            <TextInput
-              style={styles.input}
-              placeholder="Note"
-              value={this.state.note_input}
-              onChangeText={this.handleChangeNote}
-            ></TextInput>
-            <TextInput
-              style={styles.input}
-              placeholder="Due date: mm/dd"
-              value={this.state.due_date}
-              onChangeText={this.handleChangeDate}
-            ></TextInput>
-          </View>
+            <View style={styles.align}>
+              <TextInput
+                style={styles.input}
+                placeholder="Task name"
+                value={this.state.task_input}
+                onChangeText={this.handleChangeTask}
+              ></TextInput>
+              <TextInput
+                style={styles.input}
+                placeholder="Note"
+                value={this.state.note_input}
+                onChangeText={this.handleChangeNote}
+              ></TextInput>
+              <TextInput
+                style={styles.input}
+                placeholder="Due date: mm/dd"
+                value={this.state.due_date}
+                onChangeText={this.handleChangeDate}
+              ></TextInput>
+            </View>
             <TouchableHighlight
               underlayColor="black"
               accessibilityLabel="Tap me to submit your task."
@@ -142,6 +151,7 @@ class IndividualList extends Component {
             >
               <Text style={styles.plus}> + </Text>
             </TouchableHighlight>
+            <View style={styles.temporary}>{allItems}</View>
           </View>
         )}
       </View>
@@ -151,13 +161,16 @@ class IndividualList extends Component {
 
 export const mapStateToProps = state => ({
   items: state.items
-})
+});
 
 export const mapDispatchToProps = dispatch => ({
   addTask: newTask => dispatch(addTask(newTask))
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndividualList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IndividualList);
 
 const styles = StyleSheet.create({
   listHeader: {
@@ -227,9 +240,13 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "maroon",
     width: 80,
-    alignSelf: 'center',
-    textAlign: 'center',
+    alignSelf: "center",
+    textAlign: "center",
     height: 70,
     fontSize: 50
+  },
+  temporary: {
+    backgroundColor: "pink",
+    height: 400
   }
 });
