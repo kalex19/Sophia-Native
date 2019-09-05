@@ -61,7 +61,7 @@ export class CreateAccount extends Component {
     phone_number: phone,
     needs,
     allergies,
-    diet,
+    diet_restrictions: diet,
     medications
    }
   this.postClient(newClientProfile)
@@ -129,15 +129,6 @@ postCaretaker = async (profile) => {
 				<TextInput style={styles.input} placeholder="Allergies" onChangeText={value => this.handleChange('allergies', value)} />
 				<TextInput style={styles.input} placeholder="Dietary Restrictions" onChangeText={value => this.handleChange('diet', value)} />
 				<TextInput style={styles.input} placeholder="Medications" onChangeText={value => this.handleChange('medications', value)} />
-        <View style={styles.routes}>
-       <TouchableHighlight
-         underlayColor="black"
-         accessibilityLabel="Tap me to create your client account."
-         accessible={true}
-         onPress={this.handleClientSubmit}>
-         <Text style={styles.button}>Register as Client</Text>
-       </TouchableHighlight>
-     </View>
 			</View>
 		);
   }
@@ -145,17 +136,32 @@ postCaretaker = async (profile) => {
   renderCaretakerInput = () => {
     return <View>
       <TextInput style={styles.input} placeholder="Caretaking Abilities" onChangeText={value => this.handleChange('abilities', value)} />
-        <View style={styles.routes}>
-      <TouchableHighlight
-        underlayColor="black"
-        accessibilityLabel="Tap me to create your caretaker account."
-        accessible={true}
-        onPress={this.handleCaretakerSubmit}>
-        <Text style={styles.button}>Register as Caretaker</Text>
-      </TouchableHighlight>
-    </View>
     </View>
   };
+
+  renderClientBtn = () => {
+    return  <View style={styles.routes}>
+    <TouchableHighlight
+      underlayColor="black"
+      accessibilityLabel="Tap me to create your client account."
+      accessible={true}
+      onPress={this.handleClientSubmit}>
+      <Text style={styles.button}>Register as Client</Text>
+    </TouchableHighlight>
+  </View>
+  }
+
+  renderCaretakerBtn = () => {
+    return <View style={styles.routes}>
+    <TouchableHighlight
+      underlayColor="black"
+      accessibilityLabel="Tap me to create your caretaker account."
+      accessible={true}
+      onPress={this.handleCaretakerSubmit}>
+      <Text style={styles.button}>Register as Caretaker</Text>
+    </TouchableHighlight>
+      </View>
+  }
 
 	render () {
 
@@ -167,7 +173,7 @@ postCaretaker = async (profile) => {
 					</Text>
 				</View>
 				<ScrollView>
-					<Text>Are you a Client or Caretaker?</Text>
+					<Text style={styles.text}>Are you a Client or Caretaker?</Text>
 					<View style={styles.routes}>
 						<TouchableHighlight
 							underlayColor="black"
@@ -194,6 +200,8 @@ postCaretaker = async (profile) => {
 					{this.state.user === 'client' && this.renderClientInput()}
 					{this.state.user === 'caretaker' && this.renderCaretakerInput()}
 				</ScrollView>
+        {this.state.user === 'client' && this.renderClientBtn()}
+				{this.state.user === 'caretaker' && this.renderCaretakerBtn()}
 			</View>
 		);
 	}
@@ -214,20 +222,8 @@ const styles = StyleSheet.create({
 	header: {
 		fontSize: 30,
 		fontFamily: 'Didot'
-	},
-	greeting: {
-		fontSize: 30,
-		fontFamily: 'Didot',
-		margin: 10,
-		marginBottom: 30
-	},
-	button: {
-		color: 'white',
-		fontSize: 25,
-		fontFamily: 'Didot',
-		textAlign: 'center'
-	},
-	container: {
+  },
+  container: {
 		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -237,8 +233,31 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		backgroundColor: 'maroon',
 		width: '80%',
-		height: '20%',
+    height: '30%',
+    borderRadius: 30,
 		justifyContent: 'space-around',
-		margin: 10
-	}
+    margin: 5,
+
+    fontSize: 30,
+	},
+	button: {
+		color: 'white',
+		fontSize: 25,
+		fontFamily: 'Didot',
+    textAlign: 'center',
+  },
+  input: {
+    width: '80%',
+    height: 40,
+    fontSize: 20,
+    fontFamily: 'Didot',
+    padding: 2, 
+    marginTop: 10,
+  },
+  text: {
+		fontSize: 25,
+		fontFamily: 'Didot',
+		textAlign: 'center'
+  }
+	
 });
