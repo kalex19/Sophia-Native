@@ -57,13 +57,19 @@ class ClientList extends Component {
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
             accessible={true}
-            onPress={() =>
-              this.props.navigation.navigate("IndividualList", list)
-            }
+            
           >
           </TouchableHighlight>
             {!this.state.displayEdit && (
-              <Text style={styles.listName}>{`${list.name}`}</Text>
+              <Text 
+              style={styles.listName}
+              onPress={() => {
+              this.props.navigation.navigate("IndividualList", list)
+            }
+            }
+              >
+              {`${list.name}`}
+              </Text>
             )}
             {this.state.displayEdit && (
               <View>
