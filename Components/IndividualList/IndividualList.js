@@ -18,7 +18,7 @@ class IndividualList extends Component {
     };
   }
 
-  toggleEditName = (itemId) => {
+  toggleEditName = () => {
     this.setState({ displayEdit: !this.state.displayEdit });
   };
 
@@ -39,15 +39,15 @@ class IndividualList extends Component {
   };
 
   handleEditTask = input => {
-    this.setState({ task_edit_input: input })
-    console.log(this.state.task_edit_input)
-  }
+    this.setState({ task_edit_input: input });
+    console.log(this.state.task_edit_input);
+  };
 
-  handleSubmitEdit = (taskId) => {
-    const { task_edit_input } = this.state
-    this.props.editTask(task_edit_input, taskId)
-    this.setState({ task_edit_input: "", displayEdit: false })
-  }
+  handleSubmitEdit = taskId => {
+    const { task_edit_input } = this.state;
+    this.props.editTask(task_edit_input, taskId);
+    this.setState({ task_edit_input: "", displayEdit: false });
+  };
 
   handleSubmit = async newTask => {
     const { task_input, note_input, due_date } = this.state;
@@ -80,7 +80,7 @@ class IndividualList extends Component {
     );
     const allItems = this.props.items.map(item => {
       return (
-        <View style={styles.listItemContainer} key={Math.random()}>
+        <View style={styles.listItemContainer}>
           <View style={styles.listItemHeaderContainer}>
             <TouchableHighlight
               underlayColor="black"
@@ -102,7 +102,14 @@ class IndividualList extends Component {
                   value={this.state.task_edit_input}
                   onChangeText={this.handleEditTask}
                 ></TextInput>
-                <Button title="Edit" onPress={() => this.handleSubmitEdit(item.id)}/>
+                <TouchableHighlight
+                  underlayColor="black"
+                  accessibilityLabel="Tap me to submit your edited todo task."
+                  accessible={true}
+                  onPress={() => this.handleSubmitEdit(item.id)}
+                >
+                  <Text style={styles.listItem}>Edit</Text>
+                </TouchableHighlight>
               </View>
             )}
             <TouchableHighlight
