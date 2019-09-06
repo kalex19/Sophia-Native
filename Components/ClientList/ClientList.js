@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { addList, loadLists, deleteList, editList } from "../../actions";
+import { fetchLists } from '../../apiCalls';
 
 class ClientList extends Component {
   state = {
