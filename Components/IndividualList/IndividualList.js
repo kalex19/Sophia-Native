@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addTask, deleteTask } from "../../actions";
+import { addTask, deleteTask, editTask } from "../../actions";
 
 class IndividualList extends Component {
   constructor() {
@@ -12,9 +12,15 @@ class IndividualList extends Component {
       task_input: "",
       note_input: "",
       due_date: "",
-      completed: false
+      // completed: false
+      displayEdit: false,
+      task_edit_input: ""
     };
   }
+
+  toggleEditName = (itemId) => {
+    this.setState({ displayEdit: !this.state.displayEdit });
+  };
 
   toggleAddTask = () => {
     this.setState({ addingTask: !this.state.addingTask });
@@ -31,6 +37,17 @@ class IndividualList extends Component {
   handleChangeDate = input => {
     this.setState({ due_date: input });
   };
+
+  handleEditTask = input => {
+    this.setState({ task_edit_input: input })
+    console.log(this.state.task_edit_input)
+  }
+
+  handleSubmitEdit = (taskId) => {
+    const { task_edit_input } = this.state
+    this.props.editTask(task_edit_input, taskId)
+    this.setState({ task_edit_input: "", displayEdit: false })
+  }
 
   handleSubmit = async newTask => {
     const { task_input, note_input, due_date } = this.state;
@@ -69,20 +86,30 @@ class IndividualList extends Component {
               underlayColor="black"
               accessibilityLabel="Tap me to complete or uncomplete your todo task."
               accessible={true}
-              onPress={() =>
-                this.props.navigation.navigate("Lists", this.state.lists)
-              }
+              onPress={() => this.toggleEditName()}
             >
+              <Text style={styles.listItem}>Edit Task</Text>
               {/* <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text> */}
             </TouchableHighlight>
-            <Text style={styles.listItemHeader}>{item.name}</Text>
+            {!this.state.displayEdit && (
+              <Text style={styles.listItemHeader}>{item.name}</Text>
+            )}
+            {this.state.displayEdit && (
+              <View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Edit task"
+                  value={this.state.task_edit_input}
+                  onChangeText={this.handleEditTask}
+                ></TextInput>
+                <Button title="Edit" onPress={() => this.handleSubmitEdit(item.id)}/>
+              </View>
+            )}
             <TouchableHighlight
               underlayColor="black"
               accessibilityLabel="Tap me to delete your todo task."
               accessible={true}
-              onPress={() =>
-                this.props.deleteTask(item.id)
-              }
+              onPress={() => this.props.deleteTask(item.id)}
             >
               <Text style={styles.listItem}>🗑</Text>
             </TouchableHighlight>
@@ -104,14 +131,11 @@ class IndividualList extends Component {
     // } else {
     //   task = allItems
     // }
-
     return (
       <View>
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{list.name}</Text>
         </View>
-        {/* {!list.items.length ? noItems : allItems} */}
-        {/* {task} */}
         <TouchableHighlight
           underlayColor="black"
           accessibilityLabel="Tap me to add a task."
@@ -153,7 +177,7 @@ class IndividualList extends Component {
             </TouchableHighlight>
           </View>
         )}
-            <View style={styles.temporary}>{allItems}</View>
+        <View style={styles.temporary}>{allItems}</View>
       </View>
     );
   }
@@ -165,7 +189,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   addTask: newTask => dispatch(addTask(newTask)),
-  deleteTask: taskId => dispatch(deleteTask(taskId))
+  deleteTask: taskId => dispatch(deleteTask(taskId)),
+  editTask: (nameToChange, taskId) => dispatch(editTask(nameToChange, taskId))
 });
 
 export default connect(
@@ -251,3 +276,10 @@ const styles = StyleSheet.create({
     height: 400
   }
 });
+
+{
+  /* {!list.items.length ? noItems : allItems} */
+}
+{
+  /* {task} */
+}

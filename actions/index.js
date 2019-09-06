@@ -33,3 +33,9 @@ export const deleteTask = taskId => ({
   type: "DELETE_TASK",
   taskId
 })
+
+export const editTask = (nameToChange, taskId) => ({
+  type: "EDIT_TASK",
+  nameToChange,
+  taskId
+})

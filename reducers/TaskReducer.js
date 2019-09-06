@@ -3,10 +3,17 @@ export const taskReducer = (state = [], action) => {
     case "LOAD_TASKS":
       return action.items;
     case "ADD_TASK":
-      return [ ...state, action.newTask ];
+      return [...state, action.newTask];
+    case "EDIT_TASK":
+      state.forEach(task => {
+        if (task.id === action.taskId) {
+          task.name = action.nameToChange;
+        }
+      });
+      return state
     case "DELETE_TASK":
-      const filteredTasks = state.filter(task => task.id !== action.taskId)
-      return filteredTasks 
+      const filteredTasks = state.filter(task => task.id !== action.taskId);
+      return filteredTasks;
     default:
       return state;
   }
