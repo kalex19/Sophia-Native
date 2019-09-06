@@ -28,3 +28,8 @@ export const addTask = newTask => ({
   type: "ADD_TASK",
   newTask
 })
+
+export const deleteTask = taskId => ({
+  type: "DELETE_TASK",
+  taskId
+})

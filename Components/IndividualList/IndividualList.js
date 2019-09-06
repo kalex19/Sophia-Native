@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addTask } from "../../actions";
+import { addTask, deleteTask } from "../../actions";
 
 class IndividualList extends Component {
   constructor() {
@@ -73,7 +73,7 @@ class IndividualList extends Component {
                 this.props.navigation.navigate("Lists", this.state.lists)
               }
             >
-              <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text>
+              {/* <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text> */}
             </TouchableHighlight>
             <Text style={styles.listItemHeader}>{item.name}</Text>
             <TouchableHighlight
@@ -81,7 +81,7 @@ class IndividualList extends Component {
               accessibilityLabel="Tap me to delete your todo task."
               accessible={true}
               onPress={() =>
-                this.props.navigation.navigate("Lists", this.state.lists)
+                this.props.deleteTask(item.id)
               }
             >
               <Text style={styles.listItem}>🗑</Text>
@@ -89,10 +89,10 @@ class IndividualList extends Component {
           </View>
           <View style={styles.listItemInfoContainer}>
             <Text style={styles.listItem}>
-              {item.notes ? `Note: ${item.notes}` : "No Details"}
+              {item.notes && `Note: ${item.notes}`}
             </Text>
             <Text style={styles.listItem}>
-              {item.due_date ? `Due: ${item.due_date}` : ""}
+              {item.due_date && `Due: ${item.due_date}`}
             </Text>
           </View>
         </View>
@@ -151,9 +151,9 @@ class IndividualList extends Component {
             >
               <Text style={styles.plus}> + </Text>
             </TouchableHighlight>
-            <View style={styles.temporary}>{allItems}</View>
           </View>
         )}
+            <View style={styles.temporary}>{allItems}</View>
       </View>
     );
   }
@@ -164,7 +164,8 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  addTask: newTask => dispatch(addTask(newTask))
+  addTask: newTask => dispatch(addTask(newTask)),
+  deleteTask: taskId => dispatch(deleteTask(taskId))
 });
 
 export default connect(
