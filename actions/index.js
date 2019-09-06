@@ -18,6 +18,12 @@ export const deleteList = listId => ({
   listId
 })
 
+export const editList = (nameToChange, listId) => ({
+  type: "EDIT_LIST",
+  nameToChange,
+  listId
+})
+
 export const loadTasks = (listId, tasks) => ({
   type: "LOAD_TASKS",
   listId,

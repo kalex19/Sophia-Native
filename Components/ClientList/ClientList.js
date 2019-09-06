@@ -2,20 +2,30 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addList, loadLists, deleteList } from "../../actions";
+import { addList, loadLists, deleteList, editList } from "../../actions";
 
 class ClientList extends Component {
   state = {
     addList: false,
-    list_title: ""
+    list_title: "",
+    displayEdit: false,
+    list_edit_input: ""
   };
 
   toggleAddList = () => {
     this.setState({ addList: !this.state.addList });
   };
 
+  toggleEditName = () => {
+    this.setState({ displayEdit: !this.state.displayEdit });
+  };
+
   handleChange = input => {
     this.setState({ list_title: input });
+  };
+
+  handleEditList = input => {
+    this.setState({ list_edit_input: input });
   };
 
   handleSubmit = newList => {
@@ -25,10 +35,24 @@ class ClientList extends Component {
     this.setState({ list_title: "" });
   };
 
+  handleSubmitEdit = listId => {
+    const { list_edit_input } = this.state;
+    this.props.editList(list_edit_input, listId);
+    this.setState({ list_edit_input: "", displayEdit: false });
+  };
+
   render() {
     const allLists = this.props.lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap me to open form and edit your list name."
+            accessible={true}
+            onPress={() => this.toggleEditName()}
+          >
+            <Text style={styles.listItem}>Edit Name</Text>
+          </TouchableHighlight>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
@@ -37,10 +61,31 @@ class ClientList extends Component {
               this.props.navigation.navigate("IndividualList", list)
             }
           >
-            <Text style={styles.listName}>{`${list.name}`}</Text>
           </TouchableHighlight>
+            {!this.state.displayEdit && (
+              <Text style={styles.listName}>{`${list.name}`}</Text>
+            )}
+            {this.state.displayEdit && (
+              <View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Edit list"
+                  value={this.state.list_edit_input}
+                  onChangeText={this.handleEditList}
+                ></TextInput>
+                <TouchableHighlight
+                  underlayColor="black"
+                  accessibilityLabel="Tap me to submit your edited list name."
+                  accessible={true}
+                  onPress={() => this.handleSubmitEdit(list.id)}
+                >
+                  <Text style={styles.listItem}>Edit</Text>
+                </TouchableHighlight>
+              </View>
+            )}
+          {/* </TouchableHighlight> */}
           <View>
-            <Button title="X" onPress={() => this.props.deleteList(list.id)}/>
+            <Button title="X" onPress={() => this.props.deleteList(list.id)} />
           </View>
         </View>
       );
@@ -50,7 +95,7 @@ class ClientList extends Component {
         <View style={styles.headerContainer}>
           <Text style={styles.header}>My Todo Lists</Text>
         </View>
-        {allLists}
+        <View>{allLists}</View>
         <TouchableHighlight
           underlayColor="black"
           accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
@@ -133,6 +178,10 @@ const styles = StyleSheet.create({
   plus: {
     fontSize: 30,
     color: "white"
+  },
+  listItem: {
+    fontSize: 25,
+    color: "white"
   }
 });
 
@@ -143,7 +192,8 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   loadLists: lists => dispatch(loadLists(lists)),
   addList: newList => dispatch(addList(newList)),
-  deleteList: listId => dispatch(deleteList(listId))
+  deleteList: listId => dispatch(deleteList(listId)),
+  editList: (nameToChange, listId) => dispatch(editList(nameToChange, listId))
 });
 
 export default connect(

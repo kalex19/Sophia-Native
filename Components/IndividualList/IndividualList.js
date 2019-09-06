@@ -40,7 +40,6 @@ class IndividualList extends Component {
 
   handleEditTask = input => {
     this.setState({ task_edit_input: input });
-    console.log(this.state.task_edit_input);
   };
 
   handleSubmitEdit = taskId => {
@@ -84,7 +83,7 @@ class IndividualList extends Component {
           <View style={styles.listItemHeaderContainer}>
             <TouchableHighlight
               underlayColor="black"
-              accessibilityLabel="Tap me to complete or uncomplete your todo task."
+              accessibilityLabel="Tap me to open form and edit your list name."
               accessible={true}
               onPress={() => this.toggleEditName()}
             >
