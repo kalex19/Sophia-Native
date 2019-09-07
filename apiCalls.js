@@ -24,3 +24,15 @@ export const postList = async (object) => {
   const list = await response.json();
   return list;
 };
+
+export const deleteList = async (list_id) => {
+  const url = `https://sophia-be.herokuapp.com/api/v1/clients/2/lists/${list_id}`
+  const options = {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  };
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Could not delete list");
+  }
+};

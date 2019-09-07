@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addList, loadLists, deleteList, editList } from "../../actions";
-import { fetchLists, postList } from '../../apiCalls';
+import { addList, loadLists, editList } from "../../actions";
+import { fetchLists, postList, deleteList } from '../../apiCalls';
 
 class ClientList extends Component {
   state = {
@@ -14,10 +14,12 @@ class ClientList extends Component {
   };
 
   componentDidMount = async () => {
-    console.log("------------------------HERE===================")
+    this.returnUpdatedList()
+  }
+
+  returnUpdatedList = async () => {
     const lists = await fetchLists();
     this.props.loadLists(lists)
-    console.log("LISTS", this.props.lists)
   }
 
   toggleAddList = () => {
@@ -36,16 +38,18 @@ class ClientList extends Component {
     this.setState({ list_edit_input: input });
   };
 
-  handleSubmit = newList => {
+  handleSubmit = async newList => {
     const { list_title } = this.state;
     newList = { name: list_title };
-    postList(newList)
-
-    const lists = fetchLists();
-    console.log(lists)
-    // this.props.addList(newList);
+    await postList(newList)
+    this.returnUpdatedList();
     this.setState({ list_title: "" });
   };
+
+  eraseList = async listId => {
+    await deleteList(listId)
+    this.returnUpdatedList()
+  }
 
   handleSubmitEdit = listId => {
     const { list_edit_input } = this.state;
@@ -104,7 +108,7 @@ class ClientList extends Component {
             )}
           {/* </TouchableHighlight> */}
           <View>
-            <Button title="X" onPress={() => this.props.deleteList(list.id)} />
+            <Button title="X" onPress={() => this.eraseList(list.id)} />
           </View>
         </View>
       );
@@ -211,7 +215,6 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   loadLists: lists => dispatch(loadLists(lists)),
   addList: newList => dispatch(addList(newList)),
-  deleteList: listId => dispatch(deleteList(listId)),
   editList: (nameToChange, listId) => dispatch(editList(nameToChange, listId))
 });
 
