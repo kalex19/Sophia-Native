@@ -64,3 +64,18 @@ export const fetchTasks = async (list_id) => {
     return lists;
   }
 };
+
+export const postTask = async (object, list_id) => {
+  const url = `https://sophia-be.herokuapp.com/api/v1/clients/2/lists/${list_id}/tasks`;
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(object)
+  };
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Could not add new task");
+  }
+  const task = await response.json();
+  return task;
+};

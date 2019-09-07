@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchTasks } from "../../apiCalls";
+import { fetchTasks, postTask } from "../../apiCalls";
 
 class IndividualList extends Component {
   state = {
@@ -57,15 +57,15 @@ class IndividualList extends Component {
   };
 
   handleSubmit = async newTask => {
+    const list_id = this.props.navigation.state.params.id
     const { task_input, description_input, due_date } = this.state;
     newTask = {
-      id: Date.now(),
       name: task_input,
       description: description_input,
-      due_date: due_date,
-      completed: false
+      due_date: due_date
     };
-    await this.props.addTask(newTask);
+    await postTask(newTask, list_id)
+    await this.returnUpdatedTask()
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
