@@ -79,3 +79,18 @@ export const postTask = async (object, list_id) => {
   const task = await response.json();
   return task;
 };
+
+export const patchTask = async (object, list_id, task_id) => {
+  const url = `https://sophia-be.herokuapp.com/api/v1/clients/2/lists/${list_id}/tasks/${task_id}`;
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(object)
+  };
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Could not edit the name of the task");
+  }
+  const task = await response.json();
+  return task;
+};

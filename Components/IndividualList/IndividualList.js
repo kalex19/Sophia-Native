@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchTasks, postTask } from "../../apiCalls";
+import { fetchTasks, postTask, patchTask } from "../../apiCalls";
 
 class IndividualList extends Component {
   state = {
@@ -50,9 +50,12 @@ class IndividualList extends Component {
     this.setState({ task_edit_input: input });
   };
 
-  handleSubmitEdit = taskId => {
+  handleSubmitEdit = async taskId => {
+    const list_id = this.props.navigation.state.params.id
     const { task_edit_input } = this.state;
-    this.props.editTask(task_edit_input, taskId);
+    const modifiedTask = { name : task_edit_input }
+    await patchTask(modifiedTask, list_id, taskId);
+    await this.returnUpdatedTask();
     this.setState({ task_edit_input: "", displayEdit: false });
   };
 
