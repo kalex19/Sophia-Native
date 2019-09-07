@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { loadLists, editList } from "../../actions";
-import { fetchLists, postList, deleteList } from '../../apiCalls';
+import { loadLists } from "../../actions";
+import { fetchLists, postList, deleteList, patchList } from "../../apiCalls";
 
 class ClientList extends Component {
   state = {
@@ -14,13 +14,13 @@ class ClientList extends Component {
   };
 
   componentDidMount = async () => {
-    await this.returnUpdatedList()
-  }
+    await this.returnUpdatedList();
+  };
 
   returnUpdatedList = async () => {
     const lists = await fetchLists();
-    this.props.loadLists(lists)
-  }
+    this.props.loadLists(lists);
+  };
 
   toggleAddList = () => {
     this.setState({ addList: !this.state.addList });
@@ -41,24 +41,26 @@ class ClientList extends Component {
   handleSubmit = async newList => {
     const { list_title } = this.state;
     newList = { name: list_title };
-    await postList(newList)
+    await postList(newList);
     this.returnUpdatedList();
     this.setState({ list_title: "" });
   };
 
   eraseList = async listId => {
-    await deleteList(listId)
-    this.returnUpdatedList()
-  }
+    await deleteList(listId);
+    this.returnUpdatedList();
+  };
 
-  handleSubmitEdit = listId => {
+  handleSubmitEdit = async listId => {
     const { list_edit_input } = this.state;
-    this.props.editList(list_edit_input, listId);
+    const modifiedList = { name: list_edit_input };
+    await patchList(modifiedList, listId);
+    this.returnUpdatedList();
     this.setState({ list_edit_input: "", displayEdit: false });
   };
 
   render() {
-    const { lists } = this.props
+    const { lists } = this.props;
     const allLists = lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
@@ -74,38 +76,35 @@ class ClientList extends Component {
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
             accessible={true}
-            
-          >
-          </TouchableHighlight>
-            {!this.state.displayEdit && (
-              <Text 
+          ></TouchableHighlight>
+          {!this.state.displayEdit && (
+            <Text
               style={styles.listName}
               onPress={() => {
-              this.props.navigation.navigate("IndividualList", list)
-            }
-            }
-              >
+                this.props.navigation.navigate("IndividualList", list);
+              }}
+            >
               {`${list.name}`}
-              </Text>
-            )}
-            {this.state.displayEdit && (
-              <View>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Edit list"
-                  value={this.state.list_edit_input}
-                  onChangeText={this.handleEditList}
-                ></TextInput>
-                <TouchableHighlight
-                  underlayColor="black"
-                  accessibilityLabel="Tap me to submit your edited list name."
-                  accessible={true}
-                  onPress={() => this.handleSubmitEdit(list.id)}
-                >
-                  <Text style={styles.listItem}>Edit</Text>
-                </TouchableHighlight>
-              </View>
-            )}
+            </Text>
+          )}
+          {this.state.displayEdit && (
+            <View>
+              <TextInput
+                style={styles.input}
+                placeholder="Edit list"
+                value={this.state.list_edit_input}
+                onChangeText={this.handleEditList}
+              ></TextInput>
+              <TouchableHighlight
+                underlayColor="black"
+                accessibilityLabel="Tap me to submit your edited list name."
+                accessible={true}
+                onPress={() => this.handleSubmitEdit(list.id)}
+              >
+                <Text style={styles.listItem}>Edit</Text>
+              </TouchableHighlight>
+            </View>
+          )}
           {/* </TouchableHighlight> */}
           <View>
             <Button title="X" onPress={() => this.eraseList(list.id)} />
@@ -213,8 +212,7 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  loadLists: lists => dispatch(loadLists(lists)),
-  editList: (nameToChange, listId) => dispatch(editList(nameToChange, listId))
+  loadLists: lists => dispatch(loadLists(lists))
 });
 
 export default connect(
