@@ -1,10 +1,26 @@
-export const fetchLists = async => {
-  const response = await fetch(`https://sophia-be.herokuapp.com/api/v1/clients/${client_id}/lists`);
+export const fetchLists = async () => {
+  const response = await fetch(
+    'https://sophia-be.herokuapp.com/api/v1/clients/2/lists'
+  );
   if (!response.ok) {
     throw new Error("Could not fetch lists");
   } else {
-    const lists = await response.json();
+    const lists = response.json();
     return lists;
   }
 };
 
+export const postList = async (object) => {
+  const url = 'https://sophia-be.herokuapp.com/api/v1/clients/2/lists'
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(object)
+  };
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Could not add new list");
+  }
+  const list = await response.json();
+  return list;
+};

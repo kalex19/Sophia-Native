@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { addList, loadLists, deleteList, editList } from "../../actions";
-import { fetchLists } from '../../apiCalls';
+import { fetchLists, postList } from '../../apiCalls';
 
 class ClientList extends Component {
   state = {
@@ -12,6 +12,13 @@ class ClientList extends Component {
     displayEdit: false,
     list_edit_input: ""
   };
+
+  componentDidMount = async () => {
+    console.log("------------------------HERE===================")
+    const lists = await fetchLists();
+    this.props.loadLists(lists)
+    console.log("LISTS", this.props.lists)
+  }
 
   toggleAddList = () => {
     this.setState({ addList: !this.state.addList });
@@ -31,8 +38,12 @@ class ClientList extends Component {
 
   handleSubmit = newList => {
     const { list_title } = this.state;
-    newList = { id: Date.now(), name: list_title, items: [] };
-    this.props.addList(newList);
+    newList = { name: list_title };
+    postList(newList)
+
+    const lists = fetchLists();
+    console.log(lists)
+    // this.props.addList(newList);
     this.setState({ list_title: "" });
   };
 
@@ -43,7 +54,8 @@ class ClientList extends Component {
   };
 
   render() {
-    const allLists = this.props.lists.map(list => {
+    const { lists } = this.props
+    const allLists = lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
           <TouchableHighlight
