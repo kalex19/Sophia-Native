@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchTasks, postTask, patchTask } from "../../apiCalls";
+import { fetchTasks, postTask, patchTask, deleteTask } from "../../apiCalls";
 
 class IndividualList extends Component {
   state = {
@@ -72,6 +72,12 @@ class IndividualList extends Component {
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
+  eraseTask = async taskId => {
+    const list_id = this.props.navigation.state.params.id
+    await deleteTask(list_id, taskId);
+    this.returnUpdatedTask();
+  };
+
 render() {
   const list = this.props.navigation.state.params;
   const { tasks } = this.props;
@@ -118,7 +124,7 @@ render() {
             underlayColor="black"
             accessibilityLabel="Tap me to delete your todo task."
             accessible={true}
-            onPress={() => this.props.deleteTask(task.id)}
+            onPress={() => this.eraseTask(task.id)}
           >
             <Text style={styles.listItem}>🗑</Text>
           </TouchableHighlight>
