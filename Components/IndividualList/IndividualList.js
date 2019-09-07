@@ -1,22 +1,30 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addTask, deleteTask, editTask } from "../../actions";
+import { loadTasks } from "../../actions";
+import { fetchTasks } from "../../apiCalls";
 
 class IndividualList extends Component {
-  constructor() {
-    super();
-    this.state = {
-      addingTask: false,
-      task_input: "",
-      note_input: "",
-      due_date: "",
-      // completed: false
-      displayEdit: false,
-      task_edit_input: ""
-    };
-  }
+  state = {
+    addingTask: false,
+    task_input: "",
+    description_input: "",
+    due_date: "",
+    // completed: false
+    displayEdit: false,
+    task_edit_input: ""
+  };
+
+  componentDidMount = async () => {
+    await this.returnUpdatedTask();
+  };
+  
+  returnUpdatedTask = async () => {
+    const list_id = this.props.navigation.state.params.id
+    const tasks = await fetchTasks(list_id);
+    this.props.loadTasks(tasks);
+  };
 
   toggleEditName = () => {
     this.setState({ displayEdit: !this.state.displayEdit });
@@ -31,7 +39,7 @@ class IndividualList extends Component {
   };
 
   handleChangeNote = input => {
-    this.setState({ note_input: input });
+    this.setState({ description_input: input });
   };
 
   handleChangeDate = input => {
@@ -49,154 +57,144 @@ class IndividualList extends Component {
   };
 
   handleSubmit = async newTask => {
-    const { task_input, note_input, due_date } = this.state;
+    const { task_input, description_input, due_date } = this.state;
     newTask = {
       id: Date.now(),
       name: task_input,
-      note: note_input,
+      description: description_input,
       due_date: due_date,
       completed: false
     };
     await this.props.addTask(newTask);
-    this.setState({ task_input: "", note_input: "", due_date: "" });
+    this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
-  render() {
-    let task;
-    const list = this.props.navigation.state.params;
-    // const list = this.props.items
-    const allTasks = this.props.items.map(item => {
-      return (
-        <View>
-          <Text>{item.name}</Text>
-        </View>
-      );
-    });
-    const noItems = (
-      <View style={styles.listItemContainer} key={Math.random()}>
-        <Text style={styles.listItem}>No Tasks</Text>
-      </View>
-    );
-    const allItems = this.props.items.map(item => {
-      return (
-        <View style={styles.listItemContainer}>
-          <View style={styles.listItemHeaderContainer}>
-            <TouchableHighlight
-              underlayColor="black"
-              accessibilityLabel="Tap me to open form and edit your list name."
-              accessible={true}
-              onPress={() => this.toggleEditName()}
-            >
-              <Text style={styles.listItem}>Edit Task</Text>
-              {/* <Text style={styles.listItem}>{item.completed ? "✔︎" : "x"}</Text> */}
-            </TouchableHighlight>
-            {!this.state.displayEdit && (
-              <Text style={styles.listItemHeader}>{item.name}</Text>
-            )}
-            {this.state.displayEdit && (
-              <View>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Edit task"
-                  value={this.state.task_edit_input}
-                  onChangeText={this.handleEditTask}
-                ></TextInput>
-                <TouchableHighlight
-                  underlayColor="black"
-                  accessibilityLabel="Tap me to submit your edited todo task."
-                  accessible={true}
-                  onPress={() => this.handleSubmitEdit(item.id)}
-                >
-                  <Text style={styles.listItem}>Edit</Text>
-                </TouchableHighlight>
-              </View>
-            )}
-            <TouchableHighlight
-              underlayColor="black"
-              accessibilityLabel="Tap me to delete your todo task."
-              accessible={true}
-              onPress={() => this.props.deleteTask(item.id)}
-            >
-              <Text style={styles.listItem}>🗑</Text>
-            </TouchableHighlight>
-          </View>
-          <View style={styles.listItemInfoContainer}>
-            <Text style={styles.listItem}>
-              {item.notes && `Note: ${item.notes}`}
-            </Text>
-            <Text style={styles.listItem}>
-              {item.due_date && `Due: ${item.due_date}`}
-            </Text>
-          </View>
-        </View>
-      );
-    });
-
-    // if(!list.items.length){
-    //   task = noItems
-    // } else {
-    //   task = allItems
-    // }
+render() {
+  const list = this.props.navigation.state.params;
+  const { tasks } = this.props;
+  const noItems = (
+    <View style={styles.listItemContainer} key={Math.random()}>
+      <Text style={styles.listItem}>No Tasks</Text>
+    </View>
+  );
+  const allTasks = tasks.map(task => {
     return (
-      <View>
-        <View style={styles.listHeader}>
-          <Text style={styles.listName}>{list.name}</Text>
-        </View>
-        <TouchableHighlight
-          underlayColor="black"
-          accessibilityLabel="Tap me to add a task."
-          accessible={true}
-          onPress={this.toggleAddTask}
-          style={styles.addTaskContainer}
-        >
-          <Text style={styles.addTask}> + ADD NEW TASK </Text>
-        </TouchableHighlight>
-        {this.state.addingTask && (
-          <View>
-            <View style={styles.align}>
+      <View style={styles.listItemContainer}>
+        <View style={styles.listItemHeaderContainer}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap me to open form and edit your list name."
+            accessible={true}
+            onPress={() => this.toggleEditName()}
+          >
+            <Text style={styles.listItem}>Edit Task</Text>
+            {/* <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text> */}
+          </TouchableHighlight>
+          {!this.state.displayEdit && (
+            <Text style={styles.listItemHeader}>{task.name}</Text>
+          )}
+          {this.state.displayEdit && (
+            <View>
               <TextInput
                 style={styles.input}
-                placeholder="Task name"
-                value={this.state.task_input}
-                onChangeText={this.handleChangeTask}
+                placeholder="Edit task"
+                value={this.state.task_edit_input}
+                onChangeText={this.handleEditTask}
               ></TextInput>
-              <TextInput
-                style={styles.input}
-                placeholder="Note"
-                value={this.state.note_input}
-                onChangeText={this.handleChangeNote}
-              ></TextInput>
-              <TextInput
-                style={styles.input}
-                placeholder="Due date: mm/dd"
-                value={this.state.due_date}
-                onChangeText={this.handleChangeDate}
-              ></TextInput>
+              <TouchableHighlight
+                underlayColor="black"
+                accessibilityLabel="Tap me to submit your edited todo task."
+                accessible={true}
+                onPress={() => this.handleSubmitEdit(task.id)}
+              >
+                <Text style={styles.listItem}>Edit</Text>
+              </TouchableHighlight>
             </View>
-            <TouchableHighlight
-              underlayColor="black"
-              accessibilityLabel="Tap me to submit your task."
-              accessible={true}
-              onPress={() => this.handleSubmit()}
-            >
-              <Text style={styles.plus}> + </Text>
-            </TouchableHighlight>
-          </View>
-        )}
-        <View style={styles.temporary}>{allItems}</View>
+          )}
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap me to delete your todo task."
+            accessible={true}
+            onPress={() => this.props.deleteTask(task.id)}
+          >
+            <Text style={styles.listItem}>🗑</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.listItemInfoContainer}>
+          <Text style={styles.listItem}>
+            {task.notes && `description: ${task.notes}`}
+          </Text>
+          <Text style={styles.listItem}>
+            {task.due_date && `Due: ${task.due_date}`}
+          </Text>
+        </View>
       </View>
     );
-  }
+  });
+
+  // if(!list.tasks.length){
+  //   task = noItems
+  // } else {
+  //   task = allTasks
+  // }
+  return (
+    <View>
+      <View style={styles.listHeader}>
+        <Text style={styles.listName}>{list.name}</Text>
+      </View>
+      <TouchableHighlight
+        underlayColor="black"
+        accessibilityLabel="Tap me to add a task."
+        accessible={true}
+        onPress={this.toggleAddTask}
+        style={styles.addTaskContainer}
+      >
+        <Text style={styles.addTask}> + ADD NEW TASK </Text>
+      </TouchableHighlight>
+      {this.state.addingTask && (
+        <View>
+          <View style={styles.align}>
+            <TextInput
+              style={styles.input}
+              placeholder="Task name"
+              value={this.state.task_input}
+              onChangeText={this.handleChangeTask}
+            ></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="description"
+              value={this.state.description_input}
+              onChangeText={this.handleChangeNote}
+            ></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Due date: mm/dd"
+              value={this.state.due_date}
+              onChangeText={this.handleChangeDate}
+            ></TextInput>
+          </View>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap me to submit your task."
+            accessible={true}
+            onPress={() => this.handleSubmit()}
+          >
+            <Text style={styles.plus}> + </Text>
+          </TouchableHighlight>
+        </View>
+      )}
+      <View style={styles.temporary}>{allTasks}</View>
+    </View>
+  );
+}
 }
 
 export const mapStateToProps = state => ({
-  items: state.items
+  tasks: state.tasks
 });
 
 export const mapDispatchToProps = dispatch => ({
-  addTask: newTask => dispatch(addTask(newTask)),
-  deleteTask: taskId => dispatch(deleteTask(taskId)),
-  editTask: (nameToChange, taskId) => dispatch(editTask(nameToChange, taskId))
+  loadTasks: tasks => dispatch(loadTasks(tasks))
 });
 
 export default connect(
@@ -283,9 +281,8 @@ const styles = StyleSheet.create({
   }
 });
 
-{
-  /* {!list.items.length ? noItems : allItems} */
-}
-{
-  /* {task} */
-}
+
+
+
+
+

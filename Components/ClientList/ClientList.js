@@ -42,7 +42,7 @@ class ClientList extends Component {
     const { list_title } = this.state;
     newList = { name: list_title };
     await postList(newList);
-    this.returnUpdatedList();
+    await this.returnUpdatedList();
     this.setState({ list_title: "" });
   };
 
@@ -61,6 +61,7 @@ class ClientList extends Component {
 
   render() {
     const { lists } = this.props;
+    const { navigation } = this.props
     const allLists = lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
@@ -80,11 +81,9 @@ class ClientList extends Component {
           {!this.state.displayEdit && (
             <Text
               style={styles.listName}
-              onPress={() => {
-                this.props.navigation.navigate("IndividualList", list);
-              }}
+              onPress={() => {navigation.navigate("IndividualList", list)}}
             >
-              {`${list.name}`}
+              {list.name}
             </Text>
           )}
           {this.state.displayEdit && (
@@ -105,9 +104,8 @@ class ClientList extends Component {
               </TouchableHighlight>
             </View>
           )}
-          {/* </TouchableHighlight> */}
           <View>
-            <Button title="X" onPress={() => this.eraseList(list.id)} />
+            <Button title="X" onPress={() => this.eraseList(list)} />
           </View>
         </View>
       );

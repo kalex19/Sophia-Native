@@ -51,3 +51,16 @@ export const patchList = async (object, list_id) => {
   const list = await response.json();
   return list;
 };
+
+
+export const fetchTasks = async (list_id) => {
+  const response = await fetch(
+    `https://sophia-be.herokuapp.com/api/v1/clients/2/lists/${list_id}/tasks`
+  );
+  if (!response.ok) {
+    throw new Error("Could not fetch lists");
+  } else {
+    const lists = response.json();
+    return lists;
+  }
+};

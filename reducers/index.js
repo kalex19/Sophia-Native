@@ -6,7 +6,7 @@ import { taskReducer } from './TaskReducer';
 const rootReducer = combineReducers({
   profile: profileReducer,
   lists: listsReducer,
-  items: taskReducer
+  tasks: taskReducer
 })
 
 export default rootReducer;

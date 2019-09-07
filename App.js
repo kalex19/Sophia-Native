@@ -28,8 +28,7 @@ const AppNavigator = createStackNavigator(
     Home: Homescreen,
     Profile: ClientProfile,
     Lists: ClientList,
-    IndividualList: IndividualList,
-    AddListForm: AddListForm
+    IndividualList: IndividualList
   },
   {
     initialRouteName: "Home"
