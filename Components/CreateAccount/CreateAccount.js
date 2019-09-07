@@ -12,11 +12,14 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
 // import { PropTypes } from 'prop-types';
 import { logIn } from '../../actions';
+import { logInClient} from '../../Utils/loginClient';
+import { logInCaretaker} from '../../Utils/loginCaretaker';
 
 const initialState = {
 	user: '',
 	username: '',
 	password: '',
+	password_confirmation: '',
 	name: '',
 	address: '',
 	city: '',
@@ -48,6 +51,7 @@ export class CreateAccount extends Component {
 		const {
 			username,
 			password,
+			password_confirmation,
 			name,
 			address,
 			city,
@@ -64,6 +68,7 @@ export class CreateAccount extends Component {
 		const newClientProfile = {
 			username,
 			password,
+			password_confirmation,
 			name,
 			street_address: address,
 			city,
@@ -80,11 +85,12 @@ export class CreateAccount extends Component {
 	};
 
 	handleCaretakerSubmit = () => {
-		const { username, password, name, email, phone, abilities } = this.state;
+		const { username, password, password_confirmation, name, email, phone, abilities } = this.state;
 
 		const newCaretakerProfile = {
 			username,
 			password,
+			password_confirmation,
 			name,
 			email,
 			phone_number: phone,
@@ -102,7 +108,11 @@ export class CreateAccount extends Component {
 		try {
 			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/clients/', options);
 			const account = await response.json();
-      await this.logInClient(account.username, account.password)
+			// await logInClient(account.username, account.password)
+			// console.log(user)
+			// this.props.logIn(user)
+				this.setState(initialState);
+    	this.props.navigation.navigate('ClientProfile');
 		} catch (error) {
       throw new Error(`failed to post profile: ${error.message}`);
 		}
@@ -118,47 +128,12 @@ export class CreateAccount extends Component {
 		try {
 			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/caretakers/', options);
       const account = await response.json();
-      await this.logInCaretaker(account.username, account.password)
+      await logInCaretaker(account.username, account.password)
 		} catch (error) {
 			throw new Error(`failed to post profile: ${error.message}`);
 		}
   };
   
-  logInClient = async (username, password) => {
-    const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({username, password})
-    };
-    
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-      const user = await response.json();
-      this.props.logIn(user)
-      this.setState(initialState);
-      this.props.navigation.navigate('ClientProfile');
-		} catch (error) {
-			throw new Error(`failed to post profile: ${error.message}`);
-		} 
-  }
-
-  // logInCaretaker = async (username, password) => {
-  //   const options = {
-	// 		method: 'POST',
-	// 		headers: { 'Content-Type': 'application/json' },
-	// 		body: JSON.stringify({username, password})
-  //   };
-    
-	// 	try {
-	// 		const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-  //     const user = await response.json();
-  //     this.props.logIn(user)
-  //     this.setState(initialState);
-  //     this.props.navigation.navigate('CaretakerProfile');
-	// 	} catch (error) {
-	// 		throw new Error(`failed to post profile: ${error.message}`);
-	// 	} 
-  // }
 
 	renderClientInput = () => {
 		return (
@@ -263,8 +238,7 @@ export class CreateAccount extends Component {
 	render () {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-				<ScrollView style={styles.scrollContainer}>
-					<View style={styles.container}>
+					<View>
 						<View style={styles.headerContainer}>
 							<Text style={styles.header} accessibilityLabel="Fill in the inputs to create an account">
 								Create Account
@@ -291,6 +265,7 @@ export class CreateAccount extends Component {
 							</TouchableHighlight>
 						</View>
 						<Text style={styles.text}>Scroll to fill out the form below:</Text>
+						<ScrollView style={styles.scrollContainer}>
 						<TextInput
 							style={styles.input}
 							placeholder="Username"
@@ -301,6 +276,12 @@ export class CreateAccount extends Component {
 							style={styles.input}
 							placeholder="Password"
 							onChangeText={value => this.handleChange('password', value)}
+							placeholderTextColor={theme.primary}
+						/>
+							<TextInput
+							style={styles.input}
+							placeholder="Password"
+							onChangeText={value => this.handleChange('password_confirmation', value)}
 							placeholderTextColor={theme.primary}
 						/>
 						<TextInput
@@ -323,17 +304,11 @@ export class CreateAccount extends Component {
 						/>
 						{this.state.user === 'client' && this.renderClientInput()}
 						{this.state.user === 'caretaker' && this.renderCaretakerInput()}
-						<TextInput
-							style={styles.input}
-							placeholder="Phone"
-							onChangeText={value => this.handleChange('phone', value)}
-							placeholderTextColor={theme.primary}
-						/>
+						</ScrollView>
 						{this.state.user === 'client' ? this.renderClientBtn() : null}
 						{this.state.user === 'caretaker' ? this.renderCaretakerBtn() : null}
 					</View>
-				</ScrollView>
-			</KeyboardAvoidingView>
+				 </KeyboardAvoidingView>
 		);
 	}
 }
@@ -349,12 +324,13 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.accentOne,
 		alignItems: 'center',
 		justifyContent: 'center',
-		height: '100%'
+		height: '100%',
 	},
 	headerContainer: {
 		borderBottomColor: theme.primary,
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 10
+		marginBottom: 10,
+		width: '80%'
 	},
 	header: {
 		fontSize: 30,
@@ -370,7 +346,6 @@ const styles = StyleSheet.create({
 		margin: 5
 	},
 	scrollContainer: {
-		width: '90%',
 		marginTop: 10
 	},
 	button: {
@@ -378,7 +353,8 @@ const styles = StyleSheet.create({
 		fontSize: 35,
 		fontFamily: 'Didot',
 		textAlign: 'center',
-		marginTop: 10
+		marginTop: 10,
+		width: '80%'
 	},
 	text: {
 		fontSize: 25,

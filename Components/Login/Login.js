@@ -16,6 +16,10 @@ import {
 import {
   logIn
 } from '../../actions';
+// import {
+//   logInClient
+// } from "../../Utils/loginClient";
+// import { logInCaretaker} from '../../Utils/loginCaretaker';
 
 const initialState = {
   user: '',
@@ -32,57 +36,20 @@ export class Login extends Component {
     })
   }
 
-  handleClientSubmit = () => {
+  handleClientSubmit = async () => {
     const {
       username,
       password,
       user
     } = this.state
     if (user === 'client') {
-      this.logInClient(username, password)
+      const userId = await logInClient(username, password)
+      return userId
     } else {
-      this.logInCaretaker(username, password)
+      const userId = await logInCaretaker(username, password)
+      return userId
     }
   }
-  //change other functions
-
-  logInClient = async (clientAccount) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(clientAccount)
-    };
-
-    try {
-      const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-      const user = await response.json();
-      this.props.logIn(user)
-      this.setState(initialState);
-      this.props.navigation.navigate('ClientProfile');
-    } catch (error) {
-      throw new Error(`failed to log into account: ${error.message}`);
-    }
-  }
-
-  // logInCaretaker = async (caretakerAccount) => {
-  //   const options = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(caretakerAccount)
-  //   };
-
-  //   try {
-  //     const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-  //     const user = await response.json();
-  //     this.props.logIn(user)
-  //     this.setState(initialState);
-  //     this.props.navigation.navigate('CaretakerProfile');
-  //   } catch (error) {
-  //     throw new Error(`failed to log into account: ${error.message}`);
-  //   } 
-  // }
 
   render() {
     return ( <
@@ -96,8 +63,8 @@ export class Login extends Component {
       <
       Text style = {
         styles.header
-      } > Log In < /Text> <
-      /View> <
+      } > Log In < /Text> < /
+      View > <
       View style = {
         styles.routes
       } >
@@ -118,8 +85,8 @@ export class Login extends Component {
       <
       Text style = {
         styles.button
-      } > I 'm a Client</Text> <
-      /TouchableHighlight> <
+      } > I 'm a Client</Text> < /
+      TouchableHighlight > <
       /View> <
       View style = {
         styles.routes
@@ -141,8 +108,8 @@ export class Login extends Component {
       <
       Text style = {
         styles.button
-      } > I 'm a Caretaker</Text> <
-      /TouchableHighlight> <
+      } > I 'm a Caretaker</Text> < /
+      TouchableHighlight > <
       /View> <
       TextInput style = {
         styles.input
@@ -180,10 +147,10 @@ export class Login extends Component {
       <
       Text style = {
         styles.button
-      } > Log In < /Text> <
-      /TouchableHighlight> <
-      /View> <
-      /View>
+      } > Log In < /Text> < /
+      TouchableHighlight > <
+      /View> < /
+      View >
     );
   }
 }

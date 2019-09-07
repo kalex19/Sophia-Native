@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 
-class AddListForm extends Component {
+class TaskForm extends Component {
   state = {
     list_title_input: "",
     item_input: "",
@@ -51,7 +51,7 @@ class AddListForm extends Component {
   }
 }
 
-export default AddListForm;
+export default TaskForm;
 
 const styles = StyleSheet.create({
   list: {

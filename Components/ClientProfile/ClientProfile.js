@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { PinchZoomView } from 'react-native-pinch-zoom-view';
+import { connect } from 'react-redux';
 
-class ClientProfile extends ( Component ) {
+export class ClientProfile extends Component {
   state = {}
 
   render() {
     // let client = this.props.navigation.state.params
+    // console.log(client)
+    // console.log('state', this.props.user)
     // let allMedications = client.medications.map(med => {
     //   return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
-    // })
+    //  })
     // let allAllergies = client.allergies.map(allergy => {
     //   return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
     // })
@@ -21,9 +24,9 @@ class ClientProfile extends ( Component ) {
       <View style={styles.headerCntainer}>
           <Text style={styles.header}>Client Profile</Text>
         </View>
-      {/* <ScrollView style={styles.profileContainer}>
+      <ScrollView style={styles.profileContainer}>
         
-        <Text style={styles.clientInfo}>Username: {client.username}</Text>
+        {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
         <Text style={styles.clientInfo}>City: {client.city}</Text>
@@ -43,14 +46,18 @@ class ClientProfile extends ( Component ) {
         <View style={styles.infoCntainer}>
           <Text style={styles.clientInfoList}>Medications:</Text>
            {allMedications}
-        </View>
-      </ScrollView> */}
+        </View> */}
+      </ScrollView>
       </View>
     )
   }
 }
 
-export default ClientProfile;
+const mapStateToProps = state => ({
+ user: state.user
+});
+
+export default connect(mapStateToProps)(ClientProfile);
 
 const styles = StyleSheet.create({
   profileContainer: {
