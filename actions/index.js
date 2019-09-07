@@ -8,16 +8,6 @@ export const loadLists = lists => ({
   lists
 })
 
-export const addList = newList => ({
-  type: "ADD_LIST",
-  newList
-})
-
-export const deleteList = listId => ({
-  type: "DELETE_LIST",
-  listId
-})
-
 export const editList = (nameToChange, listId) => ({
   type: "EDIT_LIST",
   nameToChange,

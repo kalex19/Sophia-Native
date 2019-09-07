@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { addList, loadLists, editList } from "../../actions";
+import { loadLists, editList } from "../../actions";
 import { fetchLists, postList, deleteList } from '../../apiCalls';
 
 class ClientList extends Component {
@@ -14,7 +14,7 @@ class ClientList extends Component {
   };
 
   componentDidMount = async () => {
-    this.returnUpdatedList()
+    await this.returnUpdatedList()
   }
 
   returnUpdatedList = async () => {
@@ -214,7 +214,6 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   loadLists: lists => dispatch(loadLists(lists)),
-  addList: newList => dispatch(addList(newList)),
   editList: (nameToChange, listId) => dispatch(editList(nameToChange, listId))
 });
 
