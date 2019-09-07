@@ -48,6 +48,7 @@ class ClientList extends Component {
 
   eraseList = async listId => {
     await deleteList(listId);
+    await console.log("WHAT")
     this.returnUpdatedList();
   };
 
@@ -61,18 +62,10 @@ class ClientList extends Component {
 
   render() {
     const { lists } = this.props;
-    const { navigation } = this.props
+    const { navigation } = this.props;
     const allLists = lists.map(list => {
       return (
         <View style={styles.lists} key={list.id}>
-          <TouchableHighlight
-            underlayColor="black"
-            accessibilityLabel="Tap me to open form and edit your list name."
-            accessible={true}
-            onPress={() => this.toggleEditName()}
-          >
-            <Text style={styles.listItem}>Edit Name</Text>
-          </TouchableHighlight>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
@@ -81,7 +74,9 @@ class ClientList extends Component {
           {!this.state.displayEdit && (
             <Text
               style={styles.listName}
-              onPress={() => {navigation.navigate("IndividualList", list)}}
+              onPress={() => {
+                navigation.navigate("IndividualList", list);
+              }}
             >
               {list.name}
             </Text>
@@ -104,8 +99,18 @@ class ClientList extends Component {
               </TouchableHighlight>
             </View>
           )}
-          <View>
-            <Button title="X" onPress={() => this.eraseList(list)} />
+          <View style={styles.vertically}>
+            <TouchableHighlight
+              underlayColor="black"
+              accessibilityLabel="Tap me to open form and edit your list name."
+              accessible={true}
+              onPress={() => this.toggleEditName()}
+            >
+              <Text style={styles.editItem}>Edit Name</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.eraseList(list.id)}>
+              <Text style={styles.editItem}>Delete</Text>
+            </TouchableHighlight>
           </View>
         </View>
       );
@@ -172,6 +177,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   lists: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "maroon",
     alignItems: "center",
     margin: 10,
@@ -202,6 +209,14 @@ const styles = StyleSheet.create({
   listItem: {
     fontSize: 25,
     color: "white"
+  },
+  editItem: {
+    fontSize: 20,
+    color: "white"
+  },
+  vertically: {
+    flexDirection: "column",
+    alignItems: "center"
   }
 });
 
