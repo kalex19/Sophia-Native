@@ -1,9 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-// import { connect } from 'react-redux';
+import { fetchLists } from "../../apiCalls";
+import { connect } from "react-redux";
+import { loadLists } from "../../actions";
 
-const Homescreen = (props) => {
+class Homescreen extends Component {
+  // uploadLists = () => {
+  //   const lists = fetchLists()
+  //   this.props.loadLists(lists)
+  //   console.log('GOGOGOG', lists)
+  //   // this.props.navigation.navigate("Lists", this.props.lists)
+  // }
+
+  render() {
+    const { lists } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -23,7 +34,11 @@ const Homescreen = (props) => {
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             nextFocusDown="20"
             accessible={true}
-            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            onPress={() =>
+              this.props.navigation.navigate(
+                "Profile",
+                this.props.profile.profile
+              )
             }
           >
             <Text style={styles.button}>My Account</Text>
@@ -34,14 +49,14 @@ const Homescreen = (props) => {
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() => props.navigation.navigate("Lists", props.lists)
-            }
+            onPress={() => this.props.navigation.navigate("Lists", lists)}
           >
             <Text style={styles.button}>My Todo Lists</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -83,10 +98,18 @@ const styles = StyleSheet.create({
   }
 });
 
-// export const mapStateToProps = state => ({
-//   profile: state.profile
-// })
+export const mapStateToProps = state => ({
+  profile: state.profile,
+  lists: state.lists
+});
 
-// export default connect(mapStateToProps)(Homescreen)
+export const mapDispatchToProps = dispatch => ({
+  loadLists: lists => dispatch(loadLists(lists))
+});
 
-export default Homescreen
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Homescreen);
+
+// export default Homescreen

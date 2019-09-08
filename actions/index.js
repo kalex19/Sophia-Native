@@ -8,7 +8,7 @@ export const loadLists = lists => ({
   lists
 })
 
-export const addList = newList => ({
-  type: "ADD_LIST",
-  newList
+export const loadTasks = tasks => ({
+  type: "LOAD_TASKS",
+  tasks
 })

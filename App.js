@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 const store = createStore(rootReducer);
 
 class App extends Component {
+
   render() { 
     return (
       <Provider store={store}>
@@ -27,8 +28,7 @@ const AppNavigator = createStackNavigator(
     Home: Homescreen,
     Profile: ClientProfile,
     Lists: ClientList,
-    IndividualList: IndividualList,
-    AddListForm: AddListForm
+    IndividualList: IndividualList
   },
   {
     initialRouteName: "Home"
