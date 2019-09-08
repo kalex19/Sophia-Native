@@ -7,7 +7,7 @@ import { fetchLists, postList, deleteList, patchList } from "../../apiCalls";
 
 class ClientList extends Component {
   state = {
-    addList: false,
+    displayEdit: "",
     list_title: "",
     list_edit_input: ""
   };
@@ -21,8 +21,8 @@ class ClientList extends Component {
     this.props.loadLists(lists);
   };
 
-  toggleEditName = () => {
-    this.setState({ displayEdit: !this.state.displayEdit });
+  toggleEditName = (list_id) => {
+    this.setState({ displayEdit: list_id });
   };
 
   handleChange = input => {
@@ -66,7 +66,7 @@ class ClientList extends Component {
             accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
             accessible={true}
           ></TouchableHighlight>
-          {!this.state.displayEdit && (
+          {this.state.displayEdit !== list.id && (
             <Text
               style={styles.listName}
               onPress={() => {
@@ -76,7 +76,7 @@ class ClientList extends Component {
               {list.name}
             </Text>
           )}
-          {this.state.displayEdit && (
+          {this.state.displayEdit === list.id && (
             <View style={styles.align}>
               <TextInput
                 style={styles.input}
@@ -99,7 +99,7 @@ class ClientList extends Component {
               underlayColor="black"
               accessibilityLabel="Tap me to open form and edit your list name."
               accessible={true}
-              onPress={() => this.toggleEditName()}
+              onPress={() => this.toggleEditName(list.id)}
             >
               <Text style={styles.editItem}>✏️</Text>
             </TouchableHighlight>
@@ -127,9 +127,8 @@ class ClientList extends Component {
               accessibilityLabel="Tap me to submit the title of your list."
               accessible={true}
               onPress={() => this.handleSubmit()}
-              style={styles.addListContainer}
             >
-              <Text style={styles.plus}> + ADD LIST </Text>
+              <Text style={styles.plus}> + </Text>
             </TouchableHighlight>
           </View>
         {/* )} */}
@@ -153,10 +152,13 @@ const styles = StyleSheet.create({
   },
   addListContainer: {
     backgroundColor: "maroon",
+    flexDirection: "row",
     alignItems: "center",
     margin: 10,
-    padding: 10,
-    justifyContent: "center"
+    padding: 5,
+    paddingTop: 0,
+    paddingBottom: 0,
+    justifyContent: "space-between"
   },
   lists: {
     flexDirection: "row",
@@ -164,6 +166,8 @@ const styles = StyleSheet.create({
     backgroundColor: "maroon",
     alignItems: "center",
     margin: 10,
+    marginBottom: 1,
+    marginTop: 1,
     padding: 10
   },
   listName: {
@@ -177,7 +181,8 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     backgroundColor: "white",
-    width: "85%"
+    width: "85%",
+    fontFamily: "Didot",
   },
   align: {
     flexDirection: "row",
@@ -188,9 +193,8 @@ const styles = StyleSheet.create({
     borderColor: "white"
   },
   plus: {
-    fontSize: 20,
-    color: "white",
-    fontFamily: "Didot",
+    fontSize: 50,
+    color: "white"
   },
   listItem: {
     fontSize: 25,
