@@ -16,10 +16,10 @@ import {
 import {
   logIn
 } from '../../actions';
-// import {
-//   logInClient
-// } from "../../Utils/loginClient";
-// import { logInCaretaker} from '../../Utils/loginCaretaker';
+import 
+  logInClient from "../../Utils/loginClient";
+import 
+  logInCaretaker from '../../Utils/loginCaretaker';
 
 const initialState = {
   user: '',
@@ -36,7 +36,7 @@ export class Login extends Component {
     })
   }
 
-  handleClientSubmit = async () => {
+  handleSubmit = async () => {
     const {
       username,
       password,
@@ -52,24 +52,18 @@ export class Login extends Component {
   }
 
   render() {
-    return ( <
-      View style = {
+    return ( < View style = {
         styles.container
       } >
-      <
-      View style = {
+      <View style = {
         styles.headerContainer
       } >
-      <
-      Text style = {
+      <Text style = {
         styles.header
-      } > Log In < /Text> < /
-      View > <
-      View style = {
+      } > Log In </Text> </View > <View style = {
         styles.routes
       } >
-      <
-      TouchableHighlight underlayColor = "black"
+      <TouchableHighlight underlayColor = "black"
       accessibilityLabel = "Tap me to log in to your client account."
       accessible = {
         true
@@ -82,17 +76,12 @@ export class Login extends Component {
       style = {
         styles.touchExpander
       } >
-      <
-      Text style = {
+      <Text style = {
         styles.button
-      } > I 'm a Client</Text> < /
-      TouchableHighlight > <
-      /View> <
-      View style = {
+      } > I 'm a Client</Text> </TouchableHighlight > </View> <View style = {
         styles.routes
       } >
-      <
-      TouchableHighlight underlayColor = "black"
+      <TouchableHighlight underlayColor = "black"
       accessibilityLabel = "Tap me to log in to your caretaker account."
       accessible = {
         true
@@ -105,13 +94,9 @@ export class Login extends Component {
       style = {
         styles.touchExpander
       } >
-      <
-      Text style = {
+      <Text style = {
         styles.button
-      } > I 'm a Caretaker</Text> < /
-      TouchableHighlight > <
-      /View> <
-      TextInput style = {
+      } > I 'm a Caretaker</Text> </TouchableHighlight > </View> <TextInput style = {
         styles.input
       }
       placeholder = "Username"
@@ -119,8 +104,7 @@ export class Login extends Component {
         value => this.handleChange('username', value)
       }
       placeholderTextColor = "maroon" / >
-      <
-      TextInput style = {
+      <TextInput style = {
         styles.input
       }
       placeholder = "Password"
@@ -128,29 +112,21 @@ export class Login extends Component {
         value => this.handleChange('password', value)
       }
       placeholderTextColor = "maroon" / >
-      <
-      View style = {
+      <View style = {
         styles.routes
       } >
-      <
-      TouchableHighlight underlayColor = "black"
+      <TouchableHighlight underlayColor = "black"
       accessibilityLabel = "Tap me to log in to your account."
       accessible = {
         true
       }
-      onPress = {
-        this.state.user === 'client' ? this.handleClientSubmit() : this.handleCaretakerSubmit()
-      }
+      onPress = {this.handleSubmit}
       style = {
         styles.touchExpander
       } >
-      <
-      Text style = {
+      <Text style = {
         styles.button
-      } > Log In < /Text> < /
-      TouchableHighlight > <
-      /View> < /
-      View >
+      }> Log In </Text> </TouchableHighlight > </View> </View >
     );
   }
 }
