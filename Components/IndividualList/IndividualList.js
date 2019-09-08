@@ -7,11 +7,10 @@ import { fetchTasks, postTask, patchTask, deleteTask } from "../../apiCalls";
 
 class IndividualList extends Component {
   state = {
-    addingTask: false,
     task_input: "",
     description_input: "",
     due_date: "",
-    displayEdit: false,
+    displayEdit: "",
     task_edit_input: ""
   };
 
@@ -34,12 +33,8 @@ class IndividualList extends Component {
     this.props.loadTasks(cleanedTasks);
   };
 
-  toggleEditName = () => {
-    this.setState({ displayEdit: !this.state.displayEdit });
-  };
-
-  toggleAddTask = () => {
-    this.setState({ addingTask: !this.state.addingTask });
+  toggleEditName = (task_id) => {
+    this.setState({ displayEdit: task_id });
   };
 
   handleChangeTask = input => {
@@ -98,14 +93,14 @@ class IndividualList extends Component {
       return (
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
-            {!this.state.displayEdit && (
+            {this.state.displayEdit !== task.id && (
               <View style={styles.taskNoteDue}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
               {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
               {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
               </View>
             )}
-            {this.state.displayEdit && (
+            {this.state.displayEdit === task.id && (
               <View style={styles.alignEdit}>
                 <TextInput
                   style={styles.inputEdit}
@@ -128,7 +123,7 @@ class IndividualList extends Component {
                 underlayColor="black"
                 accessibilityLabel="Tap me to open form and edit your list name."
                 accessible={true}
-                onPress={() => this.toggleEditName()}
+                onPress={() => this.toggleEditName(task.id)}
               >
                 <Text style={styles.editItem}>✏️</Text>
                 {/* <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text> */}
