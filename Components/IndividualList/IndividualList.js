@@ -22,8 +22,16 @@ class IndividualList extends Component {
   returnUpdatedTask = async () => {
     const list_id = this.props.navigation.state.params.id;
     const tasks = await fetchTasks(list_id);
-    console.log(tasks)
-    this.props.loadTasks(tasks);
+    const cleanedTasks = tasks.map(task => {
+      return {
+        id: task.id,
+        name: task.name,
+        description: task.description,
+        list_id: task.list_id,
+        due_date: task.due_date
+      }
+    })
+    this.props.loadTasks(cleanedTasks);
   };
 
   toggleEditName = () => {
@@ -91,10 +99,10 @@ class IndividualList extends Component {
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
             {!this.state.displayEdit && (
-              <View>
+              <View style={styles.taskNoteDue}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
-              <Text style={styles.listItemHeader}>notes: {task.description}</Text>
-              <Text style={styles.listItemHeader}>due: {task.due_date}</Text>
+              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
+              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
               </View>
             )}
             {this.state.displayEdit && (
@@ -214,13 +222,20 @@ const styles = StyleSheet.create({
   },
   listItemHeader: {
     textAlign: "center",
+    fontSize: 40,
+    color: "white",
+    fontFamily: "Didot",
+    width: "85%"
+  },
+  listItemSecond: {
+    textAlign: "center",
     fontSize: 20,
     color: "white",
     fontFamily: "Didot",
     width: "85%"
   },
   listItem: {
-    fontSize: 25,
+    fontSize: 40,
     color: "white",
     padding: 8,
     paddingLeft: 12
@@ -293,5 +308,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     fontSize: 38,
     fontFamily: "Didot"
+  },
+  taskNoteDue: {
+    width: '85%'
   }
 });
