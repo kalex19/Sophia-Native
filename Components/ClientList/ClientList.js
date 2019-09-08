@@ -9,7 +9,6 @@ class ClientList extends Component {
   state = {
     addList: false,
     list_title: "",
-    displayEdit: false,
     list_edit_input: ""
   };
 
@@ -20,10 +19,6 @@ class ClientList extends Component {
   returnUpdatedList = async () => {
     const lists = await fetchLists();
     this.props.loadLists(lists);
-  };
-
-  toggleAddList = () => {
-    this.setState({ addList: !this.state.addList });
   };
 
   toggleEditName = () => {
@@ -82,10 +77,10 @@ class ClientList extends Component {
             </Text>
           )}
           {this.state.displayEdit && (
-            <View>
+            <View style={styles.align}>
               <TextInput
                 style={styles.input}
-                placeholder="Edit list"
+                placeholder="New name"
                 value={this.state.list_edit_input}
                 onChangeText={this.handleEditList}
               ></TextInput>
@@ -95,7 +90,7 @@ class ClientList extends Component {
                 accessible={true}
                 onPress={() => this.handleSubmitEdit(list.id)}
               >
-                <Text style={styles.listItem}>Edit</Text>
+                <Text style={styles.listItem}>✔︎</Text>
               </TouchableHighlight>
             </View>
           )}
@@ -106,32 +101,21 @@ class ClientList extends Component {
               accessible={true}
               onPress={() => this.toggleEditName()}
             >
-              <Text style={styles.editItem}>Edit Name</Text>
+              <Text style={styles.editItem}>✏️</Text>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => this.eraseList(list.id)}>
-              <Text style={styles.editItem}>Delete</Text>
+              <Text style={styles.editItem}>DEL</Text>
             </TouchableHighlight>
           </View>
         </View>
       );
-    });
+    }).reverse();
     return (
       <View>
-        <View style={styles.headerContainer}>
+      <View style={styles.headerContainer}>
           <Text style={styles.header}>My Todo Lists</Text>
         </View>
-        <View>{allLists}</View>
-        <TouchableHighlight
-          underlayColor="black"
-          accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
-          accessible={true}
-          onPress={this.toggleAddList}
-          style={styles.addListContainer}
-        >
-          <Text style={styles.listName}> + ADD NEW LIST </Text>
-        </TouchableHighlight>
-        {this.state.addList && (
-          <View style={styles.align}>
+          <View style={styles.addListContainer}>
             <TextInput
               style={styles.input}
               placeholder="List name"
@@ -145,10 +129,11 @@ class ClientList extends Component {
               onPress={() => this.handleSubmit()}
               style={styles.addListContainer}
             >
-              <Text style={styles.plus}> + </Text>
+              <Text style={styles.plus}> + ADD LIST </Text>
             </TouchableHighlight>
           </View>
-        )}
+        {/* )} */}
+        <View>{allLists}</View>
       </View>
     );
   }
@@ -169,11 +154,8 @@ const styles = StyleSheet.create({
   addListContainer: {
     backgroundColor: "maroon",
     alignItems: "center",
-    marginRight: 30,
-    marginLeft: 30,
-    padding: 20,
-    borderRadius: 40,
-    width: "80%",
+    margin: 10,
+    padding: 10,
     justifyContent: "center"
   },
   lists: {
@@ -182,37 +164,43 @@ const styles = StyleSheet.create({
     backgroundColor: "maroon",
     alignItems: "center",
     margin: 10,
-    padding: 20
+    padding: 10
   },
   listName: {
     color: "white",
-    fontSize: 20,
+    fontSize: 40,
     fontFamily: "Didot"
   },
   input: {
-    height: 70,
     borderColor: "gray",
     borderWidth: 1,
-    margin: 10,
     fontSize: 40,
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: "white",
+    width: "85%"
   },
   align: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "70%",
+    borderWidth: 1,
+    borderColor: "white"
   },
   plus: {
-    fontSize: 30,
-    color: "white"
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Didot",
   },
   listItem: {
     fontSize: 25,
-    color: "white"
+    color: "white",
+    padding: 5
   },
   editItem: {
-    fontSize: 20,
-    color: "white"
+    fontSize: 15,
+    color: "white",
+    fontFamily: "Didot",
   },
   vertically: {
     flexDirection: "column",
