@@ -131,7 +131,6 @@ class ClientList extends Component {
               <Text style={styles.plus}> + </Text>
             </TouchableHighlight>
           </View>
-        {/* )} */}
         <View>{allLists}</View>
       </View>
     );
@@ -188,7 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "70%",
+    // width: "85%",
     borderWidth: 1,
     borderColor: "white"
   },
