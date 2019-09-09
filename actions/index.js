@@ -22,11 +22,6 @@ export const logOut = () => ({
   type:'LOG_OUT'
 })
 
-
-
-
-//may need to have log in and log out for clients and caretakers 
-
 // export const isLoading = (bool) => ({
 //       type: 'IS_LOADING',
 //       isLoading: bool
@@ -38,3 +33,8 @@ export const logOut = () => ({
 //   })
 
 //get to these later, if time.
+
+export const loadTasks = tasks => ({
+  type: "LOAD_TASKS",
+  tasks
+})

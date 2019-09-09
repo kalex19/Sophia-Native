@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from 'react-redux';
+import { fetchLists } from "../../apiCalls";
+import { connect } from "react-redux";
+import { loadLists } from "../../actions";
 
 export class UserHomeScreen extends Component {
-  render(){
+  render() {
+    const { lists } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -90,4 +94,16 @@ const styles = StyleSheet.create({
   }
 });
 
+export const mapStateToProps = state => ({
+ user: state.user,
+  lists: state.lists
+});
 
+export const mapDispatchToProps = dispatch => ({
+  loadLists: lists => dispatch(loadLists(lists))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserHomescreen);

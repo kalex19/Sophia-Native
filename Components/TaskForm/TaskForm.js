@@ -3,26 +3,15 @@ import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 
 class TaskForm extends Component {
   state = {
-    list_title_input: "",
     item_input: "",
     note_input: "",
-    due_date: ""
+    due_date: "",
+    completed: false
   };
 
   render() {
     return (
       <View style={styles.list}>
-        <View style={styles.box}>
-          <TextInput
-            style={styles.input}
-            placeholder="Title of List"
-            onChangeText={textInput =>
-              this.setState({ list_title_input: textInput })
-            }
-            value={this.state.list_title_input}
-          ></TextInput>
-          <Button title="+ Add a Title to the List" />
-        </View>
         <View style={styles.box}>
           <TextInput
             style={styles.input}
