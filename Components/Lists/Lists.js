@@ -17,7 +17,8 @@ class Lists extends Component {
   };
 
   returnUpdatedList = async () => {
-    const lists = await fetchLists();
+    let userId = this.props.navigation.state.params
+    const lists = await fetchLists(userId);
     this.props.loadLists(lists);
   };
 
@@ -35,30 +36,35 @@ class Lists extends Component {
 
   handleSubmit = async newList => {
     const { list_title } = this.state;
+    let userId = this.props.navigation.state.params
     newList = { name: list_title };
-    await postList(newList);
+    await postList(newList, userId);
     await this.returnUpdatedList();
     this.setState({ list_title: "" });
   };
 
   eraseList = async listId => {
-    await deleteList(listId);
-    await console.log("WHAT")
+    let userId = this.props.navigation.state.params
+    await deleteList(userId, listId);
     this.returnUpdatedList();
   };
 
   handleSubmitEdit = async listId => {
     const { list_edit_input } = this.state;
+    let userId = this.props.navigation.state.params
     const modifiedList = { name: list_edit_input };
-    await patchList(modifiedList, listId);
+    await patchList(modifiedList, listId, userId);
     this.returnUpdatedList();
     this.setState({ list_edit_input: "", displayEdit: false });
   };
 
   render() {
+    let userId = this.props.navigation.state.params
     const { lists } = this.props;
     const { navigation } = this.props;
     const allLists = lists.map(list => {
+      list = { ...list, client_id: userId }
+      console.log("LIST NAME", list.name)
       return (
         <View style={styles.lists} key={list.id}>
           <TouchableHighlight

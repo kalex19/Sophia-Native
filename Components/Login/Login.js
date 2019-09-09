@@ -21,11 +21,30 @@ export class Login extends Component {
 	};
 
 	handleSubmit = async () => {
-    const { username, password, user } = this.state;
-    const user = await logInUser(username, password);
-    this.props.logIn(user)
-    this.props.navigate('UserHomeScreen', user)
-    this.setState({initialState})
+		const { username, password } = this.state;
+		const user = await this.logInUser(username, password);
+		this.props.logIn(user)
+		this.setState({
+			accountType: '',
+			username: '',
+			password: ''
+		})
+		this.props.navigation.navigate('User', this.props.userAccount)
+	}
+
+	logInUser = async (username, password) => {
+		const options = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({username, password})
+		};
+		try {
+			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
+			const user = await response.json();
+			return user
+		} catch (error) {
+			throw new Error(`failed to post profile: ${error.message}`);
+		} 
 	}
 
 	render () {
@@ -61,11 +80,15 @@ export class Login extends Component {
 	}
 }
 
+const mapStateToProps = state => ({
+	userAccount: state.userAccount
+})
+
 const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
 	container: {

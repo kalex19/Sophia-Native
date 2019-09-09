@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { PinchZoomView } from 'react-native-pinch-zoom-view';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { PinchZoomView } from "react-native-pinch-zoom-view";
+import { connect } from "react-redux";
+import { fetchProfile } from '../../Utils/apiCalls';
 
 export class Profile extends Component {
-  state = {}
+  state = {};
+
+  componentDidMount = async () => {
+    const profile = await fetchProfile(this.props.navigation.state.params)
+    this.props.loadProfile(profile)
+  }
 
   render() {
     // let client = this.props.navigation.state.params
@@ -21,11 +27,11 @@ export class Profile extends Component {
     // })
     return (
       <View>
-      <View style={styles.headerCntainer}>
+        <View style={styles.headerCntainer}>
           <Text style={styles.header}>Client Profile</Text>
         </View>
-      <ScrollView style={styles.profileContainer}>
-        {/* <View style={styles.routes}>
+        <ScrollView style={styles.profileContainer}>
+          {/* <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
@@ -37,7 +43,7 @@ export class Profile extends Component {
             <Text style={styles.button}>Log Out</Text>
           </TouchableHighlight>
         </View> */}
-        {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
+          {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
         <Text style={styles.clientInfo}>City: {client.city}</Text>
@@ -58,50 +64,54 @@ export class Profile extends Component {
           <Text style={styles.clientInfoList}>Medications:</Text>
            {allMedications}
         </View> */}
-      </ScrollView>
+        </ScrollView>
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
- user: state.user
+  profile: state.profile
 });
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = dispatch => ({
+  loadProfile: profile => dispatch(loadProfile(profile))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 const styles = StyleSheet.create({
   profileContainer: {
-    margin: 30,
+    margin: 30
   },
   headerCntainer: {
-    borderBottomColor: 'maroon',
+    borderBottomColor: "maroon",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   header: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 30,
-    fontFamily: 'Didot',
+    fontFamily: "Didot"
   },
   clientInfo: {
     fontSize: 20,
-    fontFamily: 'Didot',
+    fontFamily: "Didot",
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: 'maroon',
-    color: 'white',
-    padding: 20,
+    backgroundColor: "maroon",
+    color: "white",
+    padding: 20
   },
   infoCntainer: {
-    backgroundColor: 'maroon',
+    backgroundColor: "maroon",
     marginTop: 10,
     marginBottom: 10,
-    padding: 10,
+    padding: 10
   },
   clientInfoList: {
     fontSize: 20,
-    fontFamily: 'Didot',
-    color: 'white',
+    fontFamily: "Didot",
+    color: "white"
   }
-})
+});
