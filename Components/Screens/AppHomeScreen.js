@@ -1,20 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-import { fetchLists } from "../../apiCalls";
-import { connect } from "react-redux";
-import { loadLists } from "../../actions";
 
-class Homescreen extends Component {
-  // uploadLists = () => {
-  //   const lists = fetchLists()
-  //   this.props.loadLists(lists)
-  //   console.log('GOGOGOG', lists)
-  //   // this.props.navigation.navigate("Lists", this.props.lists)
-  // }
-
-  render() {
-    const { lists } = this.props;
+const AppHomeScreen = (props) => {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -25,38 +13,30 @@ class Homescreen extends Component {
             SOPHIA
           </Text>
         </View>
-        {/* <Text style={styles.greeting}>
-          Welcome Back {props.profile.profile.username}!
-        </Text> */}
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
-            nextFocusDown="20"
+            accessibilityLabel="Tap to log in to your account"
             accessible={true}
-            onPress={() =>
-              this.props.navigation.navigate(
-                "Profile",
-                this.props.profile.profile
-              )
+            onPress={() => props.navigation.navigate("Login")
             }
           >
-            <Text style={styles.button}>My Account</Text>
+            <Text style={styles.button}>Log In</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
+            accessibilityLabel="Tap me to create your account."
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Lists", lists)}
+            onPress={() => props.navigation.navigate("CreateAccount")
+            }
           >
-            <Text style={styles.button}>My Todo Lists</Text>
+            <Text style={styles.button}>Create Account</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -82,7 +62,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   container: {
-    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -98,18 +77,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export const mapStateToProps = state => ({
-  profile: state.profile,
-  lists: state.lists
-});
-
-export const mapDispatchToProps = dispatch => ({
-  loadLists: lists => dispatch(loadLists(lists))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Homescreen);
-
-// export default Homescreen
+export default AppHomeScreen

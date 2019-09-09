@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import ClientProfile from "./Components/ClientProfile/ClientProfile";
-import ClientList from "./Components/ClientList/ClientList";
-import AddListForm from "./Components/AddListForm/AddListForm";
+import Profile from "./Components/Profile/Profile";
+import Lists from "./Components/Lists/Lists";
+import TaskForm from "./Components/TaskForm/TaskForm";
 import IndividualList from "./Components/IndividualList/IndividualList";
-import Homescreen from "./Components/Screens/Homescreen";
+import UserHomeScreen from './Components/Screens/UserHomeScreen';
+import AppHomeScreen from './Components/Screens/AppHomeScreen';
+import Login from './Components/Login/Login';
+import CreateAccount from './Components/CreateAccount/CreateAccount';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createStore } from 'redux';
@@ -25,10 +28,14 @@ class App extends Component {
 
 const AppNavigator = createStackNavigator(
   {
-    Home: Homescreen,
-    Profile: ClientProfile,
-    Lists: ClientList,
-    IndividualList: IndividualList
+    Home: AppHomeScreen,
+    Login: Login,
+    CreateAccount: CreateAccount,
+    User: UserHomeScreen,
+    Profile: Profile,
+    Lists: Lists,
+    IndividualList: IndividualList,
+    TaskForm: TaskForm
   },
   {
     initialRouteName: "Home"

@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateAcount from './CreateAccount';
+import {CreateAccount} from './CreateAccount';
 import renderer from 'react-test-renderer';
 import 'react-native';
 

@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { PinchZoomView } from 'react-native-pinch-zoom-view';
+import { connect } from 'react-redux';
 
-class ClientProfile extends ( Component ) {
+export class Profile extends Component {
   state = {}
 
   render() {
-    let client = this.props.navigation.state.params
-    let allMedications = client.medications.map(med => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
-    })
-    let allAllergies = client.allergies.map(allergy => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
-    })
-    let allRestrictions = client.dietary_restrictions.map(restr => {
-      return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
-    })
+    // let client = this.props.navigation.state.params
+    // console.log(client)
+    // console.log('state', this.props.user)
+    // let allMedications = client.medications.map(med => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
+    //  })
+    // let allAllergies = client.allergies.map(allergy => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
+    // })
+    // let allRestrictions = client.dietary_restrictions.map(restr => {
+    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
+    // })
     return (
-      <ScrollView style={styles.profileContainer}>
-        <View style={styles.headerCntainer}>
+      <View>
+      <View style={styles.headerCntainer}>
           <Text style={styles.header}>Client Profile</Text>
         </View>
-        <Text style={styles.clientInfo}>Username: {client.username}</Text>
+      <ScrollView style={styles.profileContainer}>
+        {/* <View style={styles.routes}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            nextFocusDown="20"
+            accessible={true}
+            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            }
+          >
+            <Text style={styles.button}>Log Out</Text>
+          </TouchableHighlight>
+        </View> */}
+        {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
         <Text style={styles.clientInfo}>City: {client.city}</Text>
@@ -41,13 +57,18 @@ class ClientProfile extends ( Component ) {
         <View style={styles.infoCntainer}>
           <Text style={styles.clientInfoList}>Medications:</Text>
            {allMedications}
-        </View>
+        </View> */}
       </ScrollView>
+      </View>
     )
   }
 }
 
-export default ClientProfile;
+const mapStateToProps = state => ({
+ user: state.user
+});
+
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   profileContainer: {

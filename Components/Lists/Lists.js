@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadLists } from "../../actions";
-import { fetchLists, postList, deleteList, patchList } from "../../apiCalls";
+import { fetchLists, postList, deleteList, patchList } from "../../Utils/apiCalls";
 
-class ClientList extends Component {
+class Lists extends Component {
   state = {
     displayEdit: "",
     list_title: "",
@@ -219,7 +219,4 @@ export const mapDispatchToProps = dispatch => ({
   loadLists: lists => dispatch(loadLists(lists))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClientList);
+export default connect(mapStateToProps, mapDispatchToProps)(Lists)
