@@ -19,8 +19,9 @@ class IndividualList extends Component {
   };
 
   returnUpdatedTask = async () => {
+    const clientId = this.props.navigation.state.params.client_id
     const list_id = this.props.navigation.state.params.id;
-    const tasks = await fetchTasks(list_id);
+    const tasks = await fetchTasks(list_id, clientId);
     const cleanedTasks = tasks.map(task => {
       return {
         id: task.id,
@@ -55,9 +56,10 @@ class IndividualList extends Component {
 
   handleSubmitEdit = async taskId => {
     const list_id = this.props.navigation.state.params.id;
+    const clientId = this.props.navigation.state.params.client_id
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
-    await patchTask(modifiedTask, list_id, taskId);
+    await patchTask(modifiedTask, list_id, taskId, clientId);
     await this.returnUpdatedTask();
     this.setState({ task_edit_input: "", displayEdit: false });
   };
@@ -65,24 +67,27 @@ class IndividualList extends Component {
   handleSubmit = async newTask => {
     const list_id = this.props.navigation.state.params.id;
     const { task_input, description_input, due_date } = this.state;
+    const clientId = this.props.navigation.state.params.client_id
     newTask = {
       name: task_input,
       description: description_input,
       due_date: due_date
     };
-    await postTask(newTask, list_id);
+    await postTask(newTask, list_id, clientId);
     await this.returnUpdatedTask();
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
   eraseTask = async taskId => {
+    const clientId = this.props.navigation.state.params.client_id
     const list_id = this.props.navigation.state.params.id;
-    await deleteTask(list_id, taskId);
+    await deleteTask(list_id, taskId, clientId);
     this.returnUpdatedTask();
   };
 
   render() {
     const list = this.props.navigation.state.params;
+    console.log(list)
     const { tasks } = this.props;
     const noItems = (
       <View key={Math.random()}>

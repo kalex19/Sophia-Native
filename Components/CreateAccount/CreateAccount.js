@@ -115,10 +115,9 @@ export class CreateAccount extends Component {
 			medications
 		};
 		await this.postClient(newClientProfile);
-		// logIn(newClientProfile)
-		let userId =  this.props.userAccount.id
+		let user =  this.props.userAccount
 		this.setState(initialState)
-		this.props.navigation.navigate('User', userId)
+		this.props.navigation.navigate('User', user)
   };
 
   handleCaretakerSubmit = () => {

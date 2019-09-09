@@ -6,7 +6,6 @@ import { loadLists } from "../../actions";
 
 export class UserHomeScreen extends Component {
   render() {
-    console.log("PASSED", this.props.navigation.state.params)
     const user = this.props.navigation.state.params
     return (
       <View style={styles.container}>
@@ -19,7 +18,7 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back, !
+          Welcome Back, {user.name}!
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight
