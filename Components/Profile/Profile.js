@@ -7,6 +7,7 @@ export class Profile extends Component {
   state = {}
 
   render() {
+    console.log(this.props.navigation.state.params)
     // let client = this.props.navigation.state.params
     // console.log(client)
     // console.log('state', this.props.user)

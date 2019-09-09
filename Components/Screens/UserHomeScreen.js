@@ -6,8 +6,7 @@ import { loadLists } from "../../actions";
 
 export class UserHomeScreen extends Component {
   render() {
-    const userId = this.props.navigation.state.key
-    const user = this.props.navigation.state.params
+    const userId = this.props.navigation.state.params
     const { lists } = this.props;
     return (
       <View style={styles.container}>
@@ -20,14 +19,14 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back {user.name}!
+          Welcome Back, {user.name}!
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Profile")
+            onPress={() => this.props.navigation.navigate("Profile", userId)
             } 
           >
             <Text style={styles.button}>My Account</Text>
