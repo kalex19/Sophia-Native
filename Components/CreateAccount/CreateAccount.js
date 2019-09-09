@@ -55,18 +55,32 @@ export class CreateAccount extends Component {
 		try {
 			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/clients/', options);
 			const account = await response.json();
-			console.log(account.id)
-			let user = await logInUser(account.username, account.password)
+			let user = await this.logInUser(account.username, account.password)
 			this.props.logIn(user)
-			this.setState(initialState);
-			this.props.navigation.navigate('UserHomeScreen', account.id);
+
+
 		} catch (error) {
 			throw new Error(`failed to post profile: ${error.message}`);
 		}
 	};
 
+	logInUser = async (username, password) => {
+		const options = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({username, password})
+		};
+		try {
+			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
+			const user = await response.json();
+			return user
+		} catch (error) {
+			throw new Error(`failed to post profile: ${error.message}`);
+		} 
+	}
 
-  handleClientSubmit = () => {
+
+  handleClientSubmit = async () => {
     const {
       username,
       password,
@@ -98,10 +112,13 @@ export class CreateAccount extends Component {
       needs,
       allergies,
       diet_restrictions: diet,
-      medications
-    };
-		this.postClient(newClientProfile);
-		this.props.navigation.navigate('User', newClientProfile)
+			medications
+		};
+		await this.postClient(newClientProfile);
+		// logIn(newClientProfile)
+		let userId =  this.props.userAccount.id
+		this.setState(initialState)
+		this.props.navigation.navigate('User', userId)
   };
 
   handleCaretakerSubmit = () => {

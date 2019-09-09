@@ -1,6 +1,6 @@
-export const fetchLists = async () => {
+export const fetchLists = async (client_id) => {
   const response = await fetch(
-    "https://sophia-be.herokuapp.com/api/v1/clients/2/lists"
+    `https://sophia-be.herokuapp.com/api/v1/clients/${client_id}/lists`
   );
   if (!response.ok) {
     throw new Error("Could not fetch lists");
@@ -10,8 +10,8 @@ export const fetchLists = async () => {
   }
 };
 
-export const postList = async object => {
-  const url = "https://sophia-be.herokuapp.com/api/v1/clients/2/lists";
+export const postList = async (object, client_id) => {
+  const url = `https://sophia-be.herokuapp.com/api/v1/clients/${client_id}/lists`;
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,8 +25,8 @@ export const postList = async object => {
   return list;
 };
 
-export const deleteList = async list_id => {
-  const url = `https://sophia-be.herokuapp.com/api/v1/clients/2/lists/${list_id}`;
+export const deleteList = async (client_id, list_id) => {
+  const url = `https://sophia-be.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}`;
   const options = {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }
@@ -104,5 +104,17 @@ export const deleteTask = async (list_id, task_id) => {
   const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error("Could not delete task");
+  }
+};
+
+export const fetchProfile = async (user_id) => {
+  const response = await fetch(
+    `https://sophia-be.herokuapp.com/api/v1/clients/${user_id}`
+  );
+  if (!response.ok) {
+    throw new Error("Could not fetch profile");
+  } else {
+    const lists = response.json();
+    return lists;
   }
 };

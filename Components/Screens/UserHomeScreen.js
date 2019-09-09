@@ -6,8 +6,8 @@ import { loadLists } from "../../actions";
 
 export class UserHomeScreen extends Component {
   render() {
-    const userId = this.props.navigation.state.params
-    const { lists } = this.props;
+    console.log("PASSED", this.props.navigation.state.params)
+    const user = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -19,14 +19,14 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back, {user.name}!
+          Welcome Back, !
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Profile", userId)
+            onPress={() => this.props.navigation.navigate("Profile", user.id)
             } 
           >
             <Text style={styles.button}>My Account</Text>
@@ -37,7 +37,7 @@ export class UserHomeScreen extends Component {
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Lists", userId)
+            onPress={() => this.props.navigation.navigate("Lists", user.id)
           } 
           >
             <Text style={styles.button}>My Lists</Text>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 });
 
 export const mapStateToProps = state => ({
-  user: state.user,
+  userAccount: state.userAccount,
   lists: state.lists
 });
 
