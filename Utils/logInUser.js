@@ -13,4 +13,4 @@ const logInUser = async (username, password) => {
   } 
 }
 
-export default logInClient;
+export default logInUser;

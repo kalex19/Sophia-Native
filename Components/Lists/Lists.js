@@ -43,7 +43,6 @@ class Lists extends Component {
 
   eraseList = async listId => {
     await deleteList(listId);
-    await console.log("WHAT")
     this.returnUpdatedList();
   };
 

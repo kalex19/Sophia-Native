@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from 'react-redux';
-import { fetchLists } from "../../apiCalls";
-import { connect } from "react-redux";
 import { loadLists } from "../../actions";
 
 export class UserHomeScreen extends Component {
   render() {
+    const userId = this.props.navigation.state.key
+    const user = this.props.navigation.state.params
     const { lists } = this.props;
     return (
       <View style={styles.container}>
@@ -20,14 +20,14 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back {props.user.name}!
+          Welcome Back {user.name}!
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             accessible={true}
-            onPress={() => props.navigation.navigate("Profile")
+            onPress={() => this.props.navigation.navigate("Profile")
             } 
           >
             <Text style={styles.button}>My Account</Text>
@@ -38,7 +38,7 @@ export class UserHomeScreen extends Component {
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() => props.navigation.navigate("Lists")
+            onPress={() => this.props.navigation.navigate("Lists", userId)
           } 
           >
             <Text style={styles.button}>My Lists</Text>
@@ -48,12 +48,6 @@ export class UserHomeScreen extends Component {
     );
   }
 }
-
-export const mapStateToProps = state => ({
-    user: state.user
-   })
-  
-export default connect(mapStateToProps)(UserHomeScreen)
   
 
 const styles = StyleSheet.create({
@@ -95,7 +89,7 @@ const styles = StyleSheet.create({
 });
 
 export const mapStateToProps = state => ({
- user: state.user,
+  user: state.user,
   lists: state.lists
 });
 
@@ -106,4 +100,4 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserHomescreen);
+)(UserHomeScreen);
