@@ -21,11 +21,15 @@ export class Login extends Component {
 	};
 
 	handleSubmit = async () => {
-    const { username, password, user } = this.state;
-    const oneUser = await logInUser(username, password);
-    this.props.logIn(oneUser)
-    this.props.navigate('UserHomeScreen', oneUser)
-    this.setState({initialState})
+		const { username, password } = this.state;
+		const user = await this.logInUser(username, password);
+		this.props.logIn(user)
+		this.setState({
+			accountType: '',
+			username: '',
+			password: ''
+		})
+		this.props.navigation.navigate('User', this.props.userAccount)
 	}
 
 	logInUser = async (username, password) => {
@@ -76,11 +80,15 @@ export class Login extends Component {
 	}
 }
 
+const mapStateToProps = state => ({
+	userAccount: state.userAccount
+})
+
 const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
 	container: {
