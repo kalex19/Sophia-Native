@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import ClientProfile from "./Components/ClientProfile/ClientProfile";
-import ClientList from "./Components/ClientList/ClientList";
-import CaretakerProfile from "./Components/CaretakerProfile/CaretakerProfile";
-import CaretakerList from "./Components/CaretakerList/CaretakerList";
+import Profile from "./Components/Profile/Profile";
+import Lists from "./Components/Lists/Lists";
 import TaskForm from "./Components/TaskForm/TaskForm";
 import IndividualList from "./Components/IndividualList/IndividualList";
 import UserHomeScreen from './Components/Screens/UserHomeScreen';
-import ClientHomeScreen from './Components/Screens/ClientHomeScreen';
-import CaretakerHomeScreen from './Components/Screens/CaretakerHomeScreen';
+import AppHomeScreen from './Components/Screens/AppHomeScreen';
 import Login from './Components/Login/Login';
 import CreateAccount from './Components/CreateAccount/CreateAccount';
 import { createStackNavigator } from "react-navigation-stack";
@@ -30,15 +27,12 @@ class App extends Component {
 
 const AppNavigator = createStackNavigator(
   {
-    Home: UserHomeScreen,
-    ClientHome: ClientHomeScreen,
-    CaretakerHome: CaretakerHomeScreen,
+    Home: AppHomeScreen,
     Login: Login,
     CreateAccount: CreateAccount,
-    ClientProfile: ClientProfile,
-    ClientLists: ClientList,
-    CaretakerProfile: CaretakerProfile,
-    CaretakerLists: CaretakerList,
+    User: UserHomeScreen,
+    Profile: Profile,
+    Lists: Lists,
     IndividualList: IndividualList,
     TaskForm: TaskForm
   },

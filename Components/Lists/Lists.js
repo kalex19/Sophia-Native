@@ -4,7 +4,7 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { addList, loadLists } from '../../actions';
 
-class ClientList extends Component {
+class Lists extends Component {
   state = {
     addList: false,
     list_title: ''
@@ -143,4 +143,4 @@ export const mapDispatchToProps = dispatch => ({
   addList: newList => dispatch(addList(newList))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientList)
+export default connect(mapStateToProps, mapDispatchToProps)(Lists)

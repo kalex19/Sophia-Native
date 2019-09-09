@@ -12,8 +12,8 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
 // import { PropTypes } from 'prop-types';
 import { logIn } from '../../actions';
-import logInClient from '../../Utils/loginClient';
-import logInCaretaker from '../../Utils/loginCaretaker';
+import postCaretaker from '../../Utils/postCaretaker';
+import postClient from '../../Utils/postClient';
 
 const initialState = {
 	user: '',
@@ -81,7 +81,7 @@ export class CreateAccount extends Component {
 			diet_restrictions: diet,
 			medications
 		};
-		this.postClient(newClientProfile)
+		postClient(newClientProfile)
 	};
 
 	handleCaretakerSubmit = () => {
@@ -96,44 +96,8 @@ export class CreateAccount extends Component {
 			phone_number: phone,
 			abilities
 		};
-		// this.postCaretaker(newCaretakerProfile)
+		postCaretaker(newCaretakerProfile)
 	};
-
-	postClient = async profile => {
-		const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(profile)
-		};
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/clients/', options);
-			const account = await response.json();
-			let user = await logInClient(account.username, account.password)
-			this.props.logIn(user)
-			console.log('store', this.props.user)
-			this.setState(initialState);
-    	this.props.navigation.navigate('ClientHomeScreen', user);
-		} catch (error) {
-      throw new Error(`failed to post profile: ${error.message}`);
-		}
-	};
-
-	postCaretaker = async profile => {
-		const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(profile)
-    };
-    
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/caretakers/', options);
-      const account = await response.json();
-      await logInCaretaker(account.username, account.password)
-		} catch (error) {
-			throw new Error(`failed to post profile: ${error.message}`);
-		}
-  };
-  
 
 	renderClientInput = () => {
 		return (
@@ -280,7 +244,7 @@ export class CreateAccount extends Component {
 						/>
 							<TextInput
 							style={styles.input}
-							placeholder="Password"
+							placeholder="Password Confirmation"
 							onChangeText={value => this.handleChange('password_confirmation', value)}
 							placeholderTextColor={theme.primary}
 						/>

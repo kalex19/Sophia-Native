@@ -1,4 +1,4 @@
-const logInClient = async (username, password) => {
+const logInUser = async (username, password) => {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -7,7 +7,6 @@ const logInClient = async (username, password) => {
   try {
     const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
     const user = await response.json();
-    console.log('user in login', user)
     return user
   } catch (error) {
     throw new Error(`failed to post profile: ${error.message}`);

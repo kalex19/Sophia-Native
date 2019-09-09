@@ -3,7 +3,7 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { PinchZoomView } from 'react-native-pinch-zoom-view';
 import { connect } from 'react-redux';
 
-export class ClientProfile extends Component {
+export class Profile extends Component {
   state = {}
 
   render() {
@@ -25,7 +25,18 @@ export class ClientProfile extends Component {
           <Text style={styles.header}>Client Profile</Text>
         </View>
       <ScrollView style={styles.profileContainer}>
-        
+        {/* <View style={styles.routes}>
+          <TouchableHighlight
+            underlayColor="black"
+            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            nextFocusDown="20"
+            accessible={true}
+            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            }
+          >
+            <Text style={styles.button}>Log Out</Text>
+          </TouchableHighlight>
+        </View> */}
         {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
         <Text style={styles.clientInfo}>Name: {client.name}</Text>
         <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
@@ -57,7 +68,7 @@ const mapStateToProps = state => ({
  user: state.user
 });
 
-export default connect(mapStateToProps)(ClientProfile);
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   profileContainer: {

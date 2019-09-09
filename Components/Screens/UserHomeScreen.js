@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { connect } from 'react-redux';
 
-const UserHomeScreen = (props) => {
+export class UserHomeScreen extends Component {
+  render(){
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -13,31 +15,42 @@ const UserHomeScreen = (props) => {
             SOPHIA
           </Text>
         </View>
+        <Text style={styles.greeting}>
+          Welcome Back {props.user.name}!
+        </Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to log in to your account"
+            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
             accessible={true}
-            onPress={() => props.navigation.navigate("Login")
-            }
+            onPress={() => props.navigation.navigate("Profile")
+            } 
           >
-            <Text style={styles.button}>Log In</Text>
+            <Text style={styles.button}>My Account</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap me to create your account."
+            accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() => props.navigation.navigate("CreateAccount")
-            }
+            onPress={() => props.navigation.navigate("Lists")
+          } 
           >
-            <Text style={styles.button}>Create Account</Text>
+            <Text style={styles.button}>My Lists</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
+  }
 }
+
+export const mapStateToProps = state => ({
+    user: state.user
+   })
+  
+export default connect(mapStateToProps)(UserHomeScreen)
+  
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -77,4 +90,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserHomeScreen
+
