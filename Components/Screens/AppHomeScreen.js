@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import theme from '../../theme';
+
 
 const AppHomeScreen = (props) => {
     return (
@@ -16,10 +18,11 @@ const AppHomeScreen = (props) => {
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to log in to your account"
+            accessibilityLabel="Tap me to log in to your account"
             accessible={true}
             onPress={() => props.navigation.navigate("Login")
             }
+            style={styles.touchExpander}
           >
             <Text style={styles.button}>Log In</Text>
           </TouchableHighlight>
@@ -27,10 +30,11 @@ const AppHomeScreen = (props) => {
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap me to create your account."
+            accessibilityLabel="Tap me to create a new account"
             accessible={true}
             onPress={() => props.navigation.navigate("CreateAccount")
             }
+            style={styles.touchExpander}
           >
             <Text style={styles.button}>Create Account</Text>
           </TouchableHighlight>
@@ -41,40 +45,47 @@ const AppHomeScreen = (props) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    borderBottomColor: "maroon",
+    borderBottomColor: theme.primary,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 40
+    marginBottom: 30
   },
   header: {
     fontSize: 50,
-    fontFamily: "Didot"
+    fontFamily: theme.textMain
   },
   greeting: {
     fontSize: 30,
-    fontFamily: "Didot",
+    fontFamily: theme.textMain,
     margin: 10,
     marginBottom: 30
   },
   button: {
-    color: "white",
-    fontSize: 25,
-    fontFamily: "Didot",
-    textAlign: "center"
+    color: theme.accentOne,
+    fontSize: 30,
+    fontFamily: theme.textTwo,
+    textAlign: "center",
+    paddingTop: 25,
   },
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.accentOne,
     alignItems: "center",
     justifyContent: "center",
     height: "100%"
   },
   routes: {
     flexDirection: "column",
-    backgroundColor: "maroon",
+    backgroundColor: theme.primary,
     width: "80%",
-    height: "20%",
+    height: "15%",
     justifyContent: "space-around",
-    margin: 10
-  }
+    margin: 10,
+    borderRadius: 50,
+  },
+  touchExpander: {
+		height: '100%',
+		borderRadius: 50,
+		width: '100%'
+	}
 });
 
 export default AppHomeScreen

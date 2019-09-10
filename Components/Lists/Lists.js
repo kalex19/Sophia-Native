@@ -1,20 +1,218 @@
+/**
+ * @flow
+ */
+
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TextInput 
+} from 'react-native';
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadLists } from "../../actions";
 import { fetchLists, postList, deleteList, patchList } from "../../Utils/apiCalls";
+import { Asset } from 'expo-asset';
+import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
+import * as Font from 'expo-font';
+import * as Permissions from 'expo-permissions';
+
+class Icon {
+  constructor(module, width, height) {
+    this.module = module;
+    this.width = width;
+    this.height = height;
+    Asset.fromModule(this.module).downloadAsync();
+  }
+}
+
+const ICON_RECORD_BUTTON = new Icon(require('../../assets/images/record_button.png'), 70, 119);
+const ICON_RECORDING = new Icon(require('../../assets/images/record_icon.png'), 20, 14);
+const ICON_THUMB_1 = new Icon(require('../../assets/images/thumb_1.png'), 18, 19);
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
+const BACKGROUND_COLOR = '#FFF8ED';
+const LIVE_COLOR = '#FF0000';
+const DISABLED_OPACITY = 0.5;
+const RATE_SCALE = 3.0;
 
 class Lists extends Component {
-  state = {
-    displayEdit: "",
-    list_title: "",
-    list_edit_input: ""
-  };
+  constructor(props) {
+    super(props);
+    this.recording = null;
+    this.sound = null;
+    this.isSeeking = false;
+    this.shouldPlayAtEndOfSeek = false;
+    this.state = {
+      haveRecordingPermissions: false,
+      isLoading: false,
+      isPlaybackAllowed: false,
+      muted: false,
+      soundPosition: null,
+      soundDuration: null,
+      recordingDuration: null,
+      shouldPlay: false,
+      isPlaying: false,
+      isRecording: false,
+      fontLoaded: false,
+      shouldCorrectPitch: true,
+      volume: 1.0,
+      rate: 1.0,
+      displayEdit: "",
+      list_title: "",
+      list_edit_input: ""
+    };
+    this.recordingSettings = JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY));
+  }
 
   componentDidMount = async () => {
+
     await this.returnUpdatedList();
-    
+
+    // await this.returnUpdatedList();
+    await Font.loadAsync({
+        'cutive-mono-regular': require('../../assets/fonts/CutiveMono-Regular.ttf'),
+      });
+      this.setState({ fontLoaded: true });
+      this._askForPermissions();
+  };
+
+  _askForPermissions = async () => {
+    const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    this.setState({
+      haveRecordingPermissions: response.status === 'granted',
+    });
+  };
+
+  _updateScreenForRecordingStatus = status => {
+    if (status.canRecord) {
+      this.setState({
+        isRecording: status.isRecording,
+        recordingDuration: status.durationMillis,
+      });
+    } else if (status.isDoneRecording) {
+      this.setState({
+        isRecording: false,
+        recordingDuration: status.durationMillis,
+      });
+      if (!this.state.isLoading) {
+        this._stopRecordingAndEnablePlayback();
+      }
+    }
+  };
+
+  //updates text - LIVE!
+
+  async _stopPlaybackAndBeginRecording() {
+    this.setState({
+      isLoading: true,
+    });
+    if (this.sound !== null) {
+      await this.sound.unloadAsync();
+      this.sound.setOnPlaybackStatusUpdate(null);
+      this.sound = null;
+    }
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: false,
+      staysActiveInBackground: true,
+    });
+    if (this.recording !== null) {
+      this.recording.setOnRecordingStatusUpdate(null);
+      this.recording = null;
+    }
+
+    const recording = new Audio.Recording();
+    console.log('new recording', recording)
+    await recording.prepareToRecordAsync(this.recordingSettings);
+    recording.setOnRecordingStatusUpdate(this._updateScreenForRecordingStatus);
+
+    this.recording = recording;
+    await this.recording.startAsync(); 
+    this.setState({
+      isLoading: false,
+    });
+  }
+
+  async _stopRecordingAndEnablePlayback() {
+    this.setState({
+      isLoading: true,
+    });
+    try {
+      await this.recording.stopAndUnloadAsync();
+      console.log(recording.createNewLoadedSoundAsync())
+    } catch (error) {
+      // Do nothing -- we are already unloaded.
+    }
+    const info = await FileSystem.getInfoAsync(this.recording.getURI());
+    console.log('recording',this.recording)
+    console.log(`FILE INFO: ${JSON.stringify(info)}`);
+    const response = await fetch(info.uri);
+    const blob = await response.blob();
+    this.postBlob(blob)
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      playsInSilentLockedModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: false,
+      staysActiveInBackground: true,
+    });
+    const { sound, status } = await this.recording.createNewLoadedSoundAsync(
+      {
+        isLooping: true,
+        isMuted: this.state.muted,
+        volume: this.state.volume,
+        rate: this.state.rate,
+        shouldCorrectPitch: this.state.shouldCorrectPitch,
+      },
+      this._updateScreenForSoundStatus
+    );
+    this.sound = sound;
+    this.setState({
+      isLoading: false,
+    });
+  }
+
+  postBlob = (blob) => {
+    var formData = new FormData(blob);
+    formData.append('soundBlob', blob)
+    console.log(formData);
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+
+    fetch("http://localhost:3000/api/v1/clients", options)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      })
+    .catch(error => {
+      console.log(error);
+      })
+  }
+
+  _onRecordPressed = () => {
+    if (this.state.isRecording) {
+      this._stopRecordingAndEnablePlayback();
+    } else {
+      this._stopPlaybackAndBeginRecording();
+    }
+
   };
 
   returnUpdatedList = async () => {
@@ -60,6 +258,23 @@ class Lists extends Component {
   };
 
   render() {
+    if(!this.state.fontLoaded) {
+      return (
+          <View style={styles.emptyContainer} />
+      )
+  }
+
+  if (!this.state.haveRecordingPermissions){
+      return (
+          <View style={styles.container}>
+              <View />
+              <Text style={[styles.noPermissionsText, { fontFamily: 'cutive-mono-regular' }]}>
+                You must enable audio recording permissions in order to use this app.
+              </Text>
+              <View />
+          </View>
+      )
+  }
     let userId = this.props.navigation.state.params
     const { lists } = this.props;
     const { navigation } = this.props;
@@ -136,7 +351,29 @@ class Lists extends Component {
             >
               <Text style={styles.plus}> + </Text>
             </TouchableHighlight>
+            </View>
+        <View
+          style={[
+            styles.halfScreenContainer,
+            {
+              opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+            },
+          ]}>
+          <View style={styles.recordingContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onRecordPressed}
+              disabled={this.state.isLoading}>
+              <Text>Record Your List Name</Text>
+            </TouchableHighlight>
+            <View style={styles.recordingDataContainer}>
+              <Text style={[styles.liveText, { fontFamily: 'cutive-mono-regular' }]}>
+                {this.state.isRecording ? 'LIVE' : ''}
+              </Text>
           </View>
+        </View>
+      </View>
         <View>{allLists}</View>
       </View>
     );
@@ -214,7 +451,76 @@ const styles = StyleSheet.create({
   vertically: {
     flexDirection: "column",
     alignItems: "center"
-  }
+  },
+  emptyContainer: {
+    alignSelf: 'stretch',
+    backgroundColor: BACKGROUND_COLOR,
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: BACKGROUND_COLOR,
+    minHeight: DEVICE_HEIGHT,
+    maxHeight: DEVICE_HEIGHT,
+  },
+  noPermissionsText: {
+    textAlign: 'center',
+  },
+  wrapper: {},
+  halfScreenContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    minHeight: DEVICE_HEIGHT / 2.0,
+    maxHeight: DEVICE_HEIGHT / 2.0,
+  },
+  recordingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    minHeight: ICON_RECORD_BUTTON.height,
+    maxHeight: ICON_RECORD_BUTTON.height,
+  },
+  recordingDataContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    minHeight: ICON_RECORD_BUTTON.height,
+    maxHeight: ICON_RECORD_BUTTON.height,
+    minWidth: ICON_RECORD_BUTTON.width * 3.0,
+    maxWidth: ICON_RECORD_BUTTON.width * 3.0,
+  },
+  recordingDataRowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    minHeight: ICON_RECORDING.height,
+    maxHeight: ICON_RECORDING.height,
+  },
+  playbackContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    minHeight: ICON_THUMB_1.height * 2.0,
+    maxHeight: ICON_THUMB_1.height * 2.0,
+  },
+  liveText: {
+    color: LIVE_COLOR,
+  },
+  image: {
+    backgroundColor: BACKGROUND_COLOR,
+  },
 });
 
 export const mapStateToProps = state => ({

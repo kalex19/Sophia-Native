@@ -1,423 +1,471 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { View, Text, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from "react-native";
-import { TouchableHighlight } from "react-native-gesture-handler";
-import theme from "../../theme";
-// import { PropTypes } from 'prop-types';
-import { logIn } from "../../actions";
-// import postCaretaker from "../../Utils/postCaretaker";
-// import postClient from "../../Utils/postClient";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { View, Text, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import theme from '../../theme';
+import { PropTypes } from 'prop-types';
+import { logIn } from '../../actions';
+import { postClient } from '../../Utils/postClient';
+import { postCaretaker } from '../../Utils/postCaretaker';
+import { logInUser } from '../../Utils/logInUser';
 
 const initialState = {
-  user: "",
-  username: "",
-  password: "",
-  password_confirmation: "",
-  name: "",
-  address: "",
-  city: "",
-  state: "",
-  zip: "",
-  email: "",
-  phone: "",
-  needs: [],
-  allergies: [],
-  diet: [],
-  medications: [],
-  abilities: []
+	accountType: '',
+	username: '',
+	password: '',
+	password_confirmation: '',
+	name: '',
+	address: '',
+	city: '',
+	state: '',
+	zip: '',
+	email: '',
+	phone: '',
+	needs: [],
+	allergies: [],
+	diet: [],
+	medications: [],
+	abilities: [],
+	error: '',
+	message: ''
 };
 
 export class CreateAccount extends Component {
-  state = initialState;
+	state = initialState;
 
-  handleChange = (name, value) => {
-    const multiResponseInputs = [
-      "needs",
-      "allergies",
-      "diet",
-      "medications",
-      "abilities"
-    ];
-    if (multiResponseInputs.includes(name)) {
-      value = value.split(",");
-    }
-    this.setState({
-      [name]: value
-    });
+	handleChange = (name, value) => {
+		const multiResponseInputs = [ 'needs', 'allergies', 'diet', 'medications', 'abilities' ];
+		if (multiResponseInputs.includes(name)) {
+			value = value.split(',');
+		}
+		this.setState({
+			[name]: value
+		});
 	};
-	
-	postClient = async profile => {
-		const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(profile)
+
+	handleClientSubmit = async () => {
+		const {
+			username,
+			password,
+			password_confirmation,
+			name,
+			address,
+			city,
+			state,
+			zip,
+			email,
+			phone,
+			needs,
+			allergies,
+			diet,
+			medications,
+			error,
+			message,
+			// accountType
+		} = this.state;
+
+		const newClientProfile = {
+			username,
+			password,
+			password_confirmation,
+			name,
+			street_address: address,
+			city,
+			state,
+			zip,
+			email,
+			phone_number: phone,
+			needs,
+			allergies,
+			diet_restrictions: diet,
+			medications,
+			// accountType
 		};
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/clients/', options);
-			const account = await response.json();
-			let user = await this.logInUser(account.username, account.password)
-			this.props.logIn(user)
-
-
-		} catch (error) {
-			throw new Error(`failed to post profile: ${error.message}`);
+		if (
+			!username ||
+			!password ||
+			!password_confirmation ||
+			!name ||
+			!email ||
+			!phone ||
+			!address ||
+			!state ||
+			!city ||
+			!zip ||
+			!needs ||
+			!allergies ||
+			!diet ||
+			!medications
+		) {
+			this.setState({ message: 'Please fill out all input fields' });
+		} else {
+			const newClient = await postClient(newClientProfile);
+      const user = await logInUser(newClient.username, newClient.password)
+			this.props.logIn(user);
+			this.setState({ message: '', error: user.message });
+		}
+		if (
+			!error &&
+			username &&
+			password &&
+			password_confirmation &&
+			name &&
+			email &&
+			phone &&
+			address &&
+			state &&
+			city &&
+			zip &&
+			needs &&
+			allergies &&
+			diet &&
+			medications
+		) {
+			this.setState({ initialState });
+			this.props.navigation.navigate('User');
 		}
 	};
 
-	logInUser = async (username, password) => {
-		const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({username, password})
+	handleCaretakerSubmit = async () => {
+		const {
+			username,
+			password,
+			password_confirmation,
+			name,
+			email,
+			phone,
+			abilities,
+			error,
+			message,
+			// accountType waiting for BE adjustment
+		} = this.state;
+
+		const newCaretakerProfile = {
+			username,
+			password,
+			password_confirmation,
+			name,
+			email,
+			phone_number: phone,
+			abilities
+			// accountType
 		};
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-			const user = await response.json();
-			return user
-		} catch (error) {
-			throw new Error(`failed to post profile: ${error.message}`);
-		} 
-	}
-
-
-  handleClientSubmit = async () => {
-    const {
-      username,
-      password,
-      password_confirmation,
-      name,
-      address,
-      city,
-      state,
-      zip,
-      email,
-      phone,
-      needs,
-      allergies,
-      diet,
-      medications
-    } = this.state;
-
-    const newClientProfile = {
-      username,
-      password,
-      password_confirmation,
-      name,
-      street_address: address,
-      city,
-      state,
-      zip,
-      email,
-      phone_number: phone,
-      needs,
-      allergies,
-      diet_restrictions: diet,
-			medications
-		};
-		await this.postClient(newClientProfile);
-		let user =  this.props.userAccount
-		this.setState(initialState)
-		this.props.navigation.navigate('User', user)
-  };
-
-  handleCaretakerSubmit = () => {
-    const {
-      username,
-      password,
-      password_confirmation,
-      name,
-      email,
-      phone,
-      abilities
-    } = this.state;
-
-    const newCaretakerProfile = {
-      username,
-      password,
-      password_confirmation,
-      name,
-      email,
-      phone_number: phone,
-      abilities
-    };
-    this.postCaretaker(newCaretakerProfile);
+		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
+			this.setState({ message: 'Please fill out all input fields' });
+		} else {
+			const newCaretaker = await postCaretaker(newCaretakerProfile);
+			const user = await logInUser(newCaretaker.username, newCaretaker.password);
+			this.props.logIn(user);
+			this.setState({ message: '', error: user.message });
+		}
+		if (!error && username && password && password_confirmation && name && email && phone && abilities) {
+			this.setState({ initialState });
+			this.props.navigation.navigate('User');
+		}
 	};
 
+	renderClientInput = () => {
+		return (
+			<View>
+				<TextInput
+					style={styles.input}
+					placeholder="Street Address"
+					onChangeText={value => this.handleChange('address', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Address Input. Please type your address"
+					value={this.state.address}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="City"
+					onChangeText={value => this.handleChange('city', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="City Input. Please type your city"
+					value={this.state.city}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="State"
+					onChangeText={value => this.handleChange('state', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="State Input. Please type your state"
+					value={this.state.state}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="Zip Code"
+					onChangeText={value => this.handleChange('zip', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Zip Code Input. Please type your zip code"
+					value={this.state.zip}
+				/>
+				<Text style={styles.text}>Seperate multiple input values by commas</Text>
+				<TextInput
+					style={styles.input}
+					placeholder="Caretaking Needs"
+					onChangeText={value => this.handleChange('needs', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
+					value={this.state.needs.join(',')}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="Allergies"
+					onChangeText={value => this.handleChange('allergies', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Allergies Input. Please type the names your allergies"
+					value={this.state.allergies.join(',')}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="Dietary Restrictions"
+					onChangeText={value => this.handleChange('diet', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Dietary Restrictions Input. Please type the names your dietary restrictions"
+					value={this.state.diet.join(',')}
+				/>
+				<TextInput
+					style={styles.input}
+					placeholder="Medications"
+					onChangeText={value => this.handleChange('medications', value)}
+					placeholderTextColor={theme.primary}
+					accessibilityLabel="Medications Input. Please type the names of your medications"
+					value={this.state.medications.join(',')}
+				/>
+			</View>
+		);
+	};
 
-  renderClientInput = () => {
-    return (
-      <View>
-        <TextInput
-          style={styles.input}
-          placeholder="Street Address"
-          onChangeText={value => this.handleChange("address", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="City"
-          onChangeText={value => this.handleChange("city", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="State"
-          onChangeText={value => this.handleChange("state", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Zip Code"
-          onChangeText={value => this.handleChange("zip", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <Text style={styles.text}>
-          Seperate multiple input values by commas
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Caretaking Needs"
-          onChangeText={value => this.handleChange("needs", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Allergies"
-          onChangeText={value => this.handleChange("allergies", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Dietary Restrictions"
-          onChangeText={value => this.handleChange("diet", value)}
-          placeholderTextColor={theme.primary}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Medications"
-          onChangeText={value => this.handleChange("medications", value)}
-          placeholderTextColor={theme.primary}
-        />
-      </View>
-    );
-  };
+	renderCaretakerInput = () => {
+		return (
+			<View>
+				<Text style={styles.text} accessibilityLabel="Seperate multiple input values with commas">
+					Seperate multiple input values with commas
+				</Text>
+				<TextInput
+					style={styles.input}
+					placeholder="Caretaking Abilities"
+					onChangeText={value => this.handleChange('abilities', value)}
+					placeholderTextColor={theme.primary}
+					value={this.state.abilities.join(',')}
+				/>
+			</View>
+		);
+	};
 
-  renderCaretakerInput = () => {
-    return (
-      <View>
-        <Text style={styles.text}>
-          Seperate multiple input values by commas
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Caretaking Abilities"
-          onChangeText={value => this.handleChange("abilities", value)}
-          placeholderTextColor={theme.primary}
-        />
-      </View>
-    );
-  };
+	renderClientBtn = () => {
+		return (
+			<View style={styles.routes}>
+				<TouchableHighlight
+					underlayColor={theme.accentTwo}
+					accessibilityLabel="Tap me to create your client account"
+					accessible={true}
+					onPress={this.handleClientSubmit}
+					style={styles.touchExpander}>
+					<Text style={styles.registerButton}>Register {this.state.accountType === 'client' ? 'Client' : null}</Text>
+				</TouchableHighlight>
+			</View>
+		);
+	};
 
-  renderClientBtn = () => {
-    return (
-      <View style={styles.routes}>
-        <TouchableHighlight
-          underlayColor={theme.accentTwo}
-          accessibilityLabel="Tap me to create your client account."
-          accessible={true}
-          onPress={this.handleClientSubmit}
-          style={styles.touchExpander}
-        >
-          <Text style={styles.registerButton}>
-            Register {this.state.user === "client" ? "Client" : null}
-          </Text>
-        </TouchableHighlight>
-      </View>
-    );
-  };
+	renderCaretakerBtn = () => {
+		return (
+			<View style={styles.routes}>
+				<TouchableHighlight
+					underlayColor={theme.accentTwo}
+					accessibilityLabel="Tap me to create your caretaker account"
+					accessible={true}
+					onPress={this.handleCaretakerSubmit}
+					style={styles.touchExpander}>
+					<Text style={styles.registerButton}>
+						Register {this.state.accountType === 'caretaker' ? 'Caretaker' : null}
+					</Text>
+				</TouchableHighlight>
+			</View>
+		);
+	};
 
-  renderCaretakerBtn = () => {
-    return (
-      <View style={styles.routes}>
-        <TouchableHighlight
-          underlayColor={theme.accentTwo}
-          accessibilityLabel="Tap me to create your caretaker account."
-          accessible={true}
-          onPress={this.handleCaretakerSubmit}
-          style={styles.touchExpander}
-        >
-          <Text style={styles.registerButton}>
-            Register {this.state.user === "caretaker" ? "Caretaker" : null}
-          </Text>
-        </TouchableHighlight>
-      </View>
-    );
-  };
-
-  render() {
-    return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <View>
-          <View style={styles.headerContainer}>
-            <Text
-              style={styles.header}
-              accessibilityLabel="Fill in the inputs to create an account"
-            >
-              Create Account
-            </Text>
-          </View>
-          <View style={styles.routes}>
-            <TouchableHighlight
-              underlayColor={theme.accentTwo}
-              accessibilityLabel="Tap me to create your client account."
-              accessible={true}
-              onPress={() => this.setState({ user: "client" })}
-              style={styles.touchExpander}
-            >
-              <Text style={styles.button}>I'm a Client</Text>
-            </TouchableHighlight>
-          </View>
-          <View style={styles.routes}>
-            <TouchableHighlight
-              underlayColor={theme.accentTwo}
-              accessibilityLabel="Tap me to create your caretaker account."
-              accessible={true}
-              onPress={() => this.setState({ user: "caretaker" })}
-              style={styles.touchExpander}
-            >
-              <Text style={styles.button}>I'm a Caretaker</Text>
-            </TouchableHighlight>
-          </View>
-          <Text style={styles.text}>Scroll to fill out the form below:</Text>
-          <ScrollView style={styles.scrollContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Username"
-              onChangeText={value => this.handleChange("username", value)}
-              placeholderTextColor={theme.primary}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              onChangeText={value => this.handleChange("password", value)}
-              placeholderTextColor={theme.primary}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password Confirmation"
-              onChangeText={value =>
-                this.handleChange("password_confirmation", value)
-              }
-              placeholderTextColor={theme.primary}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Your Name"
-              onChangeText={value => this.handleChange("name", value)}
-              placeholderTextColor={theme.primary}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              onChangeText={value => this.handleChange("email", value)}
-              placeholderTextColor={theme.primary}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Phone"
-              onChangeText={value => this.handleChange("phone", value)}
-              placeholderTextColor={theme.primary}
-            />
-            {this.state.user === "client" && this.renderClientInput()}
-            {this.state.user === "caretaker" && this.renderCaretakerInput()}
-          </ScrollView>
-          {this.state.user === "client" ? this.renderClientBtn() : null}
-          {this.state.user === "caretaker" ? this.renderCaretakerBtn() : null}
-        </View>
-      </KeyboardAvoidingView>
-    );
-  }
+	render () {
+		return (
+			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible={true}>
+				<View style={styles.headerContainer}>
+					<Text style={styles.header} accessibilityLabel="Fill in the inputs to create an account">
+						Create Account
+					</Text>
+				</View>
+				<View style={styles.routes}>
+					<TouchableHighlight
+						underlayColor={theme.accentTwo}
+						accessibilityLabel="Tap me to create a client account."
+						onPress={() => this.setState({ accountType: 'client' })}
+						style={styles.touchExpander}>
+						<Text style={styles.button}>I'm a Client</Text>
+					</TouchableHighlight>
+				</View>
+				<View style={styles.routes}>
+					<TouchableHighlight
+						underlayColor={theme.accentTwo}
+						accessibilityLabel="Tap me to create a caretaker account."
+						onPress={() => this.setState({ accountType: 'caretaker' })}
+						style={styles.touchExpander}>
+						<Text style={styles.button}>I'm a Caretaker</Text>
+					</TouchableHighlight>
+				</View>
+				<Text accessibilityLabel="Scroll to fill out the form inputs below" style={styles.text}>
+					Scroll to fill out the form
+				</Text>
+				<ScrollView style={styles.scrollContainer}>
+					<TextInput
+						style={styles.input}
+						placeholder="Username"
+						onChangeText={value => this.handleChange('username', value)}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Username Input. Please make a username"
+						value={this.state.username}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholder="Password"
+						onChangeText={value => this.handleChange('password', value)}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Password Input. Please make a password"
+						minLength={8}
+						secureTextEntry={true}
+						value={this.state.password}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholder="Password Confirmation"
+						onChangeText={value => this.handleChange('password_confirmation', value)}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Password Confirmation Input. Please type your password again"
+						minLength={8}
+						secureTextEntry={true}
+						value={this.state.password_confirmation}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholder="Your Name"
+						onChangeText={value => this.handleChange('name', value)}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Name Input. Please type for full name"
+						value={this.state.name}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholder="Email"
+						onChangeText={value => this.handleChange('email', value)}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Email Input. Please type your email"
+						value={this.state.email}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholder="Phone"
+						onChangeText={value => this.handleChange('phone', value)}
+						dataDetectorTypes={'phoneNumber'}
+						placeholderTextColor={theme.primary}
+						accessibilityLabel="Phone Input. Please type your phone number without dashes"
+						value={this.state.phone}
+					/>
+					{this.state.accountType === 'client' && this.renderClientInput()}
+					{this.state.accountType === 'caretaker' && this.renderCaretakerInput()}
+				</ScrollView>
+				{this.state.accountType === 'client' ? this.renderClientBtn() : null}
+				{this.state.accountType === 'caretaker' ? this.renderCaretakerBtn() : null}
+				<Text style={styles.messages} accessibilityLabel={'Please fill out all input fields'}>
+					{this.state.message}
+				</Text>
+				<Text style={styles.messages} accessibilityLabel={'Error Message'}>
+					{this.state.error}
+				</Text>
+			</KeyboardAvoidingView>
+		);
+	}
 }
 
 const mapStateToProps = store => ({
-  userAccount: store.userAccount
+	userAccount: store.userAccount
 });
 
 const mapDispatchToProps = dispatch => ({
-  logIn: user => dispatch(logIn(user))
+	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.accentOne,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%"
-  },
-  headerContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 10,
-    width: "80%"
-  },
-  header: {
-    fontSize: 30,
-    fontFamily: "Didot"
-  },
-  routes: {
-    flexDirection: "column",
-    backgroundColor: theme.primary,
-    width: "90%",
-    height: "10%",
-    borderRadius: 30,
-    justifyContent: "space-evenly",
-    margin: 5
-  },
-  scrollContainer: {
-    marginTop: 10
-  },
-  button: {
-    color: theme.accentOne,
-    fontSize: 35,
-    fontFamily: "Didot",
-    textAlign: "center",
-    marginTop: 10,
-    width: "80%"
-  },
-  text: {
-    fontSize: 25,
-    fontFamily: "Didot",
-    textAlign: "center",
-    margin: 10
-  },
-  input: {
-    width: "90%",
-    height: 80,
-    fontSize: 25,
-    fontFamily: "Didot",
-    paddingLeft: 5,
-    marginTop: 10,
-    backgroundColor: theme.accentThree,
-    color: theme.accentTwo
-  },
-  touchExpander: {
-    height: "90%",
-    borderRadius: 30,
-    width: "90%"
-  },
-  registerButton: {
-    fontSize: 25,
-    color: theme.accentOne,
-    fontFamily: "Didot",
-    textAlign: "center",
-    marginTop: 10
-  }
+	container: {
+		backgroundColor: theme.accentOne,
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: '100%'
+	},
+	headerContainer: {
+		borderBottomColor: theme.primary,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		marginBottom: 10
+	},
+	header: {
+		fontSize: 30,
+		fontFamily: theme.textMain
+	},
+	routes: {
+		flexDirection: 'column',
+		backgroundColor: theme.primary,
+		height: '10%',
+		borderRadius: 30,
+		justifyContent: 'space-evenly',
+		margin: 5,
+		width: '80%',
+		alignItems: 'center'
+	},
+	scrollContainer: {
+		margin: 10
+	},
+	button: {
+		color: theme.accentOne,
+		fontSize: 25,
+		fontFamily: theme.textTwo,
+		margin: 10,
+		width: '100%'
+	},
+	text: {
+		fontSize: 25,
+		fontFamily: theme.textMain,
+		textAlign: 'center',
+		margin: 10
+	},
+	input: {
+		width: '100%',
+		height: 80,
+		fontSize: 30,
+		fontFamily: theme.textTwo,
+		padding: 5,
+		marginTop: 10,
+		backgroundColor: theme.accentThree,
+		color: theme.accentTwo
+	},
+	touchExpander: {
+		height: '100%',
+		borderRadius: 30,
+		width: '100%'
+	},
+	registerButton: {
+		fontSize: 30,
+		color: theme.accentOne,
+		fontFamily: theme.textTwo,
+		textAlign: 'center',
+		marginTop: 10
+	},
+	messages: {
+		fontSize: 16,
+		fontFamily: theme.textMain,
+		color: theme.primary,
+		margin: 10
+	}
 });
 
-// CreateAccount.propTypes = {
-// };
+CreateAccount.propTypes = {
+	userAccount: PropTypes.object
+};
