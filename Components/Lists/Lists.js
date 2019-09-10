@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput 
+  TextInput
 } from 'react-native';
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
@@ -132,7 +132,7 @@ class Lists extends Component {
     recording.setOnRecordingStatusUpdate(this._updateScreenForRecordingStatus);
 
     this.recording = recording;
-    await this.recording.startAsync(); 
+    await this.recording.startAsync();
     this.setState({
       isLoading: false,
     });
@@ -187,13 +187,13 @@ class Lists extends Component {
 
     const options = {
       method: 'POST',
-      body: JSON.stringify(formData),
+      body: blob,
       headers: {
-        'Content-Type': 'application/json'
-      },
+        'Content-Type': 'application/octet-stream'
+      }
     }
 
-    fetch("http://localhost:3000/api/v1/clients", options)
+    fetch("http://localhost:3000/api/v1/speech", options)
     .then(res => res.json())
     .then(data => {
       console.log(data);
