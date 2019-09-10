@@ -18,7 +18,7 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back, {user.name}!
+          {/* Welcome Back, {user.name}! */}
         </Text>
         <View style={styles.routes}>
           <TouchableHighlight

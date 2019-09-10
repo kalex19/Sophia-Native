@@ -8,7 +8,9 @@ import { logInUser } from '../../Utils/logInUser';
 const initialState = {
 	accountType: '',
 	username: '',
-	password: ''
+	password: '',
+	message: '',
+	error: '',
 };
 
 export class Login extends Component {
@@ -22,14 +24,25 @@ export class Login extends Component {
 
 	handleSubmit = async () => {
 		const { username, password } = this.state;
-		const user = await this.logInUser(username, password);
-		this.props.logIn(user)
 		this.setState({
-			accountType: '',
-			username: '',
-			password: ''
+			error: ''
 		})
-		this.props.navigation.navigate('User', this.props.userAccount)
+		if(this.state.username === '' || this.state.password === ''){
+			this.setState({message: "Please type in a username and password"}) 
+		} else {
+			const user = await this.logInUser(username, password);
+			this.props.logIn(user)
+			this.setState({message: '', error: user.message})
+		}
+		if(!this.state.error && this.state.username && this.state.password){
+			this.setState({
+				accountType: '',
+				username: '',
+				password: ''
+			})
+			this.props.navigation.navigate('User', this.props.userAccount)
+		} 
+	
 	}
 
 	logInUser = async (username, password) => {
@@ -55,16 +68,23 @@ export class Login extends Component {
 				</View>
 				<TextInput
 					style={styles.input}
+					value={this.state.username}
 					placeholder="Username"
 					onChangeText={value => this.handleChange('username', value)}
+					accessibilityLabel={"Username Input"}
+					accessibile={true}
 					placeholderTextColor="maroon"
 				/>
 				<TextInput
 					style={styles.input}
+					value={this.state.password}
 					placeholder="Password"
 					onChangeText={value => this.handleChange('password', value)}
+					accessibilityLabel={"Password Input"}
+					accessibile={true}
 					placeholderTextColor="maroon"
 				/>
+				<Text style={styles.text}>{this.state.message}</Text>
 				<View style={styles.routes}>
 					<TouchableHighlight
 						underlayColor="black"
@@ -75,6 +95,7 @@ export class Login extends Component {
 						<Text style={styles.button}> Log In </Text>
 					</TouchableHighlight>
 				</View>
+				<Text style={styles.text}>{this.state.error}</Text>
 			</View>
 		);
 	}
@@ -137,5 +158,10 @@ const styles = StyleSheet.create({
 		height: '90%',
 		borderRadius: 30,
 		width: '100%'
+	},
+	text: {
+		fontSize: 15,
+		fontFamily: 'Didot',
+		color: 'maroon'
 	}
 });
