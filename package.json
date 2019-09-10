@@ -26,7 +26,13 @@
     "react-native-pinch-zoom-view": "^0.2.0",
     "react-test-renderer": "^16.8.6",
     "react-redux": "^7.1.1",
-    "redux": "^4.0.4"
+    "react-test-renderer": "^16.9.0",
+    "redux": "^4.0.4",
+    "yarn": "^1.17.3",
+    "expo-asset": "^6.0.0",
+    "expo-av": "~6.0.0",
+    "expo-file-system": "~6.0.0",
+    "expo-permissions": "~6.0.0"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",

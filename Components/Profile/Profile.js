@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { PinchZoomView } from "react-native-pinch-zoom-view";
 import { connect } from "react-redux";
 import { fetchProfile } from '../../Utils/apiCalls';
+import { PropTypes } from 'prop-types';
+import theme from '../../theme';
 
 export class Profile extends Component {
   state = {};
@@ -39,6 +40,7 @@ export class Profile extends Component {
             accessible={true}
             onPress={() => props.navigation.navigate("Profile", props.profile.profile)
             }
+            style={styles.touchExpander}
           >
             <Text style={styles.button}>Log Out</Text>
           </TouchableHighlight>
@@ -85,33 +87,49 @@ const styles = StyleSheet.create({
     margin: 30
   },
   headerCntainer: {
-    borderBottomColor: "maroon",
+    borderBottomColor:theme.primary,
     borderBottomWidth: StyleSheet.hairlineWidth,
     paddingBottom: 10
   },
   header: {
     textAlign: "center",
     fontSize: 30,
-    fontFamily: "Didot"
+    fontFamily: theme.textMain
   },
   clientInfo: {
     fontSize: 20,
-    fontFamily: "Didot",
+    fontFamily: theme.textMain,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "maroon",
-    color: "white",
+    backgroundColor:theme.primary,
+    color: theme.accentOne,
     padding: 20
   },
   infoCntainer: {
-    backgroundColor: "maroon",
+    backgroundColor:theme.primary,
     marginTop: 10,
     marginBottom: 10,
     padding: 10
   },
   clientInfoList: {
     fontSize: 20,
-    fontFamily: "Didot",
-    color: "white"
+    fontFamily: theme.textMain,
+    color: theme.accentOne,
+  },
+  button: {
+    color: theme.accentOne,
+    fontSize: 25,
+    fontFamily: theme.textTwo,
+    margin: 10,
+    width: "100%",
+  },
+  touchExpander: {
+    height: "100%",
+    borderRadius: 30,
+    width: "100%"
   }
 });
+
+Profile.propTypes = {
+  userAccount: PropTypes.object,
+};
