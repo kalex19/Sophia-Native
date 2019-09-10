@@ -21,7 +21,7 @@ describe("apiCalls", () => {
         { name: "test list 3" }
       ];
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockLists)
@@ -35,7 +35,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if the answer is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -55,7 +55,7 @@ describe("apiCalls", () => {
 
       mockResponse = { id: 1 };
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockResponse)
@@ -70,7 +70,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false,
           json: () => Promise.resolve(mockResponse)
@@ -83,7 +83,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "Could not add new list"
         });
@@ -99,7 +99,7 @@ describe("apiCalls", () => {
     const mockClientId = 1;
     const mockListId = 2;
     beforeEach(() => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true
         });
@@ -118,11 +118,11 @@ describe("apiCalls", () => {
       ];
       deleteList(mockClientId, mockListId);
 
-      expect(window.fetch).toHaveBeenCalledWith(...expected);
+      expect(global.fetch).toHaveBeenCalledWith(...expected);
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -134,7 +134,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "There was an error with the server"
         });
@@ -155,7 +155,7 @@ describe("apiCalls", () => {
 
       mockResponse = { name: "Changed name" };
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockResponse)
@@ -170,7 +170,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -182,7 +182,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "There was an error with the server"
         });
@@ -204,7 +204,7 @@ describe("apiCalls", () => {
         { name: "test list 3" }
       ];
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockTasks)
@@ -218,7 +218,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if the answer is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -238,7 +238,7 @@ describe("apiCalls", () => {
 
       mockResponse = { id: 1 };
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockResponse)
@@ -253,7 +253,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false,
           json: () => Promise.resolve(mockResponse)
@@ -266,7 +266,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "Could not add new task"
         });
@@ -287,7 +287,7 @@ describe("apiCalls", () => {
 
       mockResponse = { name: "Changed name" };
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockResponse)
@@ -302,7 +302,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -314,7 +314,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "There was an error with the server"
         });
@@ -331,7 +331,7 @@ describe("apiCalls", () => {
     const mockListId = 2;
     const mockTaskId = 1;
     beforeEach(() => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true
         });
@@ -350,11 +350,11 @@ describe("apiCalls", () => {
       ];
       deleteTask(mockListId, mockTaskId, mockClientId);
 
-      expect(window.fetch).toHaveBeenCalledWith(...expected);
+      expect(global.fetch).toHaveBeenCalledWith(...expected);
     });
 
     it("SAD: should return an error if status is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });
@@ -366,7 +366,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if promise rejects", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           message: "There was an error with the server"
         });
@@ -384,7 +384,7 @@ describe("apiCalls", () => {
     beforeEach(() => {
       mockProfile = { name: "test list 1", email: "test@test.com" };
 
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockProfile)
@@ -398,7 +398,7 @@ describe("apiCalls", () => {
     });
 
     it("SAD: should return an error if the answer is not ok", () => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return Promise.resolve({
           ok: false
         });

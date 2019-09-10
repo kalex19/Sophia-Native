@@ -3,16 +3,20 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
-// import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
-class IndividualList extends Component {
-  state = {
-    task_input: "",
-    description_input: "",
-    due_date: "",
-    displayEdit: "",
-    task_edit_input: ""
-  };
+export class IndividualList extends Component {
+  constructor(){
+    super()
+    this.state = {
+      task_input: "",
+      description_input: "",
+      due_date: "",
+      displayEdit: "",
+      task_edit_input: ""
+    };
+  }
+  
 
   componentDidMount = async () => {
     await this.returnUpdatedTask();
