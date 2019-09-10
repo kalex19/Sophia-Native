@@ -49,15 +49,25 @@ describe('IndividualList', () => {
     handleChangeDate = {mockHandleChangeDate}
     handleEditTask = {mockHandleEditTask}
     handleSubmitEdit = {mockHandleSubmitEdit}
-    handleSubmitEdit = {mockHandleSubmit}
+    handleSubmit = {mockHandleSubmit}
     eraseTask = {mockEraseTask}
     initialState = {initialState}
+    store={store}
     />)
   });
 
-  it('should match the snapshot', () => {
-    console.log(wrapper)
+  it.skip('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
+  
+  it('should set state of displayEdit to the value of task_id when toggleEditName is called', () => {
+    console.log(wrapper)
+    let mockId = 1
+    wrapper.state.displayEdit = ''
+
+    wrapper.instance().toggleEditName(mockId);
+
+    expect(wrapper.state('displayEdit')).toEqual(1)
+  })
 
 });

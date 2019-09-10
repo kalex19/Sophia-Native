@@ -38,14 +38,17 @@
     "yarn": "^1.17.3"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-preset-expo": "^6.0.0",
+    "babel-preset-react-native": "^4.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.0",
     "jest": "^24.9.0",
     "jest-environment-enzyme": "^7.1.1",
     "jest-enzyme": "^7.1.1",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-native-mock": "^0.3.1"
   },
   "private": true,
   "engines": {
