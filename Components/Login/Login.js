@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 		width: '100%'
 	},
 	text: {
-		fontSize: 15,
+		fontSize: 25,
 		fontFamily: 'Didot',
 		color: 'maroon'
 	}
