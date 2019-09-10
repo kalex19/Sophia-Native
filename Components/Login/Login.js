@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 		color: theme.accentTwo,
 	},
 	touchExpander: {
-		height: '90%',
+		height: '100%',
 		borderRadius: 30,
 		width: '100%'
 	},
