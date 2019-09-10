@@ -14,6 +14,7 @@ class Lists extends Component {
 
   componentDidMount = async () => {
     await this.returnUpdatedList();
+    
   };
 
   returnUpdatedList = async () => {
@@ -64,7 +65,6 @@ class Lists extends Component {
     const { navigation } = this.props;
     const allLists = lists.map(list => {
       list = { ...list, client_id: userId }
-      console.log("LIST NAME", list.name)
       return (
         <View style={styles.lists} key={list.id}>
           <TouchableHighlight
