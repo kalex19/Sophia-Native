@@ -22,13 +22,13 @@ export class UserHomeScreen extends Component {
         <Text style={styles.greeting}>
           Welcome Back,
         </Text>
-        <Text style={styles.greeting}>{user.name}!</Text>
+        <Text style={styles.greeting}>{this.props.userAccount.name}!</Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Profile", user.id)
+            onPress={() => this.props.navigation.navigate("Profile")
             } style={styles.touchExpander}
           >
             <Text style={styles.button}>My Account</Text>
@@ -39,7 +39,7 @@ export class UserHomeScreen extends Component {
             underlayColor="black"
             accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
             accessible={true}
-            onPress={() => this.props.navigation.navigate("Lists", user.id)
+            onPress={() => this.props.navigation.navigate("Lists")
           } style={styles.touchExpander}
           >
             <Text style={styles.button}>My Lists</Text>
@@ -52,7 +52,7 @@ export class UserHomeScreen extends Component {
 
 export const mapStateToProps = state => ({
   userAccount: state.userAccount,
-  lists: state.lists
+  lists: state.lists,
 });
 
 export const mapDispatchToProps = dispatch => ({
