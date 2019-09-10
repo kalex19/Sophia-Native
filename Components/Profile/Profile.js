@@ -134,10 +134,10 @@ const styles = StyleSheet.create({
   routes: {
 		flexDirection: "column",
     backgroundColor: theme.primary,
-    width: "50%",
+    width: "90%",
     height: "10%",
     justifyContent: "center",
-    margin: 10,
+    margin: 15,
     borderRadius: 50,
 	}
 });
