@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { logIn } from '../../actions';
-import { logInUser } from '../../Utils/logInUser';
+import logInUser from '../../Utils/logInUser';
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
 
@@ -29,10 +29,10 @@ export class Login extends Component {
 		this.setState({
 			error: ''
 		})
-		if(this.state.username === '' || this.state.password === ''){
+		if(!this.state.username || !this.state.password){
 			this.setState({message: "Please type in a username and password"}) 
 		} else {
-			const user = await this.logInUser(username, password);
+			const user = await logInUser(username, password);
 			this.props.logIn(user)
 			this.setState({message: '', error: user.message})
 		}
@@ -43,22 +43,6 @@ export class Login extends Component {
 				password: ''
 			})
 			this.props.navigation.navigate('User', this.props.userAccount)
-		} 
-	
-	}
-
-	logInUser = async (username, password) => {
-		const options = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({username, password})
-		};
-		try {
-			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/login', options);
-			const user = await response.json();
-			return user
-		} catch (error) {
-			throw new Error(`failed to post profile: ${error.message}`);
 		} 
 	}
 

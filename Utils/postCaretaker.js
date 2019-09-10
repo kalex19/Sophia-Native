@@ -10,7 +10,8 @@ export default postCaretaker = async profile => {
 		try {
 			const response = await fetch('https://sophia-be.herokuapp.com/api/v1/caretakers/', options);
       const account = await response.json();
-      await logInUser(account.username, account.password)
+			let user = await logInUser(account.username, account.password)
+			return user
 		} catch (error) {
 			throw new Error(`failed to post profile: ${error.message}`);
 		}
