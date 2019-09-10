@@ -1,5 +1,10 @@
-import React from "react";
-import { configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import 'react-native';
+import 'jest-enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme';
 
-configure({ adapter: new Adapter() });
+/**
+ * Set up Enzyme to mount to DOM, simulate events,
+ * and inspect the DOM in tests.
+ */
+Enzyme.configure({ adapter: new Adapter() });
