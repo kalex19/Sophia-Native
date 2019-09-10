@@ -58,7 +58,9 @@ export class CreateAccount extends Component {
 			needs,
 			allergies,
 			diet,
-			medications
+			medications,
+			error,
+			message,
 			// accountType
 		} = this.state;
 
@@ -76,7 +78,7 @@ export class CreateAccount extends Component {
 			needs,
 			allergies,
 			diet_restrictions: diet,
-			medications
+			medications,
 			// accountType
 		};
 		if (
@@ -120,7 +122,7 @@ export class CreateAccount extends Component {
 			medications
 		) {
 			this.setState({ initialState });
-			this.props.navigation.navigate('User', user);
+			this.props.navigation.navigate('User');
 		}
 	};
 
@@ -133,7 +135,8 @@ export class CreateAccount extends Component {
 			email,
 			phone,
 			abilities,
-			error
+			error,
+			message,
 			// accountType waiting for BE adjustment
 		} = this.state;
 
@@ -157,7 +160,7 @@ export class CreateAccount extends Component {
 		}
 		if (!error && username && password && password_confirmation && name && email && phone && abilities) {
 			this.setState({ initialState });
-			this.props.navigation.navigate('User', user);
+			this.props.navigation.navigate('User');
 		}
 	};
 
@@ -170,6 +173,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('address', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Address Input. Please type your address"
+					value={this.state.address}
 				/>
 				<TextInput
 					style={styles.input}
@@ -177,6 +181,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('city', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="City Input. Please type your city"
+					value={this.state.city}
 				/>
 				<TextInput
 					style={styles.input}
@@ -184,6 +189,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('state', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="State Input. Please type your state"
+					value={this.state.state}
 				/>
 				<TextInput
 					style={styles.input}
@@ -191,6 +197,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('zip', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Zip Code Input. Please type your zip code"
+					value={this.state.zip}
 				/>
 				<Text style={styles.text}>Seperate multiple input values by commas</Text>
 				<TextInput
@@ -199,6 +206,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('needs', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
+					value={this.state.needs.join(',')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -206,6 +214,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('allergies', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Allergies Input. Please type the names your allergies"
+					value={this.state.allergies.join(',')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -213,6 +222,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('diet', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names your dietary restrictions"
+					value={this.state.diet.join(',')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -220,6 +230,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('medications', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
+					value={this.state.medications.join(',')}
 				/>
 			</View>
 		);
@@ -236,6 +247,7 @@ export class CreateAccount extends Component {
 					placeholder="Caretaking Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
 					placeholderTextColor={theme.primary}
+					value={this.state.abilities.join(',')}
 				/>
 			</View>
 		);
@@ -309,6 +321,7 @@ export class CreateAccount extends Component {
 						onChangeText={value => this.handleChange('username', value)}
 						placeholderTextColor={theme.primary}
 						accessibilityLabel="Username Input. Please make a username"
+						value={this.state.username}
 					/>
 					<TextInput
 						style={styles.input}
@@ -318,6 +331,7 @@ export class CreateAccount extends Component {
 						accessibilityLabel="Password Input. Please make a password"
 						minLength={8}
 						secureTextEntry={true}
+						value={this.state.password}
 					/>
 					<TextInput
 						style={styles.input}
@@ -327,6 +341,7 @@ export class CreateAccount extends Component {
 						accessibilityLabel="Password Confirmation Input. Please type your password again"
 						minLength={8}
 						secureTextEntry={true}
+						value={this.state.password_confirmation}
 					/>
 					<TextInput
 						style={styles.input}
@@ -334,6 +349,7 @@ export class CreateAccount extends Component {
 						onChangeText={value => this.handleChange('name', value)}
 						placeholderTextColor={theme.primary}
 						accessibilityLabel="Name Input. Please type for full name"
+						value={this.state.name}
 					/>
 					<TextInput
 						style={styles.input}
@@ -341,6 +357,7 @@ export class CreateAccount extends Component {
 						onChangeText={value => this.handleChange('email', value)}
 						placeholderTextColor={theme.primary}
 						accessibilityLabel="Email Input. Please type your email"
+						value={this.state.email}
 					/>
 					<TextInput
 						style={styles.input}
@@ -349,6 +366,7 @@ export class CreateAccount extends Component {
 						dataDetectorTypes={'phoneNumber'}
 						placeholderTextColor={theme.primary}
 						accessibilityLabel="Phone Input. Please type your phone number without dashes"
+						value={this.state.phone}
 					/>
 					{this.state.accountType === 'client' && this.renderClientInput()}
 					{this.state.accountType === 'caretaker' && this.renderCaretakerInput()}

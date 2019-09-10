@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { PinchZoomView } from "react-native-pinch-zoom-view";
 import { connect } from "react-redux";
 import { fetchProfile } from '../../Utils/apiCalls';
 import { PropTypes } from 'prop-types';

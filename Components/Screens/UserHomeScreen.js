@@ -26,7 +26,7 @@ export class UserHomeScreen extends Component {
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
             accessible={true}
             onPress={() => this.props.navigation.navigate("Profile", user.id)
             } style={styles.touchExpander}
