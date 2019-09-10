@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { logIn } from '../../actions';
-import logInUser from '../../Utils/logInUser';
+import {logInUser} from '../../Utils/logInUser';
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
 
