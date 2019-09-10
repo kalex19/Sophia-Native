@@ -1,17 +1,27 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import IndividualList from './IndividualList';
+import { IndividualList } from './IndividualList';
 import renderer from 'react-test-renderer';
 import 'react-native';
 import { loadTasks } from "../../actions";
 import { mapStateToProps, mapDispatchToProps } from "./IndividualList";
 
-jest.mock('react-native-gesture-handler', () => {})
+jest.mock('react-native-gesture-handler', () => {
+  return {}
+})
+
 
 test('IndividuaList renders correctly', () => {
-  const snapshot = renderer.create(<IndividualList />).toJSON();
+  //const snapshot = renderer.create(<IndividualList />).toJSON();
+  const snapshot = shallow(
+    <IndividualList
+      navigation={{ state: { params: { name: "list" } }}}
+      tasks={[]}
+    />
+  )
   expect(snapshot).toMatchSnapshot();
 });
+
 
 // describe('IndividualList', () => {
 //   let wrapper; 

@@ -89,8 +89,7 @@ export class IndividualList extends Component {
   };
 
   render() {
-    const list = this.props.navigation.state.params;
-    console.log(list)
+    const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
     const noItems = (
       <View key={Math.random()}>
@@ -152,7 +151,7 @@ export class IndividualList extends Component {
     return (
       <View>
         <View style={styles.listHeader}>
-          <Text style={styles.listName}>{list.name}</Text>
+          <Text style={styles.listName}>{name}</Text>
         </View>
         <View style={styles.addTaskContainer}>
           <View style={styles.align}>
