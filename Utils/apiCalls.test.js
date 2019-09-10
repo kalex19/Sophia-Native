@@ -1,4 +1,4 @@
-import { fetchLists, postList, deleteList, patchList, fetchTasks, postTask } from './apiCalls';
+import { fetchLists, postList, deleteList, patchList, fetchTasks, postTask, patchTask } from './apiCalls';
 
 describe("apiCalls", () => {
   describe("fetchLists", () => {
@@ -261,4 +261,47 @@ describe("apiCalls", () => {
   });
 
 
+  describe('patchTask', () => {
+    let mockTask;
+    let mockResponse;
+
+    beforeEach(() => {
+      mockTask = { name: "Sample 1"}
+
+      mockResponse = { name: "Changed name" }
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse)
+        });
+      });
+    });
+
+    it('HAPPY: should return a parsed response', async () => {
+      const result = await patchTask(mockTask);
+
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('SAD: should return an error if status is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        })
+      });
+
+      expect(patchTask(mockTask)).rejects.toEqual(Error('Could not edit name of task'))
+    });
+
+    it('SAD: should return an error if promise rejects', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          message: 'There was an error with the server'
+        });
+      });
+
+      expect(patchTask(mockTask)).rejects.toEqual({ message : "There was an error with the server" })
+    });
+  });
 })
