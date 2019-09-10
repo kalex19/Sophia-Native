@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
+
+
 const AppHomeScreen = (props) => {
     return (
       <View style={styles.container}>
@@ -16,7 +18,7 @@ const AppHomeScreen = (props) => {
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to log in to your account"
+            accessibilityLabel="Tap me to log in to your account"
             accessible={true}
             onPress={() => props.navigation.navigate("Login")
             }
@@ -27,7 +29,7 @@ const AppHomeScreen = (props) => {
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap me to create your account."
+            accessibilityLabel="Tap me to create a new account"
             accessible={true}
             onPress={() => props.navigation.navigate("CreateAccount")
             }

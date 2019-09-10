@@ -326,6 +326,7 @@ export class CreateAccount extends Component {
               style={styles.input}
               placeholder="Phone"
               onChangeText={value => this.handleChange("phone", value)}
+              dataDetectorTypes={"phoneNumber"}
               placeholderTextColor={theme.primary}
             />
             {this.state.user === "client" && this.renderClientInput()}
@@ -419,5 +420,7 @@ const styles = StyleSheet.create({
   }
 });
 
+
+// import { PropTypes } from 'prop-types';
 // CreateAccount.propTypes = {
 // };

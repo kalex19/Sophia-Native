@@ -38,8 +38,8 @@ const AppNavigator = createStackNavigator(
     TaskForm: TaskForm
   },
   {
-    initialRouteName: "Home"
-  }
+    initialRouteName: "Home",
+  },
 );
 
 const Navigator = createAppContainer(AppNavigator);
