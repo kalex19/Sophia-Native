@@ -20,8 +20,9 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back, {user.name}!
+          Welcome Back,
         </Text>
+        <Text style={styles.greeting}>{user.name}!</Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
@@ -77,14 +78,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: theme.textMain,
     margin: 10,
-    marginBottom: 30
+    marginBottom: 30,
   },
   button: {
     color: theme.accentOne,
-    fontSize: 25,
+    fontSize: 30,
     fontFamily: theme.textTwo,
-    margin: 10,
-    width: "100%",
+    textAlign: "center",
+    paddingTop: 25,
   },
   container: {
     backgroundColor: theme.accentOne,
@@ -96,14 +97,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.primary,
     width: "80%",
-    height: "20%",
+    height: "15%",
     justifyContent: "space-around",
-    margin: 10
+    margin: 10,
+    borderRadius: 50,
   },
   touchExpander: {
     height: "100%",
-    borderRadius: 30,
-    width: "100%"
+    width: "100%",
+    borderRadius: 50,
   }
 });
 
