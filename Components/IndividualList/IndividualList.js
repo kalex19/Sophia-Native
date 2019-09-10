@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
-import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
+// import { TouchableHighlight } from "react-native-gesture-handler";
 
 class IndividualList extends Component {
   state = {
