@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Profile from "./Components/Profile/Profile";
 import Lists from "./Components/Lists/Lists";
-import TaskForm from "./Components/TaskForm/TaskForm";
 import IndividualList from "./Components/IndividualList/IndividualList";
 import UserHomeScreen from './Components/Screens/UserHomeScreen';
 import AppHomeScreen from './Components/Screens/AppHomeScreen';
@@ -34,8 +33,7 @@ const AppNavigator = createStackNavigator(
     User: UserHomeScreen,
     Profile: Profile,
     Lists: Lists,
-    IndividualList: IndividualList,
-    TaskForm: TaskForm
+    IndividualList: IndividualList
   },
   {
     initialRouteName: "Home"

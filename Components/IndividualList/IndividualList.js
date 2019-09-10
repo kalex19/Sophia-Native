@@ -16,7 +16,6 @@ export class IndividualList extends Component {
       task_edit_input: ""
     };
   }
-  
 
   componentDidMount = async () => {
     await this.returnUpdatedTask();
