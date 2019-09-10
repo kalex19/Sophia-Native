@@ -151,6 +151,9 @@ class Lists extends Component {
     const info = await FileSystem.getInfoAsync(this.recording.getURI());
     console.log('recording',this.recording)
     console.log(`FILE INFO: ${JSON.stringify(info)}`);
+    const response = await fetch(info.uri);
+    const blob = await response.blob();
+    this.postBlob(blob)
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -175,6 +178,29 @@ class Lists extends Component {
     this.setState({
       isLoading: false,
     });
+  }
+
+  postBlob = (blob) => {
+    var formData = new FormData(blob);
+    formData.append('soundBlob', blob)
+    console.log(formData);
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+
+    fetch("http://localhost:3000/api/v1/clients", options)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      })
+    .catch(error => {
+      console.log(error);
+      })
   }
 
   _onRecordPressed = () => {
