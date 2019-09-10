@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import theme from '../../theme';
+import { PropTypes } from 'prop-types';
 
-export class IndividualList extends Component {
+export class Tasks extends Component {
   constructor(){
     super()
     this.state = {
@@ -22,9 +24,8 @@ export class IndividualList extends Component {
   };
 
   returnUpdatedTask = async () => {
-    const clientId = this.props.navigation.state.params.client_id
-    const list_id = this.props.navigation.state.params.id;
-    const tasks = await fetchTasks(list_id, clientId);
+    const {user, list } = this.props
+    const tasks = await fetchTasks(list.id, user.id);
     const cleanedTasks = tasks.map(task => {
       return {
         id: task.id,
@@ -58,45 +59,35 @@ export class IndividualList extends Component {
   };
 
   handleSubmitEdit = async taskId => {
-    const list_id = this.props.navigation.state.params.id;
-    const clientId = this.props.navigation.state.params.client_id
+    const {user, list } = this.props
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
-    await patchTask(modifiedTask, list_id, taskId, clientId);
+    await patchTask(modifiedTask, list.id, taskId, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_edit_input: "", displayEdit: false });
   };
 
   handleSubmit = async newTask => {
-    const list_id = this.props.navigation.state.params.id;
+    const {user, list } = this.props
     const { task_input, description_input, due_date } = this.state;
-    const clientId = this.props.navigation.state.params.client_id
     newTask = {
       name: task_input,
       description: description_input,
       due_date: due_date
     };
-    await postTask(newTask, list_id, clientId);
+    await postTask(newTask, list.id, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
   eraseTask = async taskId => {
-    const clientId = this.props.navigation.state.params.client_id
-    const list_id = this.props.navigation.state.params.id;
-    await deleteTask(list_id, taskId, clientId);
+    const {user, list } = this.props
+    await deleteTask(list.id, taskId, client.id);
     this.returnUpdatedTask();
   };
 
-  render() {
-    const list = this.props.navigation.state.params;
-    console.log(list)
-    const { tasks } = this.props;
-    const noItems = (
-      <View key={Math.random()}>
-        <Text style={styles.listItem}>No Tasks</Text>
-      </View>
-    );
+  clientTasks = () => {
+    const { tasks, list } = this.props;
     const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
@@ -134,7 +125,7 @@ export class IndividualList extends Component {
                 onPress={() => this.toggleEditName(task.id)}
               >
                 <Text style={styles.editItem}>✏️</Text>
-                {/* <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text> */}
+                <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor="black"
@@ -185,14 +176,46 @@ export class IndividualList extends Component {
             <Text style={styles.plus}> + </Text>
           </TouchableHighlight>
         </View>
-        <View>{allTasks}</View>
+        {allTasks}
+      </View>
+  )}
+
+  caretakerTasks = () => {
+    const { tasks, list } = this.props;
+    const allCaretakerTasks = tasks.map(task => {
+        <View style={styles.lists}>
+          <View style={styles.listItemHeaderContainer}>
+            {this.state.displayEdit !== task.id && (
+              <View style={styles.taskNoteDue}>
+              <Text style={styles.listItemHeader}>{task.name}</Text>
+              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
+              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+              </View>
+            )}
+          </View>
+        </View>
+    }).reverse();
+    return(
+      <View>{allCaretakerTasks}</View>
+    )};
+
+  render() {
+    return(
+    <View>
+      <Text>{list.name}</Text>
+      <Text>My Tasks</Text>
+        <Text>{!this.props.task? "No Tasks" : null}</Text>
+        <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View>
       </View>
     );
   }
 }
 
 export const mapStateToProps = state => ({
-  tasks: state.tasks
+  tasks: state.tasks,
+  user: state.userAccount,
+  list: state.list
+
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -206,45 +229,45 @@ export default connect(
 
 const styles = StyleSheet.create({
   listHeader: {
-    borderColor: "maroon",
+    borderColor: theme.primary,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 20,
     padding: 10
   },
   listName: {
     fontSize: 40,
-    fontFamily: "Didot",
+    fontFamily: theme.textMain,
     textAlign: "center"
   },
   listItemHeaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "maroon",
+    backgroundColor: theme.primary,
     alignItems: "center",
     width: "100%"
   },
   listItemHeader: {
     textAlign: "center",
     fontSize: 40,
-    color: "white",
-    fontFamily: "Didot",
+    color: theme.accentOne,
+    fontFamily: theme.textMain,
     width: "85%"
   },
   listItemSecond: {
     textAlign: "center",
     fontSize: 20,
-    color: "white",
-    fontFamily: "Didot",
+    color: theme.accentOne,
+    fontFamily: theme.textMain,
     width: "85%"
   },
   listItem: {
     fontSize: 40,
-    color: "white",
+    color: theme.accentOne,
     padding: 8,
     paddingLeft: 12
   },
   addTaskContainer: {
-    backgroundColor: "maroon",
+    backgroundColor: theme.primary,
     alignItems: "center",
     margin: 10,
     padding: 5,
@@ -254,27 +277,27 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   input: {
-    backgroundColor: "white",
-    borderColor: "gray",
+    backgroundColor: theme.accentOne,
+    borderColor: theme.accentThree,
     borderWidth: 1,
     margin: 2,
     fontSize: 40,
-    fontFamily: "Didot",
+    fontFamily: theme.textMain,
     textAlign: "center",
     width: 320
   },
   label: {
-    color: "white",
+    color: theme.accentOne,
     fontSize: 20,
-    fontFamily: "Didot"
+    fontFamily: theme.textMain
   },
   align: {
     justifyContent: "center",
     alignItems: "center"
   },
   plus: {
-    color: "white",
-    backgroundColor: "maroon",
+    color: theme.accentOne,
+    backgroundColor: theme.primary,
     alignSelf: "center",
     textAlign: "center",
     fontSize: 50
@@ -285,13 +308,13 @@ const styles = StyleSheet.create({
   },
   editItem: {
     fontSize: 15,
-    color: "white",
-    fontFamily: "Didot"
+    color: theme.accentOne,
+    fontFamily: theme.textMain
   },
   lists: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "maroon",
+    backgroundColor: theme.primary,
     alignItems: "center",
     margin: 10,
     marginBottom: 1,
@@ -304,15 +327,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
     borderWidth: 1,
-    borderColor: "white"
+    borderColor: theme.accentOne
   },
   inputEdit: {
     width: "85%",
-    backgroundColor: "white",
+    backgroundColor: theme.accentOne,
     fontSize: 38,
-    fontFamily: "Didot"
+    fontFamily: theme.textMain
   },
   taskNoteDue: {
     width: '85%'
   }
 });
+
+CreateAccount.propTypes = {
+  userAccount: PropTypes.object,
+  tasks: PropTypes.object,
+  list: PropTypes.object
+};
+
+//doublecheck protypes
+

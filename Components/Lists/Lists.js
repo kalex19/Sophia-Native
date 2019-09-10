@@ -297,7 +297,7 @@ class Lists extends Component {
           <Text
             style={styles.listName}
             onPress={() => {
-              navigation.navigate("IndividualList", list);
+              navigation.navigate("Tasks", list);
             }}
           >
             {list.name}
