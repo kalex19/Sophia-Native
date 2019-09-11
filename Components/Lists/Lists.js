@@ -4,11 +4,11 @@
 
 import React, { Component } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
   Picker,
+  ScrollView,
 } from 'react-native';
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
@@ -18,10 +18,13 @@ import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
-import theme from '../../theme';
 import { PropTypes } from 'prop-types';
-import { getCaretakers } from '../../Utils/getCaretakers';
+// import { getCaretakers } from '../../Utils/getCaretakers';
 import { fetchCaretakerLists } from '../../Utils/fetchCaretakerLists';
+import ClientList from '../ClientList/ClientList';
+import { postBlob } from '../../Utils/postBlob';
+import { styles } from './styleLists';
+import CaretakerList from '../CaretakerList/CaretakerList';
 
 class Lists extends Component {
   constructor(props) {
@@ -45,9 +48,7 @@ class Lists extends Component {
       shouldCorrectPitch: true,
       volume: 1.0,
       rate: 1.0,
-      displayEdit: "",
       list_title: "",
-      list_edit_input: "",
       caretaker_id: null,
       caretakers: [],
     };
@@ -164,26 +165,6 @@ class Lists extends Component {
       isLoading: false,
     });
   }
-
-  postBlob = (blob) => {
-    const options = {
-      method: 'POST',
-      body: blob,
-      headers: {
-        'Content-Type': 'application/octet-stream'
-      }
-    }
-
-    fetch("http://evening-dusk-50121.herokuapp.com/api/v1/speech", options)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      })
-    .catch(error => {
-      console.log(error);
-      })
-  }
-
   _onRecordPressed = () => {
     if (this.state.isRecording) {
       this._stopRecordingAndEnablePlayback();
@@ -233,6 +214,25 @@ class Lists extends Component {
     this.setState({ list_edit_input: "", displayEdit: false });
   };
 
+  postBlob = (blob) => {
+    const options = {
+      method: 'POST',
+      body: blob,
+      headers: {
+        'Content-Type': 'application/octet-stream'
+      }
+    }
+  
+    fetch("http://evening-dusk-50121.herokuapp.com/api/v1/speech", options)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({list_title: data});
+      })
+    .catch(error => {
+      console.log(error);
+      })
+  }
+
   recordListName = () => {
     const allCaretakers =  this.state.caretakers.map(caretaker => {
       <Picker.Item label={caretaker.name} value={caretaker.id} />
@@ -244,13 +244,13 @@ class Lists extends Component {
       style={styles.input}
       placeholder="List name"
       value={this.state.list_title}
-      onChangeText={this.handleChange}
+      onChangeText={(text) => this.handleChange(text)}
       accessibilityLabel="List Name Input"
     ></TextInput>
     <TouchableHighlight
       underlayColor="black"
       accessibilityLabel="Tap me to submit the title of your list."
-      onPress={() => this.handleSubmit()}
+      onPress={this.handleSubmit}
     >
       <Text style={styles.plus} accessibilityLabel="Plus Button. Add a new list by typing in the list name input"
      > + </Text>
@@ -279,66 +279,30 @@ class Lists extends Component {
   </View>
   };
 
-  getAllClientLists = () => {
-    const { lists, navigation, user } = this.props;
-
+  getClientLists = () => {
+    const { lists, user } = this.props;
     return lists.map(list => {
     list = { ...list, client_id: user.id }
     return (
-      <View style={styles.lists} key={list.id} accessible={true}>
-        <TouchableHighlight
-          underlayColor="black"
-          accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
-          accessible={true}
-        ></TouchableHighlight>
-        {this.state.displayEdit !== list.id && (
-          <Text
-            style={styles.listName}
-            onPress={() => {
-              navigation.navigate("Tasks", list);
-            }}
-          >
-            {list.name}
-          </Text>
-        )}
-        {this.state.displayEdit === list.id && (
-          <View style={styles.align}>
-            <TextInput
-              style={styles.input}
-              placeholder="New name"
-              value={this.state.list_edit_input}
-              onChangeText={this.handleEditList}
-            ></TextInput>
-            <TouchableHighlight
-              underlayColor="black"
-              accessibilityLabel="Tap me to submit your edited list name."
-              onPress={() => this.handleSubmitEdit(list.id)}
-            >
-              <Text style={styles.listItem}>✔︎</Text>
-            </TouchableHighlight>
-          </View>
-        )}
-        <View style={styles.vertically}>
-          <TouchableHighlight
-            underlayColor="black"
-            accessibilityLabel="Tap me to open form and edit your list name."
-            onPress={() => this.toggleEditName(list.id)}
-          >
-            <Text style={styles.editItem}>✏️</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.eraseList(list.id)}>
-            <Text style={styles.editItem}>DEL</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
+      <ClientList/>
     );
   }).reverse()
 }
+//need to complete List component and pass props/methods
 
 getAllCaretakerLists = async () => {
   const lists = await fetchCaretakerLists(this.state.caretaker_id);
   this.props.loadLists(lists);
-}
+  const { lists, user } = this.props;
+    return lists.map(list => {
+    list = { ...list, client_id: user.id }
+    return (
+      <CaretakerList/>
+    );
+  }).reverse()
+
+} 
+//need to finish this function
 
 
   render() {
@@ -365,9 +329,11 @@ getAllCaretakerLists = async () => {
       <View style={styles.headerContainer}>
           <Text style={styles.header}>My Todo Lists</Text>
         </View>
-         {this.props.user.accountType === "client" ? this.recordListName() : null }
-         {this.props.user.accountType === "client" ? this.getAllClientLists() : null }
-         {this.props.user.accountType === "caretaker" ? this.getAllCaretakerLists() : null }
+         {this.props.user.accountType === "client" && this.recordListName()}
+         <ScrollView>
+         {this.props.user.accountType === "client" && this.getClientLists()}
+         {this.props.user.accountType === "caretaker" && this.getCaretakerLists()}
+         </ScrollView>
       </View>
     );
   }
@@ -383,137 +349,6 @@ export const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lists)
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    borderColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
-    padding: 10
-  },
-  header: {
-    fontSize: 40,
-    fontFamily: theme.textMain,
-    textAlign: "center"
-  },
-  addListContainer: {
-    backgroundColor: theme.primary,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: 10,
-    padding: 5,
-    paddingTop: 0,
-    paddingBottom: 0,
-    justifyContent: "space-between"
-  },
-  lists: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    margin: 10,
-    marginBottom: 1,
-    marginTop: 1,
-    padding: 10
-  },
-  listName: {
-    color: theme.accentOne,
-    fontSize: 40,
-    fontFamily: theme.textTwo
-  },
-  input: {
-    borderColor: theme.accentThree,
-    borderWidth: 1,
-    fontSize: 40,
-    textAlign: "center",
-    backgroundColor: theme.accentOne,
-    width: "85%",
-    fontFamily: theme.textTwo,
-  },
-  align: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: theme.accentOne
-  },
-  plus: {
-    fontSize: 50,
-    color: theme.accentOne
-  },
-  listItem: {
-    fontSize: 25,
-    color: theme.accentOne,
-    padding: 5
-  },
-  editItem: {
-    fontSize: 15,
-    color: theme.accentOne,
-    fontFamily: theme.textTwo,
-  },
-  vertically: {
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  emptyContainer: {
-    alignSelf: 'stretch',
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
-  noPermissionsText: {
-    textAlign: 'center',
-  },
-  recordingContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: theme.primary,
-    borderRadius: 50,
-    width: '90%',
-    margin: 10,
-    height: '100%',
-  },
-  recordingDataContainer: {
-    flexDirection: "column",
-    backgroundColor: theme.primary,
-    width: "90%",
-    height: "30%",
-    justifyContent: "space-around",
-    margin: 10,
-    borderRadius: 50,
-    textAlign: 'center',
-  },
-  liveText: {
-    color: theme.accentOne,
-    fontFamily: theme.textMain,
-    marginBottom: 40,
-    marginHorizontal: 60,
-    fontSize: 20,
-  },
-  text: {
-    color: theme.accentOne,
-    fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    paddingTop: 25,
-  },
-  touchExpander: {
-    height: "80%",
-    borderRadius: 50,
-    width: "100%",
-  },
-  emptyContainer: {
-    alignSelf: 'stretch',
-    backgroundColor: theme.accentOne,
-  },
-});
 
 Lists.propTypes = {
   lists: PropTypes.array,

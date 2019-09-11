@@ -61,7 +61,7 @@ export class CreateAccount extends Component {
 			medications,
 			error,
 			message,
-			// accountType
+			accountType
 		} = this.state;
 
 		const newClientProfile = {
@@ -79,7 +79,7 @@ export class CreateAccount extends Component {
 			allergies,
 			diet_restrictions: diet,
 			medications,
-			// accountType
+			accountType,
 		};
 		if (
 			!username ||
@@ -137,7 +137,7 @@ export class CreateAccount extends Component {
 			abilities,
 			error,
 			message,
-			// accountType waiting for BE adjustment
+			accountType 
 		} = this.state;
 
 		const newCaretakerProfile = {
@@ -147,8 +147,8 @@ export class CreateAccount extends Component {
 			name,
 			email,
 			phone_number: phone,
-			abilities
-			// accountType
+			abilities,
+			accountType,
 		};
 		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
 			this.setState({ message: 'Please fill out all input fields' });
@@ -262,7 +262,7 @@ export class CreateAccount extends Component {
 					accessible={true}
 					onPress={this.handleClientSubmit}
 					style={styles.touchExpander}>
-					<Text style={styles.registerButton}>Register {this.state.accountType === 'client' ? 'Client' : null}</Text>
+					<Text style={styles.registerButton}>Register {this.state.accountType === 'client' && 'Client'}</Text>
 				</TouchableHighlight>
 			</View>
 		);
@@ -278,7 +278,7 @@ export class CreateAccount extends Component {
 					onPress={this.handleCaretakerSubmit}
 					style={styles.touchExpander}>
 					<Text style={styles.registerButton}>
-						Register {this.state.accountType === 'caretaker' ? 'Caretaker' : null}
+						Register {this.state.accountType === 'caretaker' && 'Caretaker'}
 					</Text>
 				</TouchableHighlight>
 			</View>
@@ -384,8 +384,8 @@ export class CreateAccount extends Component {
 	}
 }
 
-const mapStateToProps = store => ({
-	userAccount: store.userAccount
+const mapStateToProps = state => ({
+	user: state.userAccount
 });
 
 const mapDispatchToProps = dispatch => ({

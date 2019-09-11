@@ -19,9 +19,8 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back,
+          Welcome Back, {this.props.user.name}!
         </Text>
-        <Text style={styles.greeting}>{this.props.user.name}!</Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.textMain
   },
   greeting: {
-    fontSize: 30,
+    fontSize: 25,
     fontFamily: theme.textMain,
     margin: 10,
     marginBottom: 30,

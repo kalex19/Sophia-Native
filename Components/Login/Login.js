@@ -8,7 +8,6 @@ import { PropTypes } from 'prop-types';
 import theme from '../../theme';
 
 const initialState = {
-	accountType: '',
 	username: '',
 	password: '',
 	message: '',
@@ -38,11 +37,10 @@ export class Login extends Component {
 		}
 		if(!this.state.error && this.state.username && this.state.password){
 			this.setState({
-				accountType: '',
 				username: '',
 				password: ''
 			})
-			this.props.navigation.navigate('User', this.props.userAccount)
+			this.props.navigation.navigate('User', this.props.user)
 		} 
 	}
 
@@ -58,7 +56,7 @@ export class Login extends Component {
 					placeholder="Username"
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel={"Username Input"}
-					placeholderTextColor="maroon"
+					placeholderTextColor={theme.primary}
 				/>
 				<TextInput
 					style={styles.input}
@@ -68,7 +66,7 @@ export class Login extends Component {
 					accessibilityLabel={"Password Input"}
 					minLength={8}
 					secureTextEntry={true}  
-					placeholderTextColor="maroon"
+					placeholderTextColor={theme.primary}
 				/>
 				<Text style={styles.text} accessibilityLabel={"Please type a username and password"}>{this.state.message}</Text>
 				<View style={styles.routes}>
@@ -87,7 +85,7 @@ export class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-	userAccount: state.userAccount
+	user: state.userAccount
 })
 
 const mapDispatchToProps = dispatch => ({
