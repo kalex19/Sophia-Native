@@ -10,12 +10,14 @@ export const fetchLists = async (client_id) => {
   }
 };
 
-export const postList = async (object, client_id) => {
-  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists`;
+export const postList = async (newList) => {
+  console.log('postlist', newList)
+  console.log('postlist', newList.client_id)
+  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${newList.client_id}/lists`;
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(object)
+    body: JSON.stringify(newList)
   };
   const response = await fetch(url, options);
   if (!response.ok) {
