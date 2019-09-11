@@ -23,7 +23,7 @@ SOPHIA is a speech operated personal household interactive assistant. This app i
 
 Please reference the user stories to understand the full functionality of SOPHIA. 
 
-SOPHIA is an A11Y app with a large focus on accessibility. 
+SOPHIA is an A11Y app with a large focus on accessibility and was create with consulting from Accessibility expert Chris DeMars @chrisdemars. 
 
 ## User Stories
 
@@ -34,7 +34,7 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 * User can log in
 * User can log out
 * User can list personal information, contact information, needs, allergies, medications, and dietary restrictions in profile
-* User can create task lists
+* User can create a list using Speech-To-Text functionality
 * User can edit list name
 * User can delete lists
 * User can add tasks to lists
@@ -59,7 +59,6 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 * User can view task details
 * User can complete tasks
 * User can complete notes
-* User can send a notification of task/list completion to the client
 
 ## Tech Stack
 
@@ -69,7 +68,8 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 * Expo Audio
 * Jest
 * Enzyme
-* CircleCi [![CircleCI](https://circleci.com/gh/kalex19/Sophia-Native.svg?style=svg)](https://circleci.com/gh/kalex19/Sophia-Native)
+* CircleCi 
+[![CircleCI](https://circleci.com/gh/kalex19/Sophia-Native.svg?style=svg)](https://circleci.com/gh/kalex19/Sophia-Native)
 
 # How To Use
 
@@ -120,15 +120,22 @@ This is a unique opportunity that presents some valuable goals:
 
 ## Challenges
 
-coming soon...
+* Integrating Speech-To-Text functionality
+* Sending an audio file to the backend to be parsed and sent to Google's Speech API and returned as text
+* Testing React Native
+* Working in the most up-to-date version of React Native one week after version updates
 
 ## Successes
 
-coming soon...
+* Recieving text from the backend and rendering the text on the frontend
+* Testing React Native
+* Creating both client and caretaker accounts and functinoality which goes beyond the MVP
+* Meeting with Chris DeMars for accessibility advice and implementing his suggestions so the app is accessibile for clients and caretakers
 
 ## Extensions
 
-coming soon...
+* User can send a notification of task/list completion to the client
+* User can navigate the app using Speech-To-Text functionality
 
 ## Developers
 
