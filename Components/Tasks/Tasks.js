@@ -87,8 +87,14 @@ export class Tasks extends Component {
     this.returnUpdatedTask();
   };
 
-  clientTasks = () => {
-    const { tasks, list } = this.props;
+  render() {
+    const { name } = this.props.navigation.state.params;
+    const { tasks } = this.props;
+    const noItems = (
+      <View key={Math.random()}>
+        <Text style={styles.listItem}>No Tasks</Text>
+      </View>
+    );
     const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
@@ -144,7 +150,7 @@ export class Tasks extends Component {
     return (
       <View>
         <View style={styles.listHeader}>
-          <Text style={styles.listName}>{list.name}</Text>
+          <Text style={styles.listName}>{name}</Text>
         </View>
         <View style={styles.addTaskContainer}>
           <View style={styles.align}>
@@ -213,12 +219,44 @@ export class Tasks extends Component {
       </View>
     );
   }
+
+  // caretakerTasks = () => {
+  //   const { tasks, list } = this.props;
+  //   const allCaretakerTasks = tasks.map(task => {
+  //       <View style={styles.lists}>
+  //         <View style={styles.listItemHeaderContainer}>
+  //           {this.state.displayEdit !== task.id && (
+  //             <View style={styles.taskNoteDue}>
+  //             <Text style={styles.listItemHeader}>{task.name}</Text>
+  //             {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
+  //             {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+  //             </View>
+  //           )} 
+  //           {/* Need to add ability to complete functionality */}
+  //         </View>
+  //       </View>
+  //   }).reverse();
+  //   return(
+  //     <View>{allCaretakerTasks}</View>
+  //   )};
+
+  // render() {
+  //   return(
+  //   <View>
+  //     <Text>{list.name}</Text>
+  //     <Text>My Tasks</Text>
+  //       <Text>{!this.props.task? "No Tasks" : null}</Text>
+  //       <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View> 
+  //       {/* insted of ternary use line 191 logic */}
+  //     </View>
+  //   );
+  // }
 }
 
 export const mapStateToProps = state => ({
   tasks: state.tasks,
   user: state.userAccount,
-  list: state.list
+  // list: state.list
 
 });
 

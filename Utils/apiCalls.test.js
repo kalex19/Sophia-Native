@@ -108,7 +108,7 @@ describe("apiCalls", () => {
 
     it("should call fetch with correct data", () => {
       const expected = [
-        "https://sophia-be.herokuapp.com/api/v1/clients/1/lists/2",
+        "https://evening-dusk-50121.herokuapp.com/api/v1/clients/1/lists/2",
         {
           method: "DELETE",
           headers: {
@@ -340,7 +340,7 @@ describe("apiCalls", () => {
 
     it("should call fetch with correct data", () => {
       const expected = [
-        "https://sophia-be.herokuapp.com/api/v1/clients/1/lists/2/tasks/1",
+        "https://evening-dusk-50121.herokuapp.com/api/v1/clients/1/lists/2/tasks/1",
         {
           method: "DELETE",
           headers: {
