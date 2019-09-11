@@ -3,7 +3,9 @@ export const taskReducer = (state = [], action) => {
     case "LOAD_TASKS":
       return action.tasks;
     	case 'LOG_OUT':
-			return [];
+      return [];
+      case "TOGGLE_COMPLETE":
+      return !action.bool
     default:
       return state;
   }

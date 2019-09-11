@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { loadLists } from "../../actions";
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
+import {styles} from './styleUserHomeScreen';
 
 export class UserHomeScreen extends Component {
   render() {
@@ -20,7 +21,7 @@ export class UserHomeScreen extends Component {
           </Text>
         </View>
         <Text style={styles.greeting}>
-          Welcome Back,
+          Welcome Back, {this.props.user.name}!
         </Text>
         {/* <Text style={styles.greeting}>{this.props.user.name}!</Text> */}
         <View style={styles.routes}>
@@ -63,51 +64,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(UserHomeScreen);
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 40
-  },
-  header: {
-    fontSize: 50,
-    fontFamily: theme.textMain
-  },
-  greeting: {
-    fontSize: 30,
-    fontFamily: theme.textMain,
-    margin: 10,
-    marginBottom: 30,
-  },
-  button: {
-    color: theme.accentOne,
-    fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    paddingTop: 25,
-  },
-  container: {
-    backgroundColor: theme.accentOne,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%"
-  },
-  routes: {
-    flexDirection: "column",
-    backgroundColor: theme.primary,
-    width: "80%",
-    height: "15%",
-    justifyContent: "space-around",
-    margin: 10,
-    borderRadius: 50,
-  },
-  touchExpander: {
-    height: "100%",
-    width: "100%",
-    borderRadius: 50,
-  }
-});
 
 UserHomeScreen.propTypes = {
   userAccount: PropTypes.object,

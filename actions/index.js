@@ -22,15 +22,17 @@ export const logOut = () => ({
   type:'LOG_OUT'
 })
 
+export const togglecomplete = (bool) => ({
+  type: "TOGGLE_COMPLETE",
+  bool
+})
+
 // export const isLoading = (bool) => ({
 //       type: 'IS_LOADING',
-//       isLoading: bool
+//       bool
 //   })
 
 // export const hasErrored = (error) => ({
 //       type: 'HAS_ERRORED',
 //       error
 //   })
-
-//get to these later, if time.
-

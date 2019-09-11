@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import theme from '../../theme';
 import { PropTypes } from 'prop-types';
+import {styles} from './styleTasks';
 
 export class Tasks extends Component {
   constructor(){
@@ -186,6 +187,39 @@ export class Tasks extends Component {
       </View>
   )}
 
+  caretakerTasks = () => {
+    const { tasks, list } = this.props;
+    const allCaretakerTasks = tasks.map(task => {
+        <View style={styles.lists}>
+          <View style={styles.listItemHeaderContainer}>
+            {this.state.displayEdit !== task.id && (
+              <View style={styles.taskNoteDue}>
+              <Text style={styles.listItemHeader}>{task.name}</Text>
+              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
+              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+              </View>
+            )} 
+            {/* Need to add  un/complete functionality */}
+          </View>
+        </View>
+    }).reverse();
+    return(
+      <View>{allCaretakerTasks}</View>
+    )};
+
+  render() {
+    return(
+    <View>
+      <Text>{list.name}</Text>
+      <Text>My Tasks</Text>
+        <Text>{!this.props.task && "No Tasks"}</Text>
+        <View>
+        {this.props.user.accountType === 'client' && this.clientTasks}
+        {this.props.user.accountType === 'caretaker' && this.caretakerTasks}  </View> 
+      </View>
+    );
+  }
+
   // caretakerTasks = () => {
   //   const { tasks, list } = this.props;
   //   const allCaretakerTasks = tasks.map(task => {
@@ -235,118 +269,6 @@ export default connect(
   mapDispatchToProps
 )(Tasks);
 
-const styles = StyleSheet.create({
-  listHeader: {
-    borderColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
-    padding: 10
-  },
-  listName: {
-    fontSize: 40,
-    fontFamily: theme.textMain,
-    textAlign: "center"
-  },
-  listItemHeaderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    width: "100%"
-  },
-  listItemHeader: {
-    textAlign: "center",
-    fontSize: 40,
-    color: theme.accentOne,
-    fontFamily: theme.textMain,
-    width: "85%"
-  },
-  listItemSecond: {
-    textAlign: "center",
-    fontSize: 20,
-    color: theme.accentOne,
-    fontFamily: theme.textMain,
-    width: "85%"
-  },
-  listItem: {
-    fontSize: 40,
-    color: theme.accentOne,
-    padding: 8,
-    paddingLeft: 12
-  },
-  addTaskContainer: {
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    margin: 10,
-    padding: 5,
-    paddingLeft: 8,
-    paddingRight: 0,
-    justifyContent: "space-between",
-    flexDirection: "row"
-  },
-  input: {
-    backgroundColor: theme.accentOne,
-    borderColor: theme.accentThree,
-    borderWidth: 1,
-    margin: 2,
-    fontSize: 40,
-    fontFamily: theme.textMain,
-    textAlign: "center",
-    width: 320
-  },
-  label: {
-    color: theme.accentOne,
-    fontSize: 20,
-    fontFamily: theme.textMain
-  },
-  align: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  plus: {
-    color: theme.accentOne,
-    backgroundColor: theme.primary,
-    alignSelf: "center",
-    textAlign: "center",
-    fontSize: 50
-  },
-  vertically: {
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  editItem: {
-    fontSize: 15,
-    color: theme.accentOne,
-    fontFamily: theme.textMain
-  },
-  lists: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    margin: 10,
-    marginBottom: 1,
-    marginTop: 1,
-    padding: 10
-  }, 
-  alignEdit: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "90%",
-    borderWidth: 1,
-    borderColor: theme.accentOne
-  },
-  inputEdit: {
-    width: "85%",
-    backgroundColor: theme.accentOne,
-    fontSize: 38,
-    fontFamily: theme.textMain
-  },
-  taskNoteDue: {
-    width: '85%'
-  }
-});
 
 Tasks.propTypes = {
   userAccount: PropTypes.object,
