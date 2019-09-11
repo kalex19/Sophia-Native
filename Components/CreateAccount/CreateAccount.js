@@ -10,7 +10,7 @@ import { postCaretaker } from '../../Utils/postCaretaker';
 import { logInUser } from '../../Utils/logInUser';
 
 const initialState = {
-	accountType: '',
+	role: '',
 	username: '',
 	password: '',
 	password_confirmation: '',
@@ -27,7 +27,7 @@ const initialState = {
 	medications: [],
 	abilities: [],
 	error: '',
-	message: ''
+	message: '',
 };
 
 export class CreateAccount extends Component {
@@ -61,7 +61,7 @@ export class CreateAccount extends Component {
 			medications,
 			error,
 			message,
-			accountType
+			role
 		} = this.state;
 
 		const newClientProfile = {
@@ -79,7 +79,7 @@ export class CreateAccount extends Component {
 			allergies,
 			diet_restrictions: diet,
 			medications,
-			accountType,
+			role,
 		};
 		if (
 			!username ||
@@ -137,7 +137,7 @@ export class CreateAccount extends Component {
 			abilities,
 			error,
 			message,
-			accountType 
+			role 
 		} = this.state;
 
 		const newCaretakerProfile = {
@@ -148,7 +148,7 @@ export class CreateAccount extends Component {
 			email,
 			phone_number: phone,
 			abilities,
-			accountType,
+			role,
 		};
 		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
 			this.setState({ message: 'Please fill out all input fields' });
@@ -199,7 +199,7 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
 				/>
-				<Text style={styles.text}>Seperate multiple input values by commas</Text>
+				<Text style={styles.text}>Separate multiple input values by commas</Text>
 				<TextInput
 					style={styles.input}
 					placeholder="Caretaking Needs"
@@ -239,8 +239,8 @@ export class CreateAccount extends Component {
 	renderCaretakerInput = () => {
 		return (
 			<View>
-				<Text style={styles.text} accessibilityLabel="Seperate multiple input values with commas">
-					Seperate multiple input values with commas
+				<Text style={styles.text} accessibilityLabel="Separate multiple input values with commas">
+					Separate multiple input values with commas
 				</Text>
 				<TextInput
 					style={styles.input}
@@ -262,7 +262,7 @@ export class CreateAccount extends Component {
 					accessible={true}
 					onPress={this.handleClientSubmit}
 					style={styles.touchExpander}>
-					<Text style={styles.registerButton}>Register {this.state.accountType === 'client' && 'Client'}</Text>
+					<Text style={styles.registerButton}>Register {this.state.role === 'client' && 'Client'}</Text>
 				</TouchableHighlight>
 			</View>
 		);
@@ -278,7 +278,7 @@ export class CreateAccount extends Component {
 					onPress={this.handleCaretakerSubmit}
 					style={styles.touchExpander}>
 					<Text style={styles.registerButton}>
-						Register {this.state.accountType === 'caretaker' && 'Caretaker'}
+						Register {this.state.role === 'caretaker' && 'Caretaker'}
 					</Text>
 				</TouchableHighlight>
 			</View>
@@ -297,7 +297,7 @@ export class CreateAccount extends Component {
 					<TouchableHighlight
 						underlayColor={theme.accentTwo}
 						accessibilityLabel="Tap me to create a client account."
-						onPress={() => this.setState({ accountType: 'client' })}
+						onPress={() => this.setState({ role: 'client' })}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>I'm a Client</Text>
 					</TouchableHighlight>
@@ -306,7 +306,7 @@ export class CreateAccount extends Component {
 					<TouchableHighlight
 						underlayColor={theme.accentTwo}
 						accessibilityLabel="Tap me to create a caretaker account."
-						onPress={() => this.setState({ accountType: 'caretaker' })}
+						onPress={() => this.setState({ role: 'caretaker' })}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>I'm a Caretaker</Text>
 					</TouchableHighlight>
@@ -368,11 +368,11 @@ export class CreateAccount extends Component {
 						accessibilityLabel="Phone Input. Please type your phone number without dashes"
 						value={this.state.phone}
 					/>
-					{this.state.accountType === 'client' && this.renderClientInput()}
-					{this.state.accountType === 'caretaker' && this.renderCaretakerInput()}
+					{this.state.role === 'client' && this.renderClientInput()}
+					{this.state.role === 'caretaker' && this.renderCaretakerInput()}
 				</ScrollView>
-				{this.state.accountType === 'client' ? this.renderClientBtn() : null}
-				{this.state.accountType === 'caretaker' ? this.renderCaretakerBtn() : null}
+				{this.state.role === 'client' ? this.renderClientBtn() : null}
+				{this.state.role === 'caretaker' ? this.renderCaretakerBtn() : null}
 				<Text style={styles.messages} accessibilityLabel={'Please fill out all input fields'}>
 					{this.state.message}
 				</Text>
