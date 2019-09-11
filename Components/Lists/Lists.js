@@ -293,7 +293,6 @@ class Lists extends Component {
 getAllCaretakerLists = async () => {
   const lists = await fetchCaretakerLists(this.state.caretaker_id);
   this.props.loadLists(lists);
-  const { lists, user } = this.props;
     return lists.map(list => {
     list = { ...list, client_id: user.id }
     return (

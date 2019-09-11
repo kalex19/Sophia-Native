@@ -8,6 +8,7 @@ import { logIn } from '../../actions';
 import { postClient } from '../../Utils/postClient';
 import { postCaretaker } from '../../Utils/postCaretaker';
 import { logInUser } from '../../Utils/logInUser';
+import {styles} from './styleCreateAccount';
 
 const initialState = {
 	role: '',
@@ -36,7 +37,7 @@ export class CreateAccount extends Component {
 	handleChange = (name, value) => {
 		const multiResponseInputs = [ 'needs', 'allergies', 'diet', 'medications', 'abilities' ];
 		if (multiResponseInputs.includes(name)) {
-			value = value.split(',');
+			value = value.split(', ');
 		}
 		this.setState({
 			[name]: value
@@ -206,7 +207,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('needs', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
-					value={this.state.needs.join(',')}
+					value={this.state.needs.join(', ')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -214,7 +215,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('allergies', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Allergies Input. Please type the names your allergies"
-					value={this.state.allergies.join(',')}
+					value={this.state.allergies.join(', ')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -222,7 +223,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('diet', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names your dietary restrictions"
-					value={this.state.diet.join(',')}
+					value={this.state.diet.join(', ')}
 				/>
 				<TextInput
 					style={styles.input}
@@ -230,7 +231,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('medications', value)}
 					placeholderTextColor={theme.primary}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
-					value={this.state.medications.join(',')}
+					value={this.state.medications.join(', ')}
 				/>
 			</View>
 		);
@@ -247,7 +248,7 @@ export class CreateAccount extends Component {
 					placeholder="Caretaking Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
 					placeholderTextColor={theme.primary}
-					value={this.state.abilities.join(',')}
+					value={this.state.abilities.join(', ')}
 				/>
 			</View>
 		);
@@ -393,78 +394,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: theme.accentOne,
-		alignItems: 'center',
-		justifyContent: 'center',
-		height: '100%'
-	},
-	headerContainer: {
-		borderBottomColor: theme.primary,
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 10
-	},
-	header: {
-		fontSize: 30,
-		fontFamily: theme.textMain
-	},
-	routes: {
-		flexDirection: 'column',
-		backgroundColor: theme.primary,
-		height: '10%',
-		borderRadius: 30,
-		justifyContent: 'space-evenly',
-		margin: 5,
-		width: '80%',
-		alignItems: 'center'
-	},
-	scrollContainer: {
-		margin: 10
-	},
-	button: {
-		color: theme.accentOne,
-		fontSize: 25,
-		fontFamily: theme.textTwo,
-		margin: 10,
-		width: '100%'
-	},
-	text: {
-		fontSize: 25,
-		fontFamily: theme.textMain,
-		textAlign: 'center',
-		margin: 10
-	},
-	input: {
-		width: '100%',
-		height: 80,
-		fontSize: 30,
-		fontFamily: theme.textTwo,
-		padding: 5,
-		marginTop: 10,
-		backgroundColor: theme.accentThree,
-		color: theme.accentTwo
-	},
-	touchExpander: {
-		height: '100%',
-		borderRadius: 30,
-		width: '100%'
-	},
-	registerButton: {
-		fontSize: 30,
-		color: theme.accentOne,
-		fontFamily: theme.textTwo,
-		textAlign: 'center',
-		marginTop: 10
-	},
-	messages: {
-		fontSize: 16,
-		fontFamily: theme.textMain,
-		color: theme.primary,
-		margin: 10
-	}
-});
 
 CreateAccount.propTypes = {
 	userAccount: PropTypes.object

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
 import { logOut } from '../../actions';
+import {styles} from './styleProfile'
 
 export class Profile extends Component {
 
@@ -100,64 +101,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-
-const styles = StyleSheet.create({
-  profileContainer: {
-    margin: 30
-  },
-  headerContainer: {
-    borderBottomColor:theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingBottom: 10
-  },
-  header: {
-    textAlign: "center",
-    fontSize: 30,
-    fontFamily: theme.textMain,
-    margin: 10,
-  },
-  userInfo: {
-    fontSize: 20,
-    fontFamily: theme.textTwo,
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor:theme.primary,
-    color: theme.accentOne,
-    padding: 20
-  },
-  infoCntainer: {
-    backgroundColor: theme.primary,
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 10
-  },
-  userInfoList: {
-    fontSize: 20,
-    fontFamily: theme.textTwo,
-    color: theme.accentOne,
-  },
-  touchExpander: {
-    height: "100%",
-    borderRadius: 50,
-    width: "100%"
-  },
-  logOutButton: {
-    color: theme.accentOne,
-    fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    paddingTop: 15,
-  },
-  routes: {
-		flexDirection: "column",
-    backgroundColor: theme.primary,
-    width: "90%",
-    height: "10%",
-    justifyContent: "center",
-    margin: 15,
-    borderRadius: 50,
-	}
-});
 
 Profile.propTypes = {
   userAccount: PropTypes.object,

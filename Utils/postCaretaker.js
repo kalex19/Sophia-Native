@@ -1,5 +1,6 @@
 
 export const postCaretaker = async profile => {
+	console.log('profile', profile)
 		const options = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
