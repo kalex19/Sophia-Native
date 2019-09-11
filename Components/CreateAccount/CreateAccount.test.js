@@ -3,6 +3,7 @@ import { CreateAccount } from './CreateAccount';
 import { shallow } from 'enzyme';
 import 'react-native';
 import { mapStateToProps, mapDispatchToProps } from "./CreateAccount";
+import { logIn } from '../../actions'
 
 jest.mock("react-native-gesture-handler", () => {
   return {}
@@ -29,16 +30,16 @@ it("should return a userAccount object", () => {
   expect(mappedProps).toEqual(initialState);
 });
 
-// it("calls dispatch with an array of lists when loadList action is called", () => {
-//   let initialState = {
-//     lists: []
-//   };
+it("calls dispatch with an object when logIn action is called", () => {
+  let initialState = {
+    logIn: {}
+  };
 
-//   const mockDispatch = jest.fn();
-//   const mockAction = loadLists(initialState.lists);
+  const mockDispatch = jest.fn();
+  const mockAction = logIn(initialState.userAccount);
 
-//   const mappedProps = mapDispatchToProps(mockDispatch);
-//   mappedProps.loadLists(initialState.lists);
+  const mappedProps = mapDispatchToProps(mockDispatch);
+  mappedProps.logIn(initialState.lists);
 
-//   expect(mockDispatch).toHaveBeenCalledWith(mockAction);
-// });
+  expect(mockDispatch).toHaveBeenCalledWith(mockAction);
+});
