@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { ScrollView, View, Text, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
 import { PropTypes } from 'prop-types';
-import theme from '../../theme';
 import { logOut } from '../../actions';
 import {styles} from './styleProfile'
 
@@ -13,9 +12,22 @@ export class Profile extends Component {
     this.props.navigation.navigate("Home")
   }
 
-  renderClient = () => {
+  renderClientInfo = () => {
+    let allNeeds = this.props.user.needs.map(need => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {need}</Text>
+    })
+    let allMedications = this.props.user.medications.map(med => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {med}</Text>
+     })
+    let allAllergies = this.props.user.allergies.map(allergy => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {allergy}</Text>
+    })
+    let allRestrictions = this.props.user.diet_restrictions.map(restr => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {restr}</Text>
+    })
+
     return <View>
-      <Text style={styles.userInfo}>Street Adress: {this.props.user.street_address}</Text>
+      <Text style={styles.userInfo}>Street Address: {this.props.user.street_address}</Text>
       <Text style={styles.userInfo}>City: {this.props.user.city}</Text>
       <Text style={styles.userInfo}>State: {this.props.user.state}</Text>
       <Text style={styles.userInfo}>Zip Code: {this.props.user.zip}</Text>
@@ -38,7 +50,10 @@ export class Profile extends Component {
     </View>
   }
 
-  renderCaretaker = () => {
+  renderCaretakerInfo = () => {
+    let allAbilities = this.props.user.diet_restrictions.map(ablility => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {ablility}</Text>
+    })
     return <View style={styles.infoCntainer}>
       <Text style={styles.userInfoList}>Abilities:</Text>
       {allAbilities}
@@ -46,21 +61,6 @@ export class Profile extends Component {
   }
 
   render() {
-    let allNeeds = this.props.user.needs.map(need => {
-      return <Text style={styles.userInfoList} key={Math.random()}>- {need}</Text>
-    })
-    let allMedications = this.props.user.medications.map(med => {
-      return <Text style={styles.userInfoList} key={Math.random()}>- {med}</Text>
-     })
-    let allAllergies = this.props.user.allergies.map(allergy => {
-      return <Text style={styles.userInfoList} key={Math.random()}>- {allergy}</Text>
-    })
-    let allRestrictions = this.props.user.diet_restrictions.map(restr => {
-      return <Text style={styles.userInfoList} key={Math.random()}>- {restr}</Text>
-    })
-    let allAbilities = this.props.user.diet_restrictions.map(ablility => {
-      return <Text style={styles.userInfoList} key={Math.random()}>- {ablility}</Text>
-    })
     return (
       <View>
         <View style={styles.headerContainer}>
@@ -83,9 +83,9 @@ export class Profile extends Component {
           <Text style={styles.userInfo}>Username: {this.props.user.username}</Text>
         <Text style={styles.userInfo}>Name: {this.props.user.name}</Text>
         <Text style={styles.userInfo}>Email: {this.props.user.email}</Text>
-        <Text style={styles.userInfo}>Phone Number: {this.props.user.phone}</Text>
-          {this.props.user.accountType === "client" && this.renderClient}
-            {this.props.user.accountType === "caretaker" && this.renderCaretaker}
+        <Text style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Text>
+          {this.props.user.role === "client" && this.renderClientInfo()}
+          {this.props.user.role === "caretaker" && this.renderCaretakerInfo()}
         </ScrollView>
       </View>
     );

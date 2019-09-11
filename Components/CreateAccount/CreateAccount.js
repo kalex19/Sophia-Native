@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
 import { PropTypes } from 'prop-types';
@@ -8,7 +8,7 @@ import { logIn } from '../../actions';
 import { postClient } from '../../Utils/postClient';
 import { postCaretaker } from '../../Utils/postCaretaker';
 import { logInUser } from '../../Utils/logInUser';
-import {styles} from './styleCreateAccount';
+import { styles } from './styleCreateAccount';
 
 const initialState = {
 	role: '',
@@ -28,7 +28,7 @@ const initialState = {
 	medications: [],
 	abilities: [],
 	error: '',
-	message: '',
+	message: ''
 };
 
 export class CreateAccount extends Component {
@@ -80,7 +80,7 @@ export class CreateAccount extends Component {
 			allergies,
 			diet_restrictions: diet,
 			medications,
-			role,
+			role
 		};
 		if (
 			!username ||
@@ -101,7 +101,7 @@ export class CreateAccount extends Component {
 			this.setState({ message: 'Please fill out all input fields' });
 		} else {
 			const newClient = await postClient(newClientProfile);
-      const user = await logInUser(newClient.username, newClient.password)
+			const user = await logInUser(newClient.username, newClient.password);
 			this.props.logIn(user);
 			this.setState({ message: '', error: user.message });
 		}
@@ -138,7 +138,7 @@ export class CreateAccount extends Component {
 			abilities,
 			error,
 			message,
-			role 
+			role
 		} = this.state;
 
 		const newCaretakerProfile = {
@@ -149,7 +149,7 @@ export class CreateAccount extends Component {
 			email,
 			phone_number: phone,
 			abilities,
-			role,
+			role
 		};
 		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
 			this.setState({ message: 'Please fill out all input fields' });
@@ -278,9 +278,7 @@ export class CreateAccount extends Component {
 					accessible={true}
 					onPress={this.handleCaretakerSubmit}
 					style={styles.touchExpander}>
-					<Text style={styles.registerButton}>
-						Register {this.state.role === 'caretaker' && 'Caretaker'}
-					</Text>
+					<Text style={styles.registerButton}>Register {this.state.role === 'caretaker' && 'Caretaker'}</Text>
 				</TouchableHighlight>
 			</View>
 		);
