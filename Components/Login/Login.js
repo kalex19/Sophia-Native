@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Animated } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { logIn } from '../../actions';
 import {logInUser} from '../../Utils/logInUser';
@@ -13,6 +13,72 @@ const initialState = {
 	message: '',
 	error: '',
 };
+
+class FloatingInputLabel extends Component{
+	state = {
+		isFocused: false
+	}
+
+	componentWillMount(){
+		this._animatedIsFocused = new Animated.Value(this.props.value === "" ? 0 : 1);
+	}
+
+	componentDidUpdate(){
+		Animated.timing(this._animatedIsFocused, {
+			toValue: (this.state.isFocused || !this.props.value === "") ? 1 : 0,
+			duration: 200,
+		}).start();
+	}
+
+	handleFocus = () => {
+		this.setState({
+			isFocused: true
+		})
+	}
+
+	handleBlur = () => {
+		this.setState({
+			isFocused: flase
+		})
+	}
+
+	render(){
+		const {label, ...props } = this.props;
+		const {isFocused} = this.state;
+		const labelStyle = {
+			position:'absolute',
+			left: 0,
+			top: this._animatedIsFocused.interpolate({
+				inputRange: [0,1],
+				outputRange: [18, 0],
+
+			}),
+			fontSize: this._animatedIsFocused.interpolate({
+				inputRange: [0, 1],
+				outputRange: [25, 20],	
+			}),
+			color: this._animatedIsFocused.interpolate({
+				inputRange: [0,1],
+				outputRange: [theme.accentTwo, theme.primary],
+			}),
+			fontFamily: theme.textTwo,
+		}
+		return(
+			<View style={{paddingTop: 18}}>
+				<Animated.Text style={styles.labelStyle}>{label}</Animated.Text>
+				<TextInput
+					style={styles.input}
+					placeholder="Username"
+					accessibilityLabel={"Username Input"}
+					placeholderTextColor={theme.primary}
+					{...props}
+					onFocus={this.handleFocus} 
+					onBlur={this.handleBlur}
+				/>
+			</View>
+		)
+	}
+}
 
 export class Login extends Component {
 	state = initialState;
@@ -50,14 +116,8 @@ export class Login extends Component {
 				<View style={styles.headerContainer}>
 					<Text style={styles.header}> Log In </Text>
 				</View>
-				<TextInput
-					style={styles.input}
-					value={this.state.username}
-					placeholder="Username"
-					onChangeText={value => this.handleChange('username', value)}
-					accessibilityLabel={"Username Input"}
-					placeholderTextColor={theme.primary}
-				/>
+				<FloatingInputLabel label="Username" value={this.state.username} onChange={this.handleChange}></FloatingInputLabel>
+				<Text style={styles.text}>Password</Text>
 				<TextInput
 					style={styles.input}
 					value={this.state.password}
