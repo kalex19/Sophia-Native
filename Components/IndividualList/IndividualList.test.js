@@ -45,7 +45,7 @@ jest.mock("../../Utils/apiCalls", () => ({
 }));
 
 jest.mock("react-native-gesture-handler", () => {
-  return {};
+  return {}
 });
 
 global.fetch = jest.fn().mockImplementation(() => {

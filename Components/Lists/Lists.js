@@ -39,7 +39,7 @@ const LIVE_COLOR = '#FF0000';
 const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
 
-class Lists extends Component {
+export class Lists extends Component {
   constructor(props) {
     super(props);
     this.recording = null;
