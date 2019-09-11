@@ -1,37 +1,48 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { IndividualList } from "./IndividualList";
-import renderer from "react-test-renderer";
 import "react-native";
 import { loadTasks } from "../../actions";
 import { mapStateToProps, mapDispatchToProps } from "./IndividualList";
-import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
+import {
+  fetchTasks,
+  postTask,
+  patchTask,
+  deleteTask
+} from "../../Utils/apiCalls";
 
-jest.mock('../../Utils/apiCalls', () => ({
+jest.mock("../../Utils/apiCalls", () => ({
   fetchTasks: jest.fn().mockImplementation(() => {
-    return [ {id: 1, name: "Mock Task", description: "mock note" , completed: "false", due_date: "mock date"} ] 
+    return [
+      {
+        id: 1,
+        name: "Mock Task",
+        description: "mock note",
+        completed: "false",
+        due_date: "mock date"
+      }
+    ];
   }),
   postTask: jest.fn().mockImplementation(() => {
     return {
-      "id": 1,
-      "name": "task_uno",
-      "description": "description of the first task",
-      "completed": "false",
-      "due_date": "2018-12-08"
-    }
+      id: 1,
+      name: "task_uno",
+      description: "description of the first task",
+      completed: "false",
+      due_date: "2018-12-08"
+    };
   }),
   deleteTask: jest.fn(),
   patchTask: jest.fn().mockImplementation(() => {
     return {
-      "id": 1,
-      "name": "updated name",
-      "description": "description of the first task",
-      "completed": "false",
-      "due_date": "date_time"
-    }
+      id: 1,
+      name: "updated name",
+      description: "description of the first task",
+      completed: "false",
+      due_date: "date_time"
+    };
   })
 }));
-
 
 jest.mock("react-native-gesture-handler", () => {
   return {};
@@ -49,14 +60,14 @@ let mockLoadTasks = jest.fn();
 let mockClientId = 1;
 let mockListId = 1;
 let mockTaskId = 1;
-let mockReturnUpdatedTask = jest.fn()
-let mockHandleChangeTask = jest.fn()
-let mockHandleChangeNote = jest.fn()
-let mockHandleChangeDate = jest.fn()
-let mockHandleEditTask = jest.fn()
-let mockHandleSubmitEdit = jest.fn()
-let mockHandleSubmit = jest.fn()
-let mockEraseTask = jest.fn()
+let mockReturnUpdatedTask = jest.fn();
+let mockHandleChangeTask = jest.fn();
+let mockHandleChangeNote = jest.fn();
+let mockHandleChangeDate = jest.fn();
+let mockHandleEditTask = jest.fn();
+let mockHandleSubmitEdit = jest.fn();
+let mockHandleSubmit = jest.fn();
+let mockEraseTask = jest.fn();
 let mockFetchTasks = jest.fn();
 let wrapper = shallow(
   <IndividualList
@@ -75,12 +86,9 @@ let wrapper = shallow(
   />
 );
 
-
-
 test("IndividuaList renders correctly", () => {
   expect(wrapper).toMatchSnapshot();
 });
-
 
 test("should set state of displayEdit to the task id when toggleEditName is invoked", () => {
   let mockTaskId = 1;
@@ -134,105 +142,51 @@ test.skip("should return a new or updated task when returnUpdatedTask is invoked
 });
 
 test("should call patchTask when handleSubmitEdit is called", () => {
-  wrapper.instance().handleSubmitEdit(mockTaskId)
+  wrapper.instance().handleSubmitEdit(mockTaskId);
 
-  expect(patchTask).toHaveBeenCalled()
-})
+  expect(patchTask).toHaveBeenCalled();
+});
 
 test.skip("should call returnUpdatedTask when handleSubmitEdit is called", () => {
-  wrapper.instance().handleSubmitEdit(mockTaskId)
+  wrapper.instance().handleSubmitEdit(mockTaskId);
 
-  expect(mockReturnUpdatedTask).toHaveBeenCalled()
+  expect(mockReturnUpdatedTask).toHaveBeenCalled();
 });
 
 test.skip("should set the state of task_edit_input to '' and displayEdit to 'false' when handleSubmitEdit is called", () => {
-  wrapper.state.task_edit_input = 'buy oranges';
+  wrapper.state.task_edit_input = "buy oranges";
   wrapper.state.displayEdit = true;
 
   wrapper.instance().handleSubmitEdit(mockTaskId);
 
-  expect(wrapper.state('task_edit_input')).toEqual('');
-  expect(wrapper.state('displayEdit')).toEqual(false);
+  expect(wrapper.state("task_edit_input")).toEqual("");
+  expect(wrapper.state("displayEdit")).toEqual(false);
 });
 
 test("should call postTask when handleSubmit is called", () => {
-  let mockNewTask = { name: "but icecream" }
-  
-  wrapper.instance().handleSubmit(mockNewTask)
+  let mockNewTask = { name: "but icecream" };
 
-  expect(patchTask).toHaveBeenCalled()
+  wrapper.instance().handleSubmit(mockNewTask);
+
+  expect(patchTask).toHaveBeenCalled();
 });
 
 test("should call deleteTask when eraseTask is called", () => {
-  wrapper.instance().eraseTask(mockTaskId)
+  wrapper.instance().eraseTask(mockTaskId);
 
-  expect(deleteTask).toHaveBeenCalled()
+  expect(deleteTask).toHaveBeenCalled();
 });
 
+it("calls dispatch with a loadTasks action when loadTasks is called", () => {
+  let initialState = {
+    tasks: []
+  };
 
+  const mockDispatch = jest.fn();
+  const mockAction = loadTasks(initialState.tasks);
 
+  const mappedProps = mapDispatchToProps(mockDispatch);
+  mappedProps.loadTasks(initialState.tasks);
 
-//   })
-
-// })
-
-// describe('IndividualList', () => {
-//   let wrapper;
-
-//   let mockTasks = [{name: "apples", description: "Fuji", due_date: "09/09"}]
-
-  // window.fetch = jest.fn().mockImplementation(() => {
-  //   return Promise.resolve({
-  //     ok: true,
-  //     json: () => Promise.resolve(mockTasks)
-  //   });
-  // });
-
-//   beforeEach(() => {
-//     let mockLoadTasks = jest.fn();
-//     let mockClientId = 1;
-//     let mockReturnUpdatedTask = jest.fn()
-//     let mockToggleEditName = jest.fn()
-//     let mockHandleChangeTask = jest.fn()
-//     let mockHandleChangeNote = jest.fn()
-//     let mockHandleChangeDate = jest.fn()
-//     let mockHandleEditTask = jest.fn()
-//     let mockHandleSubmitEdit = jest.fn()
-//     let mockHandleSubmit = jest.fn()
-//     let mockEraseTask = jest.fn()
-//     let initialState = { tasks: [] }
-
-//     wrapper = shallow(
-//     <IndividualList
-//     tasks = {mockTasks}
-//     loadTasks = {mockLoadTasks}
-//     client_id = {mockClientId}
-//     returnUpdatedTask = {mockReturnUpdatedTask}
-//     toggleEditName = {mockToggleEditName}
-//     handleChangeTask = {mockHandleChangeTask}
-//     handleChangeNote = {mockHandleChangeNote}
-//     handleChangeDate = {mockHandleChangeDate}
-//     handleEditTask = {mockHandleEditTask}
-//     handleSubmitEdit = {mockHandleSubmitEdit}
-//     handleSubmit = {mockHandleSubmit}
-//     eraseTask = {mockEraseTask}
-//     initialState = {initialState}
-//     store={store}
-//     />)
-//   });
-
-//   it.skip('should match the snapshot', () => {
-//     expect(wrapper).toMatchSnapshot();
-//   });
-
-//   it('should set state of displayEdit to the value of task_id when toggleEditName is called', () => {
-//     console.log(wrapper)
-//     let mockId = 1
-//     wrapper.state.displayEdit = ''
-
-//     wrapper.instance().toggleEditName(mockId);
-
-//     expect(wrapper.state('displayEdit')).toEqual(1)
-//   })
-
-// });
+  expect(mockDispatch).toHaveBeenCalledWith(mockAction);
+});

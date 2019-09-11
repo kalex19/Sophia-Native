@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1568160391081" clover="3.2.0">
-  <project timestamp="1568160391081" name="All files">
-    <metrics statements="138" coveredstatements="123" conditionals="38" coveredconditionals="29" methods="38" coveredmethods="29" elements="214" coveredelements="181" complexity="0" loc="138" ncloc="138" packages="4" files="7" classes="7"/>
+<coverage generated="1568161633316" clover="3.2.0">
+  <project timestamp="1568161633316" name="All files">
+    <metrics statements="138" coveredstatements="124" conditionals="38" coveredconditionals="29" methods="38" coveredmethods="31" elements="214" coveredelements="184" complexity="0" loc="138" ncloc="138" packages="4" files="7" classes="7"/>
     <package name="Components.IndividualList">
-      <metrics statements="56" coveredstatements="42" conditionals="8" coveredconditionals="0" methods="21" coveredmethods="12"/>
+      <metrics statements="56" coveredstatements="43" conditionals="8" coveredconditionals="0" methods="21" coveredmethods="14"/>
       <file name="IndividualList.js" path="/Users/andreeahanson/Workspace/sophia/Components/IndividualList/IndividualList.js">
-        <metrics statements="56" coveredstatements="42" conditionals="8" coveredconditionals="0" methods="21" coveredmethods="12"/>
+        <metrics statements="56" coveredstatements="43" conditionals="8" coveredconditionals="0" methods="21" coveredmethods="14"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -60,7 +60,7 @@
         <line num="182" count="0" type="stmt"/>
         <line num="193" count="1" type="stmt"/>
         <line num="197" count="1" type="stmt"/>
-        <line num="198" count="0" type="stmt"/>
+        <line num="198" count="1" type="stmt"/>
         <line num="206" count="1" type="stmt"/>
       </file>
     </package>
@@ -139,7 +139,7 @@
         <line num="1" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
       </file>
     </package>
     <package name="reducers">
