@@ -51,7 +51,7 @@ export class Profile extends Component {
   }
 
   renderCaretakerInfo = () => {
-    let allAbilities = this.props.user.diet_restrictions.map(ablility => {
+    let allAbilities = this.props.user.abilities.map(ablility => {
       return <Text style={styles.userInfoList} key={Math.random()}>- {ablility}</Text>
     })
     return <View style={styles.infoCntainer}>
