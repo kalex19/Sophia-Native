@@ -191,7 +191,8 @@ export class Tasks extends Component {
               {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
               {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
               </View>
-            )}
+            )} 
+            {/* Need to add ability to complete functionality */}
           </View>
         </View>
     }).reverse();
@@ -205,7 +206,8 @@ export class Tasks extends Component {
       <Text>{list.name}</Text>
       <Text>My Tasks</Text>
         <Text>{!this.props.task? "No Tasks" : null}</Text>
-        <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View>
+        <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View> 
+        {/* insted of ternary use line 191 logic */}
       </View>
     );
   }
