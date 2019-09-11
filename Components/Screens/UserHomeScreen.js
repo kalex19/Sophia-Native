@@ -8,7 +8,7 @@ import theme from '../../theme';
 
 export class UserHomeScreen extends Component {
   render() {
-    const user = this.props.navigation.state.params
+    // const user = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>

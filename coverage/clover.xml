@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1568184480001" clover="3.2.0">
-  <project timestamp="1568184480001" name="All files">
-    <metrics statements="172" coveredstatements="144" conditionals="47" coveredconditionals="34" methods="50" coveredmethods="38" elements="269" coveredelements="216" complexity="0" loc="172" ncloc="172" packages="7" files="11" classes="11"/>
+<coverage generated="1568185368209" clover="3.2.0">
+  <project timestamp="1568185368210" name="All files">
+    <metrics statements="180" coveredstatements="150" conditionals="47" coveredconditionals="34" methods="56" coveredmethods="42" elements="283" coveredelements="226" complexity="0" loc="180" ncloc="180" packages="7" files="12" classes="12"/>
     <package name="sophia">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="theme.js" path="/Users/andreeahanson/Workspace/sophia/theme.js">
@@ -100,7 +100,7 @@
       </file>
     </package>
     <package name="sophia.Components.Screens">
-      <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <metrics statements="13" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="5"/>
       <file name="AppHomeScreen.js" path="/Users/andreeahanson/Workspace/sophia/Components/Screens/AppHomeScreen.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="7" count="1" type="stmt"/>
@@ -108,6 +108,17 @@
         <line num="23" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="46" count="1" type="stmt"/>
+      </file>
+      <file name="UserHomeScreen.js" path="/Users/andreeahanson/Workspace/sophia/Components/Screens/UserHomeScreen.js">
+        <metrics statements="8" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="4"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
       </file>
     </package>
     <package name="sophia.Utils">
@@ -191,10 +202,10 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <file name="index.js" path="/Users/andreeahanson/Workspace/sophia/actions/index.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
       </file>
     </package>
     <package name="sophia.reducers">
