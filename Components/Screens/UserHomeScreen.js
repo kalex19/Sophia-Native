@@ -8,7 +8,6 @@ import theme from '../../theme';
 
 export class UserHomeScreen extends Component {
   render() {
-    const user = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -22,7 +21,7 @@ export class UserHomeScreen extends Component {
         <Text style={styles.greeting}>
           Welcome Back,
         </Text>
-        <Text style={styles.greeting}>{this.props.userAccount.name}!</Text>
+        <Text style={styles.greeting}>{this.props.user.name}!</Text>
         <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
@@ -51,7 +50,7 @@ export class UserHomeScreen extends Component {
 }
 
 export const mapStateToProps = state => ({
-  userAccount: state.userAccount,
+  user: state.userAccount,
   lists: state.lists,
 });
 
