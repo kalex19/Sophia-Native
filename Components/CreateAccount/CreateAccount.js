@@ -384,11 +384,11 @@ export class CreateAccount extends Component {
 	}
 }
 
-const mapStateToProps = store => ({
+export const mapStateToProps = store => ({
 	userAccount: store.userAccount
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 

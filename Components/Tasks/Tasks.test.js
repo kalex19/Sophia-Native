@@ -84,7 +84,7 @@ let wrapper = shallow(
   />
 );
 
-test("IndividuaList renders correctly", () => {
+test("Tasks renders correctly", () => {
   expect(wrapper).toMatchSnapshot();
 });
 
