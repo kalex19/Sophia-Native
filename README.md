@@ -97,7 +97,9 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ## Screenshots
 
-coming soon...
+### Home Page
+
+<img width="435" alt="HomePage" src="https://user-images.githubusercontent.com/39716292/64733424-f9f64400-d4a1-11e9-809d-bd225b9dd2ca.png">
 
 ## Demo
 
