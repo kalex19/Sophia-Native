@@ -227,7 +227,7 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(IndividualList);
+)(Tasks);
 
 const styles = StyleSheet.create({
   listHeader: {
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
   }
 });
 
-CreateAccount.propTypes = {
+Tasks.propTypes = {
   userAccount: PropTypes.object,
   tasks: PropTypes.object,
   list: PropTypes.object

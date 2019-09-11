@@ -335,7 +335,7 @@ class Lists extends Component {
   }).reverse()
 }
 
-getAllCaretakerLists = () => {
+getAllCaretakerLists = async () => {
   const lists = await fetchCaretakerLists(this.state.caretaker_id);
   this.props.loadLists(lists);
 }
