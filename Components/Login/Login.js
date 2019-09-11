@@ -86,11 +86,11 @@ export class Login extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
 	userAccount: state.userAccount
 })
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 

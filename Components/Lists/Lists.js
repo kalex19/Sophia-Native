@@ -23,7 +23,7 @@ import { PropTypes } from 'prop-types';
 import { getCaretakers } from '../../Utils/getCaretakers';
 import { fetchCaretakerLists } from '../../Utils/fetchCaretakerLists';
 
-class Lists extends Component {
+export class Lists extends Component {
   constructor(props) {
     super(props);
     this.recording = null;

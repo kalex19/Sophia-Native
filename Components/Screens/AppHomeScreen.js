@@ -4,7 +4,7 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 import theme from '../../theme';
 
 
-const AppHomeScreen = (props) => {
+export const AppHomeScreen = (props) => {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
