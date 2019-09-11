@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1568185368209" clover="3.2.0">
-  <project timestamp="1568185368210" name="All files">
-    <metrics statements="180" coveredstatements="150" conditionals="47" coveredconditionals="34" methods="56" coveredmethods="42" elements="283" coveredelements="226" complexity="0" loc="180" ncloc="180" packages="7" files="12" classes="12"/>
+<coverage generated="1568185978858" clover="3.2.0">
+  <project timestamp="1568185978859" name="All files">
+    <metrics statements="180" coveredstatements="154" conditionals="47" coveredconditionals="34" methods="56" coveredmethods="43" elements="283" coveredelements="231" complexity="0" loc="180" ncloc="180" packages="7" files="12" classes="12"/>
     <package name="sophia">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="theme.js" path="/Users/andreeahanson/Workspace/sophia/theme.js">
@@ -122,7 +122,7 @@
       </file>
     </package>
     <package name="sophia.Utils">
-      <metrics statements="68" coveredstatements="62" conditionals="18" coveredconditionals="17" methods="10" coveredmethods="9"/>
+      <metrics statements="68" coveredstatements="66" conditionals="18" coveredconditionals="17" methods="10" coveredmethods="10"/>
       <file name="apiCalls.js" path="/Users/andreeahanson/Workspace/sophia/Utils/apiCalls.js">
         <metrics statements="62" coveredstatements="61" conditionals="18" coveredconditionals="17" methods="9" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
@@ -189,12 +189,12 @@
         <line num="118" count="1" type="stmt"/>
       </file>
       <file name="logInUser.js" path="/Users/andreeahanson/Workspace/sophia/Utils/logInUser.js">
-        <metrics statements="6" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
+        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
       </file>
     </package>
