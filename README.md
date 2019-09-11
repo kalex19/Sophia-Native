@@ -66,10 +66,10 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 * React
 * Redux
 * React Native
+* Expo Audio
 * Jest
 * Enzyme
-
-add badges!
+* CircleCi [![CircleCI](https://circleci.com/gh/kalex19/Sophia-Native.svg?style=svg)](https://circleci.com/gh/kalex19/Sophia-Native)
 
 # How To Use
 
