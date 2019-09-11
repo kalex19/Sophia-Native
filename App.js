@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Profile from "./Components/Profile/Profile";
 import Lists from "./Components/Lists/Lists";
-import IndividualList from "./Components/IndividualList/IndividualList";
+import Tasks from "./Components/Tasks/Tasks";
 import UserHomeScreen from './Components/Screens/UserHomeScreen';
 import AppHomeScreen from './Components/Screens/AppHomeScreen';
 import Login from './Components/Login/Login';
@@ -33,7 +33,7 @@ const AppNavigator = createStackNavigator(
     User: UserHomeScreen,
     Profile: Profile,
     Lists: Lists,
-    IndividualList: IndividualList
+    Tasks: Tasks
   },
   {
     initialRouteName: "Home",

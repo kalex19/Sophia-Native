@@ -4,11 +4,12 @@ import IndividualList from './IndividualList';
 import renderer from 'react-test-renderer';
 import 'react-native';
 import { loadTasks } from "../../actions";
-import { mapStateToProps, mapDispatchToProps } from "./IndividualList";
+import { mapStateToProps, mapDispatchToProps } from "./Tasks";
+
 
 jest.mock('react-native-gesture-handler', () => {})
 
-test('IndividuaList renders correctly', () => {
+test('Tasks renders correctly', () => {
   const snapshot = renderer.create(<IndividualList />).toJSON();
   expect(snapshot).toMatchSnapshot();
 });

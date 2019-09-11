@@ -165,8 +165,6 @@ class Lists extends Component {
     });
   }
 
-  //Speech Recording - still need to edit from VC
-
   postBlob = (blob) => {
     const options = {
       method: 'POST',
@@ -176,7 +174,7 @@ class Lists extends Component {
       }
     }
 
-    fetch("http://localhost:3000/api/v1/speech", options)
+    fetch("http://evening-dusk-50121.herokuapp.com/api/v1/speech", options)
     .then(res => res.json())
     .then(data => {
       console.log(data);
@@ -297,7 +295,7 @@ class Lists extends Component {
           <Text
             style={styles.listName}
             onPress={() => {
-              navigation.navigate("IndividualList", list);
+              navigation.navigate("Tasks", list);
             }}
           >
             {list.name}
@@ -337,7 +335,7 @@ class Lists extends Component {
   }).reverse()
 }
 
-getAllCaretakerLists = () => {
+getAllCaretakerLists = async () => {
   const lists = await fetchCaretakerLists(this.state.caretaker_id);
   this.props.loadLists(lists);
 }
