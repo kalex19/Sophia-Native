@@ -21,7 +21,7 @@ export class UserHomeScreen extends Component {
 						underlayColor="black"
 						accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
 						accessible={true}
-						onPress={() => this.props.navigation.navigate('Profile')}
+						onPress={() => this.props.navigation.navigate('Profile', this.props.user)}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>My Account</Text>
 					</TouchableHighlight>
@@ -31,7 +31,7 @@ export class UserHomeScreen extends Component {
 						underlayColor="black"
 						accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 						accessible={true}
-						onPress={() => this.props.navigation.navigate('Lists')}
+						onPress={() => this.props.navigation.navigate('Lists', this.props.lists)}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>My Lists</Text>
 					</TouchableHighlight>
