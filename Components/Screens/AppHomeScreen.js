@@ -5,7 +5,7 @@ import theme from '../../theme';
 import {styles} from './styleAppHomeScreen';
 
 
-const AppHomeScreen = (props) => {
+export const AppHomeScreen = (props) => {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>

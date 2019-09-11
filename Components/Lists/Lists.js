@@ -26,7 +26,7 @@ import { postBlob } from '../../Utils/postBlob';
 import { styles } from './styleLists';
 import CaretakerList from '../CaretakerList/CaretakerList';
 
-class Lists extends Component {
+export class Lists extends Component {
   constructor(props) {
     super(props);
     this.recording = null;
