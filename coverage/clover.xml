@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1568166858653" clover="3.2.0">
-  <project timestamp="1568166858654" name="All files">
-    <metrics statements="167" coveredstatements="141" conditionals="47" coveredconditionals="34" methods="47" coveredmethods="37" elements="261" coveredelements="212" complexity="0" loc="167" ncloc="167" packages="6" files="10" classes="10"/>
+<coverage generated="1568184480001" clover="3.2.0">
+  <project timestamp="1568184480001" name="All files">
+    <metrics statements="172" coveredstatements="144" conditionals="47" coveredconditionals="34" methods="50" coveredmethods="38" elements="269" coveredelements="216" complexity="0" loc="172" ncloc="172" packages="7" files="11" classes="11"/>
     <package name="sophia">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="theme.js" path="/Users/andreeahanson/Workspace/sophia/theme.js">
@@ -79,17 +79,17 @@
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
-        <line num="29" count="3" type="stmt"/>
-        <line num="32" count="3" type="cond" truecount="2" falsecount="2"/>
-        <line num="33" count="3" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="2" falsecount="2"/>
+        <line num="33" count="2" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
-        <line num="39" count="3" type="cond" truecount="3" falsecount="2"/>
+        <line num="39" count="2" type="cond" truecount="3" falsecount="2"/>
         <line num="40" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="50" count="8" type="stmt"/>
+        <line num="50" count="6" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="89" count="1" type="stmt"/>
@@ -97,6 +97,17 @@
         <line num="94" count="1" type="stmt"/>
         <line num="99" count="1" type="stmt"/>
         <line num="157" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="sophia.Components.Screens">
+      <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <file name="AppHomeScreen.js" path="/Users/andreeahanson/Workspace/sophia/Components/Screens/AppHomeScreen.js">
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
       </file>
     </package>
     <package name="sophia.Utils">
