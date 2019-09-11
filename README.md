@@ -101,6 +101,18 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 <img width="435" alt="HomePage" src="https://user-images.githubusercontent.com/39716292/64733424-f9f64400-d4a1-11e9-809d-bd225b9dd2ca.png">
 
+![MyProfile](https://user-images.githubusercontent.com/39716292/64741433-d50bcc00-d4b5-11e9-960b-c5e6fe081e83.PNG)
+
+![RegisterClient](https://user-images.githubusercontent.com/39716292/64741435-d937e980-d4b5-11e9-9977-d00315808032.PNG)
+
+![LogIn](https://user-images.githubusercontent.com/39716292/64741437-db9a4380-d4b5-11e9-973a-49714c27c325.PNG)
+
+![UserHomePage](https://user-images.githubusercontent.com/39716292/64741441-dfc66100-d4b5-11e9-863d-329ac90f5b69.PNG)
+
+![CreateAccount](https://user-images.githubusercontent.com/39716292/64741445-e523ab80-d4b5-11e9-9f67-fee9cadb7ce8.PNG)
+
+![RegisterCaretaker](https://user-images.githubusercontent.com/39716292/64741448-e81e9c00-d4b5-11e9-8812-4cfcb652e6e8.PNG)
+
 ## Demo
 
 coming soon...
