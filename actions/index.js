@@ -18,9 +18,9 @@ export const loadTasks = tasks => ({
   tasks
 })
 
-// export const logOut = () => ({
-//   type:'LOG_OUT'
-// })
+export const logOut = () => ({
+  type:'LOG_OUT'
+})
 
 // export const isLoading = (bool) => ({
 //       type: 'IS_LOADING',

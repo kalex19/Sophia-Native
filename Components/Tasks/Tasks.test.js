@@ -3,13 +3,8 @@ import { shallow } from "enzyme";
 import { IndividualList } from "./IndividualList";
 import "react-native";
 import { loadTasks } from "../../actions";
-import { mapStateToProps, mapDispatchToProps } from "./IndividualList";
-import {
-  fetchTasks,
-  postTask,
-  patchTask,
-  deleteTask
-} from "../../Utils/apiCalls";
+import { mapStateToProps, mapDispatchToProps } from "./Tasks";
+
 
 jest.mock("../../Utils/apiCalls", () => ({
   fetchTasks: jest.fn().mockImplementation(() => {

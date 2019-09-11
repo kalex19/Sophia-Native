@@ -1,71 +1,73 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
-import { fetchProfile } from '../../Utils/apiCalls';
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
+import { logOut } from '../../actions';
 
 export class Profile extends Component {
-  state = {};
 
-  componentDidMount = async () => {
-    const profile = await fetchProfile(this.props.navigation.state.params)
-    this.props.loadProfile(profile)
+  logOut = () => {
+    this.props.logOut()
+    this.props.navigation.navigate("Home")
   }
 
   render() {
-    // let client = this.props.navigation.state.params
-    // console.log(client)
-    // console.log('state', this.props.user)
-    // let allMedications = client.medications.map(med => {
-    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {med}</Text>
-    //  })
-    // let allAllergies = client.allergies.map(allergy => {
-    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {allergy}</Text>
-    // })
-    // let allRestrictions = client.dietary_restrictions.map(restr => {
-    //   return <Text style={styles.clientInfoList} key={Math.random()}>- {restr}</Text>
-    // })
+    let allNeeds = this.props.user.needs.map(need => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {need}</Text>
+    })
+    let allMedications = this.props.user.medications.map(med => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {med}</Text>
+     })
+    let allAllergies = this.props.user.allergies.map(allergy => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {allergy}</Text>
+    })
+    let allRestrictions = this.props.user.diet_restrictions.map(restr => {
+      return <Text style={styles.userInfoList} key={Math.random()}>- {restr}</Text>
+    })
     return (
       <View>
-        <View style={styles.headerCntainer}>
-          <Text style={styles.header}>Client Profile</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}> My Profile</Text>
         </View>
-        <ScrollView style={styles.profileContainer}>
-          {/* <View style={styles.routes}>
+        <View style={styles.routes}>
           <TouchableHighlight
             underlayColor="black"
-            accessibilityLabel="Tap to navigate to your profile. From there, view your personal information"
+            accessibilityLabel="Tap to log out"
             nextFocusDown="20"
             accessible={true}
-            onPress={() => props.navigation.navigate("Profile", props.profile.profile)
+            onPress={this.logOut
             }
             style={styles.touchExpander}
           >
-            <Text style={styles.button}>Log Out</Text>
+            <Text style={styles.logOutButton}>Log Out</Text>
           </TouchableHighlight>
-        </View> */}
-          {/* <Text style={styles.clientInfo}>Username: {client.username}</Text>
-        <Text style={styles.clientInfo}>Name: {client.name}</Text>
-        <Text style={styles.clientInfo}>Street Adress: {client.street_address}</Text>
-        <Text style={styles.clientInfo}>City: {client.city}</Text>
-        <Text style={styles.clientInfo}>State: {client.state}</Text>
-        <Text style={styles.clientInfo}>Zip Code: {client.zip}</Text>
-        <Text style={styles.clientInfo}>Email: {client.email}</Text>
-        <Text style={styles.clientInfo}>Phone Number: {client.phone}</Text>
-        <Text style={styles.clientInfo}>Needs: {client.needs}</Text>
+        </View>
+        <ScrollView style={styles.profileContainer}>
+          <Text style={styles.userInfo}>Username: {this.props.user.username}</Text>
+        <Text style={styles.userInfo}>Name: {this.props.user.name}</Text>
+        <Text style={styles.userInfo}>Street Adress: {this.props.user.street_address}</Text>
+        <Text style={styles.userInfo}>City: {this.props.user.city}</Text>
+        <Text style={styles.userInfo}>State: {this.props.user.state}</Text>
+        <Text style={styles.userInfo}>Zip Code: {this.props.user.zip}</Text>
+        <Text style={styles.userInfo}>Email: {this.props.user.email}</Text>
+        <Text style={styles.userInfo}>Phone Number: {this.props.user.phone}</Text>
         <View style={styles.infoCntainer}>
-          <Text style={styles.clientInfoList}>Allergies: </Text>
+          <Text style={styles.userInfoList}>Needs:</Text>
+           {allNeeds}
+        </View>
+        <View style={styles.infoCntainer}>
+          <Text style={styles.userInfoList}>Allergies: </Text>
             {allAllergies}
         </View>
         <View style={styles.infoCntainer}>
-          <Text style={styles.clientInfoList}>Dietary Restrictions: </Text>
+          <Text style={styles.userInfoList}>Dietary Restrictions: </Text>
             {allRestrictions}
         </View>
         <View style={styles.infoCntainer}>
-          <Text style={styles.clientInfoList}>Medications:</Text>
+          <Text style={styles.userInfoList}>Medications:</Text>
            {allMedications}
-        </View> */}
+        </View>
         </ScrollView>
       </View>
     );
@@ -73,11 +75,11 @@ export class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  user: state.userAccount
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadProfile: profile => dispatch(loadProfile(profile))
+  logOut: (() => dispatch(logOut()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
   profileContainer: {
     margin: 30
   },
-  headerCntainer: {
+  headerContainer: {
     borderBottomColor:theme.primary,
     borderBottomWidth: StyleSheet.hairlineWidth,
     paddingBottom: 10
@@ -94,11 +96,12 @@ const styles = StyleSheet.create({
   header: {
     textAlign: "center",
     fontSize: 30,
-    fontFamily: theme.textMain
-  },
-  clientInfo: {
-    fontSize: 20,
     fontFamily: theme.textMain,
+    margin: 10,
+  },
+  userInfo: {
+    fontSize: 20,
+    fontFamily: theme.textTwo,
     marginTop: 10,
     marginBottom: 10,
     backgroundColor:theme.primary,
@@ -106,28 +109,37 @@ const styles = StyleSheet.create({
     padding: 20
   },
   infoCntainer: {
-    backgroundColor:theme.primary,
+    backgroundColor: theme.primary,
     marginTop: 10,
     marginBottom: 10,
     padding: 10
   },
-  clientInfoList: {
+  userInfoList: {
     fontSize: 20,
-    fontFamily: theme.textMain,
-    color: theme.accentOne,
-  },
-  button: {
-    color: theme.accentOne,
-    fontSize: 25,
     fontFamily: theme.textTwo,
-    margin: 10,
-    width: "100%",
+    color: theme.accentOne,
   },
   touchExpander: {
     height: "100%",
-    borderRadius: 30,
+    borderRadius: 50,
     width: "100%"
-  }
+  },
+  logOutButton: {
+    color: theme.accentOne,
+    fontSize: 30,
+    fontFamily: theme.textTwo,
+    textAlign: "center",
+    paddingTop: 15,
+  },
+  routes: {
+		flexDirection: "column",
+    backgroundColor: theme.primary,
+    width: "90%",
+    height: "10%",
+    justifyContent: "center",
+    margin: 15,
+    borderRadius: 50,
+	}
 });
 
 Profile.propTypes = {
