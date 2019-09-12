@@ -19,7 +19,7 @@ import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
-// import { getCaretakers } from '../../Utils/getCaretakers';
+import { getCaretakers } from '../../Utils/getCaretakers';
 import { fetchCaretakerLists } from '../../Utils/fetchCaretakerLists';
 import ClientList from '../ClientList/ClientList';
 import { postBlob } from '../../Utils/postBlob';
@@ -190,10 +190,10 @@ export class Lists extends Component {
     this.setState({ list_edit_input: input });
   };
 
-  handleSubmit = async newList => {
+  handleSubmit = async () => {
     const { list_title, caretaker_id } = this.state;
     const { user } = this.props
-    newList = { name: list_title, caretakerId: caretaker_id, clientId: user.id};
+    let newList = { name: list_title, caretakerId: caretaker_id, clientId: user.id};
     await postList(newList);
     await this.returnUpdatedList();
     this.setState({ list_title: "", caretaker_id: null });

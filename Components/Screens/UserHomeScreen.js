@@ -31,7 +31,10 @@ export class UserHomeScreen extends Component {
 						underlayColor="black"
 						accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 						accessible={true}
-						onPress={() => this.props.navigation.navigate('Lists', this.props.lists)}
+						onPress={() => {
+							this.props.user.role === 'client' ? this.props.navigation.navigate('ClientLists') :
+							this.props.navigation.navigate('CaretakerLists')
+							}}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>My Lists</Text>
 					</TouchableHighlight>
