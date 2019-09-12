@@ -105,7 +105,7 @@ export const deleteClientTask = async (list_id, task_id, client_id) => {
   }
 };
 
-export const fetchCaretakers = async (user_id) => {
+export const fetchCaretakers = async () => {
   const response = await fetch(
     `https://evening-dusk-50121.herokuapp.com/api/v1/caretakers`
   );

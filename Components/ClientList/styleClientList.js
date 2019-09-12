@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.primary,
     width: "90%",
-    height: "30%",
+    height: "40%",
     justifyContent: "space-around",
     margin: 10,
     borderRadius: 50,
