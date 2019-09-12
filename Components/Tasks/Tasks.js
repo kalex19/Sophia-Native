@@ -25,7 +25,8 @@ export class Tasks extends Component {
   };
 
   returnUpdatedTask = async () => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
+    const { user} = this.props
     const tasks = await fetchTasks(list.id, user.id);
     const cleanedTasks = tasks.map(task => {
       return {
@@ -60,7 +61,8 @@ export class Tasks extends Component {
   };
 
   handleSubmitEdit = async taskId => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
+    const { user } = this.props
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
     await patchTask(modifiedTask, list.id, taskId, user.id);
@@ -69,7 +71,8 @@ export class Tasks extends Component {
   };
 
   handleSubmit = async newTask => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
+    const { user } = this.props
     const { task_input, description_input, due_date } = this.state;
     newTask = {
       name: task_input,
@@ -82,7 +85,7 @@ export class Tasks extends Component {
   };
 
   eraseTask = async taskId => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
     await deleteTask(list.id, taskId, client.id);
     this.returnUpdatedTask();
   };
@@ -188,7 +191,8 @@ export class Tasks extends Component {
   )}
 
   caretakerTasks = () => {
-    const { tasks, list } = this.props;
+    console.log("TASKS", tasks)
+    const { tasks } = this.props;
     const allCaretakerTasks = tasks.map(task => {
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
@@ -208,14 +212,18 @@ export class Tasks extends Component {
     )};
 
   render() {
+    const list = this.props.navigation.state.params
     return(
     <View>
       <Text>{list.name}</Text>
       <Text>My Tasks</Text>
-        <Text>{!this.props.task && "No Tasks"}</Text>
+        <Text>{!this.props.tasks && "No Tasks"}</Text>
         <View>
+          <Text>
         {this.props.user.accountType === 'client' && this.clientTasks}
-        {this.props.user.accountType === 'caretaker' && this.caretakerTasks}  </View> 
+        {this.props.user.accountType === 'caretaker' && this.caretakerTasks}  
+          </Text>
+        </View> 
       </View>
     );
   }
@@ -255,8 +263,7 @@ export class Tasks extends Component {
 
 export const mapStateToProps = state => ({
   tasks: state.tasks,
-  user: state.userAccount,
-  // list: state.list
+  user: state.userAccount
 
 });
 
@@ -272,8 +279,7 @@ export default connect(
 
 Tasks.propTypes = {
   userAccount: PropTypes.object,
-  tasks: PropTypes.object,
-  list: PropTypes.object
+  tasks: PropTypes.object
 };
 
 //doublecheck protypes
