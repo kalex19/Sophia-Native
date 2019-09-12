@@ -130,9 +130,10 @@ export class ClientList extends Component {
 		console.log(`FILE INFO: ${JSON.stringify(info)}`);
 		const response = await fetch(info.uri);
 		const blob = await response.blob();
-    const text = postBlob(blob);
+    const data = await postBlob(blob);
+    console.log('in client', data)
     this.setState({
-      list_title: text
+      list_title: data.text
     })
 		await Audio.setAudioModeAsync({
 			allowsRecordingIOS: false,
@@ -225,7 +226,7 @@ export class ClientList extends Component {
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
-			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />;
+			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} style={styles.picker}/>;
 		});
 
 		return (
