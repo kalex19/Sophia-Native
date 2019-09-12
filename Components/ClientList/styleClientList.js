@@ -30,8 +30,6 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.primary,
     alignItems: "center",
     margin: 10,
-    marginBottom: 1,
-    marginTop: 1,
     padding: 10
   },
   listName: {
@@ -53,13 +51,6 @@ export const styles = StyleSheet.create({
   addListContainer: {
     margin: 10,
     textAlign: 'center',
-  },
-  plus: {
-    fontSize: 50,
-    color: theme.accentTwo
-  },
-  emptyContainer: {
-    alignSelf: 'stretch',
   },
   container: {
     flex: 1,
@@ -102,7 +93,7 @@ export const styles = StyleSheet.create({
   liveText: {
     color: theme.primary,
     fontFamily: theme.textMain,
-    marginLeft: 40,
+    marginLeft: '20%',
     margin: 10,
     fontSize: 25,
   },
@@ -116,24 +107,21 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.accentOne,
   },
   input: {
-    borderColor: theme.primary,
     borderWidth: 1,
     fontSize: 40,
     textAlign: "center",
-    backgroundColor: theme.accentThree,
+    backgroundColor: theme.accentT,
     width: "100%",
     fontFamily: theme.textTwo,
-    color: theme.primary,
   },
   submitBtnContainer: {
     backgroundColor: theme.primary,
     width: "90%",
     height: 60,
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     borderRadius: 50,
     textAlign: 'center',
-  },
+   },
   submitBtn: {
     color: theme.accentOne,
     fontSize: 30,

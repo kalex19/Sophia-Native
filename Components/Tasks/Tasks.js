@@ -178,9 +178,10 @@ export class Tasks extends Component {
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{name}</Text>
         </View>
+        <ScrollView>
         {this.props.user.role === 'client' && <View style={styles.addTaskContainer}>
           <View style={styles.align}>
-            <Text style={styles.label}>Task name:</Text>
+            <Text style={styles.label}>Task Name:</Text>
             <TextInput
               style={styles.input}
               value={this.state.task_input}
@@ -188,7 +189,7 @@ export class Tasks extends Component {
               placeholder="Add Task Name"
               accessibilityLabel="Add your task name"
             ></TextInput>
-            <Text style={styles.label}>Note:</Text>
+            <Text style={styles.label}>Add Note:</Text>
             <TextInput
               style={styles.input}
               value={this.state.description_input}
@@ -196,13 +197,13 @@ export class Tasks extends Component {
               placeholder="Add Note"
               accessibilityLabel="Add a note providing mroe details about your task"
             ></TextInput>
-            <Text style={styles.label}>Due:</Text>
+            <Text style={styles.label}>Due Date:</Text>
             <TextInput
               style={styles.input}
               placeholder="mm/dd"
               value={this.state.due_date}
               onChangeText={this.handleChangeDate}
-              placeholder="Add Due Date"
+              placeholder="dd/mm/yy"
               accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
             ></TextInput>
           </View>
@@ -218,9 +219,9 @@ export class Tasks extends Component {
           </View>
         </View>}
         {tasks.length < 1 && <View><Text>No tasks yet!</Text></View>}
-        <ScrollView>
+        
         <View>{allTasks}</View>
-        <View style={{height: 150}}></View>
+        <View style={{height: 200}}></View>
         </ScrollView>
       </View>
   )}

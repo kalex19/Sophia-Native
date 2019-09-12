@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 30,
 		justifyContent: 'space-evenly',
 		margin: 5,
-		width: '80%',
+		width: '90%',
 		alignItems: 'center'
 	},
 	scrollContainer: {
