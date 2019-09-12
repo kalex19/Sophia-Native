@@ -1,4 +1,4 @@
-postBlob = (blob) => {
+export const postBlob = (blob) => {
   const options = {
     method: 'POST',
     body: blob,

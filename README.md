@@ -101,6 +101,24 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 <img width="435" alt="HomePage" src="https://user-images.githubusercontent.com/39716292/64733424-f9f64400-d4a1-11e9-809d-bd225b9dd2ca.png">
 
+### Log In
+
+### Create Account - Client
+
+### Create Account - Caretaker
+
+### User Home Page
+
+### My Profile
+
+### My Lists - Client
+
+### My Lists - Caretaker
+
+### My Tasks - Client
+
+### My Tasks - Caretaker
+
 ## Demo
 
 coming soon...

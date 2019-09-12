@@ -193,6 +193,7 @@ export class Lists extends Component {
 		});
 	};
 
+<<<<<<< HEAD
 	handleSubmit = async newList => {
 		const { list_title, caretaker_id } = this.state;
 		const { user } = this.props;
@@ -209,6 +210,16 @@ export class Lists extends Component {
 			caretaker_id: null
 		});
 	};
+=======
+  handleSubmit = async () => {
+    const { list_title, caretaker_id } = this.state;
+    const { user } = this.props
+    let newList = { name: list_title, caretakerId: caretaker_id, clientId: user.id};
+    await postList(newList);
+    await this.returnUpdatedList();
+    this.setState({ list_title: "", caretaker_id: null });
+  };
+>>>>>>> 7c7439dad217abcf2cf2b6e431ed187794a5549f
 
 	eraseList = async listId => {
 		const { user } = this.props;
