@@ -3,13 +3,14 @@ import theme from '../../theme';
 
 export const styles = StyleSheet.create({
   editItem: {
-    fontSize: 15,
+    fontSize: 25,
     color: theme.accentOne,
     fontFamily: theme.textTwo,
+    marginRight: 15,
   },
   vertically: {
-    flexDirection: "column",
-    alignItems: "center"
+    flexDirection: "row",
+    justifyContent: 'space-between',
   },  
   listItem: {
     fontSize: 25,
@@ -50,16 +51,14 @@ export const styles = StyleSheet.create({
     textAlign: "center"
   },
   addListContainer: {
-    backgroundColor: theme.primary,
     margin: 10,
-    padding: 5,
     textAlign: 'center',
   },
   plus: {
     fontSize: 50,
     color: theme.accentTwo
   },
-    emptyContainer: {
+  emptyContainer: {
     alignSelf: 'stretch',
   },
   container: {
@@ -85,31 +84,30 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   recordingDataContainer: {
-    flexDirection: "column",
     backgroundColor: theme.primary,
     width: "90%",
-    height: "25%",
-    justifyContent: "space-around",
-    margin: 5,
+    height: 60,
+    marginLeft: 10,
+    marginRight: 10,
     borderRadius: 50,
     textAlign: 'center',
-  },
-  liveText: {
-    color: theme.accentOne,
-    fontFamily: theme.textMain,
-    marginBottom: 20,
-    marginHorizontal: 60,
-    fontSize: 25,
   },
   text: {
     color: theme.accentOne,
     fontSize: 30,
+    margin: 10,
     fontFamily: theme.textTwo,
     textAlign: "center",
-    paddingTop: 25,
+  },
+  liveText: {
+    color: theme.primary,
+    fontFamily: theme.textMain,
+    marginLeft: 40,
+    margin: 10,
+    fontSize: 25,
   },
   touchExpander: {
-    height: "80%",
+    height: "100%",
     borderRadius: 50,
     width: "100%",
   },
@@ -118,12 +116,29 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.accentOne,
   },
   input: {
-    borderColor: theme.accentThree,
+    borderColor: theme.primary,
     borderWidth: 1,
     fontSize: 40,
     textAlign: "center",
-    backgroundColor: theme.accentOne,
-    width: "90%",
+    backgroundColor: theme.accentThree,
+    width: "100%",
     fontFamily: theme.textTwo,
+    color: theme.primary,
+  },
+  submitBtnContainer: {
+    backgroundColor: theme.primary,
+    width: "90%",
+    height: 60,
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 50,
+    textAlign: 'center',
+  },
+  submitBtn: {
+    color: theme.accentOne,
+    fontSize: 30,
+    fontFamily: theme.textTwo,
+    textAlign: "center",
+    padding: 5,
   },
 });

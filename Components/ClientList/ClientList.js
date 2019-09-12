@@ -230,7 +230,7 @@ export class ClientList extends Component {
 		});
 
 		return (
-			<View>
+			<View style={{justifyContent: 'center'}}>
 				<View style={styles.addListContainer}>
 					<TextInput
 						style={styles.input}
@@ -248,28 +248,33 @@ export class ClientList extends Component {
 						style={styles.touchExpander}>
 						<Text style={styles.text}>Record List Name</Text>
 					</TouchableHighlight>
-					<Text
+				</View>
+        <Text
 						style={[ styles.liveText, { fontFamily: 'cutive-mono-regular' } ]}
 						accessibilityLabel={this.state.isRecording}>
-						{this.state.isRecording ? 'RECORDING' : 'STOPPED RECORDING'}
+						{this.state.isRecording ? 'RECORDING' : 'NOT RECORDING'}
 					</Text>
-				</View>
-        <View>
+          <View>
+				<Picker
+					selectedValue={this.state.caretaker_id}
+					style={{ height: 10, width: '80%', marginLeft: 30, marginBottom: 150,}}
+					onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
+          >
+					<Picker.Item label="-- Select A Caretaker --" value={0}/>
+					{allCaretakers}
+				</Picker>
+        </View>
+        <View style={styles.submitBtnContainer}>
         <TouchableHighlight
 						underlayColor="black"
 						accessibilityLabel="Tap me to submit the title of your list."
-						onPress={this.handleSubmit}>
-						<Text style={styles.plus} accessibilityLabel="Plus Button. Add a new list by typing in the list name input">	+
+						onPress={this.handleSubmit}
+            style={styles.touchExpander}
+            >
+						<Text style={styles.submitBtn} accessibilityLabel="Select a caretaker before submitting a new list">	Submit List
 						</Text>
 					</TouchableHighlight>
           </View>
-				<Picker
-					selectedValue={this.state.caretaker_id}
-					style={{ height: 100, width: '90%' }}
-					onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}>
-					<Picker.Item label="-- Select A Caretaker --" value={0} />
-					{allCaretakers}
-				</Picker>
 			</View>
 		);
 	};
@@ -349,7 +354,9 @@ export class ClientList extends Component {
 					<Text style={styles.header}>My Todo Lists</Text>
 					{this.createNewList()}
 				</View>
-				<ScrollView>{this.getClientLists()}</ScrollView>
+				<ScrollView>{this.getClientLists()}
+        <View style={{height: 550}}></View>
+        </ScrollView>
 			</View>
 		);
 	}
