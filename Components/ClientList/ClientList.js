@@ -294,7 +294,7 @@ export class ClientList extends Component {
 							<Text
 								style={styles.listName}
 								onPress={() => {
-									navigation.navigate('Tasks', list);
+									this.props.navigation.navigate('Tasks', list);
 								}}>
 								{list.name}
 							</Text>

@@ -37,7 +37,7 @@ test("change the state of every element of the initial state when handleChange i
   expect(wrapper.state('accountType')).toEqual(mockValue)
 });
 
-it("should return a user object", () => {
+it.skip("should return a user object", () => {
   const initialState = {}
 
   let mappedProps = mapStateToProps(initialState);

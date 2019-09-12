@@ -4,7 +4,7 @@ import { Tasks } from "./Tasks";
 import "react-native";
 import { loadTasks } from "../../actions";
 import { mapStateToProps, mapDispatchToProps } from "./Tasks";
-import { fetchTasks, postTask, patchTask, deleteTask } from '../../Utils/apicalls';
+import { fetchTasks, postTask, patchTask, deleteTask } from '../../Utils/clientApicalls';
 
 
 // jest.mock("../../Utils/apiCalls", () => ({
@@ -81,6 +81,7 @@ let wrapper = shallow(
     eraseTask={mockEraseTask}
     fetchTasks={mockFetchTasks}
     returnCareTakerTasks={mockReturnCaretakerTasks}
+    user={{role: "client"}}
   />
 );
 

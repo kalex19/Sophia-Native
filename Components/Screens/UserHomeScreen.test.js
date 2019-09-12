@@ -10,7 +10,7 @@ jest.mock("react-native-gesture-handler", () => {
 });
 
 let wrapper = shallow(<UserHomeScreen 
-userAccount = { {name: "Test Name"} }
+user = { {name: "Test Name"} }
 />)
 
 test("UserHomeScreen renders correctly", () => {
