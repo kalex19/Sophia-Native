@@ -112,11 +112,6 @@ export class Tasks extends Component {
   render() {
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
-    const noItems = (
-      <View key={Math.random()}>
-        <Text style={styles.listItem}>No Tasks</Text>
-      </View>
-    );
     const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
@@ -214,75 +209,10 @@ export class Tasks extends Component {
             <Text style={styles.plus}> + </Text>
           </TouchableHighlight>
         </View>}
+        {tasks.length < 1 && <View><Text>No tasks yet!</Text></View>}
         <View>{allTasks}</View>
       </View>
   )}
-
-
-    
-    // render() {
-    //   const list = this.props.navigation.state.params
-    //   const { tasks } = this.props;
-    //   const allCaretakerTasks = tasks.map(task => {
-    //       <View style={styles.lists}>
-    //         <View style={styles.listItemHeaderContainer}>
-    //           {this.state.displayEdit !== task.id && (
-    //             <View style={styles.taskNoteDue}>
-    //             <Text style={styles.listItemHeader}>{task.name}</Text>
-    //             {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-    //             {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
-    //             </View>
-    //           )} 
-    //           {/* Need to add  un/complete functionality */}
-    //         </View>
-    //       </View>
-    //   }).reverse();
-    
-    // return(
-    // <View>
-    //   <Text>{list.name}</Text>
-    //   <Text>My Tasks</Text>
-    //     <Text>{!this.props.tasks && "No Tasks"}</Text>
-    //     <View>
-    //       <View>
-    //     {this.props.user.role === 'caretaker' && <View>{allCaretakerTasks}</View>}  
-    //       </View>
-    //     </View> 
-    //   </View>
-    // );
-  // }
-
-  // caretakerTasks = () => {
-  //   const { tasks, list } = this.props;
-  //   const allCaretakerTasks = tasks.map(task => {
-  //       <View style={styles.lists}>
-  //         <View style={styles.listItemHeaderContainer}>
-  //           {this.state.displayEdit !== task.id && (
-  //             <View style={styles.taskNoteDue}>
-  //             <Text style={styles.listItemHeader}>{task.name}</Text>
-  //             {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-  //             {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
-  //             </View>
-  //           )} 
-  //           {/* Need to add ability to complete functionality */}
-  //         </View>
-  //       </View>
-  //   }).reverse();
-  //   return(
-  //     <View>{allCaretakerTasks}</View>
-  //   )};
-
-  // render() {
-  //   return(
-  //   <View>
-  //     <Text>{list.name}</Text>
-  //     <Text>My Tasks</Text>
-  //       <Text>{!this.props.task? "No Tasks" : null}</Text>
-  //       <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View> 
-  //       {/* insted of ternary use line 191 logic */}
-  //     </View>
-  //   );
-  // }
 }
 
 export const mapStateToProps = state => ({
