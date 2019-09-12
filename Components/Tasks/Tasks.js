@@ -37,16 +37,7 @@ export class Tasks extends Component {
     const list = this.props.navigation.state.params
     const { user } = this.props
     const tasks = await fetchClientTasks(list.id, user.id);
-    const cleanedTasks = tasks.map(task => {
-      return {
-        id: task.id,
-        name: task.name,
-        description: task.description,
-        list_id: task.list_id,
-        due_date: task.due_date
-      }
-    })
-    this.props.loadTasks(cleanedTasks);
+    this.props.loadTasks(tasks);
   };
 
   toggleEditName = (task_id) => {
@@ -162,7 +153,7 @@ export class Tasks extends Component {
               </View>}
               {this.props.user.role === "caretaker" && <TouchableHighlight
                 underlayColor="black"
-                accessibilityLabel="Tap me to delete your todo task."
+                accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
                 accessible={true}
                 onPress={() => this.completeTaskByCaretaker(task.id)}
               >
@@ -248,5 +239,4 @@ Tasks.propTypes = {
   tasks: PropTypes.object
 };
 
-//doublecheck protypes
 

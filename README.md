@@ -126,9 +126,15 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### My Lists - Caretaker
 
+<img width="428" alt="CaretakerLists" src="https://user-images.githubusercontent.com/39716292/64760808-d958d900-d4f7-11e9-8c9a-90fe01f15ba3.png">
+
 ### My Tasks - Client
 
+<img width="420" alt="ClientTasks" src="https://user-images.githubusercontent.com/39716292/64769969-86881d00-d509-11e9-8c93-d3f07aeccf46.png">
+
 ### My Tasks - Caretaker
+
+<img width="411" alt="CaretakerTasks" src="https://user-images.githubusercontent.com/39716292/64762845-1de67380-d4fc-11e9-89ea-3a43dcd9d847.png">
 
 ## Demo
 
