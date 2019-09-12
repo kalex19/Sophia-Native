@@ -16,7 +16,6 @@
 * [Extensions](#Extensions)
 * [Developers](#Developers)
 * [Backend Repo](#Backend-Repo)
-* [Production Link](#Production-Link)
 
 ## Description
 
@@ -180,10 +179,6 @@ This is a unique opportunity that presents some valuable goals:
 ## Backend Repo
 
 * Github: [Sophia Repo](https://github.com/n-flint/Sophia-Rails)
-
-## Production Link
-
-
 
 ## Show your support
 
