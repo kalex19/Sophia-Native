@@ -58,7 +58,7 @@ export const fetchClientTasks = async (list_id, client_id) => {
     `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}/tasks`
   );
   if (!response.ok) {
-    throw new Error("Could not fetch lists");
+    throw new Error("Could not fetch tasks");
   } else {
     const lists = response.json();
     return lists;

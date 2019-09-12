@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Profile from "./Components/Profile/Profile";
+import CaretakerList from "./Components/CaretakerList/CaretakerList";
 import ClientList from "./Components/ClientList/ClientList";
 import Tasks from "./Components/Tasks/Tasks";
 import UserHomeScreen from './Components/Screens/UserHomeScreen';
@@ -32,6 +33,7 @@ const AppNavigator = createStackNavigator(
     CreateAccount: CreateAccount,
     User: UserHomeScreen,
     Profile: Profile,
+    CaretakerList: CaretakerList,
     ClientList: ClientList,
     Tasks: Tasks
   },

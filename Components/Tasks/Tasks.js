@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/clientApiCalls";
+import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from "../../Utils/clientApiCalls";
+import { fetchCaretakerTasks, patchCaretakerTask } from "../../Utils/caretakerApiCalls";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { PropTypes } from 'prop-types';
 import {styles} from './styleTasks';
@@ -15,17 +16,27 @@ export class Tasks extends Component {
       description_input: "",
       due_date: "",
       displayEdit: "",
-      task_edit_input: ""
+      task_edit_input: "",
+      completed: false
     };
   }
 
   componentDidMount = async () => {
-    await this.returnUpdatedTask();
+    this.props.user.role === "caretaker" ? await this.returnUpdatedCaretakerTask() : this.returnUpdatedTask()
+  };
+
+  returnUpdatedCaretakerTask = async () => {
+    const list = this.props.navigation.state.params
+    const { user } = this.props
+    const tasks = await fetchCaretakerTasks(list.id, user.id);
+    this.props.loadTasks(tasks);
+    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
-    const {user, list } = this.props
-    const tasks = await fetchTasks(list.id, user.id);
+    const list = this.props.navigation.state.params
+    const { user } = this.props
+    const tasks = await fetchClientTasks(list.id, user.id);
     const cleanedTasks = tasks.map(task => {
       return {
         id: task.id,
@@ -59,41 +70,48 @@ export class Tasks extends Component {
   };
 
   handleSubmitEdit = async taskId => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
+    const { user } = this.props
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
-    await patchTask(modifiedTask, list.id, taskId, user.id);
+    await patchClientTask(modifiedTask, list.id, taskId, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_edit_input: "", displayEdit: false });
   };
 
   handleSubmit = async newTask => {
-    const {user, list } = this.props
+    const list = this.props.navigation.state.params
+    const { user } = this.props
     const { task_input, description_input, due_date } = this.state;
     newTask = {
       name: task_input,
       description: description_input,
       due_date: due_date
     };
-    await postTask(newTask, list.id, user.id);
+    await postClientTask(newTask, list.id, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
   eraseTask = async taskId => {
-    const {user, list } = this.props
-    await deleteTask(list.id, taskId, client.id);
+    const list = this.props.navigation.state.params
+    await deleteClientTask(list.id, taskId, client.id);
     this.returnUpdatedTask();
   };
+
+  completeTaskByCaretaker = async taskId => {
+    const list = this.props.navigation.state.params
+    const { user } = this.props
+    this.state.completed = !this.state.completed
+    const { completed } = this.state
+    const completedTask = { completed: completed };
+    await patchCaretakerTask(completedTask, list.id, taskId, user.id);
+    await this.returnUpdatedCaretakerTask();
+  }
 
   render() {
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
-    const noItems = (
-      <View key={Math.random()}>
-        <Text style={styles.listItem}>No Tasks</Text>
-      </View>
-    );
     const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
@@ -124,6 +142,7 @@ export class Tasks extends Component {
               </View>
             )}
             <View style={styles.vertically}>
+              {this.props.user.role === "client" && <View>
               <TouchableHighlight
                 underlayColor="black"
                 accessibilityLabel="Tap me to open form and edit your list name."
@@ -131,7 +150,6 @@ export class Tasks extends Component {
                 onPress={() => this.toggleEditName(task.id)}
               >
                 <Text style={styles.editItem}>✏️</Text>
-                <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor="black"
@@ -141,6 +159,15 @@ export class Tasks extends Component {
               >
                 <Text style={styles.editItem}>DEL</Text>
               </TouchableHighlight>
+              </View>}
+              {this.props.user.role === "caretaker" && <TouchableHighlight
+                underlayColor="black"
+                accessibilityLabel="Tap me to delete your todo task."
+                accessible={true}
+                onPress={() => this.completeTaskByCaretaker(task.id)}
+              >
+              <Text style={styles.listItem}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
+              </TouchableHighlight>}
             </View>
           </View>
         </View>
@@ -151,7 +178,7 @@ export class Tasks extends Component {
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{name}</Text>
         </View>
-        <View style={styles.addTaskContainer}>
+        {this.props.user.role === 'client' && <View style={styles.addTaskContainer}>
           <View style={styles.align}>
             <Text style={styles.label}>Task name:</Text>
             <TextInput
@@ -181,81 +208,16 @@ export class Tasks extends Component {
           >
             <Text style={styles.plus}> + </Text>
           </TouchableHighlight>
-        </View>
-        {allTasks}
+        </View>}
+        {tasks.length < 1 && <View><Text>No tasks yet!</Text></View>}
+        <View>{allTasks}</View>
       </View>
   )}
-
-  caretakerTasks = () => {
-    const { tasks, list } = this.props;
-    const allCaretakerTasks = tasks.map(task => {
-        <View style={styles.lists}>
-          <View style={styles.listItemHeaderContainer}>
-            {this.state.displayEdit !== task.id && (
-              <View style={styles.taskNoteDue}>
-              <Text style={styles.listItemHeader}>{task.name}</Text>
-              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
-              </View>
-            )} 
-            {/* Need to add  un/complete functionality */}
-          </View>
-        </View>
-    }).reverse();
-    return(
-      <View>{allCaretakerTasks}</View>
-    )};
-
-  render() {
-    return(
-    <View>
-      <Text>{list.name}</Text>
-      <Text>My Tasks</Text>
-        <Text>{!this.props.task && "No Tasks"}</Text>
-        <View>
-        {this.props.user.accountType === 'client' && this.clientTasks}
-        {this.props.user.accountType === 'caretaker' && this.caretakerTasks}  </View> 
-      </View>
-    );
-  }
-
-  // caretakerTasks = () => {
-  //   const { tasks, list } = this.props;
-  //   const allCaretakerTasks = tasks.map(task => {
-  //       <View style={styles.lists}>
-  //         <View style={styles.listItemHeaderContainer}>
-  //           {this.state.displayEdit !== task.id && (
-  //             <View style={styles.taskNoteDue}>
-  //             <Text style={styles.listItemHeader}>{task.name}</Text>
-  //             {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-  //             {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
-  //             </View>
-  //           )} 
-  //           {/* Need to add ability to complete functionality */}
-  //         </View>
-  //       </View>
-  //   }).reverse();
-  //   return(
-  //     <View>{allCaretakerTasks}</View>
-  //   )};
-
-  // render() {
-  //   return(
-  //   <View>
-  //     <Text>{list.name}</Text>
-  //     <Text>My Tasks</Text>
-  //       <Text>{!this.props.task? "No Tasks" : null}</Text>
-  //       <View>{this.props.user.accountType === 'client' ? this.clientTasks : this.caretakerTasks}</View> 
-  //       {/* insted of ternary use line 191 logic */}
-  //     </View>
-  //   );
-  // }
 }
 
 export const mapStateToProps = state => ({
   tasks: state.tasks,
-  user: state.userAccount,
-  // list: state.list
+  user: state.userAccount
 
 });
 
@@ -270,9 +232,8 @@ export default connect(
 
 
 Tasks.propTypes = {
-  userAccount: PropTypes.object,
-  tasks: PropTypes.object,
-  list: PropTypes.object
+  user: PropTypes.object,
+  tasks: PropTypes.object
 };
 
 //doublecheck protypes
