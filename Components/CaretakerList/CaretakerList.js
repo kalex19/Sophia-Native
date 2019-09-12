@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { styles } from "./styleCaretakerList";
-import theme from "../../theme";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { loadLists } from "../../actions";
