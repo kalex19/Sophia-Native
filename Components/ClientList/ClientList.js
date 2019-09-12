@@ -18,7 +18,7 @@ import { PropTypes } from 'prop-types';
 import { getCaretakers } from '../../Utils/getCaretakers';
 import { postBlob } from '../../Utils/postBlob';
 
-export class ClientLists extends Component {
+export class ClientList extends Component {
   constructor(props) {
     super(props);
     this.recording = null;
@@ -335,8 +335,8 @@ export class ClientLists extends Component {
       <View>
       <View style={styles.headerContainer}>
           <Text style={styles.header}>My Todo Lists</Text>
-        </View>
          {this.createNewList}
+         </View>
          <ScrollView>
           {this.getClientLists}
          </ScrollView>
@@ -354,9 +354,9 @@ export const mapDispatchToProps = dispatch => ({
   loadLists: lists => dispatch(loadLists(lists))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientLists)
+export default connect(mapStateToProps, mapDispatchToProps)(ClientList)
 
-ClientLists.propTypes = {
+ClientList.propTypes = {
   lists: PropTypes.array,
   user: PropTypes.object
 };

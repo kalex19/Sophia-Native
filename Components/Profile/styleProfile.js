@@ -3,7 +3,7 @@ import theme from '../../theme';
 
  export const styles = StyleSheet.create({
   profileContainer: {
-    margin: 30
+    margin: 30,
   },
   headerContainer: {
     borderBottomColor:theme.primary,
