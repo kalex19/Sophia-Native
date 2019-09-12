@@ -1,4 +1,4 @@
-postBlob = (blob) => {
+export const postBlob = async (blob) => {
   const options = {
     method: 'POST',
     body: blob,
@@ -7,12 +7,12 @@ postBlob = (blob) => {
     }
   }
 
-  fetch("http://evening-dusk-50121.herokuapp.com/api/v1/speech", options)
-  .then(res => res.json())
-  .then(data => {
-    this.setState({list_title: data});
-    })
-  .catch(error => {
-    console.log(error);
-    })
+  try {
+    const response = await fetch("https://evening-dusk-50121.herokuapp.com/api/v1/speech", options)
+    const data = await response.json()
+    console.log('data', data)
+    return data
+  } catch(error) {
+    throw new Error(error.message)
+    }
 }

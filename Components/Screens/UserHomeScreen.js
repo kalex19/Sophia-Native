@@ -15,7 +15,7 @@ export class UserHomeScreen extends Component {
 						SOPHIA
 					</Text>
 				</View>
-				<Text style={styles.greeting}>Welcome Back, {this.props.user.name}!</Text>
+				<Text style={styles.greeting}>Welcome Back, {this.props.user.name || null}!</Text>
 				<View style={styles.routes}>
 					<TouchableHighlight
 						underlayColor="black"
@@ -32,8 +32,8 @@ export class UserHomeScreen extends Component {
 						accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 						accessible={true}
 						onPress={() => {
-							this.props.user.role === 'client' ? this.props.navigation.navigate('ClientLists') :
-							this.props.navigation.navigate('CaretakerLists')
+							this.props.user.role === 'client' ? this.props.navigation.navigate('ClientList') :
+							this.props.navigation.navigate('CaretakerList')
 							}}
 						style={styles.touchExpander}>
 						<Text style={styles.button}>My Lists</Text>

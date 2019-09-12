@@ -1,17 +1,17 @@
 import {
-  fetchLists,
-  postList,
-  deleteList,
-  patchList,
-  fetchTasks,
-  postTask,
-  patchTask,
-  deleteTask,
+  fetchClientLists,
+  postClientList,
+  deleteClientList,
+  patchClientList,
+  fetchClientTasks,
+  postClientTask,
+  patchClientTask,
+  deleteClientTask,
   fetchProfile
 } from "./apiCalls";
 
 describe("apiCalls", () => {
-  describe("fetchLists", () => {
+  describe("fetchClientLists", () => {
     let mockLists;
 
     beforeEach(() => {
@@ -30,7 +30,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return with a parsed response", async () => {
-      const result = await fetchLists();
+      const result = await fetchClientLists();
       expect(result).toEqual(mockLists);
     });
 
@@ -40,11 +40,11 @@ describe("apiCalls", () => {
           ok: false
         });
       });
-      expect(fetchLists()).rejects.toEqual(Error("Could not fetch lists"));
+      expect(fetchClientLists()).rejects.toEqual(Error("Could not fetch lists"));
     });
   });
 
-  describe("postList", () => {
+  describe("postClientList", () => {
     let mockList;
     let mockResponse;
 
@@ -64,7 +64,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return a parsed response", async () => {
-      const result = await postList(mockList);
+      const result = await postClientList(mockList);
 
       expect(result).toEqual(mockResponse);
     });
@@ -77,7 +77,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postList(mockList)).rejects.toEqual(
+      expect(postClientList(mockList)).rejects.toEqual(
         Error("Could not add new list")
       );
     });
@@ -89,13 +89,13 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postList(mockList)).rejects.toEqual({
+      expect(postClientList(mockList)).rejects.toEqual({
         message: "Could not add new list"
       });
     });
   });
 
-  describe("deleteList", () => {
+  describe("deleteClientList", () => {
     const mockClientId = 1;
     const mockListId = 2;
     beforeEach(() => {
@@ -116,7 +116,7 @@ describe("apiCalls", () => {
           }
         }
       ];
-      deleteList(mockClientId, mockListId);
+      deleteClientList(mockClientId, mockListId);
 
       expect(global.fetch).toHaveBeenCalledWith(...expected);
     });
@@ -128,7 +128,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deleteList(mockClientId, mockListId)).rejects.toEqual(
+      expect(deleteClientList(mockClientId, mockListId)).rejects.toEqual(
         Error("Could not delete list")
       );
     });
@@ -140,13 +140,13 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deleteList(mockClientId, mockListId)).rejects.toEqual({
+      expect(deleteClientList(mockClientId, mockListId)).rejects.toEqual({
         message: "There was an error with the server"
       });
     });
   });
 
-  describe("patchList", () => {
+  describe("patchClientList", () => {
     let mockList;
     let mockResponse;
 
@@ -164,7 +164,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return a parsed response", async () => {
-      const result = await patchList(mockList);
+      const result = await patchClientList(mockList);
 
       expect(result).toEqual(mockResponse);
     });
@@ -176,7 +176,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(patchList(mockList)).rejects.toEqual(
+      expect(patchClientList(mockList)).rejects.toEqual(
         Error("Could not edit name of list")
       );
     });
@@ -188,13 +188,13 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(patchList(mockList)).rejects.toEqual({
+      expect(patchClientList(mockList)).rejects.toEqual({
         message: "There was an error with the server"
       });
     });
   });
 
-  describe("fetchTasks", () => {
+  describe("fetchClientTasks", () => {
     let mockTasks;
 
     beforeEach(() => {
@@ -213,7 +213,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return with a parsed response", async () => {
-      const result = await fetchTasks();
+      const result = await fetchClientTasks();
       expect(result).toEqual(mockTasks);
     });
 
@@ -223,11 +223,11 @@ describe("apiCalls", () => {
           ok: false
         });
       });
-      expect(fetchTasks()).rejects.toEqual(Error("Could not fetch tasks"));
+      expect(fetchClientTasks()).rejects.toEqual(Error("Could not fetch tasks"));
     });
   });
 
-  describe("postTask", () => {
+  describe("postClientTask", () => {
     let mockTask;
     let mockResponse;
 
@@ -247,7 +247,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return a parsed response", async () => {
-      const result = await postTask(mockTask);
+      const result = await postClientTask(mockTask);
 
       expect(result).toEqual(mockResponse);
     });
@@ -260,7 +260,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postTask(mockTask)).rejects.toEqual(
+      expect(postClientTask(mockTask)).rejects.toEqual(
         Error("Could not add new task")
       );
     });
@@ -272,13 +272,13 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postTask(mockTask)).rejects.toEqual({
+      expect(postClientTask(mockTask)).rejects.toEqual({
         message: "Could not add new task"
       });
     });
   });
 
-  describe("patchTask", () => {
+  describe("patchClientTask", () => {
     let mockTask;
     let mockResponse;
 
@@ -296,7 +296,7 @@ describe("apiCalls", () => {
     });
 
     it("HAPPY: should return a parsed response", async () => {
-      const result = await patchTask(mockTask);
+      const result = await patchClientTask(mockTask);
 
       expect(result).toEqual(mockResponse);
     });
@@ -308,7 +308,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(patchTask(mockTask)).rejects.toEqual(
+      expect(patchClientTask(mockTask)).rejects.toEqual(
         Error("Could not edit name of task")
       );
     });
@@ -320,13 +320,13 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(patchTask(mockTask)).rejects.toEqual({
+      expect(patchClientTask(mockTask)).rejects.toEqual({
         message: "There was an error with the server"
       });
     });
   });
 
-  describe("deleteTask", () => {
+  describe("deleteClientTask", () => {
     const mockClientId = 1;
     const mockListId = 2;
     const mockTaskId = 1;
@@ -348,7 +348,7 @@ describe("apiCalls", () => {
           }
         }
       ];
-      deleteTask(mockListId, mockTaskId, mockClientId);
+      deleteClientTask(mockListId, mockTaskId, mockClientId);
 
       expect(global.fetch).toHaveBeenCalledWith(...expected);
     });
@@ -360,7 +360,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deleteTask(mockListId, mockTaskId, mockClientId)).rejects.toEqual(
+      expect(deleteClientTask(mockListId, mockTaskId, mockClientId)).rejects.toEqual(
         Error("Could not delete task")
       );
     });
@@ -372,38 +372,38 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deleteTask(mockListId, mockTaskId, mockClientId)).rejects.toEqual({
+      expect(deleteClientTask(mockListId, mockTaskId, mockClientId)).rejects.toEqual({
         message: "There was an error with the server"
       });
     });
   });
 
-  describe("fetchProfile", () => {
-    let mockProfile;
+//   describe("fetchProfile", () => {
+//     let mockProfile;
 
-    beforeEach(() => {
-      mockProfile = { name: "test list 1", email: "test@test.com" };
+//     beforeEach(() => {
+//       mockProfile = { name: "test list 1", email: "test@test.com" };
 
-      global.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockProfile)
-        });
-      });
-    });
+//       global.fetch = jest.fn().mockImplementation(() => {
+//         return Promise.resolve({
+//           ok: true,
+//           json: () => Promise.resolve(mockProfile)
+//         });
+//       });
+//     });
 
-    it("HAPPY: should return with a parsed response", async () => {
-      const result = await fetchProfile();
-      expect(result).toEqual(mockProfile);
-    });
+//     it("HAPPY: should return with a parsed response", async () => {
+//       const result = await fetchProfile();
+//       expect(result).toEqual(mockProfile);
+//     });
 
-    it("SAD: should return an error if the answer is not ok", () => {
-      global.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({
-          ok: false
-        });
-      });
-      expect(fetchProfile()).rejects.toEqual(Error("Could not fetch profile"));
-    });
-  });
-});
+//     it("SAD: should return an error if the answer is not ok", () => {
+//       global.fetch = jest.fn().mockImplementation(() => {
+//         return Promise.resolve({
+//           ok: false
+//         });
+//       });
+//       expect(fetchProfile()).rejects.toEqual(Error("Could not fetch profile"));
+//     });
+//   });
+// });
