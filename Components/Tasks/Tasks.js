@@ -116,11 +116,11 @@ export class Tasks extends Component {
       return (
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
+          <Text style={styles.listItemHeader}>{task.name}</Text>
             {this.state.displayEdit !== task.id && (
               <View style={styles.taskNoteDue}>
-              <Text style={styles.listItemHeader}>{task.name}</Text>
-              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+              {task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
+              {task.due_date !== null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
               </View>
             )}
             {this.state.displayEdit === task.id && (
@@ -166,7 +166,7 @@ export class Tasks extends Component {
                 accessible={true}
                 onPress={() => this.completeTaskByCaretaker(task.id)}
               >
-              <Text style={styles.listItem}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
+              <Text style={styles.listComplete}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
               </TouchableHighlight>}
             </View>
           </View>

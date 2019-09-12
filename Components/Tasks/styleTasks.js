@@ -2,53 +2,65 @@ import { StyleSheet } from "react-native";
 import theme from '../../theme';
 
 export const styles = StyleSheet.create({
-  listHeader: {
-    borderColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
-    padding: 10
-  },
-  listName: {
-    fontSize: 40,
-    fontFamily: theme.textMain,
-    textAlign: "center"
-  },
-  listItemHeaderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  lists: {
     backgroundColor: theme.primary,
     alignItems: "center",
-    width: "100%"
+    margin: 20,
+    marginBottom: 1,
+    marginTop: 1,
+    padding: 10,
+    width: '90%',
+  },
+  listItemHeaderContainer: {
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    backgroundColor: theme.primary,
+    alignItems: "center",
+    width: "90%"
   },
   listItemHeader: {
     textAlign: "center",
     fontSize: 40,
     color: theme.accentOne,
     fontFamily: theme.textMain,
-    width: "85%"
+    width: "100%",
+    fontFamily: theme.textTwo,
+  },
+  taskNoteDue: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    width: '90%',
+    fontFamily: theme.textTwo,
   },
   listItemSecond: {
     textAlign: "center",
     fontSize: 20,
     color: theme.accentOne,
     fontFamily: theme.textMain,
-    width: "85%"
+    width: "100%",
+    margin: 10,
+    fontFamily: theme.textTwo,
   },
-  listItem: {
-    fontSize: 40,
+  listComplete: {
+    fontSize: 20,
     color: theme.accentOne,
     padding: 8,
-    paddingLeft: 12
+    paddingLeft: 12,
+    fontFamily: theme.textTwo,
   },
-  addTaskContainer: {
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    margin: 10,
-    padding: 5,
-    paddingLeft: 8,
-    paddingRight: 0,
+  alignEdit: {
+    flexDirection: "row",
     justifyContent: "space-between",
-    flexDirection: "row"
+    alignItems: "center",
+    width: "90%",
+    borderWidth: 1,
+    borderColor: theme.accentOne
+  },
+  inputEdit: {
+    width: "85%",
+    backgroundColor: theme.accentOne,
+    fontSize: 38,
+    fontFamily: theme.textMain
   },
   input: {
     backgroundColor: theme.accentOne,
@@ -85,16 +97,6 @@ export const styles = StyleSheet.create({
     color: theme.accentOne,
     fontFamily: theme.textMain
   },
-  lists: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: theme.primary,
-    alignItems: "center",
-    margin: 10,
-    marginBottom: 1,
-    marginTop: 1,
-    padding: 10
-  }, 
   alignEdit: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -103,13 +105,26 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.accentOne
   },
-  inputEdit: {
-    width: "85%",
-    backgroundColor: theme.accentOne,
-    fontSize: 38,
-    fontFamily: theme.textMain
+  listHeader: {
+    borderColor: theme.primary,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 20,
+    padding: 10
   },
-  taskNoteDue: {
-    width: '85%'
-  }
+  listName: {
+    fontSize: 40,
+    fontFamily: theme.textMain,
+    textAlign: "center"
+  },
+  addTaskContainer: {
+    backgroundColor: theme.primary,
+    alignItems: "center",
+    margin: 10,
+    padding: 5,
+    paddingLeft: 8,
+    paddingRight: 0,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: '80%',
+  },
 });
