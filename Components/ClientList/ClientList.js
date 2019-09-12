@@ -15,6 +15,7 @@ import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { fetchCaretakers } from '../../Utils/clientApiCalls';
 import { postBlob } from '../../Utils/postBlob';
+import theme from '../../theme';
 
 export class ClientList extends Component {
 	constructor (props) {
@@ -238,6 +239,7 @@ export class ClientList extends Component {
 						value={this.state.list_title}
 						onChangeText={text => this.handleChange(text)}
 						accessibilityLabel="List Name Input"
+						placeholderTextColor={theme.primary}
 					/>
 				</View>
 				<View style={styles.recordingDataContainer}>
@@ -257,7 +259,7 @@ export class ClientList extends Component {
           <View>
 				<Picker
 					selectedValue={this.state.caretaker_id}
-					style={{ height: 10, width: '80%', marginLeft: 30, marginBottom: 150,}}
+					style={{ height: 100, width: '80%', marginLeft: 30, marginBottom: 50,}}
 					onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
           >
 					<Picker.Item label="-- Select A Caretaker --" value={0}/>
@@ -352,9 +354,10 @@ export class ClientList extends Component {
 			<View>
 				<View style={styles.headerContainer}>
 					<Text style={styles.header}>My Todo Lists</Text>
+					</View>
+					<ScrollView>
 					{this.createNewList()}
-				</View>
-				<ScrollView>{this.getClientLists()}
+				{this.getClientLists()}
         <View style={{height: 550}}></View>
         </ScrollView>
 			</View>

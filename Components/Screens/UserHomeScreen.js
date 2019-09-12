@@ -15,7 +15,8 @@ export class UserHomeScreen extends Component {
 						SOPHIA
 					</Text>
 				</View>
-				<Text style={styles.greeting}>Welcome Back, {this.props.user.name || null}!</Text>
+				<Text style={styles.greeting}>Welcome Back,</Text>
+				<Text style={styles.greeting}>{this.props.user.name}!</Text>
 				<View style={styles.routes}>
 					<TouchableHighlight
 						underlayColor="black"

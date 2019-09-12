@@ -292,6 +292,7 @@ export class CreateAccount extends Component {
 						Create Account
 					</Text>
 				</View>
+				<ScrollView style={styles.scrollContainer}>
 				<View style={styles.routes}>
 					<TouchableHighlight
 						underlayColor={theme.accentTwo}
@@ -310,10 +311,9 @@ export class CreateAccount extends Component {
 						<Text style={styles.button}>I'm a Caretaker</Text>
 					</TouchableHighlight>
 				</View>
-				<Text accessibilityLabel="Scroll to fill out the form inputs below" style={styles.text}>
+				{/* <Text accessibilityLabel="Scroll to fill out the form inputs below" style={styles.text}>
 					Scroll to fill out the form
-				</Text>
-				<ScrollView style={styles.scrollContainer}>
+				</Text> */}
 					<TextInput
 						style={styles.input}
 						placeholder="Username"

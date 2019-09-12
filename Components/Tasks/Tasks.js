@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput} from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from "../../Utils/clientApiCalls";
 import { fetchCaretakerTasks, patchCaretakerTask } from "../../Utils/caretakerApiCalls";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, ScrollView } from "react-native-gesture-handler";
 import { PropTypes } from 'prop-types';
 import {styles} from './styleTasks';
 
@@ -106,12 +106,12 @@ export class Tasks extends Component {
     const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
-          <View style={!task.completed ? styles.listItemHeaderContainer : styles.listItemHeaderContainerDONE}>
+          <View style={styles.listItemHeaderContainer}>
+          <Text style={styles.listItemHeader}>{task.name}</Text>
             {this.state.displayEdit !== task.id && (
               <View style={styles.taskNoteDue}>
-              <Text style={styles.listItemHeader}>{task.name}</Text>
-              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+              {task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
+              {task.due_date !== null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
               </View>
             )}
             {this.state.displayEdit === task.id && (
@@ -128,7 +128,7 @@ export class Tasks extends Component {
                   accessible={true}
                   onPress={() => this.handleSubmitEdit(task.id)}
                 >
-                  <Text style={styles.listItem}>✔︎</Text>
+                  <Text style={styles.editCheck}>✔︎</Text>
                 </TouchableHighlight>
               </View>
             )}
@@ -157,7 +157,7 @@ export class Tasks extends Component {
                 accessible={true}
                 onPress={() => this.completeTaskByCaretaker(task.id)}
               >
-              <Text style={styles.listItem}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
+              <Text style={styles.listComplete}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
               </TouchableHighlight>}
             </View>
           </View>
@@ -169,39 +169,51 @@ export class Tasks extends Component {
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{name}</Text>
         </View>
+        <ScrollView>
         {this.props.user.role === 'client' && <View style={styles.addTaskContainer}>
           <View style={styles.align}>
-            <Text style={styles.label}>Task name:</Text>
+            <Text style={styles.label}>Task Name:</Text>
             <TextInput
               style={styles.input}
               value={this.state.task_input}
               onChangeText={this.handleChangeTask}
+              placeholder="Add Task Name"
+              accessibilityLabel="Add your task name"
             ></TextInput>
-            <Text style={styles.label}>Note:</Text>
+            <Text style={styles.label}>Add Note:</Text>
             <TextInput
               style={styles.input}
               value={this.state.description_input}
               onChangeText={this.handleChangeNote}
+              placeholder="Add Note"
+              accessibilityLabel="Add a note providing mroe details about your task"
             ></TextInput>
-            <Text style={styles.label}>Due:</Text>
+            <Text style={styles.label}>Due Date:</Text>
             <TextInput
               style={styles.input}
               placeholder="mm/dd"
               value={this.state.due_date}
               onChangeText={this.handleChangeDate}
+              placeholder="dd/mm/yy"
+              accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
             ></TextInput>
           </View>
+          <View style={styles.submitBtnContainer}>
           <TouchableHighlight
             underlayColor="black"
             accessibilityLabel="Tap me to submit your task."
             accessible={true}
             onPress={() => this.handleSubmit()}
           >
-            <Text style={styles.plus}> + </Text>
+            <Text style={styles.submitBtn}>Submit New Task </Text>
           </TouchableHighlight>
+          </View>
         </View>}
         {tasks.length < 1 && <View><Text>No tasks yet!</Text></View>}
+        
         <View>{allTasks}</View>
+        <View style={{height: 200}}></View>
+        </ScrollView>
       </View>
   )}
 }
@@ -227,5 +239,4 @@ Tasks.propTypes = {
   tasks: PropTypes.object
 };
 
-//doublecheck protypes
 
