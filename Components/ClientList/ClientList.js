@@ -226,7 +226,7 @@ export class ClientList extends Component {
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
-			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} style={styles.picker}/>;
+			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />
 		});
 
 		return (
@@ -239,15 +239,6 @@ export class ClientList extends Component {
 						onChangeText={text => this.handleChange(text)}
 						accessibilityLabel="List Name Input"
 					/>
-					<TouchableHighlight
-						underlayColor="black"
-						accessibilityLabel="Tap me to submit the title of your list."
-						onPress={this.handleSubmit}>
-						<Text style={styles.plus} accessibilityLabel="Plus Button. Add a new list by typing in the list name input">
-							{' '}
-							+{' '}
-						</Text>
-					</TouchableHighlight>
 				</View>
 				<View style={styles.recordingDataContainer}>
 					<TouchableHighlight
@@ -263,6 +254,15 @@ export class ClientList extends Component {
 						{this.state.isRecording ? 'RECORDING' : 'STOPPED RECORDING'}
 					</Text>
 				</View>
+        <View>
+        <TouchableHighlight
+						underlayColor="black"
+						accessibilityLabel="Tap me to submit the title of your list."
+						onPress={this.handleSubmit}>
+						<Text style={styles.plus} accessibilityLabel="Plus Button. Add a new list by typing in the list name input">	+
+						</Text>
+					</TouchableHighlight>
+          </View>
 				<Picker
 					selectedValue={this.state.caretaker_id}
 					style={{ height: 100, width: '90%' }}

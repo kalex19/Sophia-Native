@@ -7,14 +7,6 @@ import { PropTypes } from 'prop-types';
 import { styles } from './styleUserHomeScreen';
 
 export class UserHomeScreen extends Component {
-	componentWillUnmount(){
-		console.log('unmounting')
-	}
-
-	componentDidMount(){
-		console.log('mounting')
-	}
-
 	render () {
 		return (
 			<View style={styles.container}>

@@ -51,17 +51,13 @@ export const styles = StyleSheet.create({
   },
   addListContainer: {
     backgroundColor: theme.primary,
-    flexDirection: "row",
-    alignItems: "center",
     margin: 10,
     padding: 5,
-    paddingTop: 0,
-    paddingBottom: 0,
-    justifyContent: "space-between"
+    textAlign: 'center',
   },
   plus: {
     fontSize: 50,
-    color: theme.accentOne
+    color: theme.accentTwo
   },
     emptyContainer: {
     alignSelf: 'stretch',
@@ -92,18 +88,18 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.primary,
     width: "90%",
-    height: "40%",
+    height: "25%",
     justifyContent: "space-around",
-    margin: 10,
+    margin: 5,
     borderRadius: 50,
     textAlign: 'center',
   },
   liveText: {
     color: theme.accentOne,
     fontFamily: theme.textMain,
-    marginBottom: 40,
+    marginBottom: 20,
     marginHorizontal: 60,
-    fontSize: 20,
+    fontSize: 25,
   },
   text: {
     color: theme.accentOne,
@@ -127,7 +123,7 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     backgroundColor: theme.accentOne,
-    width: "85%",
+    width: "90%",
     fontFamily: theme.textTwo,
   },
 });
