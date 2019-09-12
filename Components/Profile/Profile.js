@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { PropTypes } from 'prop-types';
 import { logOut } from '../../actions';
 import {styles} from './styleProfile'
+import { SafeAreaView } from "react-navigation";
 
 export class Profile extends Component {
 
@@ -81,11 +82,12 @@ export class Profile extends Component {
         </View>
         <ScrollView style={styles.profileContainer}>
           <Text style={styles.userInfo}>Username: {this.props.user.username}</Text>
-        <Text style={styles.userInfo}>Name: {this.props.user.name}</Text>
+        <Text style={styles.userInfo}>Name: {this.props.user.name || "Katie"}</Text>
         <Text style={styles.userInfo}>Email: {this.props.user.email}</Text>
         <Text style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Text>
           {this.props.user.role === "client" && this.renderClientInfo()}
           {this.props.user.role === "caretaker" && this.renderCaretakerInfo()}
+          <View style={{height: 150}}></View>
         </ScrollView>
       </View>
     );

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
+import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from "../../Utils/clientApiCalls";
 import { fetchCaretakerTasks, patchCaretakerTask } from "../../Utils/caretakerApiCalls";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { PropTypes } from 'prop-types';
@@ -36,7 +36,7 @@ export class Tasks extends Component {
   returnUpdatedTask = async () => {
     const list = this.props.navigation.state.params
     const { user } = this.props
-    const tasks = await fetchTasks(list.id, user.id);
+    const tasks = await fetchClientTasks(list.id, user.id);
     const cleanedTasks = tasks.map(task => {
       return {
         id: task.id,
@@ -74,7 +74,7 @@ export class Tasks extends Component {
     const { user } = this.props
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
-    await patchTask(modifiedTask, list.id, taskId, user.id);
+    await patchClientTask(modifiedTask, list.id, taskId, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_edit_input: "", displayEdit: false });
   };
@@ -88,14 +88,14 @@ export class Tasks extends Component {
       description: description_input,
       due_date: due_date
     };
-    await postTask(newTask, list.id, user.id);
+    await postClientTask(newTask, list.id, user.id);
     await this.returnUpdatedTask();
     this.setState({ task_input: "", description_input: "", due_date: "" });
   };
 
   eraseTask = async taskId => {
     const list = this.props.navigation.state.params
-    await deleteTask(list.id, taskId, client.id);
+    await deleteClientTask(list.id, taskId, client.id);
     this.returnUpdatedTask();
   };
 
