@@ -20,6 +20,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%"
   },
+  listItemHeaderContainerDONE: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "green",
+    alignItems: "center",
+    width: "100%"
+  },
   listItemHeader: {
     textAlign: "center",
     fontSize: 40,
