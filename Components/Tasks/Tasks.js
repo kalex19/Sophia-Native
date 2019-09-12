@@ -17,6 +17,7 @@ export class Tasks extends Component {
       due_date: "",
       displayEdit: "",
       task_edit_input: "",
+      completed: false
     };
   }
 
@@ -98,6 +99,16 @@ export class Tasks extends Component {
     this.returnUpdatedTask();
   };
 
+  completeTaskByCaretaker = async taskId => {
+    const list = this.props.navigation.state.params
+    const { user } = this.props
+    this.state.completed = !this.state.completed
+    const { completed } = this.state
+    const completedTask = { completed: completed };
+    await patchCaretakerTask(completedTask, list.id, taskId, user.id);
+    await this.returnUpdatedCaretakerTask();
+  }
+
   render() {
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
@@ -106,7 +117,7 @@ export class Tasks extends Component {
         <Text style={styles.listItem}>No Tasks</Text>
       </View>
     );
-    const allCaretakerTasks = tasks.map(task => {
+    const allTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
@@ -136,6 +147,7 @@ export class Tasks extends Component {
               </View>
             )}
             <View style={styles.vertically}>
+              {this.props.user.role === "client" && <View>
               <TouchableHighlight
                 underlayColor="black"
                 accessibilityLabel="Tap me to open form and edit your list name."
@@ -143,7 +155,6 @@ export class Tasks extends Component {
                 onPress={() => this.toggleEditName(task.id)}
               >
                 <Text style={styles.editItem}>✏️</Text>
-                {/* <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text> */}
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor="black"
@@ -153,6 +164,15 @@ export class Tasks extends Component {
               >
                 <Text style={styles.editItem}>DEL</Text>
               </TouchableHighlight>
+              </View>}
+              {this.props.user.role === "caretaker" && <TouchableHighlight
+                underlayColor="black"
+                accessibilityLabel="Tap me to delete your todo task."
+                accessible={true}
+                onPress={() => this.completeTaskByCaretaker(task.id)}
+              >
+              <Text style={styles.listItem}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
+              </TouchableHighlight>}
             </View>
           </View>
         </View>
@@ -194,7 +214,7 @@ export class Tasks extends Component {
             <Text style={styles.plus}> + </Text>
           </TouchableHighlight>
         </View>}
-        {this.props.user.role === 'caretaker' && <View>{allCaretakerTasks}</View>} 
+        <View>{allTasks}</View>
       </View>
   )}
 
