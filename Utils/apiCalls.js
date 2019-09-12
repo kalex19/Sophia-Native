@@ -54,11 +54,13 @@ export const patchList = async (object, list_id, client_id) => {
 
 
 export const fetchTasks = async (list_id, client_id) => {
+  console.log("API CALLS LIST ID", list_id)
+  console.log("API CALLS CLIENT ID", client_id)
   const response = await fetch(
     `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}/tasks`
   );
   if (!response.ok) {
-    throw new Error("Could not fetch lists");
+    throw new Error("Could not fetch tasks");
   } else {
     const lists = response.json();
     return lists;

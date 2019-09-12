@@ -3,8 +3,8 @@ import { View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
 import { fetchTasks, postTask, patchTask, deleteTask } from "../../Utils/apiCalls";
+import { fetchCaretakerTasks, patchCaretakerTask } from "../../Utils/caretakerApiCalls";
 import { TouchableHighlight } from "react-native-gesture-handler";
-import theme from '../../theme';
 import { PropTypes } from 'prop-types';
 import {styles} from './styleTasks';
 
@@ -16,17 +16,25 @@ export class Tasks extends Component {
       description_input: "",
       due_date: "",
       displayEdit: "",
-      task_edit_input: ""
+      task_edit_input: "",
     };
   }
 
   componentDidMount = async () => {
-    await this.returnUpdatedTask();
+    this.props.user.role === "caretaker" ? await this.returnUpdatedCaretakerTask() : this.returnUpdatedTask()
+  };
+
+  returnUpdatedCaretakerTask = async () => {
+    const list = this.props.navigation.state.params
+    const { user } = this.props
+    const tasks = await fetchCaretakerTasks(list.id, user.id);
+    this.props.loadTasks(tasks);
+    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
     const list = this.props.navigation.state.params
-    const { user} = this.props
+    const { user } = this.props
     const tasks = await fetchTasks(list.id, user.id);
     const cleanedTasks = tasks.map(task => {
       return {
@@ -98,7 +106,7 @@ export class Tasks extends Component {
         <Text style={styles.listItem}>No Tasks</Text>
       </View>
     );
-    const allTasks = tasks.map(task => {
+    const allCaretakerTasks = tasks.map(task => {
       return (
         <View style={styles.lists}>
           <View style={styles.listItemHeaderContainer}>
@@ -135,7 +143,7 @@ export class Tasks extends Component {
                 onPress={() => this.toggleEditName(task.id)}
               >
                 <Text style={styles.editItem}>✏️</Text>
-                <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text>
+                {/* <Text style={styles.listItem}>{task.completed ? "✔︎" : "x"}</Text> */}
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor="black"
@@ -155,7 +163,7 @@ export class Tasks extends Component {
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{name}</Text>
         </View>
-        <View style={styles.addTaskContainer}>
+        {this.props.user.role === 'client' && <View style={styles.addTaskContainer}>
           <View style={styles.align}>
             <Text style={styles.label}>Task name:</Text>
             <TextInput
@@ -185,48 +193,44 @@ export class Tasks extends Component {
           >
             <Text style={styles.plus}> + </Text>
           </TouchableHighlight>
-        </View>
-        {allTasks}
+        </View>}
+        {this.props.user.role === 'caretaker' && <View>{allCaretakerTasks}</View>} 
       </View>
   )}
 
-  caretakerTasks = () => {
-    console.log("TASKS", tasks)
-    const { tasks } = this.props;
-    const allCaretakerTasks = tasks.map(task => {
-        <View style={styles.lists}>
-          <View style={styles.listItemHeaderContainer}>
-            {this.state.displayEdit !== task.id && (
-              <View style={styles.taskNoteDue}>
-              <Text style={styles.listItemHeader}>{task.name}</Text>
-              {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
-              </View>
-            )} 
-            {/* Need to add  un/complete functionality */}
-          </View>
-        </View>
-    }).reverse();
-    return(
-      <View>{allCaretakerTasks}</View>
-    )};
 
-  render() {
-    const list = this.props.navigation.state.params
-    return(
-    <View>
-      <Text>{list.name}</Text>
-      <Text>My Tasks</Text>
-        <Text>{!this.props.tasks && "No Tasks"}</Text>
-        <View>
-          <Text>
-        {this.props.user.accountType === 'client' && this.clientTasks}
-        {this.props.user.accountType === 'caretaker' && this.caretakerTasks}  
-          </Text>
-        </View> 
-      </View>
-    );
-  }
+    
+    // render() {
+    //   const list = this.props.navigation.state.params
+    //   const { tasks } = this.props;
+    //   const allCaretakerTasks = tasks.map(task => {
+    //       <View style={styles.lists}>
+    //         <View style={styles.listItemHeaderContainer}>
+    //           {this.state.displayEdit !== task.id && (
+    //             <View style={styles.taskNoteDue}>
+    //             <Text style={styles.listItemHeader}>{task.name}</Text>
+    //             {task.description.length > 0 && <Text style={styles.listItemSecond}>notes: {task.description}</Text>}
+    //             {task.due_date !== null && <Text style={styles.listItemSecond}>due: {task.due_date}</Text>}
+    //             </View>
+    //           )} 
+    //           {/* Need to add  un/complete functionality */}
+    //         </View>
+    //       </View>
+    //   }).reverse();
+    
+    // return(
+    // <View>
+    //   <Text>{list.name}</Text>
+    //   <Text>My Tasks</Text>
+    //     <Text>{!this.props.tasks && "No Tasks"}</Text>
+    //     <View>
+    //       <View>
+    //     {this.props.user.role === 'caretaker' && <View>{allCaretakerTasks}</View>}  
+    //       </View>
+    //     </View> 
+    //   </View>
+    // );
+  // }
 
   // caretakerTasks = () => {
   //   const { tasks, list } = this.props;
@@ -278,7 +282,7 @@ export default connect(
 
 
 Tasks.propTypes = {
-  userAccount: PropTypes.object,
+  user: PropTypes.object,
   tasks: PropTypes.object
 };
 
