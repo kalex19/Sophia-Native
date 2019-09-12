@@ -6,11 +6,10 @@ import {
   fetchClientTasks,
   postClientTask,
   patchClientTask,
-  deleteClientTask,
-  fetchProfile
-} from "./apiCalls";
+  deleteClientTask
+} from "./clientApiCalls";
 
-describe("apiCalls", () => {
+describe("clientApiCalls", () => {
   describe("fetchClientLists", () => {
     let mockLists;
 
@@ -406,4 +405,4 @@ describe("apiCalls", () => {
 //       expect(fetchProfile()).rejects.toEqual(Error("Could not fetch profile"));
 //     });
 //   });
-// });
+});
