@@ -130,6 +130,8 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### My Tasks - Client
 
+<img width="420" alt="ClientTasks" src="https://user-images.githubusercontent.com/39716292/64769969-86881d00-d509-11e9-8c93-d3f07aeccf46.png">
+
 ### My Tasks - Caretaker
 
 <img width="411" alt="CaretakerTasks" src="https://user-images.githubusercontent.com/39716292/64762845-1de67380-d4fc-11e9-89ea-3a43dcd9d847.png">
