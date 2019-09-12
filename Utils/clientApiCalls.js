@@ -41,7 +41,7 @@ export const patchClientList = async (updatedList) => {
   const options = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedList)
+    body: JSON.stringify(updatedList.name)
   };
   const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${updatedList.client_id}/lists/${updatedList.list_id}`, options);
 
@@ -83,8 +83,9 @@ export const patchClientTask = async (updatedTask, list_id, task_id, clientId) =
   const options = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedTask
+    body: JSON.stringify(updatedTask)
   };
+
   const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${clientId}/lists/${list_id}/tasks/${task_id}`, options);
   if (!response.ok) {
     throw new Error("Could not edit the name of the task");

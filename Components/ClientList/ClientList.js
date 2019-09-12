@@ -9,7 +9,7 @@ import { Text, View, TextInput, TouchableHighlight, Picker,
 import {styles} from './styleClientList';
 import { connect } from "react-redux";
 import { loadLists } from "../../actions";
-import { fetchClientLists, postClientList, deleteClientList, patchClientList } from "../../Utils/apiCalls";
+import { fetchClientLists, postClientList, deleteClientList, patchClientList } from "../../Utils/clientApiCalls";
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
@@ -204,9 +204,8 @@ export class ClientLists extends Component {
   handleSubmitEdit = async listId => {
     const { list_edit_input } = this.state;
     const { user } = this.props
-    const modifiedList = { name: list_edit_input };
     const updatedList = {
-      modifiedList, listId, user.id
+      name: list_edit_input , list_id: listId, client_id: user.id
     }
     await patchClientList(updatedList);
     this.returnUpdatedList();
