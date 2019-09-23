@@ -15,7 +15,7 @@ export default StyleSheet.create({
 	},
 	logo: {
 		fontFamily: theme.textMain,
-		fontSize: 50
+		fontSize: 60
 	},
 	buttonContainer: {
 		width: '100%'
