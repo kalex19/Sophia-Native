@@ -1,41 +1,38 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 
-export const styles = StyleSheet.create({
-	headerContainer: {
+export default StyleSheet.create({
+	container: {
+		alignItems: 'center',
+		backgroundColor: theme.accentOne,
+		flex: 1,
+		justifyContent: 'center'
+	},
+	logoContainer: {
 		borderBottomColor: theme.primary,
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		marginBottom: 30
 	},
-	header: {
-		fontSize: 50,
-		fontFamily: theme.textMain
+	logo: {
+		fontFamily: theme.textMain,
+		fontSize: 50
+	},
+	buttonContainer: {
+		width: '100%'
 	},
 	button: {
-		color: theme.accentOne,
-		fontSize: 30,
-		fontFamily: theme.textTwo,
-		textAlign: 'center',
-		paddingTop: 25
-	},
-	container: {
-		backgroundColor: theme.accentOne,
 		alignItems: 'center',
-		justifyContent: 'center',
-		height: '100%'
-	},
-	routes: {
-		flexDirection: 'column',
+		alignSelf: 'center',
 		backgroundColor: theme.primary,
-		width: '80%',
-		height: '15%',
-		justifyContent: 'space-around',
+		borderRadius: 100,
+		height: 70,
+		justifyContent: 'center',
 		margin: 10,
-		borderRadius: 50
+		width: '80%'
 	},
-	touchExpander: {
-		height: '100%',
-		borderRadius: 50,
-		width: '100%'
+	buttonText: {
+		color: theme.accentOne,
+		fontFamily: theme.textTwo,
+		fontSize: 30
 	}
 });
