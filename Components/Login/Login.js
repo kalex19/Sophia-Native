@@ -6,7 +6,7 @@ import { logIn } from '../../actions';
 import { logInUser } from '../../Utils/logInUser';
 import { PropTypes } from 'prop-types';
 import theme from '../../theme';
-import { styles } from './styleLogin';
+import styles from './styles';
 
 const initialState = {
 	username: '',
@@ -50,7 +50,7 @@ export class Login extends Component {
 		}
 	};
 
-	render () {
+	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled accessibile={true}>
 				<View style={styles.headerContainer}>
@@ -82,7 +82,8 @@ export class Login extends Component {
 						underlayColor="black"
 						accessibilityLabel="Tap me to log into your account."
 						onPress={this.handleSubmit}
-						style={styles.touchExpander}>
+						style={styles.touchExpander}
+					>
 						<Text style={styles.button}> Log In </Text>
 					</TouchableHighlight>
 				</View>
@@ -94,7 +95,6 @@ export class Login extends Component {
 	}
 }
 
-
 const mapStateToProps = state => ({
 	user: state.userAccount
 });
@@ -103,7 +103,10 @@ export const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Login);
 
 Login.propTypes = {
 	userAccount: PropTypes.object

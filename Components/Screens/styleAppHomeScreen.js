@@ -16,23 +16,5 @@ export default StyleSheet.create({
 	logo: {
 		fontFamily: theme.textMain,
 		fontSize: 60
-	},
-	buttonContainer: {
-		width: '100%'
-	},
-	button: {
-		alignItems: 'center',
-		alignSelf: 'center',
-		backgroundColor: theme.primary,
-		borderRadius: 100,
-		height: 70,
-		justifyContent: 'center',
-		margin: 10,
-		width: '80%'
-	},
-	buttonText: {
-		color: theme.accentOne,
-		fontFamily: theme.textTwo,
-		fontSize: 30
 	}
 });

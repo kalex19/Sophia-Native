@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
 	container: {
 		backgroundColor: theme.accentOne,
 		alignItems: 'center',
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 45,
-		fontFamily: theme.textMain,
+		fontFamily: theme.textMain
 	},
 	routes: {
 		flexDirection: 'column',
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
 		marginTop: 10,
 		height: 50,
 		minHeight: 44,
-		minWidth: 44,
+		minWidth: 44
 	},
 	input: {
 		width: '90%',
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
 		paddingLeft: 15,
 		margin: 10,
 		backgroundColor: theme.accentThree,
-		color: theme.accentTwo,
+		color: theme.accentTwo
 	},
 	touchExpander: {
 		height: '100%',
@@ -55,6 +55,6 @@ export const styles = StyleSheet.create({
 		fontSize: 16,
 		fontFamily: theme.textMain,
 		color: theme.primary,
-		margin: 10,
+		margin: 10
 	}
 });
