@@ -33,13 +33,18 @@ const AppNavigator = createStackNavigator(
 				header: null
 			}
 		},
-		Login: Login,
-		CreateAccount: CreateAccount,
-		User: UserHomeScreen,
-		Profile: Profile,
-		CaretakerList: CaretakerList,
-		ClientList: ClientList,
-		Tasks: Tasks
+		Login,
+		CreateAccount,
+		User: {
+			screen: UserHomeScreen,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Profile,
+		CaretakerList,
+		ClientList,
+		Tasks
 	},
 	{
 		initialRouteName: 'Login'

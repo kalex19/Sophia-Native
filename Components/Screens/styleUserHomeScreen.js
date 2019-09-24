@@ -1,47 +1,31 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 
-export const styles = StyleSheet.create({
-  headerContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 40
-  },
-  header: {
-    fontSize: 50,
-    fontFamily: theme.textMain
-  },
-  greeting: {
-    fontSize: 25,
-    fontFamily: theme.textMain,
-    margin: 10,
-    marginBottom: 30,
-  },
-  button: {
-    color: theme.accentOne,
-    fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    paddingTop: 25,
-  },
-  container: {
-    backgroundColor: theme.accentOne,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%"
-  },
-  routes: {
-    flexDirection: "column",
-    backgroundColor: theme.primary,
-    width: "80%",
-    height: "15%",
-    justifyContent: "space-around",
-    margin: 10,
-    borderRadius: 50,
-  },
-  touchExpander: {
-    height: "100%",
-    width: "100%",
-    borderRadius: 50,
-  }
+export default StyleSheet.create({
+	headerContainer: {
+		borderBottomColor: theme.primary,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		marginBottom: 40
+	},
+	header: {
+		fontSize: 50,
+		fontFamily: theme.textMain
+	},
+	greeting: {
+		fontSize: 25,
+		fontFamily: theme.textMain,
+		marginBottom: 25,
+		textAlign: 'center'
+	},
+	button: {
+		color: theme.accentOne,
+		fontSize: 30,
+		fontFamily: theme.textTwo,
+		textAlign: 'center'
+	},
+	container: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1
+	}
 });

@@ -244,7 +244,7 @@ export class ClientList extends Component {
 					disabled={this.state.isLoading}
 					accessibilityLabel="Tap me to record the name of your list"
 				>
-					{this.state.isRecording ? 'RECORDING' : 'NOT RECORDING'}
+					{this.state.isRecording ? 'Stop' : 'Start'} Recording
 				</Button>
 				<View>
 					<Picker
