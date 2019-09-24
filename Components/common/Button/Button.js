@@ -10,7 +10,7 @@ const Button = props => {
 				accessibilityLabel={props.accessibilityLabel}
 				accessible
 				onPress={props.onPress}
-				style={styles.button}
+				style={{ ...styles.button, ...props.style }}
 			>
 				<Text style={styles.buttonText}>{props.children}</Text>
 			</TouchableHighlight>

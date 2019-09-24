@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from './styleAppHomeScreen';
 import Button from '../common/Button/Button';
 
