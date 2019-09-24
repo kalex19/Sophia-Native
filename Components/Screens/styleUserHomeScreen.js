@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		fontFamily: theme.textMain
 	},
 	greeting: {
-		fontSize: 25,
+		fontSize: 35,
 		fontFamily: theme.textMain,
 		marginBottom: 25,
 		textAlign: 'center'

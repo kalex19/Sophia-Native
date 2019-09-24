@@ -8,6 +8,8 @@ import Button from '../common/Button/Button';
 
 export class UserHomeScreen extends Component {
 	render() {
+		const { user, navigation } = this.props;
+
 		return (
 			<View style={styles.container}>
 				<View style={styles.headerContainer}>
@@ -15,20 +17,17 @@ export class UserHomeScreen extends Component {
 						SOPHIA
 					</Text>
 				</View>
-				<Text style={styles.greeting}>Welcome Back, {'\n' + this.props.user.name}!</Text>
+				<Text style={styles.greeting}>Welcome Back, {'\n' + user.name}!</Text>
 				<Button
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
-					onPress={() => this.props.navigation.navigate('Profile', this.props.user)}
+					onPress={() => navigation.navigate('Profile', user)}
 				>
 					My Account
 				</Button>
 				<Button
-					underlayColor="black"
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						this.props.user.role === 'client'
-							? this.props.navigation.navigate('ClientList')
-							: this.props.navigation.navigate('CaretakerList');
+						user.role === 'client' ? navigation.navigate('ClientList') : navigation.navigate('CaretakerList');
 					}}
 				>
 					My Lists
