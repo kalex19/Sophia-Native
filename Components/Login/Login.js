@@ -9,8 +9,8 @@ import Input from '../common/Input/Input';
 import styles from './styles';
 
 const initialState = {
-	username: '',
-	password: '',
+	username: 'Noah11',
+	password: 'pass',
 	message: '',
 	error: ''
 };

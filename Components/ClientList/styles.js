@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import theme from '../../theme';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   editItem: {
     fontSize: 25,
     color: theme.accentOne,
@@ -47,10 +47,6 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: theme.textMain,
     textAlign: "center"
-  },
-  addListContainer: {
-    margin: 10,
-    textAlign: 'center',
   },
   container: {
     flex: 1,
@@ -113,20 +109,5 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.accentT,
     width: "100%",
     fontFamily: theme.textTwo,
-  },
-  submitBtnContainer: {
-    backgroundColor: theme.primary,
-    width: "90%",
-    height: 60,
-    margin: 10,
-    borderRadius: 50,
-    textAlign: 'center',
-   },
-  submitBtn: {
-    color: theme.accentOne,
-    fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    padding: 5,
   },
 });
