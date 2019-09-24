@@ -6,12 +6,7 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 const Button = props => {
 	return (
 		<View style={styles.container}>
-			<TouchableHighlight
-				accessibilityLabel={props.accessibilityLabel}
-				accessible
-				onPress={props.onPress}
-				style={{ ...styles.button, ...props.style }}
-			>
+			<TouchableHighlight {...props} style={{ ...styles.button, ...props.style }}>
 				<Text style={styles.buttonText}>{props.children}</Text>
 			</TouchableHighlight>
 		</View>

@@ -42,7 +42,7 @@ const AppNavigator = createStackNavigator(
 		Tasks: Tasks
 	},
 	{
-		initialRouteName: 'Home'
+		initialRouteName: 'Login'
 	}
 );
 

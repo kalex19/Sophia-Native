@@ -13,7 +13,7 @@ export default StyleSheet.create({
 		height: 70,
 		justifyContent: 'center',
 		margin: 10,
-		width: '80%'
+		width: '85%'
 	},
 	buttonText: {
 		color: theme.accentOne,
