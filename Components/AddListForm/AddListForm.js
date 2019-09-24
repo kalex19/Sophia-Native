@@ -18,7 +18,7 @@ import { postBlob } from '../../Utils/postBlob';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 
-export class ClientList extends Component {
+export class AddListForm extends Component {
 	constructor(props) {
 		super(props);
 		this.recording = null;
@@ -50,13 +50,11 @@ export class ClientList extends Component {
 	}
 
 	componentDidMount = async () => {
-		await this.returnUpdatedList();
 		await Font.loadAsync({
 			'cutive-mono-regular': require('../../assets/fonts/CutiveMono-Regular.ttf')
 		});
 		const caretakers = await fetchCaretakers();
-		this.setState({ caretakers });
-		this.setState({ fontLoaded: true });
+		this.setState({ caretakers, fontLoaded: true });
 		this._askForPermissions();
 	};
 
@@ -108,35 +106,28 @@ export class ClientList extends Component {
 		}
 
 		const recording = new Audio.Recording();
-		console.log('new recording', recording);
+		// console.log('new recording', recording);
 		await recording.prepareToRecordAsync(this.recordingSettings);
 		recording.setOnRecordingStatusUpdate(this._updateScreenForRecordingStatus);
 
 		this.recording = recording;
 		await this.recording.startAsync();
-		this.setState({
-			isLoading: false
-		});
+		this.setState({ isLoading: false });
 	}
 
 	async _stopRecordingAndEnablePlayback() {
-		this.setState({
-			isLoading: true
-		});
+		this.setState({ isLoading: true });
 		try {
 			await this.recording.stopAndUnloadAsync();
-			console.log(recording.createNewLoadedSoundAsync());
+			// console.log(recording.createNewLoadedSoundAsync());
 		} catch (error) {}
 		const info = await FileSystem.getInfoAsync(this.recording.getURI());
-		console.log('recording', this.recording);
-		console.log(`FILE INFO: ${JSON.stringify(info)}`);
+		// console.log('recording', this.recording);
+		// console.log(`FILE INFO: ${JSON.stringify(info)}`);
 		const response = await fetch(info.uri);
 		const blob = await response.blob();
 		const data = await postBlob(blob);
-		console.log('in client', data);
-		this.setState({
-			list_title: data.text
-		});
+		this.setState({ list_title: data.text });
 		await Audio.setAudioModeAsync({
 			allowsRecordingIOS: false,
 			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -171,15 +162,6 @@ export class ClientList extends Component {
 		}
 	};
 
-	returnUpdatedList = async () => {
-		const lists = await fetchClientLists(this.props.user.id);
-		this.props.loadLists(lists);
-	};
-
-	toggleEditName = list_id => {
-		this.setState({ displayEdit: list_id });
-	};
-
 	handleChange = input => {
 		this.setState({ list_title: input });
 	};
@@ -197,33 +179,13 @@ export class ClientList extends Component {
 			client_id: user.id,
 			key: user.id
 		};
-
 		try {
 			await postClientList(newList);
-			await this.returnUpdatedList();
 			this.setState({ list_title: '', caretaker_id: 0 });
+			this.props.navigation.navigate('ClientList');
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	eraseList = async listId => {
-		const { user } = this.props;
-		await deleteClientList(user.id, listId);
-		this.returnUpdatedList();
-	};
-
-	handleSubmitEdit = async listId => {
-		const { list_edit_input } = this.state;
-		const { user } = this.props;
-		const updatedList = {
-			name: list_edit_input,
-			list_id: listId,
-			client_id: user.id
-		};
-		await patchClientList(updatedList);
-		this.returnUpdatedList();
-		this.setState({ list_edit_input: '', displayEdit: false });
 	};
 
 	createNewList = () => {
@@ -267,64 +229,6 @@ export class ClientList extends Component {
 		);
 	};
 
-	getClientLists = () => {
-		const { lists, user } = this.props;
-		return lists
-			.map(list => {
-				list = { ...list, client_id: user.id };
-				return (
-					<View style={styles.lists} key={list.id} accessible={true}>
-						<TouchableHighlight
-							underlayColor="black"
-							accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
-							accessible={true}
-						>
-							{this.state.displayEdit !== list.id && (
-								<Text
-									style={styles.listName}
-									onPress={() => {
-										this.props.navigation.navigate('Tasks', list);
-									}}
-								>
-									{list.name}
-								</Text>
-							)}
-						</TouchableHighlight>
-						{this.state.displayEdit === list.id && (
-							<View style={styles.align}>
-								<TextInput
-									style={styles.input}
-									placeholder="New name"
-									value={this.state.list_edit_input}
-									onChangeText={this.handleEditList}
-								/>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to submit your edited list name."
-									onPress={() => this.handleSubmitEdit(list.id)}
-								>
-									<Text style={styles.listItem}>✔︎</Text>
-								</TouchableHighlight>
-							</View>
-						)}
-						<View style={styles.vertically}>
-							<TouchableHighlight
-								underlayColor="black"
-								accessibilityLabel="Tap me to open form and edit your list name."
-								onPress={() => this.toggleEditName(list.id)}
-							>
-								<Text style={styles.editItem}>✏️</Text>
-							</TouchableHighlight>
-							<TouchableHighlight onPress={() => this.eraseList(list.id)}>
-								<Text style={styles.editItem}>DEL</Text>
-							</TouchableHighlight>
-						</View>
-					</View>
-				);
-			})
-			.reverse();
-	};
-
 	render() {
 		if (!this.state.fontLoaded) {
 			return <View style={styles.emptyContainer} />;
@@ -344,12 +248,10 @@ export class ClientList extends Component {
 		return (
 			<View>
 				<View style={styles.headerContainer}>
-					<Text style={styles.header}>My Todo Lists</Text>
+					<Text style={styles.header}>Add New List</Text>
 				</View>
 				<ScrollView>
-					{/* {this.createNewList()} */}
-					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
-					{this.getClientLists()}
+					{this.createNewList()}
 					<View style={{ height: 550 }}></View>
 				</ScrollView>
 			</View>
@@ -369,9 +271,9 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ClientList);
+)(AddListForm);
 
-ClientList.propTypes = {
+AddListForm.propTypes = {
 	lists: PropTypes.array,
 	user: PropTypes.object
 };

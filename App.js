@@ -6,6 +6,7 @@ import Tasks from './Components/Tasks/Tasks';
 import UserHomeScreen from './Components/Screens/UserHomeScreen';
 import AppHomeScreen from './Components/Screens/AppHomeScreen';
 import Login from './Components/Login/Login';
+import AddListForm from './Components/AddListForm/AddListForm';
 import CreateAccount from './Components/CreateAccount/CreateAccount';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
@@ -44,7 +45,8 @@ const AppNavigator = createStackNavigator(
 		Profile,
 		CaretakerList,
 		ClientList,
-		Tasks
+		Tasks,
+		AddListForm
 	},
 	{
 		initialRouteName: 'Login'
