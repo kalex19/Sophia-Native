@@ -1,12 +1,19 @@
-import React from 'react';
+import { StyleSheet } from 'react-native';
 import theme from '../../../theme';
-import styles from './styles';
-import { View, TextInput } from 'react-native';
-const Input = props => {
-	return (
-		<View style={styles.container}>
-			<TextInput {...props} style={{ ...styles.input, ...props.style }} placeholderTextColor={theme.primary} />
-		</View>
-	);
-};
-export default Input;
+export default StyleSheet.create({
+	container: {
+		width: '100%'
+	},
+	input: {
+		alignSelf: 'center',
+		width: '85%',
+		borderRadius: 5,
+		height: 70,
+		fontSize: 30,
+		fontFamily: theme.textTwo,
+		paddingLeft: 15,
+		margin: 10,
+		backgroundColor: theme.accentThree,
+		color: theme.accentTwo
+	}
+});
