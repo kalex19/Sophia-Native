@@ -106,10 +106,11 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(AddListForm);
+
 AddListForm.propTypes = {
     lists: PropTypes.array,
     user: PropTypes.object
-}; (edited) 
+};
 
 
 
