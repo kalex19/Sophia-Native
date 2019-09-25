@@ -30,7 +30,6 @@ export class Tasks extends Component {
     const { user } = this.props
     const tasks = await fetchCaretakerTasks(list.id, user.id);
     this.props.loadTasks(tasks);
-    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
@@ -150,6 +149,7 @@ export class Tasks extends Component {
               >
                 <Text style={styles.editItem}>DEL</Text>
               </TouchableHighlight>
+                <Text style={styles.listComplete}>{task.completed ? "TASK WAS COMPLETED" : "NOT COMPLETED YET"}</Text>
               </View>}
               {this.props.user.role === "caretaker" && <TouchableHighlight
                 underlayColor="black"
