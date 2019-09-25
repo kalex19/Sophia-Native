@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     padding: 8,
     paddingLeft: 12,
     fontFamily: theme.textTwo,
+    textAlign: "center"
   },
   alignEdit: {
     flexDirection: "row",

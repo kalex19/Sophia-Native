@@ -1,16 +1,24 @@
 import React, { Component } from "react";
-import { View, Text, TextInput} from "react-native";
+import { View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { loadTasks } from "../../actions";
-import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from "../../Utils/clientApiCalls";
-import { fetchCaretakerTasks, patchCaretakerTask } from "../../Utils/caretakerApiCalls";
+import {
+  fetchClientTasks,
+  postClientTask,
+  patchClientTask,
+  deleteClientTask
+} from "../../Utils/clientApiCalls";
+import {
+  fetchCaretakerTasks,
+  patchCaretakerTask
+} from "../../Utils/caretakerApiCalls";
 import { TouchableHighlight, ScrollView } from "react-native-gesture-handler";
-import { PropTypes } from 'prop-types';
-import {styles} from './styleTasks';
+import { PropTypes } from "prop-types";
+import { styles } from "./styleTasks";
 
 export class Tasks extends Component {
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.state = {
       task_input: "",
       description_input: "",
@@ -22,25 +30,26 @@ export class Tasks extends Component {
   }
 
   componentDidMount = async () => {
-    this.props.user.role === "caretaker" ? await this.returnUpdatedCaretakerTask() : this.returnUpdatedTask()
+    this.props.user.role === "caretaker"
+      ? await this.returnUpdatedCaretakerTask()
+      : this.returnUpdatedTask();
   };
 
   returnUpdatedCaretakerTask = async () => {
-    const list = this.props.navigation.state.params
-    const { user } = this.props
+    const list = this.props.navigation.state.params;
+    const { user } = this.props;
     const tasks = await fetchCaretakerTasks(list.id, user.id);
     this.props.loadTasks(tasks);
-    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
-    const list = this.props.navigation.state.params
-    const { user } = this.props
+    const list = this.props.navigation.state.params;
+    const { user } = this.props;
     const tasks = await fetchClientTasks(list.id, user.id);
     this.props.loadTasks(tasks);
   };
 
-  toggleEditName = (task_id) => {
+  toggleEditName = task_id => {
     this.setState({ displayEdit: task_id });
   };
 
@@ -61,8 +70,8 @@ export class Tasks extends Component {
   };
 
   handleSubmitEdit = async taskId => {
-    const list = this.props.navigation.state.params
-    const { user } = this.props
+    const list = this.props.navigation.state.params;
+    const { user } = this.props;
     const { task_edit_input } = this.state;
     const modifiedTask = { name: task_edit_input };
     await patchClientTask(modifiedTask, list.id, taskId, user.id);
@@ -71,8 +80,8 @@ export class Tasks extends Component {
   };
 
   handleSubmit = async newTask => {
-    const list = this.props.navigation.state.params
-    const { user } = this.props
+    const list = this.props.navigation.state.params;
+    const { user } = this.props;
     const { task_input, description_input, due_date } = this.state;
     newTask = {
       name: task_input,
@@ -85,55 +94,89 @@ export class Tasks extends Component {
   };
 
   eraseTask = async taskId => {
-    const list = this.props.navigation.state.params
+    const list = this.props.navigation.state.params;
     await deleteClientTask(list.id, taskId, client.id);
     this.returnUpdatedTask();
   };
 
   completeTaskByCaretaker = async taskId => {
-    const list = this.props.navigation.state.params
-    const { user } = this.props
-    this.state.completed = !this.state.completed
-    const { completed } = this.state
+    const list = this.props.navigation.state.params;
+    const { user } = this.props;
+    this.state.completed = !this.state.completed;
+    const { completed } = this.state;
     const completedTask = { completed: completed };
     await patchCaretakerTask(completedTask, list.id, taskId, user.id);
     await this.returnUpdatedCaretakerTask();
-  }
+  };
 
   render() {
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
-    const allTasks = tasks.map(task => {
-      return (
-        <View style={styles.lists}>
-          <View style={styles.listItemHeaderContainer}>
-          <Text style={styles.listItemHeader}>{task.name}</Text>
-            {this.state.displayEdit !== task.id && (
-              <View style={styles.taskNoteDue}>
-              {task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
-              </View>
-            )}
-            {this.state.displayEdit === task.id && (
-              <View style={styles.alignEdit}>
-                <TextInput
-                  style={styles.inputEdit}
-                  placeholder="Edit task"
-                  value={this.state.task_edit_input}
-                  onChangeText={this.handleEditTask}
-                ></TextInput>
-                <TouchableHighlight
-                  underlayColor="black"
-                  accessibilityLabel="Tap me to submit your edited todo task."
-                  accessible={true}
-                  onPress={() => this.handleSubmitEdit(task.id)}
-                >
-                  <Text style={styles.editCheck}>✔︎</Text>
-                </TouchableHighlight>
-              </View>
-            )}
-            <View style={styles.vertically}>
-              {this.props.user.role === "client" && <View>
+    const allTasks = tasks
+      .map(task => {
+        return (
+          <View style={styles.lists}>
+            <View style={styles.listItemHeaderContainer}>
+              <Text style={styles.listItemHeader}>{task.name}</Text>
+              {this.props.user.role === "client" && (
+                <View>
+                  <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to open form and edit your list name."
+                    accessible={true}
+                    onPress={() => this.toggleEditName(task.id)}
+                  >
+                    <Text style={styles.editItem}>✏️</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to delete your todo task."
+                    accessible={true}
+                    onPress={() => this.eraseTask(task.id)}
+                  >
+                    <Text style={styles.editItem}>DEL</Text>
+                  </TouchableHighlight>
+                </View>
+              )}
+              {this.state.displayEdit !== task.id && (
+                <View style={styles.taskNoteDue}>
+                  {task.description.length > 0 && (
+                    <Text style={styles.listItemSecond}>
+                      Notes: {task.description}
+                    </Text>
+                  )}
+                  {task.due_date != null && (
+                    <Text style={styles.listItemSecond}>
+                      Due: {task.due_date}
+                    </Text>
+                  )}
+                  <Text style={styles.listComplete}>
+                      {task.completed
+                        ? "TASK WAS COMPLETED"
+                        : "NOT COMPLETED YET"}
+                    </Text>
+                </View>
+              )}
+              {this.state.displayEdit === task.id && (
+                <View style={styles.alignEdit}>
+                  <TextInput
+                    style={styles.inputEdit}
+                    placeholder="Edit task"
+                    value={this.state.task_edit_input}
+                    onChangeText={this.handleEditTask}
+                  ></TextInput>
+                  <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to submit your edited todo task."
+                    accessible={true}
+                    onPress={() => this.handleSubmitEdit(task.id)}
+                  >
+                    <Text style={styles.editCheck}>✔︎</Text>
+                  </TouchableHighlight>
+                </View>
+              )}
+              <View style={styles.vertically}>
+                {/* {this.props.user.role === "client" && <View>
               <TouchableHighlight
                 underlayColor="black"
                 accessibilityLabel="Tap me to open form and edit your list name."
@@ -150,78 +193,89 @@ export class Tasks extends Component {
               >
                 <Text style={styles.editItem}>DEL</Text>
               </TouchableHighlight>
-              </View>}
-              {this.props.user.role === "caretaker" && <TouchableHighlight
-                underlayColor="black"
-                accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
-                accessible={true}
-                onPress={() => this.completeTaskByCaretaker(task.id)}
-              >
-              <Text style={styles.listComplete}>{task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}</Text>
-              </TouchableHighlight>}
+                <Text style={styles.listComplete}>{task.completed ? "TASK WAS COMPLETED" : "NOT COMPLETED YET"}</Text>
+              </View>} */}
+                {this.props.user.role === "caretaker" && (
+                  <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
+                    accessible={true}
+                    onPress={() => this.completeTaskByCaretaker(task.id)}
+                  >
+                    <Text style={styles.listComplete}>
+                      {task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}
+                    </Text>
+                  </TouchableHighlight>
+                )}
+              </View>
             </View>
           </View>
-        </View>
-      );
-    }).reverse();
+        );
+      })
+      .reverse();
     return (
       <View>
         <View style={styles.listHeader}>
           <Text style={styles.listName}>{name}</Text>
         </View>
         <ScrollView>
-        {this.props.user.role === 'client' && <View style={styles.addTaskContainer}>
-          <View style={styles.align}>
-            <Text style={styles.label}>Task Name:</Text>
-            <TextInput
-              style={styles.input}
-              value={this.state.task_input}
-              onChangeText={this.handleChangeTask}
-              placeholder="Add Task Name"
-              accessibilityLabel="Add your task name"
-            ></TextInput>
-            <Text style={styles.label}>Add Note:</Text>
-            <TextInput
-              style={styles.input}
-              value={this.state.description_input}
-              onChangeText={this.handleChangeNote}
-              placeholder="Add Note"
-              accessibilityLabel="Add a note providing mroe details about your task"
-            ></TextInput>
-            <Text style={styles.label}>Due Date:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="mm/dd"
-              value={this.state.due_date}
-              onChangeText={this.handleChangeDate}
-              placeholder="dd/mm/yy"
-              accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
-            ></TextInput>
-          </View>
-          <View style={styles.submitBtnContainer}>
-          <TouchableHighlight
-            underlayColor="black"
-            accessibilityLabel="Tap me to submit your task."
-            accessible={true}
-            onPress={() => this.handleSubmit()}
-          >
-            <Text style={styles.submitBtn}>Submit New Task </Text>
-          </TouchableHighlight>
-          </View>
-        </View>}
-        {tasks.length < 1 && <View><Text>No tasks yet!</Text></View>}
-        
-        <View>{allTasks}</View>
-        <View style={{height: 200}}></View>
+          {this.props.user.role === "client" && (
+            <View style={styles.addTaskContainer}>
+              <View style={styles.align}>
+                <Text style={styles.label}>Task Name:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={this.state.task_input}
+                  onChangeText={this.handleChangeTask}
+                  placeholder="Add Task Name"
+                  accessibilityLabel="Add your task name"
+                ></TextInput>
+                <Text style={styles.label}>Add Note:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={this.state.description_input}
+                  onChangeText={this.handleChangeNote}
+                  placeholder="Add Note"
+                  accessibilityLabel="Add a note providing mroe details about your task"
+                ></TextInput>
+                <Text style={styles.label}>Due Date:</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="mm/dd"
+                  value={this.state.due_date}
+                  onChangeText={this.handleChangeDate}
+                  accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
+                ></TextInput>
+              </View>
+              <View style={styles.submitBtnContainer}>
+                <TouchableHighlight
+                  underlayColor="black"
+                  accessibilityLabel="Tap me to submit your task."
+                  accessible={true}
+                  onPress={() => this.handleSubmit()}
+                >
+                  <Text style={styles.submitBtn}>Submit New Task </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          )}
+          {tasks.length < 1 && (
+            <View>
+              <Text>No tasks yet!</Text>
+            </View>
+          )}
+
+          <View>{allTasks}</View>
+          <View style={{ height: 200 }}></View>
         </ScrollView>
       </View>
-  )}
+    );
+  }
 }
 
 export const mapStateToProps = state => ({
   tasks: state.tasks,
   user: state.userAccount
-
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -233,10 +287,7 @@ export default connect(
   mapDispatchToProps
 )(Tasks);
 
-
 Tasks.propTypes = {
   user: PropTypes.object,
   tasks: PropTypes.object
 };
-
-
