@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import { logIn } from '../../actions';
 import { logInUser } from '../../Utils/logInUser';
 import { PropTypes } from 'prop-types';
-import theme from '../../theme';
-import { styles } from './styleLogin';
+import Button from '../common/Button/Button';
+import Input from '../common/Input/Input';
+import styles from './styles';
 
 const initialState = {
-	username: '',
-	password: '',
+	username: 'Noah11',
+	password: 'pass',
 	message: '',
 	error: ''
 };
@@ -50,50 +50,42 @@ export class Login extends Component {
 		}
 	};
 
-	render () {
+	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled accessibile={true}>
 				<View style={styles.headerContainer}>
-					<Text style={styles.header}> Log In </Text>
+					<Text style={styles.header}>Log In</Text>
 				</View>
-				<TextInput
+				<Input
 					style={styles.input}
 					value={this.state.username}
 					onChangeText={value => this.handleChange('username', value)}
+					accessibilityLabel="Username Input"
 					placeholder="Username"
-					accessibilityLabel={'Username Input'}
-					placeholderTextColor={theme.primary}
 				/>
-				<TextInput
-					style={styles.input}
+				<Input
 					value={this.state.password}
-					placeholder="Password"
 					onChangeText={value => this.handleChange('password', value)}
-					accessibilityLabel={'Password Input'}
+					accessibilityLabel="Password Input"
 					minLength={8}
 					secureTextEntry={true}
-					placeholderTextColor={theme.primary}
+					placeholder="Password"
 				/>
-				<Text style={styles.text} accessibilityLabel={'Please type a username and password'}>
-					{this.state.message}
-				</Text>
-				<View style={styles.routes}>
-					<TouchableHighlight
-						underlayColor="black"
-						accessibilityLabel="Tap me to log into your account."
-						onPress={this.handleSubmit}
-						style={styles.touchExpander}>
-						<Text style={styles.button}> Log In </Text>
-					</TouchableHighlight>
+				<Button accessibilityLabel="Tap me to log into your account." onPress={this.handleSubmit}>
+					Log In
+				</Button>
+				<View style={{ position: 'relative', width: '100%', alignSelf: 'center' }}>
+					<Text style={styles.text} accessibilityLabel="Please type a username and password">
+						{this.state.message}
+					</Text>
+					<Text style={styles.text} accessibilityLabel="Incorrect username or password">
+						{this.state.error}
+					</Text>
 				</View>
-				<Text style={styles.text} accessibilityLabel={'Incorrect username or password'}>
-					{this.state.error}
-				</Text>
 			</KeyboardAvoidingView>
 		);
 	}
 }
-
 
 const mapStateToProps = state => ({
 	user: state.userAccount
@@ -103,7 +95,10 @@ export const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Login);
 
 Login.propTypes = {
 	userAccount: PropTypes.object
