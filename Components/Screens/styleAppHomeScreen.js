@@ -34,10 +34,11 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.primary,
     width: "80%",
-    height: "15%",
+    height: "12%",
     justifyContent: "space-around",
     margin: 10,
     borderRadius: 50,
+    textAlign: "center",
   },
   touchExpander: {
 		height: '100%',
