@@ -111,7 +111,7 @@ export class Tasks extends Component {
             {this.state.displayEdit !== task.id && (
               <View style={styles.taskNoteDue}>
               {task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
-              {task.due_date !== null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
+              {task.due_date != null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
               </View>
             )}
             {this.state.displayEdit === task.id && (
@@ -194,7 +194,6 @@ export class Tasks extends Component {
               placeholder="mm/dd"
               value={this.state.due_date}
               onChangeText={this.handleChangeDate}
-              placeholder="dd/mm/yy"
               accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
             ></TextInput>
           </View>
