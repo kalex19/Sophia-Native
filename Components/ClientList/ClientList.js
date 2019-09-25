@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableHighlight, Picker, ScrollView } from 'react-native';
-import { styles } from './styleClientList';
+import styles from './styles';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { fetchClientLists, postClientList, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';
@@ -15,10 +15,11 @@ import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { fetchCaretakers } from '../../Utils/clientApiCalls';
 import { postBlob } from '../../Utils/postBlob';
-import theme from '../../theme';
+import Button from '../common/Button/Button';
+import Input from '../common/Input/Input';
 
 export class ClientList extends Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.recording = null;
 		this.sound = null;
@@ -83,7 +84,7 @@ export class ClientList extends Component {
 		}
 	};
 
-	async _stopPlaybackAndBeginRecording () {
+	async _stopPlaybackAndBeginRecording() {
 		this.setState({
 			isLoading: true
 		});
@@ -118,7 +119,7 @@ export class ClientList extends Component {
 		});
 	}
 
-	async _stopRecordingAndEnablePlayback () {
+	async _stopRecordingAndEnablePlayback() {
 		this.setState({
 			isLoading: true
 		});
@@ -131,11 +132,11 @@ export class ClientList extends Component {
 		console.log(`FILE INFO: ${JSON.stringify(info)}`);
 		const response = await fetch(info.uri);
 		const blob = await response.blob();
-    const data = await postBlob(blob);
-    console.log('in client', data)
-    this.setState({
-      list_title: data.text
-    })
+		const data = await postBlob(blob);
+		console.log('in client', data);
+		this.setState({
+			list_title: data.text
+		});
 		await Audio.setAudioModeAsync({
 			allowsRecordingIOS: false,
 			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -195,15 +196,15 @@ export class ClientList extends Component {
 			caretaker_id,
 			client_id: user.id,
 			key: user.id
-    };
-    
-    try{
-      await postClientList(newList);
-      await this.returnUpdatedList();
-      this.setState({ list_title: '', caretaker_id: 0 });
-    } catch(error){
-      console.log(error)
-    }
+		};
+
+		try {
+			await postClientList(newList);
+			await this.returnUpdatedList();
+			this.setState({ list_title: '', caretaker_id: 0 });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	eraseList = async listId => {
@@ -227,56 +228,41 @@ export class ClientList extends Component {
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
-			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />
+			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />;
 		});
 
 		return (
-			<View style={{justifyContent: 'center'}}>
-				<View style={styles.addListContainer}>
-					<TextInput
-						style={styles.input}
-						placeholder="List name"
-						value={this.state.list_title}
-						onChangeText={text => this.handleChange(text)}
-						accessibilityLabel="List Name Input"
-						placeholderTextColor={theme.primary}
-					/>
+			<View style={{ justifyContent: 'center' }}>
+				<Input
+					placeholder="List name"
+					value={this.state.list_title}
+					onChangeText={text => this.handleChange(text)}
+					accessibilityLabel="List Name Input"
+				/>
+				<Button
+					onPress={this._onRecordPressed}
+					disabled={this.state.isLoading}
+					accessibilityLabel="Tap me to record the name of your list"
+				>
+					{this.state.isRecording ? 'Stop' : 'Start'} Recording
+				</Button>
+				<View>
+					<Picker
+						selectedValue={this.state.caretaker_id}
+						style={{ height: 100, width: '80%', marginLeft: 30, marginBottom: 50 }}
+						onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
+					>
+						<Picker.Item label="-- Select A Caretaker --" value={0} />
+						{allCaretakers}
+					</Picker>
 				</View>
-				<View style={styles.recordingDataContainer}>
-					<TouchableHighlight
-						onPress={this._onRecordPressed}
-						disabled={this.state.isLoading}
-						accessibilityLabel="Tap me to record the name of your list"
-						style={styles.touchExpander}>
-						<Text style={styles.text}>Record List Name</Text>
-					</TouchableHighlight>
-				</View>
-        <Text
-						style={[ styles.liveText, { fontFamily: 'cutive-mono-regular' } ]}
-						accessibilityLabel={this.state.isRecording}>
-						{this.state.isRecording ? 'RECORDING' : 'NOT RECORDING'}
-					</Text>
-          <View>
-				<Picker
-					selectedValue={this.state.caretaker_id}
-					style={{ height: 100, width: '80%', marginLeft: 30, marginBottom: 50,}}
-					onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
-          >
-					<Picker.Item label="-- Select A Caretaker --" value={0}/>
-					{allCaretakers}
-				</Picker>
-        </View>
-        <View style={styles.submitBtnContainer}>
-        <TouchableHighlight
-						underlayColor="black"
-						accessibilityLabel="Tap me to submit the title of your list."
-						onPress={this.handleSubmit}
-            style={styles.touchExpander}
-            >
-						<Text style={styles.submitBtn} accessibilityLabel="Select a caretaker before submitting a new list">	Submit List
-						</Text>
-					</TouchableHighlight>
-          </View>
+				<Button
+					accessibilityLabel="Tap me to submit the title of your list."
+					disabled={this.state.isLoading}
+					onPress={this.handleSubmit}
+				>
+					Submit List
+				</Button>
 			</View>
 		);
 	};
@@ -291,16 +277,19 @@ export class ClientList extends Component {
 						<TouchableHighlight
 							underlayColor="black"
 							accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
-							accessible={true}>
-						{this.state.displayEdit !== list.id && (
-							<Text
-								style={styles.listName}
-								onPress={() => {
-									this.props.navigation.navigate('Tasks', list);
-								}}>
-								{list.name}
-							</Text>
-						)}</TouchableHighlight>
+							accessible={true}
+						>
+							{this.state.displayEdit !== list.id && (
+								<Text
+									style={styles.listName}
+									onPress={() => {
+										this.props.navigation.navigate('Tasks', list);
+									}}
+								>
+									{list.name}
+								</Text>
+							)}
+						</TouchableHighlight>
 						{this.state.displayEdit === list.id && (
 							<View style={styles.align}>
 								<TextInput
@@ -312,7 +301,8 @@ export class ClientList extends Component {
 								<TouchableHighlight
 									underlayColor="black"
 									accessibilityLabel="Tap me to submit your edited list name."
-									onPress={() => this.handleSubmitEdit(list.id)}>
+									onPress={() => this.handleSubmitEdit(list.id)}
+								>
 									<Text style={styles.listItem}>✔︎</Text>
 								</TouchableHighlight>
 							</View>
@@ -321,7 +311,8 @@ export class ClientList extends Component {
 							<TouchableHighlight
 								underlayColor="black"
 								accessibilityLabel="Tap me to open form and edit your list name."
-								onPress={() => this.toggleEditName(list.id)}>
+								onPress={() => this.toggleEditName(list.id)}
+							>
 								<Text style={styles.editItem}>✏️</Text>
 							</TouchableHighlight>
 							<TouchableHighlight onPress={() => this.eraseList(list.id)}>
@@ -334,7 +325,7 @@ export class ClientList extends Component {
 			.reverse();
 	};
 
-	render () {
+	render() {
 		if (!this.state.fontLoaded) {
 			return <View style={styles.emptyContainer} />;
 		}
@@ -343,7 +334,7 @@ export class ClientList extends Component {
 			return (
 				<View style={styles.container}>
 					<View />
-					<Text style={[ styles.noPermissionsText, { fontFamily: 'cutive-mono-regular' } ]}>
+					<Text style={[styles.noPermissionsText, { fontFamily: 'cutive-mono-regular' }]}>
 						You must enable audio recording permissions in order to use this app.
 					</Text>
 					<View />
@@ -354,12 +345,13 @@ export class ClientList extends Component {
 			<View>
 				<View style={styles.headerContainer}>
 					<Text style={styles.header}>My Todo Lists</Text>
-					</View>
-					<ScrollView>
-					{this.createNewList()}
-				{this.getClientLists()}
-        <View style={{height: 550}}></View>
-        </ScrollView>
+				</View>
+				<ScrollView>
+					{/* {this.createNewList()} */}
+					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
+					{this.getClientLists()}
+					<View style={{ height: 550 }} />
+				</ScrollView>
 			</View>
 		);
 	}
