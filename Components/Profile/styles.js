@@ -5,17 +5,7 @@ export default StyleSheet.create({
 		// margin: 30,
 		width: '100%'
 	},
-	headerContainer: {
-		borderBottomColor: theme.primary,
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 10
-	},
-	header: {
-		textAlign: 'center',
-		fontSize: 30,
-		fontFamily: theme.textMain,
-		margin: 10
-	},
+
 	userInfo: {
 		fontSize: 20,
 		fontFamily: theme.textTwo,

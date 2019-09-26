@@ -7,7 +7,9 @@ import Header from '../common/Header/Header';
 const AppHomeScreen = props => {
 	return (
 		<View style={styles.container}>
-			<Header accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Header>
+			<Header style={{ fontSize: 40 }} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
+				SOPHIA
+			</Header>
 			<View style={styles.routes}>
 				<TouchableHighlight
 					underlayColor="black"

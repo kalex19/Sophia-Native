@@ -9,6 +9,7 @@ import { postClient } from '../../Utils/postClient';
 import { postCaretaker } from '../../Utils/postCaretaker';
 import { logInUser } from '../../Utils/logInUser';
 import { styles } from './styleCreateAccount';
+import Header from '../common/Header/Header';
 
 const initialState = {
 	role: '',
@@ -35,7 +36,7 @@ export class CreateAccount extends Component {
 	state = initialState;
 
 	handleChange = (name, value) => {
-		const multiResponseInputs = [ 'needs', 'allergies', 'diet', 'medications', 'abilities' ];
+		const multiResponseInputs = ['needs', 'allergies', 'diet', 'medications', 'abilities'];
 		if (multiResponseInputs.includes(name)) {
 			value = value.split(', ');
 		}
@@ -262,7 +263,8 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Tap me to create your client account"
 					accessible={true}
 					onPress={this.handleClientSubmit}
-					style={styles.touchExpander}>
+					style={styles.touchExpander}
+				>
 					<Text style={styles.registerButton}>Register {this.state.role === 'client' && 'Client'}</Text>
 				</TouchableHighlight>
 			</View>
@@ -277,41 +279,40 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Tap me to create your caretaker account"
 					accessible={true}
 					onPress={this.handleCaretakerSubmit}
-					style={styles.touchExpander}>
+					style={styles.touchExpander}
+				>
 					<Text style={styles.registerButton}>Register {this.state.role === 'caretaker' && 'Caretaker'}</Text>
 				</TouchableHighlight>
 			</View>
 		);
 	};
 
-	render () {
+	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible={true}>
-				<View style={styles.headerContainer}>
-					<Text style={styles.header} accessibilityLabel="Fill in the inputs to create an account">
-						Create Account
-					</Text>
-				</View>
+				<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
 				<ScrollView style={styles.scrollContainer}>
-				<View style={styles.routes}>
-					<TouchableHighlight
-						underlayColor={theme.accentTwo}
-						accessibilityLabel="Tap me to create a client account."
-						onPress={() => this.setState({ role: 'client' })}
-						style={styles.touchExpander}>
-						<Text style={styles.button}>I'm a Client</Text>
-					</TouchableHighlight>
-				</View>
-				<View style={styles.routes}>
-					<TouchableHighlight
-						underlayColor={theme.accentTwo}
-						accessibilityLabel="Tap me to create a caretaker account."
-						onPress={() => this.setState({ role: 'caretaker' })}
-						style={styles.touchExpander}>
-						<Text style={styles.button}>I'm a Caretaker</Text>
-					</TouchableHighlight>
-				</View>
-				{/* <Text accessibilityLabel="Scroll to fill out the form inputs below" style={styles.text}>
+					<View style={styles.routes}>
+						<TouchableHighlight
+							underlayColor={theme.accentTwo}
+							accessibilityLabel="Tap me to create a client account."
+							onPress={() => this.setState({ role: 'client' })}
+							style={styles.touchExpander}
+						>
+							<Text style={styles.button}>I'm a Client</Text>
+						</TouchableHighlight>
+					</View>
+					<View style={styles.routes}>
+						<TouchableHighlight
+							underlayColor={theme.accentTwo}
+							accessibilityLabel="Tap me to create a caretaker account."
+							onPress={() => this.setState({ role: 'caretaker' })}
+							style={styles.touchExpander}
+						>
+							<Text style={styles.button}>I'm a Caretaker</Text>
+						</TouchableHighlight>
+					</View>
+					{/* <Text accessibilityLabel="Scroll to fill out the form inputs below" style={styles.text}>
 					Scroll to fill out the form
 				</Text> */}
 					<TextInput
@@ -383,7 +384,6 @@ export class CreateAccount extends Component {
 	}
 }
 
-
 const mapStateToProps = state => ({
 	user: state.userAccount
 });
@@ -392,7 +392,10 @@ export const mapDispatchToProps = dispatch => ({
 	logIn: user => dispatch(logIn(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateAccount);
 
 CreateAccount.propTypes = {
 	userAccount: PropTypes.object

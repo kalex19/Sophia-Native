@@ -5,7 +5,9 @@ import styles from './styles';
 const Header = props => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title} {...props}>{props.children}</Text>
+			<Text accessibilityLabel={props.accessibilityLabel} style={{ ...styles.title, ...props.style }}>
+				{props.children}
+			</Text>
 		</View>
 	);
 };

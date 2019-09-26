@@ -2,15 +2,6 @@ import { StyleSheet } from "react-native";
 import theme from '../../theme';
 
 export const styles = StyleSheet.create({
-  headerContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 30
-  },
-  header: {
-    fontSize: 50,
-    fontFamily: theme.textMain
-  },
   greeting: {
     fontSize: 30,
     fontFamily: theme.textMain,

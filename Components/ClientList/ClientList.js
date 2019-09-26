@@ -118,7 +118,7 @@ export class ClientList extends Component {
 	render() {
 		return (
 			<View>
-				<Header>My Todo Lists</Header>
+				<Header accessibilityLabel="My Todo Lists">My Todo Lists</Header>
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.getClientLists()}

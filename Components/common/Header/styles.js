@@ -3,14 +3,14 @@ import theme from '../../../theme';
 
 export default StyleSheet.create({
 	container: {
-		borderColor: theme.primary,
+		borderBottomColor: theme.primary,
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 20,
-		padding: 10
+		marginBottom: 10
 	},
 	title: {
-		fontSize: 40,
+		textAlign: 'center',
+		fontSize: 30,
 		fontFamily: theme.textMain,
-		textAlign: 'center'
+		margin: 10
 	}
 });

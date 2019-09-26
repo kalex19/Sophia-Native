@@ -7,6 +7,7 @@ import { PropTypes } from 'prop-types';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 import styles from './styles';
+import Header from '../common/Header/Header';
 
 const initialState = {
 	username: 'Noah11',
@@ -53,9 +54,7 @@ export class Login extends Component {
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled accessibile={true}>
-				<View style={styles.headerContainer}>
-					<Text style={styles.header}>Log In</Text>
-				</View>
+				<Header>Log In</Header>
 				<Input
 					style={styles.input}
 					value={this.state.username}

@@ -10,11 +10,7 @@ export class UserHomeScreen extends Component {
 		const { user, navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={styles.headerContainer}>
-					<Text style={styles.header} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
-						SOPHIA
-					</Text>
-				</View>
+				<Header accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Header>
 				<Text style={styles.greeting}>Welcome Back, {'\n' + user.name}!</Text>
 				<Button
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
@@ -41,7 +37,10 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(UserHomeScreen);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserHomeScreen);
 UserHomeScreen.propTypes = {
 	userAccount: PropTypes.object,
 	lists: PropTypes.array
