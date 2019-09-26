@@ -2,15 +2,6 @@ import { StyleSheet } from "react-native";
 import theme from '../../theme';
 
 export const styles = StyleSheet.create({
-  headerContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 30
-  },
-  header: {
-    fontSize: 50,
-    fontFamily: theme.textMain
-  },
   greeting: {
     fontSize: 30,
     fontFamily: theme.textMain,
@@ -34,10 +25,11 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.primary,
     width: "80%",
-    height: "15%",
+    height: "12%",
     justifyContent: "space-around",
     margin: 10,
     borderRadius: 50,
+    textAlign: "center",
   },
   touchExpander: {
 		height: '100%',
