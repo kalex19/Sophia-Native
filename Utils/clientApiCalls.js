@@ -1,6 +1,6 @@
 export const fetchClientLists = async (client_id) => {
   const response = await fetch(
-    `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists`
+    `https://evening-dusk-50121.herokuapp.com/api/v1/lists?client_id=${client_id}`
   );
   if (!response.ok) {
     throw new Error("Could not fetch lists");
@@ -11,7 +11,7 @@ export const fetchClientLists = async (client_id) => {
 };
 
 export const postClientList = async (newList) => {
-  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${newList.client_id}/lists`;
+  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?client_id=${newList.client_id}`
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -26,7 +26,7 @@ export const postClientList = async (newList) => {
 };
 
 export const deleteClientList = async (client_id, list_id) => {
-  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}`;
+  const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}`;
   const options = {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }
@@ -43,7 +43,7 @@ export const patchClientList = async (updatedList) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedList.name)
   };
-  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${updatedList.client_id}/lists/${updatedList.list_id}`, options);
+  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists/${updatedList.list_id}`, options);
 
   if (!response.ok) {
     throw new Error("Could not edit the name of the list");
@@ -55,7 +55,7 @@ export const patchClientList = async (updatedList) => {
 
 export const fetchClientTasks = async (list_id, client_id) => {
   const response = await fetch(
-    `https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}/tasks`
+    `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks`
   );
   if (!response.ok) {
     throw new Error("Could not fetch tasks");
@@ -71,7 +71,7 @@ export const postClientTask = async (newTask, list_id, client_id) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newTask)
   };
-  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}/tasks`, options);
+  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks`, options);
   if (!response.ok) {
     throw new Error("Could not add new task");
   }
@@ -86,7 +86,7 @@ export const patchClientTask = async (updatedTask, list_id, task_id, clientId) =
     body: JSON.stringify(updatedTask)
   };
 
-  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${clientId}/lists/${list_id}/tasks/${task_id}`, options);
+  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks/${task_id}`, options);
   if (!response.ok) {
     throw new Error("Could not edit the name of the task");
   }
@@ -94,12 +94,12 @@ export const patchClientTask = async (updatedTask, list_id, task_id, clientId) =
   return task;
 };
 
-export const deleteClientTask = async (list_id, task_id, client_id) => {
+export const deleteClientTask = async (list_id, task_id) => {
   const options = {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }
   };
-  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${client_id}/lists/${list_id}/tasks/${task_id}`, options);
+  const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks/${task_id}`, options);
   if (!response.ok) {
     throw new Error("Could not delete task");
   }

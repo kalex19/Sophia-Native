@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { PropTypes } from 'prop-types';

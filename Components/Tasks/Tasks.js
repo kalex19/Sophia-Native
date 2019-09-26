@@ -38,8 +38,9 @@ export class Tasks extends Component {
   returnUpdatedCaretakerTask = async () => {
     const list = this.props.navigation.state.params;
     const { user } = this.props;
-    const tasks = await fetchCaretakerTasks(list.id, user.id);
+    const tasks = await fetchCaretakerTasks(list.id);
     this.props.loadTasks(tasks);
+    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
@@ -95,7 +96,7 @@ export class Tasks extends Component {
 
   eraseTask = async taskId => {
     const list = this.props.navigation.state.params;
-    await deleteClientTask(list.id, taskId, client.id);
+    await deleteClientTask(list.id, taskId);
     this.returnUpdatedTask();
   };
 
@@ -105,7 +106,8 @@ export class Tasks extends Component {
     this.state.completed = !this.state.completed;
     const { completed } = this.state;
     const completedTask = { completed: completed };
-    await patchCaretakerTask(completedTask, list.id, taskId, user.id);
+    console.log(completedTask)
+    await patchCaretakerTask(completedTask, list.id, taskId);
     await this.returnUpdatedCaretakerTask();
   };
 
@@ -150,11 +152,11 @@ export class Tasks extends Component {
                       Due: {task.due_date}
                     </Text>
                   )}
-                  <Text style={styles.listComplete}>
+                  {this.props.user.role === "client" && <Text style={styles.listComplete}>
                       {task.completed
                         ? "TASK WAS COMPLETED"
                         : "NOT COMPLETED YET"}
-                    </Text>
+                    </Text>}
                 </View>
               )}
               {this.state.displayEdit === task.id && (

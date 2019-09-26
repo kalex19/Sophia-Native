@@ -122,7 +122,7 @@ export class ClientList extends Component {
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.getClientLists()}
-					<View style={{ height: 550 }} />
+					{/* <View style={{ height: 550 }} /> */}
 				</ScrollView>
 			</View>
 		);
