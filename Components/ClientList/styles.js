@@ -37,17 +37,6 @@ export default StyleSheet.create({
 		fontSize: 40,
 		fontFamily: theme.textTwo
 	},
-	headerContainer: {
-		borderColor: theme.primary,
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 20,
-		padding: 10
-	},
-	header: {
-		fontSize: 40,
-		fontFamily: theme.textMain,
-		textAlign: 'center'
-	},
 	container: {
 		flex: 1,
 		flexDirection: 'column',

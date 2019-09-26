@@ -1,53 +1,23 @@
-/**
- * @flow
- */
-
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableHighlight, Picker, ScrollView } from 'react-native';
+import { Text, View, TextInput, TouchableHighlight, ScrollView } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
-import { fetchClientLists, postClientList, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';
+import { fetchClientLists, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';
 import { Audio } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
-import * as Font from 'expo-font';
-import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { fetchCaretakers } from '../../Utils/clientApiCalls';
-import { postBlob } from '../../Utils/postBlob';
 import Button from '../common/Button/Button';
-import Input from '../common/Input/Input';
+import Header from '../common/Header/Header';
 
 export class ClientList extends Component {
-	constructor(props) {
-		super(props);
-		this.recording = null;
-		this.sound = null;
-		this.isSeeking = false;
-		this.shouldPlayAtEndOfSeek = false;
-		this.state = {
-			haveRecordingPermissions: false,
-			isLoading: false,
-			isPlaybackAllowed: false,
-			muted: false,
-			soundPosition: null,
-			soundDuration: null,
-			recordingDuration: null,
-			shouldPlay: false,
-			isPlaying: false,
-			isRecording: false,
-			fontLoaded: false,
-			shouldCorrectPitch: true,
-			volume: 1.0,
-			rate: 1.0,
-			list_title: '',
-			list_edit_input: '',
-			displayEdit: '',
-			caretaker_id: 0,
-			caretakers: []
-		};
-		this.recordingSettings = JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY));
-	}
+	state = {
+		list_title: '',
+		list_edit_input: '',
+		displayEdit: '',
+		caretaker_id: 0,
+		caretakers: []
+	};
 
 	componentDidMount = async () => {
 		await this.returnUpdatedList();
@@ -148,9 +118,7 @@ export class ClientList extends Component {
 	render() {
 		return (
 			<View>
-				<View style={styles.headerContainer}>
-					<Text style={styles.header}>My Todo Lists</Text>
-				</View>
+				<Header>My Todo Lists</Header>
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.getClientLists()}
@@ -170,7 +138,10 @@ export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientList);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ClientList);
 
 ClientList.propTypes = {
 	lists: PropTypes.array,
