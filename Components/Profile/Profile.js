@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { logOut } from '../../actions';
 import styles from './styles';
 import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 
 export class Profile extends Component {
-	logOut = () => {
-		this.props.logOut();
-		this.props.navigation.navigate('Home');
-	};
+
 	renderClientInfo = () => {
 		let allNeeds = this.props.user.needs.map(need => {
 			return (
@@ -92,9 +88,6 @@ export class Profile extends Component {
 					<Text style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Text>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}
-					<Button accessibilityLabel="Tap to log out" onPress={this.logOut} style={{ borderRadius: 5 }}>
-						Log Out
-					</Button>
 					<View style={{ height: 150 }}></View>
 				</ScrollView>
 			</View>
@@ -105,7 +98,7 @@ const mapStateToProps = state => ({
 	user: state.userAccount
 });
 const mapDispatchToProps = dispatch => ({
-	logOut: () => dispatch(logOut())
+
 });
 export default connect(
 	mapStateToProps,
