@@ -25,7 +25,8 @@ export class Tasks extends Component {
       due_date: "",
       displayEdit: "",
       task_edit_input: "",
-      completed: false
+      completed: false,
+      priority: "medium"
     };
   }
 
@@ -40,7 +41,6 @@ export class Tasks extends Component {
     const { user } = this.props;
     const tasks = await fetchCaretakerTasks(list.id);
     this.props.loadTasks(tasks);
-    console.log(this.props.tasks)
   };
 
   returnUpdatedTask = async () => {
@@ -106,12 +106,42 @@ export class Tasks extends Component {
     this.state.completed = !this.state.completed;
     const { completed } = this.state;
     const completedTask = { completed: completed };
-    console.log(completedTask)
     await patchCaretakerTask(completedTask, list.id, taskId);
     await this.returnUpdatedCaretakerTask();
   };
 
+  lowerPriority = async (taskId, taskPriority) => {
+    if(taskPriority === "medium"){
+      this.state.priority = "low"
+    } else if(taskPriority === "high"){
+      this.state.priority = "medium"
+    } else {
+      this.state.priority = "low"
+    }
+    const list = this.props.navigation.state.params;
+    const { priority } = this.state;
+    const changedPriority = { priority: priority};
+    await patchClientTask(changedPriority, list.id, taskId);
+    await this.returnUpdatedTask();
+  }
+
+  increasePriority = async (taskId, taskPriority) => {
+    if(taskPriority === "medium"){
+      this.state.priority = "high"
+    } else if(taskPriority === "low"){
+      this.state.priority = "medium"
+    } else {
+      this.state.priority = "high"
+    }
+    const list = this.props.navigation.state.params;
+    const { priority } = this.state;
+    const changedPriority = { priority: priority};
+    await patchClientTask(changedPriority, list.id, taskId);
+    await this.returnUpdatedTask();
+  }
+
   render() {
+    console.log(this.state.priority)
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
     const allTasks = tasks
@@ -120,6 +150,32 @@ export class Tasks extends Component {
           <View style={styles.lists}>
             <View style={styles.listItemHeaderContainer}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
+              <View>
+              {this.props.user.role === "client" && <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to lower the priority level of the task."
+                    accessible={true}
+                    onPress={() => this.lowerPriority(task.id, task.priority)}
+                  >
+                    <Text>🔽</Text>
+                  </TouchableHighlight>}
+                  <Text>Priority: {task.priority}</Text>
+                  {this.props.user.role === "client" && <TouchableHighlight
+                    underlayColor="black"
+                    accessibilityLabel="Tap me to increase the priority level of the task."
+                    accessible={true}
+                    onPress={() => this.increasePriority(task.id, task.priority)}
+                  >
+                    <Text>🔼</Text>
+                  </TouchableHighlight>}
+                  {this.props.user.role === "client" && (
+                    <Text style={styles.listComplete}>
+                      {task.completed
+                        ? "TASK WAS COMPLETED"
+                        : "NOT COMPLETED YET"}
+                    </Text>
+                  )}
+              </View>
               {this.props.user.role === "client" && (
                 <View>
                   <TouchableHighlight
@@ -152,11 +208,6 @@ export class Tasks extends Component {
                       Due: {task.due_date}
                     </Text>
                   )}
-                  {this.props.user.role === "client" && <Text style={styles.listComplete}>
-                      {task.completed
-                        ? "TASK WAS COMPLETED"
-                        : "NOT COMPLETED YET"}
-                    </Text>}
                 </View>
               )}
               {this.state.displayEdit === task.id && (
