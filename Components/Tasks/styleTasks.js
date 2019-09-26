@@ -141,5 +141,13 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 10,
   },
- 
+  priorityLevels: {
+    flexDirection: "row"
+  },
+  priorityFont: {
+    color: "white",
+    fontSize: 15,
+    width: 150,
+    textAlign: "center"
+  }
 });

@@ -26,7 +26,7 @@ export class Tasks extends Component {
       displayEdit: "",
       task_edit_input: "",
       completed: false,
-      priority: "medium"
+      priority: ""
     };
   }
 
@@ -112,36 +112,33 @@ export class Tasks extends Component {
 
   lowerPriority = async (taskId, taskPriority) => {
     if(taskPriority === "medium"){
-      this.state.priority = "low"
+      taskPriority = "low"
     } else if(taskPriority === "high"){
-      this.state.priority = "medium"
+      taskPriority = "medium"
     } else {
-      this.state.priority = "low"
+      taskPriority = "low"
     }
     const list = this.props.navigation.state.params;
-    const { priority } = this.state;
-    const changedPriority = { priority: priority};
+    const changedPriority = { priority: taskPriority};
     await patchClientTask(changedPriority, list.id, taskId);
     await this.returnUpdatedTask();
   }
 
   increasePriority = async (taskId, taskPriority) => {
     if(taskPriority === "medium"){
-      this.state.priority = "high"
+      taskPriority = "high"
     } else if(taskPriority === "low"){
-      this.state.priority = "medium"
+      taskPriority = "medium"
     } else {
-      this.state.priority = "high"
+      taskPriority = "high"
     }
     const list = this.props.navigation.state.params;
-    const { priority } = this.state;
-    const changedPriority = { priority: priority};
+    const changedPriority = { priority: taskPriority};
     await patchClientTask(changedPriority, list.id, taskId);
     await this.returnUpdatedTask();
   }
 
   render() {
-    console.log(this.state.priority)
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
     const allTasks = tasks
@@ -150,7 +147,7 @@ export class Tasks extends Component {
           <View style={styles.lists}>
             <View style={styles.listItemHeaderContainer}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
-              <View>
+              <View style={styles.priorityLevels}>
               {this.props.user.role === "client" && <TouchableHighlight
                     underlayColor="black"
                     accessibilityLabel="Tap me to lower the priority level of the task."
@@ -159,7 +156,7 @@ export class Tasks extends Component {
                   >
                     <Text>🔽</Text>
                   </TouchableHighlight>}
-                  <Text>Priority: {task.priority}</Text>
+                  <Text style={styles.priorityFont}>Priority: {task.priority}</Text>
                   {this.props.user.role === "client" && <TouchableHighlight
                     underlayColor="black"
                     accessibilityLabel="Tap me to increase the priority level of the task."
@@ -168,6 +165,7 @@ export class Tasks extends Component {
                   >
                     <Text>🔼</Text>
                   </TouchableHighlight>}
+              </View>
                   {this.props.user.role === "client" && (
                     <Text style={styles.listComplete}>
                       {task.completed
@@ -175,7 +173,6 @@ export class Tasks extends Component {
                         : "NOT COMPLETED YET"}
                     </Text>
                   )}
-              </View>
               {this.props.user.role === "client" && (
                 <View>
                   <TouchableHighlight
@@ -265,7 +262,6 @@ export class Tasks extends Component {
           </View>
         );
       })
-      .reverse();
     return (
       <View>
         <View style={styles.listHeader}>
