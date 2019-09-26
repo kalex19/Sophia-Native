@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, ScrollView, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import theme from '../../theme';
 import { PropTypes } from 'prop-types';
@@ -171,7 +171,7 @@ export class CreateAccount extends Component {
 
 	renderClientInformationForm = () => {
 		return (
-			<View>
+			<React.Fragment>
 				<Input
 					placeholder="Street Address"
 					onChangeText={value => this.handleChange('address', value)}
@@ -199,13 +199,16 @@ export class CreateAccount extends Component {
 				<Button accessibilityLabel="Tap me to create your client account" onPress={() => this.setState({ page: 4 })}>
 					Next
 				</Button>
-			</View>
+				<Button accessibilityLabel="Tap me to go back" onPress={() => this.setState({ page: 1 })}>
+					Back
+				</Button>
+			</React.Fragment>
 		);
 	};
 
 	renderClientNeedsForm = () => {
 		return (
-			<View>
+			<React.Fragment>
 				<Text style={styles.text}>Separate multiple input values by commas</Text>
 				<Input
 					placeholder="Caretaking Needs"
@@ -234,13 +237,16 @@ export class CreateAccount extends Component {
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleClientSubmit}>
 					Register Client
 				</Button>
-			</View>
+				<Button accessibilityLabel="Tap me to go back" onPress={() => this.setState({ page: 3 })}>
+					Back
+				</Button>
+			</React.Fragment>
 		);
 	};
 
 	renderCaretakerForm = () => {
 		return (
-			<View>
+			<React.Fragment>
 				<Text style={styles.text} accessibilityLabel="Separate multiple input values with commas">
 					Separate multiple input values with commas
 				</Text>
@@ -252,13 +258,16 @@ export class CreateAccount extends Component {
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleCaretakerSubmit}>
 					Register Caretaker
 				</Button>
-			</View>
+				<Button accessibilityLabel="Tap me to go back" onPress={() => this.setState({ page: 1 })}>
+					Back
+				</Button>
+			</React.Fragment>
 		);
 	};
 
 	renderGenericForm = () => {
 		return (
-			<View>
+			<React.Fragment>
 				<Input
 					placeholder="Your Name"
 					onChangeText={value => this.handleChange('name', value)}
@@ -312,7 +321,7 @@ export class CreateAccount extends Component {
 				>
 					I'm a Client
 				</Button>
-			</View>
+			</React.Fragment>
 		);
 	};
 
@@ -336,9 +345,15 @@ export class CreateAccount extends Component {
 		}
 
 		return (
-			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible={true}>
-				<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
-				{formToRender}
+			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible>
+				<ScrollView style={{ width: '100%' }}>
+					<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
+					{formToRender}
+					{this.state.error.length !== 0 && <Text style={styles.message}>{this.state.error}</Text>}
+					{this.state.message.length !== 0 && <Text style={styles.message}>{this.state.message}</Text>}
+					<View style={{ height: 100 }} />
+				</ScrollView>
+				<SafeAreaView />
 			</KeyboardAvoidingView>
 		);
 	}
