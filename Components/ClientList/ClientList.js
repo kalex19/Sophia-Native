@@ -51,124 +51,8 @@ export class ClientList extends Component {
 
 	componentDidMount = async () => {
 		await this.returnUpdatedList();
-		await Font.loadAsync({
-			'cutive-mono-regular': require('../../assets/fonts/CutiveMono-Regular.ttf')
-		});
 		const caretakers = await fetchCaretakers();
 		this.setState({ caretakers });
-		this.setState({ fontLoaded: true });
-		this._askForPermissions();
-	};
-
-	_askForPermissions = async () => {
-		const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-		this.setState({
-			haveRecordingPermissions: response.status === 'granted'
-		});
-	};
-
-	_updateScreenForRecordingStatus = status => {
-		if (status.canRecord) {
-			this.setState({
-				isRecording: status.isRecording,
-				recordingDuration: status.durationMillis
-			});
-		} else if (status.isDoneRecording) {
-			this.setState({
-				isRecording: false,
-				recordingDuration: status.durationMillis
-			});
-			if (!this.state.isLoading) {
-				this._stopRecordingAndEnablePlayback();
-			}
-		}
-	};
-
-	async _stopPlaybackAndBeginRecording() {
-		this.setState({
-			isLoading: true
-		});
-		if (this.sound !== null) {
-			await this.sound.unloadAsync();
-			this.sound.setOnPlaybackStatusUpdate(null);
-			this.sound = null;
-		}
-		await Audio.setAudioModeAsync({
-			allowsRecordingIOS: true,
-			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-			playsInSilentModeIOS: true,
-			shouldDuckAndroid: true,
-			interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-			playThroughEarpieceAndroid: false,
-			staysActiveInBackground: true
-		});
-		if (this.recording !== null) {
-			this.recording.setOnRecordingStatusUpdate(null);
-			this.recording = null;
-		}
-
-		const recording = new Audio.Recording();
-		console.log('new recording', recording);
-		await recording.prepareToRecordAsync(this.recordingSettings);
-		recording.setOnRecordingStatusUpdate(this._updateScreenForRecordingStatus);
-
-		this.recording = recording;
-		await this.recording.startAsync();
-		this.setState({
-			isLoading: false
-		});
-	}
-
-	async _stopRecordingAndEnablePlayback() {
-		this.setState({
-			isLoading: true
-		});
-		try {
-			await this.recording.stopAndUnloadAsync();
-			console.log(recording.createNewLoadedSoundAsync());
-		} catch (error) {}
-		const info = await FileSystem.getInfoAsync(this.recording.getURI());
-		console.log('recording', this.recording);
-		console.log(`FILE INFO: ${JSON.stringify(info)}`);
-		const response = await fetch(info.uri);
-		const blob = await response.blob();
-		const data = await postBlob(blob);
-		console.log('in client', data);
-		this.setState({
-			list_title: data.text
-		});
-		await Audio.setAudioModeAsync({
-			allowsRecordingIOS: false,
-			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-			playsInSilentModeIOS: true,
-			playsInSilentLockedModeIOS: true,
-			shouldDuckAndroid: true,
-			interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-			playThroughEarpieceAndroid: false,
-			staysActiveInBackground: true
-		});
-		const { sound, status } = await this.recording.createNewLoadedSoundAsync(
-			{
-				isLooping: true,
-				isMuted: this.state.muted,
-				volume: this.state.volume,
-				rate: this.state.rate,
-				shouldCorrectPitch: this.state.shouldCorrectPitch
-			},
-			this._updateScreenForSoundStatus
-		);
-		this.sound = sound;
-		this.setState({
-			isLoading: false
-		});
-	}
-
-	_onRecordPressed = () => {
-		if (this.state.isRecording) {
-			this._stopRecordingAndEnablePlayback();
-		} else {
-			this._stopPlaybackAndBeginRecording();
-		}
 	};
 
 	returnUpdatedList = async () => {
@@ -180,31 +64,8 @@ export class ClientList extends Component {
 		this.setState({ displayEdit: list_id });
 	};
 
-	handleChange = input => {
-		this.setState({ list_title: input });
-	};
-
 	handleEditList = input => {
 		this.setState({ list_edit_input: input });
-	};
-
-	handleSubmit = async () => {
-		const { list_title, caretaker_id } = this.state;
-		const { user } = this.props;
-		let newList = {
-			name: list_title,
-			caretaker_id,
-			client_id: user.id,
-			key: user.id
-		};
-
-		try {
-			await postClientList(newList);
-			await this.returnUpdatedList();
-			this.setState({ list_title: '', caretaker_id: 0 });
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
 	eraseList = async listId => {
@@ -224,47 +85,6 @@ export class ClientList extends Component {
 		await patchClientList(updatedList);
 		this.returnUpdatedList();
 		this.setState({ list_edit_input: '', displayEdit: false });
-	};
-
-	createNewList = () => {
-		const allCaretakers = this.state.caretakers.map(caretaker => {
-			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />;
-		});
-
-		return (
-			<View style={{ justifyContent: 'center' }}>
-				<Input
-					placeholder="List name"
-					value={this.state.list_title}
-					onChangeText={text => this.handleChange(text)}
-					accessibilityLabel="List Name Input"
-				/>
-				<Button
-					onPress={this._onRecordPressed}
-					disabled={this.state.isLoading}
-					accessibilityLabel="Tap me to record the name of your list"
-				>
-					{this.state.isRecording ? 'Stop' : 'Start'} Recording
-				</Button>
-				<View>
-					<Picker
-						selectedValue={this.state.caretaker_id}
-						style={{ height: 100, width: '80%', marginLeft: 30, marginBottom: 50 }}
-						onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
-					>
-						<Picker.Item label="-- Select A Caretaker --" value={0} />
-						{allCaretakers}
-					</Picker>
-				</View>
-				<Button
-					accessibilityLabel="Tap me to submit the title of your list."
-					disabled={this.state.isLoading}
-					onPress={this.handleSubmit}
-				>
-					Submit List
-				</Button>
-			</View>
-		);
 	};
 
 	getClientLists = () => {
@@ -326,28 +146,12 @@ export class ClientList extends Component {
 	};
 
 	render() {
-		if (!this.state.fontLoaded) {
-			return <View style={styles.emptyContainer} />;
-		}
-
-		if (!this.state.haveRecordingPermissions) {
-			return (
-				<View style={styles.container}>
-					<View />
-					<Text style={[styles.noPermissionsText, { fontFamily: 'cutive-mono-regular' }]}>
-						You must enable audio recording permissions in order to use this app.
-					</Text>
-					<View />
-				</View>
-			);
-		}
 		return (
 			<View>
 				<View style={styles.headerContainer}>
 					<Text style={styles.header}>My Todo Lists</Text>
 				</View>
 				<ScrollView>
-					{/* {this.createNewList()} */}
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.getClientLists()}
 					<View style={{ height: 550 }} />
