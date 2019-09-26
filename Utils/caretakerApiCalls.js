@@ -34,6 +34,5 @@ export const patchCaretakerTask = async (object, list_id, task_id) => {
     throw new Error("Could not mark the task completed");
   }
   const task = await response.json();
-  console.log("PATCHED TASK")
   return task;
 };
