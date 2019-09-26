@@ -10,7 +10,7 @@ import styles from './styles';
 import Header from '../common/Header/Header';
 
 const initialState = {
-	username: 'Noah11',
+	username: 'AndreeaTestClient',
 	password: 'pass',
 	message: '',
 	error: ''
@@ -54,7 +54,7 @@ export class Login extends Component {
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled accessibile={true}>
-				<Header>Log In</Header>
+				<Header style={{ fontSize: 60 }}>Log In</Header>
 				<Input
 					value={this.state.username}
 					onChangeText={value => this.handleChange('username', value)}

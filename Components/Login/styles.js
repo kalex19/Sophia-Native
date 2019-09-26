@@ -14,8 +14,7 @@ export default StyleSheet.create({
 		margin: 10,
 		position: 'absolute',
 		textAlign: 'center',
-		width: '85%',
-		borderColor: 'red',
-		borderWidth: 1
+		alignSelf: 'center',
+		width: '85%'
 	}
 });

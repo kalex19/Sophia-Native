@@ -10,10 +10,11 @@ import { postCaretaker } from '../../Utils/postCaretaker';
 import { logInUser } from '../../Utils/logInUser';
 import { styles } from './styles';
 import Header from '../common/Header/Header';
-import Input from '../common/Input';
-import Button from '../common/Button';
+import Input from '../common/Input/Input';
+import Button from '../common/Button/Button';
 
 const initialState = {
+	page: 1,
 	role: '',
 	username: '',
 	password: '',
@@ -168,71 +169,76 @@ export class CreateAccount extends Component {
 		}
 	};
 
-	renderClientInput = () => {
+	renderClientInformationForm = () => {
 		return (
 			<View>
 				<Input
 					placeholder="Street Address"
 					onChangeText={value => this.handleChange('address', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Address Input. Please type your address"
 					value={this.state.address}
 				/>
 				<Input
 					placeholder="City"
 					onChangeText={value => this.handleChange('city', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="City Input. Please type your city"
 					value={this.state.city}
 				/>
 				<Input
 					placeholder="State"
 					onChangeText={value => this.handleChange('state', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="State Input. Please type your state"
 					value={this.state.state}
 				/>
 				<Input
 					placeholder="Zip Code"
 					onChangeText={value => this.handleChange('zip', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
 				/>
+				<Button accessibilityLabel="Tap me to create your client account" onPress={() => this.setState({ page: 4 })}>
+					Next
+				</Button>
+			</View>
+		);
+	};
+
+	renderClientNeedsForm = () => {
+		return (
+			<View>
 				<Text style={styles.text}>Separate multiple input values by commas</Text>
 				<Input
 					placeholder="Caretaking Needs"
 					onChangeText={value => this.handleChange('needs', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
 					value={this.state.needs.join(', ')}
 				/>
 				<Input
 					placeholder="Allergies"
 					onChangeText={value => this.handleChange('allergies', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Allergies Input. Please type the names your allergies"
 					value={this.state.allergies.join(', ')}
 				/>
 				<Input
 					placeholder="Dietary Restrictions"
 					onChangeText={value => this.handleChange('diet', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names your dietary restrictions"
 					value={this.state.diet.join(', ')}
 				/>
 				<Input
 					placeholder="Medications"
 					onChangeText={value => this.handleChange('medications', value)}
-					placeholderTextColor={theme.primary}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
 					value={this.state.medications.join(', ')}
 				/>
+				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleClientSubmit}>
+					Register Client
+				</Button>
 			</View>
 		);
 	};
 
-	renderCaretakerInput = () => {
+	renderCaretakerForm = () => {
 		return (
 			<View>
 				<Text style={styles.text} accessibilityLabel="Separate multiple input values with commas">
@@ -241,120 +247,98 @@ export class CreateAccount extends Component {
 				<Input
 					placeholder="Caretaking Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
-					placeholderTextColor={theme.primary}
 					value={this.state.abilities.join(', ')}
 				/>
+				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleCaretakerSubmit}>
+					Register Caretaker
+				</Button>
 			</View>
 		);
 	};
 
-	renderClientBtn = () => {
+	renderGenericForm = () => {
 		return (
-			<View style={styles.routes}>
-				<TouchableHighlight
-					underlayColor={theme.accentTwo}
-					accessibilityLabel="Tap me to create your client account"
-					accessible={true}
-					onPress={this.handleClientSubmit}
-					style={styles.touchExpander}
+			<View>
+				<Input
+					placeholder="Your Name"
+					onChangeText={value => this.handleChange('name', value)}
+					accessibilityLabel="Name Input. Please type for full name"
+					value={this.state.name}
+				/>
+				<Input
+					placeholder="Email"
+					onChangeText={value => this.handleChange('email', value)}
+					accessibilityLabel="Email Input. Please type your email"
+					value={this.state.email}
+				/>
+				<Input
+					placeholder="Phone"
+					onChangeText={value => this.handleChange('phone', value)}
+					dataDetectorTypes={'phoneNumber'}
+					accessibilityLabel="Phone Input. Please type your phone number without dashes"
+					value={this.state.phone}
+				/>
+				<Input
+					placeholder="Username"
+					onChangeText={value => this.handleChange('username', value)}
+					accessibilityLabel="Username Input. Please make a username"
+					value={this.state.username}
+				/>
+				<Input
+					placeholder="Password"
+					onChangeText={value => this.handleChange('password', value)}
+					accessibilityLabel="Password Input. Please make a password"
+					minLength={8}
+					secureTextEntry={true}
+					value={this.state.password}
+				/>
+				<Input
+					placeholder="Password Confirmation"
+					onChangeText={value => this.handleChange('password_confirmation', value)}
+					accessibilityLabel="Password Confirmation Input. Please type your password again"
+					minLength={8}
+					secureTextEntry={true}
+					value={this.state.password_confirmation}
+				/>
+				<Button
+					accessibilityLabel="Tap me to create a caretaker account."
+					onPress={() => this.setState({ role: 'caretaker', page: 2 })}
 				>
-					<Text style={styles.registerButton}>Register {this.state.role === 'client' && 'Client'}</Text>
-				</TouchableHighlight>
-			</View>
-		);
-	};
-
-	renderCaretakerBtn = () => {
-		return (
-			<View style={styles.routes}>
-				<TouchableHighlight
-					underlayColor={theme.accentTwo}
-					accessibilityLabel="Tap me to create your caretaker account"
-					accessible={true}
-					onPress={this.handleCaretakerSubmit}
-					style={styles.touchExpander}
+					I'm a Caretaker
+				</Button>
+				<Button
+					accessibilityLabel="Tap me to create a client account."
+					onPress={() => this.setState({ role: 'client', page: 3 })}
 				>
-					<Text style={styles.registerButton}>Register {this.state.role === 'caretaker' && 'Caretaker'}</Text>
-				</TouchableHighlight>
+					I'm a Client
+				</Button>
 			</View>
 		);
 	};
 
 	render() {
+		let formToRender;
+		switch (this.state.page) {
+			case 1:
+				formToRender = this.renderGenericForm();
+				break;
+			case 2:
+				formToRender = this.renderCaretakerForm();
+				break;
+			case 3:
+				formToRender = this.renderClientInformationForm();
+				break;
+			case 4:
+				formToRender = this.renderClientNeedsForm();
+				break;
+			default:
+				break;
+		}
+
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible={true}>
 				<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
-				<ScrollView style={styles.scrollContainer}>
-					<Input
-						placeholder="Your Name"
-						onChangeText={value => this.handleChange('name', value)}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Name Input. Please type for full name"
-						value={this.state.name}
-					/>
-					<Input
-						placeholder="Email"
-						onChangeText={value => this.handleChange('email', value)}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Email Input. Please type your email"
-						value={this.state.email}
-					/>
-					<Input
-						placeholder="Phone"
-						onChangeText={value => this.handleChange('phone', value)}
-						dataDetectorTypes={'phoneNumber'}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Phone Input. Please type your phone number without dashes"
-						value={this.state.phone}
-					/>
-					<Input
-						placeholder="Username"
-						onChangeText={value => this.handleChange('username', value)}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Username Input. Please make a username"
-						value={this.state.username}
-					/>
-					<Input
-						placeholder="Password"
-						onChangeText={value => this.handleChange('password', value)}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Password Input. Please make a password"
-						minLength={8}
-						secureTextEntry={true}
-						value={this.state.password}
-					/>
-					<Input
-						placeholder="Password Confirmation"
-						onChangeText={value => this.handleChange('password_confirmation', value)}
-						placeholderTextColor={theme.primary}
-						accessibilityLabel="Password Confirmation Input. Please type your password again"
-						minLength={8}
-						secureTextEntry={true}
-						value={this.state.password_confirmation}
-					/>
-					{this.state.role === 'client' && this.renderClientInput()}
-					{this.state.role === 'caretaker' && this.renderCaretakerInput()}
-				</ScrollView>
-				<Button
-					accessibilityLabel="Tap me to create a client account."
-					onPress={() => this.setState({ role: 'client' })}
-				>
-					I'm a Client
-				</Button>
-				<Button
-					accessibilityLabel="Tap me to create a caretaker account."
-					onPress={() => this.setState({ role: 'caretaker' })}
-				>
-					I'm a Caretaker
-				</Button>
-				{this.state.role === 'client' ? this.renderClientBtn() : null}
-				{this.state.role === 'caretaker' ? this.renderCaretakerBtn() : null}
-				<Text style={styles.messages} accessibilityLabel={'Please fill out all input fields'}>
-					{this.state.message}
-				</Text>
-				<Text style={styles.messages} accessibilityLabel={'Error Message'}>
-					{this.state.error}
-				</Text>
+				{formToRender}
 			</KeyboardAvoidingView>
 		);
 	}
