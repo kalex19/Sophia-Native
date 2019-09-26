@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, ScrollView, KeyboardAvoidingView, SafeAreaView } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-import theme from '../../theme';
+import { View, Text, ScrollView, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { PropTypes } from 'prop-types';
 import { logIn } from '../../actions';
 import { postClient } from '../../Utils/postClient';
@@ -43,9 +41,7 @@ export class CreateAccount extends Component {
 		if (multiResponseInputs.includes(name)) {
 			value = value.split(', ');
 		}
-		this.setState({
-			[name]: value
-		});
+		this.setState({ [name]: value });
 	};
 
 	handleClientSubmit = async () => {
@@ -267,7 +263,7 @@ export class CreateAccount extends Component {
 
 	renderGenericForm = () => {
 		return (
-			<React.Fragment>
+			<ScrollView style={{ width: '100%' }}>
 				<Input
 					placeholder="Your Name"
 					onChangeText={value => this.handleChange('name', value)}
@@ -321,7 +317,9 @@ export class CreateAccount extends Component {
 				>
 					I'm a Client
 				</Button>
-			</React.Fragment>
+				<View style={{ height: 100 }} />
+				<SafeAreaView />
+			</ScrollView>
 		);
 	};
 
@@ -346,14 +344,10 @@ export class CreateAccount extends Component {
 
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="height" enabled accessible>
-				<ScrollView style={{ width: '100%' }}>
-					<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
-					{formToRender}
-					{this.state.error.length !== 0 && <Text style={styles.message}>{this.state.error}</Text>}
-					{this.state.message.length !== 0 && <Text style={styles.message}>{this.state.message}</Text>}
-					<View style={{ height: 100 }} />
-				</ScrollView>
-				<SafeAreaView />
+				<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
+				{formToRender}
+				{this.state.error.length !== 0 && <Text style={styles.message}>{this.state.error}</Text>}
+				{this.state.message.length !== 0 && <Text style={styles.message}>{this.state.message}</Text>}
 			</KeyboardAvoidingView>
 		);
 	}
