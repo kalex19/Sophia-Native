@@ -17,45 +17,42 @@ import { Provider } from 'react-redux';
 export const store = createStore(rootReducer);
 
 class App extends Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <Navigator />
-            </Provider>
-        );
-    }
+	render() {
+		return (
+			<Provider store={store}>
+				<Navigator />
+			</Provider>
+		);
+	}
 }
 
 const AppNavigator = createStackNavigator(
-    {
-        Home: {
-            screen: AppHomeScreen,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Login,
-        CreateAccount,
-        User: {
-            screen: UserHomeScreen,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Profile,
-        CaretakerList,
-        ClientList,
-        Tasks,
-        AddListForm
-    },
-    {
-        initialRouteName: 'Login'
-    }
+	{
+		Home: {
+			screen: AppHomeScreen,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Login,
+		CreateAccount,
+		User: {
+			screen: UserHomeScreen,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Profile,
+		CaretakerList,
+		ClientList,
+		Tasks,
+		AddListForm
+	},
+	{
+		initialRouteName: 'CreateAccount'
+	}
 );
 
 const Navigator = createAppContainer(AppNavigator);
 
 export default App;
-
-
-

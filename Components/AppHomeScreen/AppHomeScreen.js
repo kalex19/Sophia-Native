@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import { styles } from './styles';
 import Header from '../common/Header/Header';
 import Button from '../common/Button/Button';
@@ -8,10 +7,11 @@ import Button from '../common/Button/Button';
 const AppHomeScreen = props => {
 	return (
 		<View style={styles.container}>
-			<Header style={{ fontSize: 40 }} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
+			<Header style={{ fontSize: 60 }} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
 				SOPHIA
 			</Header>
 			<Button
+				style={{ marginTop: 30 }}
 				accessibilityLabel="Tap me to create a new account"
 				onPress={() => props.navigation.navigate('CreateAccount')}
 			>
