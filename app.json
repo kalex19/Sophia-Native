@@ -23,8 +23,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "packagerOpts": {
+      "assetExts": ["ttf", "mp4", "mp3"]
+    },
     "ios": {
       "supportsTablet": true
     }
   }
 }
+   
+  
