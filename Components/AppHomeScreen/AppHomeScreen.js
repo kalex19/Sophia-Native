@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { styles } from './styles';
 import Header from '../common/Header/Header';
-import Button from '../common/Button';
+import Button from '../common/Button/Button';
 
 const AppHomeScreen = props => {
 	return (
