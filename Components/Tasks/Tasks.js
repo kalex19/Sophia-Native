@@ -250,7 +250,7 @@ export class Tasks extends Component {
                     onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
                   >
                     <Text style={styles.listComplete}>
-                      {task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}
+                      {task.completed ? "TASK HAS BEEN COMPLETED" : "MARK COMPLETED"}
                     </Text>
                   </TouchableHighlight>
                 )}
