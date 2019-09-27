@@ -6,8 +6,14 @@ import { loadLists } from '../../actions';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
 import Button from '../common/Button/Button';
+import { logOut } from '../../actions';
 
 export class UserHomeScreen extends Component {
+	logOut = () => {
+		this.props.logOut();
+		this.props.navigation.navigate('Home');
+	};
+
 	render() {
 		const { user, navigation } = this.props;
 		return (
@@ -36,6 +42,9 @@ export class UserHomeScreen extends Component {
 				>
 					My Tasks
 				</Button>
+				<Button accessibilityLabel="Tap to log out" onPress={this.logOut} style={{ borderRadius: 5 }}>
+					Log Out
+				</Button>
 			</View>
 		);
 	}
@@ -47,7 +56,8 @@ export const mapStateToProps = state => ({
 });
 export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists)),
-	loadTasks: tasks => dispatch(loadTasks(tasks))
+	loadTasks: tasks => dispatch(loadTasks(tasks)),
+	logOut: () => dispatch(logOut())
 });
 export default connect(
 	mapStateToProps,
