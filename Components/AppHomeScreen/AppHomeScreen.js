@@ -6,7 +6,7 @@ import Button from '../common/Button/Button';
 
 const AppHomeScreen = props => {
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container}}>
 			<Header style={{ fontSize: 60 }} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
 				SOPHIA
 			</Header>

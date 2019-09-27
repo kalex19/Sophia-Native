@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
+
 export default StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		flex: 1
+	greeting: {
+		fontSize: 30
 	}
 });
