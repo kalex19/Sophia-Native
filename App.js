@@ -44,12 +44,12 @@ const AppNavigator = createStackNavigator(
 		},
 		Profile,
 		AddListForm,
-		CaretakerList,
-		ClientList,
+		NeedDone,
+		NeedToDo,
 		Tasks,
 	},
 	{
-		initialRouteName: 'Profile'
+		initialRouteName: 'Login'
 	}
 );
 

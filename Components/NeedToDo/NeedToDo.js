@@ -14,7 +14,6 @@ import {
   deleteClientList,
   patchClientList
 } from "../../Utils/clientApiCalls";
-import { Audio } from "expo-av";
 import { PropTypes } from "prop-types";
 import { fetchCaretakers } from "../../Utils/clientApiCalls";
 import Button from "../common/Button/Button";
@@ -26,17 +25,28 @@ export class ClientList extends Component {
     list_edit_input: "",
     displayEdit: "",
     caretaker_id: 0,
-    caretakers: []
+    caretakers: [],
+    client_id: 0,
+    clients: []
   };
 
   componentDidMount = async () => {
     await this.returnUpdatedList();
-    const caretakers = await fetchCaretakers();
-    this.setState({ caretakers });
+    if(this.props.user.role === 'client'){
+      const caretakers = await fetchCaretakers();
+      this.setState({ caretakers });
+    } else {
+      const clients = await fetchClient();
+      this.setState({ clients });
+    }
   };
 
   returnUpdatedList = async () => {
-    const lists = await fetchClientLists(this.props.user.id);
+    if(this.props.user.role === 'client'){
+      const lists = await fetchClientLists(this.props.user.id);
+    } else {
+      const lists = await fetchCaretakerLists(this.props.user.id);
+    }
     this.props.loadLists(lists);
   };
 
@@ -50,19 +60,32 @@ export class ClientList extends Component {
 
   eraseList = async listId => {
     const { user } = this.props;
+    if(this.props.user.role === 'client'){
     await deleteClientList(user.id, listId);
+    } else {
+      await deleteCaretakerList(user.id, listId);
+    }
     this.returnUpdatedList();
   };
 
   handleSubmitEdit = async listId => {
     const { list_edit_input } = this.state;
     const { user } = this.props;
+    if(this.props.user.role === 'client'){
     const updatedList = {
       name: list_edit_input,
       list_id: listId,
       client_id: user.id
     };
     await patchClientList(updatedList);
+  } else {
+    const updatedList = {
+      name: list_edit_input,
+      list_id: listId,
+      caretaker_id: user.id
+    };
+    await patchCaretakerList(updatedList);
+  }
     this.returnUpdatedList();
     this.setState({ list_edit_input: "", displayEdit: false });
   };
@@ -130,6 +153,70 @@ export class ClientList extends Component {
       .reverse();
   };
 
+  getCaretakerLists = () => {
+    const { lists, user } = this.props;
+    return lists
+      .map(list => {
+        list = { ...list, caretaker_id: user.id };
+        return (
+          <View style={styles.lists} key={list.id} accessible={true}>
+          <Button></Button>
+            <TouchableHighlight
+              underlayColor="black"
+              accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
+              accessible={true}
+            >
+              {this.state.displayEdit !== list.id && (
+                <View>
+                  <Text
+                    style={styles.listName}
+                    onPress={() => {
+                      this.props.navigation.navigate("Tasks", list);
+                    }}
+                  >
+                    {list.name}
+                  </Text>
+									<Text style={styles.name}>
+										Caretaker: {list.caretaker_name}
+									</Text>
+                </View>
+              )}
+            </TouchableHighlight>
+            {this.state.displayEdit === list.id && (
+              <View style={styles.align}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="New name"
+                  value={this.state.list_edit_input}
+                  onChangeText={this.handleEditList}
+                />
+                <TouchableHighlight
+                  underlayColor="black"
+                  accessibilityLabel="Tap me to submit your edited list name."
+                  onPress={() => this.handleSubmitEdit(list.id)}
+                >
+                  <Text style={styles.listItem}>✔︎</Text>
+                </TouchableHighlight>
+              </View>
+            )}
+            <View style={styles.vertically}>
+              <TouchableHighlight
+                underlayColor="black"
+                accessibilityLabel="Tap me to open form and edit your list name."
+                onPress={() => this.toggleEditName(list.id)}
+              >
+                <Text style={styles.editItem}>✏️</Text>
+              </TouchableHighlight>
+              <TouchableHighlight onPress={() => this.eraseList(list.id)}>
+                <Text style={styles.editItem}>DEL</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        );
+      })
+      .reverse();
+  };
+
   render() {
     return (
       <View>
@@ -138,8 +225,8 @@ export class ClientList extends Component {
           <Button onPress={() => this.props.navigation.navigate("AddListForm")}>
             Add New List +
           </Button>
-          {this.getClientLists()}
-          {/* <View style={{ height: 550 }} /> */}
+          {this.props.user.role === 'client' && this.getClientLists()}
+          {this.props.user.role === 'caretaker' && this.getCaretakerLists()}
         </ScrollView>
       </View>
     );
@@ -158,9 +245,9 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClientList);
+)(NeedToDo);
 
-ClientList.propTypes = {
+NeedToDo.propTypes = {
   lists: PropTypes.array,
   user: PropTypes.object
 };
