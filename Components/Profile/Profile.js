@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Input } from 'react-native';
+import { ScrollView, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
@@ -19,19 +19,14 @@ const initialState = {
 	diet_restrictions: '',
 	medications: '',
 	abilities: '',
-	displayEdit: ''
+	displayEdit: false
 };
 
 export class Profile extends Component {
 	state = initialState;
 
-	// returnUpdatedProfile = async () => {
-	// 	const lists = await fetchClientLists(this.props.user.id);
-	// 	this.props.loadLists(lists);
-	// };
-
-	toggleEdit = list_id => {
-		this.setState({ displayEdit: list_id });
+	toggleEdit = () => {
+		this.setState({ displayEdit: !this.state.displayEdit });
 	};
 
 	handleEdit = value => {
@@ -108,6 +103,7 @@ export class Profile extends Component {
 			</View>
 		);
 	};
+
 	renderCaretakerInfo = () => {
 		let allAbilities = this.props.user.abilities.map(ablility => {
 			return (
@@ -121,26 +117,30 @@ export class Profile extends Component {
 			</View>
 		);
 	};
+
+	renderEditButton() {
+		if (!this.state.displayEdit) {
+			return (
+				<Button accessibilityLabel="Tap me to edit your profile." onPress={() => this.toggleEditName(list.id)}>
+					Edit Profile
+				</Button>
+			);
+		}
+		return (
+			<Button accessibilityLabel="Tap me to submit your edited profile." onPress={() => this.handleSubmitEdit(list.id)}>
+				Save Profile
+			</Button>
+		);
+	}
+
 	render() {
 		return (
 			<View>
 				<Header>My Profile</Header>
-				<image src="../assets/stockFace.jpg" style={styles.image}></image>
-				<Input style={styles.userInfo}> {this.props.user.name}</Input>
-				{this.state.displayEdit !== list.id && (
-					<Button accessibilityLabel="Tap me to edit your profile." onPress={() => this.toggleEditName(list.id)}>
-						Edit Profile
-					</Button>
-				)};
-				{this.state.displayEdit === list.id && (
-					<Button
-						accessibilityLabel="Tap me to submit your edited profile."
-						onPress={() => this.handleSubmitEdit(list.id)}
-					>
-						Save Profile
-					</Button>
-				)};
 				<ScrollView style={styles.container}>
+					<Image source="../assets/stockFace.jpg" style={styles.image} />
+					<Text style={{ ...styles.userInfo, borderColor: 'red', borderWidth: 1 }}>{this.props.user.name}</Text>
+					{this.renderEditButton()}
 					<Input style={styles.userInfo}>Username: {this.props.user.username}</Input>
 					<Input style={styles.userInfo}>Email: {this.props.user.email}</Input>
 					<Input style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Input>
@@ -152,14 +152,17 @@ export class Profile extends Component {
 		);
 	}
 }
+
 const mapStateToProps = state => ({
 	user: state.userAccount
 });
+
 const mapDispatchToProps = dispatch => ({});
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Profile);
+
 Profile.propTypes = {
 	userAccount: PropTypes.object
 };
