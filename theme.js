@@ -4,5 +4,10 @@ export default {
   accentTwo: 'black',
   accentThree: 'lightgray',
   textMain: 'Didot',
-  textTwo: "Arial"
+  textTwo: "Arial",
+  container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1
+  },
 }
