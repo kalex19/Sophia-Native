@@ -31,7 +31,7 @@ export const patchCaretakerTask = async (object, list_id, task_id) => {
   };
   const response = await fetch(url, options);
   if (!response.ok) {
-    throw new Error("Could not mark the task completed");
+    throw new Error("Could not modify the task");
   }
   const task = await response.json();
   return task;

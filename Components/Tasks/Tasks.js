@@ -38,7 +38,6 @@ export class Tasks extends Component {
 
   returnUpdatedCaretakerTask = async () => {
     const list = this.props.navigation.state.params;
-    const { user } = this.props;
     const tasks = await fetchCaretakerTasks(list.id);
     this.props.loadTasks(tasks);
   };
@@ -102,7 +101,6 @@ export class Tasks extends Component {
 
   completeTaskByCaretaker = async taskId => {
     const list = this.props.navigation.state.params;
-    const { user } = this.props;
     this.state.completed = !this.state.completed;
     const { completed } = this.state;
     const completedTask = { completed: completed };
@@ -144,7 +142,7 @@ export class Tasks extends Component {
     const allTasks = tasks
       .map(task => {
         return (
-          <View style={styles.lists}>
+          <View style={styles.lists} key={task.id}> 
             <View style={styles.listItemHeaderContainer}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
               <View style={styles.priorityLevels}>
@@ -338,5 +336,5 @@ export default connect(
 
 Tasks.propTypes = {
   user: PropTypes.object,
-  tasks: PropTypes.object
+  tasks: PropTypes.array
 };
