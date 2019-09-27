@@ -4,8 +4,9 @@ import { Header } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { PropTypes } from 'prop-types';
-import styles from './styleUserHomeScreen';
+import styles from './styles';
 import Button from '../common/Button/Button';
+
 export class UserHomeScreen extends Component {
 	render() {
 		const { user, navigation } = this.props;
@@ -17,15 +18,23 @@ export class UserHomeScreen extends Component {
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
 					onPress={() => navigation.navigate('Profile', user)}
 				>
-					My Account
+					Edit Profile
 				</Button>
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						user.role === 'client' ? navigation.navigate('ClientList') : navigation.navigate('CaretakerList');
+						navigation.navigate('Lists');
 					}}
 				>
 					My Lists
+				</Button>
+				<Button
+					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
+					onPress={() => {
+						navigation.navigate('Tasks');
+					}}
+				>
+					My Tasks
 				</Button>
 			</View>
 		);
@@ -33,16 +42,20 @@ export class UserHomeScreen extends Component {
 }
 export const mapStateToProps = state => ({
 	user: state.userAccount,
-	lists: state.lists
+	lists: state.lists,
+	tasks: state.tasks
 });
 export const mapDispatchToProps = dispatch => ({
-	loadLists: lists => dispatch(loadLists(lists))
+	loadLists: lists => dispatch(loadLists(lists)),
+	loadTasks: tasks => dispatch(loadTasks(tasks))
 });
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(UserHomeScreen);
+
 UserHomeScreen.propTypes = {
 	userAccount: PropTypes.object,
-	lists: PropTypes.array
+	lists: PropTypes.array,
+	tasks: PropTypes.array
 };
