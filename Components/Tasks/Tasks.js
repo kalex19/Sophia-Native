@@ -25,7 +25,7 @@ export class Tasks extends Component {
       due_date: "",
       displayEdit: "",
       task_edit_input: "",
-      completed: false,
+      // completed: false,
       priority: ""
     };
   }
@@ -99,11 +99,10 @@ export class Tasks extends Component {
     this.returnUpdatedTask();
   };
 
-  completeTaskByCaretaker = async taskId => {
+  completeTaskByCaretaker = async (taskId, taskCompleted) => {
     const list = this.props.navigation.state.params;
-    this.state.completed = !this.state.completed;
-    const { completed } = this.state;
-    const completedTask = { completed: completed };
+    taskCompleted = !taskCompleted;
+    const completedTask = { completed: taskCompleted };
     await patchCaretakerTask(completedTask, list.id, taskId);
     await this.returnUpdatedCaretakerTask();
   };
@@ -248,7 +247,7 @@ export class Tasks extends Component {
                     underlayColor="black"
                     accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
                     accessible={true}
-                    onPress={() => this.completeTaskByCaretaker(task.id)}
+                    onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
                   >
                     <Text style={styles.listComplete}>
                       {task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}
