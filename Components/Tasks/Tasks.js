@@ -26,7 +26,8 @@ export class Tasks extends Component {
       displayEdit: "",
       task_edit_input: "",
       // completed: false,
-      priority: ""
+      priority: "",
+      displayExtraInputs: false
     };
   }
 
@@ -133,6 +134,10 @@ export class Tasks extends Component {
     const changedPriority = { priority: taskPriority};
     await patchClientTask(changedPriority, list.id, taskId);
     await this.returnUpdatedTask();
+  }
+
+  expandInputField = () => {
+    this.setState({displayExtraInputs : !this.state.displayExtraInputs})
   }
 
   render() {
@@ -276,13 +281,13 @@ export class Tasks extends Component {
                   placeholder="Add Task Name"
                   accessibilityLabel="Add your task name"
                 ></TextInput>
-                <Text style={styles.label}>Add Note:</Text>
+                {this.state.displayExtraInputs === true && <View><Text style={styles.label}>Add Note:</Text>
                 <TextInput
                   style={styles.input}
                   value={this.state.description_input}
                   onChangeText={this.handleChangeNote}
                   placeholder="Add Note"
-                  accessibilityLabel="Add a note providing mroe details about your task"
+                  accessibilityLabel="Add a note providing more details about your task"
                 ></TextInput>
                 <Text style={styles.label}>Due Date:</Text>
                 <TextInput
@@ -291,7 +296,14 @@ export class Tasks extends Component {
                   value={this.state.due_date}
                   onChangeText={this.handleChangeDate}
                   accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
-                ></TextInput>
+                ></TextInput></View>}
+                <TouchableHighlight
+                  accessibilityLabel="Press to add more details about your task"
+                  
+                  onPress={this.expandInputField}
+                >
+                <Text style={styles.label}>{this.state.displayExtraInputs === false ? "Add more details" : "Hide details"}</Text>
+                </TouchableHighlight>
               </View>
               <View style={styles.submitBtnContainer}>
                 <TouchableHighlight
