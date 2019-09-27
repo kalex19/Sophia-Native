@@ -25,8 +25,9 @@ export class Tasks extends Component {
       due_date: "",
       displayEdit: "",
       task_edit_input: "",
-      completed: false,
-      priority: ""
+      // completed: false,
+      priority: "",
+      displayExtraInputs: false
     };
   }
 
@@ -38,7 +39,6 @@ export class Tasks extends Component {
 
   returnUpdatedCaretakerTask = async () => {
     const list = this.props.navigation.state.params;
-    const { user } = this.props;
     const tasks = await fetchCaretakerTasks(list.id);
     this.props.loadTasks(tasks);
   };
@@ -100,12 +100,10 @@ export class Tasks extends Component {
     this.returnUpdatedTask();
   };
 
-  completeTaskByCaretaker = async taskId => {
+  completeTaskByCaretaker = async (taskId, taskCompleted) => {
     const list = this.props.navigation.state.params;
-    const { user } = this.props;
-    this.state.completed = !this.state.completed;
-    const { completed } = this.state;
-    const completedTask = { completed: completed };
+    taskCompleted = !taskCompleted;
+    const completedTask = { completed: taskCompleted };
     await patchCaretakerTask(completedTask, list.id, taskId);
     await this.returnUpdatedCaretakerTask();
   };
@@ -138,13 +136,17 @@ export class Tasks extends Component {
     await this.returnUpdatedTask();
   }
 
+  expandInputField = () => {
+    this.setState({displayExtraInputs : !this.state.displayExtraInputs})
+  }
+
   render() {
     const { name } = this.props.navigation.state.params;
     const { tasks } = this.props;
     const allTasks = tasks
       .map(task => {
         return (
-          <View style={styles.lists}>
+          <View style={styles.lists} key={task.id}> 
             <View style={styles.listItemHeaderContainer}>
               <Text style={styles.listItemHeader}>{task.name}</Text>
               <View style={styles.priorityLevels}>
@@ -250,10 +252,10 @@ export class Tasks extends Component {
                     underlayColor="black"
                     accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
                     accessible={true}
-                    onPress={() => this.completeTaskByCaretaker(task.id)}
+                    onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
                   >
                     <Text style={styles.listComplete}>
-                      {task.completed ? "TASK COMPLETED" : "MARK COMPLETED"}
+                      {task.completed ? "TASK HAS BEEN COMPLETED" : "MARK COMPLETED"}
                     </Text>
                   </TouchableHighlight>
                 )}
@@ -279,13 +281,13 @@ export class Tasks extends Component {
                   placeholder="Add Task Name"
                   accessibilityLabel="Add your task name"
                 ></TextInput>
-                <Text style={styles.label}>Add Note:</Text>
+                {this.state.displayExtraInputs === true && <View><Text style={styles.label}>Add Note:</Text>
                 <TextInput
                   style={styles.input}
                   value={this.state.description_input}
                   onChangeText={this.handleChangeNote}
                   placeholder="Add Note"
-                  accessibilityLabel="Add a note providing mroe details about your task"
+                  accessibilityLabel="Add a note providing more details about your task"
                 ></TextInput>
                 <Text style={styles.label}>Due Date:</Text>
                 <TextInput
@@ -294,7 +296,14 @@ export class Tasks extends Component {
                   value={this.state.due_date}
                   onChangeText={this.handleChangeDate}
                   accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
-                ></TextInput>
+                ></TextInput></View>}
+                <TouchableHighlight
+                  accessibilityLabel="Press to add more details about your task"
+                  
+                  onPress={this.expandInputField}
+                >
+                <Text style={styles.label}>{this.state.displayExtraInputs === false ? "Add more details" : "Hide details"}</Text>
+                </TouchableHighlight>
               </View>
               <View style={styles.submitBtnContainer}>
                 <TouchableHighlight
@@ -338,5 +347,5 @@ export default connect(
 
 Tasks.propTypes = {
   user: PropTypes.object,
-  tasks: PropTypes.object
+  tasks: PropTypes.array
 };
