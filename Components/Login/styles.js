@@ -7,15 +7,6 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		flex: 1
 	},
-	headerContainer: {
-		borderBottomColor: theme.primary,
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		marginBottom: 10
-	},
-	header: {
-		fontSize: 45,
-		fontFamily: theme.textMain
-	},
 	text: {
 		fontSize: 24,
 		fontFamily: theme.textMain,
