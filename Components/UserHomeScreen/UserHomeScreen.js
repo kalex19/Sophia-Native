@@ -29,7 +29,7 @@ export class UserHomeScreen extends Component {
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						navigation.navigate('Lists');
+						user.role === "client" ? navigation.navigate('ClientList') : navigation.navigate('CaretakerList');
 					}}
 				>
 					My Lists

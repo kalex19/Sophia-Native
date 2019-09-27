@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     fontFamily: theme.textMain,
     textAlign: "center"
   },
+  name: {
+    color: "white"
+  }
 })

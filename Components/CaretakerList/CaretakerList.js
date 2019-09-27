@@ -33,6 +33,7 @@ export class CaretakerList extends Component {
 							accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view your tasks.`}
 							accessible={true}
 						></TouchableHighlight>
+						<View>
 						<Text
 							style={styles.listName}
 							onPress={() => {
@@ -41,6 +42,10 @@ export class CaretakerList extends Component {
 						>
 							{list.name}
 						</Text>
+						<Text style={styles.name}>
+							Client: {list.client_name}
+						</Text>
+						</View>
 					</View>
 				);
 			})

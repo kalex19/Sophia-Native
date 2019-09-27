@@ -98,5 +98,8 @@ export default StyleSheet.create({
 		backgroundColor: theme.accentT,
 		width: '100%',
 		fontFamily: theme.textTwo
+	},
+	name: {
+		color: "white"
 	}
 });
