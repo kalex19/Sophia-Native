@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableHighlight } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
@@ -39,24 +39,26 @@ export class Profile extends Component {
 		});
 		return (
 			<View>
+				<View style={styles.addressContainer}>
 				<Text style={styles.userInfo}>Street Address: {this.props.user.street_address}</Text>
-				<Text style={styles.userInfo}>City: {this.props.user.city}</Text>
-				<Text style={styles.userInfo}>State: {this.props.user.state}</Text>
-				<Text style={styles.userInfo}>Zip Code: {this.props.user.zip}</Text>
-				<View style={styles.infoCntainer}>
-					<Text style={styles.userInfoList}>Needs:</Text>
+				<Text style={styles.userInfo}>{this.props.user.city}</Text>
+				<Text style={styles.userInfo}> {this.props.user.state}</Text>
+				<Text style={styles.userInfo}> {this.props.user.zip}</Text>
+				</View>
+				<View style={styles.infoContainer}>
+					<Text style={styles.userInfo}>Needs:</Text>
 					{allNeeds}
 				</View>
-				<View style={styles.infoCntainer}>
-					<Text style={styles.userInfoList}>Allergies: </Text>
+				<View style={styles.infoContainer}>
+					<Text style={styles.userInfo}>Allergies: </Text>
 					{allAllergies}
 				</View>
-				<View style={styles.infoCntainer}>
-					<Text style={styles.userInfoList}>Dietary Restrictions: </Text>
+				<View style={styles.infoContainer}>
+					<Text style={styles.userInfo}>Dietary Restrictions: </Text>
 					{allRestrictions}
 				</View>
-				<View style={styles.infoCntainer}>
-					<Text style={styles.userInfoList}>Medications:</Text>
+				<View style={styles.infoContainer}>
+					<Text style={styles.userInfo}>Medications:</Text>
 					{allMedications}
 				</View>
 			</View>
@@ -71,8 +73,8 @@ export class Profile extends Component {
 			);
 		});
 		return (
-			<View style={styles.infoCntainer}>
-				<Text style={styles.userInfoList}>Abilities:</Text>
+			<View style={styles.infoContainer}>
+				<Text style={styles.userInfo}>Abilities:</Text>
 				{allAbilities}
 			</View>
 		);
@@ -80,10 +82,11 @@ export class Profile extends Component {
 	render() {
 		return (
 			<View>
-				<Header>My Account</Header>
-				<ScrollView style={styles.profileContainer}>
+				<Header>My Profile</Header>
+				<image src="../assets/stockFace.jpg" style={styles.image}></image>
+				<Text style={styles.userInfo}> {this.props.user.name}</Text>
+				<ScrollView style={styles.container}>
 					<Text style={styles.userInfo}>Username: {this.props.user.username}</Text>
-					<Text style={styles.userInfo}>Name: {this.props.user.name || 'Katie'}</Text>
 					<Text style={styles.userInfo}>Email: {this.props.user.email}</Text>
 					<Text style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Text>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
