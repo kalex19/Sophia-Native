@@ -56,7 +56,6 @@ export class Login extends Component {
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled accessibile={true}>
 				<Header>Log In</Header>
 				<Input
-					style={styles.input}
 					value={this.state.username}
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input"
