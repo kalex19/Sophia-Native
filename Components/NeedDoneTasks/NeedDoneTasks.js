@@ -349,3 +349,34 @@ Tasks.propTypes = {
   user: PropTypes.object,
   tasks: PropTypes.array
 };
+
+
+
+{this.state.displayEdit !== task.id && (
+  <View style={styles.taskNoteDue}>
+    {task.description.length > 0 && (
+      <Text style={styles.listItemSecond}>
+        Notes: {task.description}
+      </Text>
+    )}
+    {task.due_date != null && (
+      <Text style={styles.listItemSecond}>
+        Due: {task.due_date}
+      </Text>
+    )}
+  </View>
+)}
+
+{this.props.user.role === "caretaker" && (
+  <TouchableHighlight
+    underlayColor="black"
+    accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
+    accessible={true}
+    onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
+  >
+    <Text style={styles.listComplete}>
+      {task.completed ? "TASK HAS BEEN COMPLETED" : "MARK COMPLETED"}
+    </Text>
+  </TouchableHighlight>
+)}
+

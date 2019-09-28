@@ -39,7 +39,7 @@ export class UserHomeScreen extends Component {
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
 					onPress={() => navigation.navigate('Profile', user)}
 				>
-					Edit Profile
+					My Profile
 				</Button>
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."

@@ -45,8 +45,8 @@ export class CreateAccount extends Component {
 	};
 
 	handleClientSubmit = async () => {
-		console.log("error", this.state.error)
-		console.log("message",this.state.message)
+		console.log('error', this.state.error);
+		console.log('message', this.state.message);
 		const {
 			username,
 			password,
@@ -194,7 +194,10 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
 				/>
-				<Button accessibilityLabel="Tap me to continue creating your client account" onPress={() => this.setState({ page: 4 })}>
+				<Button
+					accessibilityLabel="Tap me to continue creating your client account"
+					onPress={() => this.setState({ page: 4 })}
+				>
 					Next
 				</Button>
 				<Button accessibilityLabel="Tap me to go back" onPress={() => this.setState({ page: 1 })}>
@@ -349,7 +352,7 @@ export class CreateAccount extends Component {
 		}
 
 		return (
-			<KeyboardAvoidingView style={{...styles.container}} behavior="height" enabled accessible>
+			<KeyboardAvoidingView style={{ ...styles.container }} behavior="height" enabled accessible>
 				<Header accessibilityLabel="Fill in the inputs to create an account">Create Account</Header>
 				{formToRender}
 				{this.state.error.length !== 0 && <Text style={styles.message}>{this.state.error}</Text>}
@@ -375,3 +378,8 @@ export default connect(
 CreateAccount.propTypes = {
 	userAccount: PropTypes.object
 };
+
+// expandInputField = () => {
+// 	this.setState({ displayExtraInputs: !this.state.displayExtraInputs });
+// };
+// potentially use this on all input fields?
