@@ -13,15 +13,6 @@ import Header from '../common/Header/Header';
 import List from '../common/Lists/Lists';
 
 export class NeedToDo extends Component {
-	state = {
-		list_title: '',
-		list_edit_input: '',
-		displayEdit: '',
-		caretaker_id: 0,
-		caretakers: [],
-		client_id: 0,
-		clients: []
-	};
 
 	componentDidMount = async () => {
 		await this.renderLists();
