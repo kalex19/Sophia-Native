@@ -6,8 +6,6 @@ import styles from './styles';
 import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 
-export class Profile extends Component {
-
 const initialState = {
 	username: '',
 	password: '',

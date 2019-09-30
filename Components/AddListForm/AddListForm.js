@@ -24,7 +24,7 @@ export class AddListForm extends Component {
 	componentDidMount = async () => {
 		const caretakers = await fetchCaretakers();
 		this.setState({ caretakers });
-		const caretakers = await fetchClients();
+		const clients = await fetchClients();
 		this.setState({ clients });
 	};
 	saveRecordedText = text => {

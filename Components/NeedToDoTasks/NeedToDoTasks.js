@@ -6,7 +6,7 @@ import { fetchClientTasks } from '../../Utils/clientApiCalls';
 import { fetchCaretakerTasks } from '../../Utils/caretakerApiCalls';
 import { ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
-import { styles } from './styleTasks';
+import { styles } from './styles';
 import Header from '../common/Header/Header';
 
 export class NeedToDoTasks extends Component {
