@@ -6,8 +6,7 @@ export default StyleSheet.create({
 		fontFamily: theme.textTwo,
 		marginTop: 10,
 		marginBottom: 10,
-		color: theme.accentOne,
-		textAlign: 'left',
+		textAlign: 'center',
 		alignSelf: 'center',
 		width: '85%',
 		borderColor: theme.primary,
@@ -26,7 +25,7 @@ export default StyleSheet.create({
 		padding: 10
 	},
 	image: {
-		borderRadius: '50%',
+		borderRadius: 50,
 		borderColor: theme.primary,
 		width: '50%',
 		height: 50,

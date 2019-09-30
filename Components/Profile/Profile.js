@@ -7,6 +7,62 @@ import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 
 export class Profile extends Component {
+
+const initialState = {
+	username: '',
+	password: '',
+	street_address: '',
+	city: '',
+	state: '',
+	zip: '',
+	allergies: '',
+	needs: '',
+	diet_restrictions: '',
+	medications: '',
+	abilities: '',
+	displayEdit: false
+};
+
+export class Profile extends Component {
+	state = initialState;
+
+	toggleEdit = () => {
+		this.setState({ displayEdit: !this.state.displayEdit });
+	};
+
+	handleEdit = value => {
+		this.setState({ [name]: value });
+	};
+
+	handleSubmitEdit = async listId => {
+		const { user } = this.props;
+		if (this.props.user.role === 'client') {
+			const updatedProfile = {
+				username: this.state.username,
+				password: this.state.password,
+				street_address: this.state.street_address,
+				city: this.state.city,
+				state: this.state.state,
+				zip: this.state.zip,
+				allergies: this.state.allergies,
+				needs: this.state.needs,
+				diet_restrictions: this.state.diet_restrictions,
+				medications: this.state.medications,
+				list_id: listId,
+				client_id: user.id
+			};
+			await patchClientList(updatedProfile);
+		} else {
+			const updatedProfile = {
+				username: this.state.username,
+				password: this.state.password,
+				abilities: this.state.abilities
+			};
+			await patchCaretakerList(updatedProfile);
+		}
+		this.returnUpdatedProfile();
+		this.setState({ initialState });
+	};
 	renderClientInfo = () => {
 		let allNeeds = this.props.user.needs.map(need => {
 			return (
@@ -63,6 +119,7 @@ export class Profile extends Component {
 			</View>
 		);
 	};
+
 	renderCaretakerInfo = () => {
 		let allAbilities = this.props.user.abilities.map(ablility => {
 			return (
@@ -78,6 +135,22 @@ export class Profile extends Component {
 			</View>
 		);
 	};
+
+	renderEditButton() {
+		if (!this.state.displayEdit) {
+			return (
+				<Button accessibilityLabel="Tap me to edit your profile." onPress={() => this.toggleEditName(list.id)}>
+					Edit Profile
+				</Button>
+			);
+		}
+		return (
+			<Button accessibilityLabel="Tap me to submit your edited profile." onPress={() => this.handleSubmitEdit(list.id)}>
+				Save Profile
+			</Button>
+		);
+	}
+
 	render() {
 		return (
 			<View>
@@ -93,7 +166,6 @@ export class Profile extends Component {
 				<ScrollView style={styles.container}>
 					<Text style={styles.userInfo}>Username: {this.props.user.username}</Text>
 					<Text style={styles.userInfo}>Email: {this.props.user.email}</Text>
-					<Text style={styles.userInfo}>Phone Number: {this.props.user.phone_number}</Text>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}
 					{/* change the logic so both can't show */}
@@ -103,6 +175,7 @@ export class Profile extends Component {
 		);
 	}
 }
+
 const mapStateToProps = state => ({
 	user: state.userAccount
 });
