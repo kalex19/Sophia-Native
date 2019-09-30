@@ -196,21 +196,6 @@ export class Tasks extends Component {
                 </TouchableHighlight>
               </View>
             )}
-            {this.state.displayEdit !== task.id && (
-              <View style={styles.taskNoteDue}>
-                {task.description.length > 0 && (
-                  <Text style={styles.listItemSecond}>
-                    Notes: {task.description}
-                  </Text>
-                )}
-                {task.due_date != null && (
-                  <Text style={styles.listItemSecond}>
-                    Due: {task.due_date}
-                  </Text>
-                )}
-              </View>
-            )}
-
             {this.props.user.role === "caretaker" && (
               <TouchableHighlight
                 underlayColor="black"
