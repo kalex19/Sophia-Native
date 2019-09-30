@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Profile from './Components/Profile/Profile';
-import CaretakerList from './Components/CaretakerList/CaretakerList';
-import ClientList from './Components/ClientList/ClientList';
-import Tasks from './Components/Tasks/Tasks';
 import UserHomeScreen from './Components/UserHomeScreen/UserHomeScreen';
 import AppHomeScreen from './Components/AppHomeScreen/AppHomeScreen';
 import Login from './Components/Login/Login';
 import AddListForm from './Components/AddListForm/AddListForm';
 import CreateAccount from './Components/CreateAccount/CreateAccount';
+import EditProfile from './Components/EditProfile/EditProfile';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
+import NeedToDoTasks from './Components/NeedToDoTasks';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
 import { Provider } from 'react-redux';
@@ -43,10 +42,13 @@ const AppNavigator = createStackNavigator(
 			}
 		},
 		Profile,
+		EditProfile,
+		NeedDone,
 		AddListForm,
-		CaretakerList,
-		ClientList,
-		Tasks
+		NeedDoneTasks,
+		AddTaskForm,
+		NeedToDo,
+		NeedToDoTasks
 	},
 	{
 		initialRouteName: 'Login'

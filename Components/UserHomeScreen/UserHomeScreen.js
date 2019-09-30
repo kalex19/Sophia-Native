@@ -41,23 +41,23 @@ export class UserHomeScreen extends Component {
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
 					onPress={() => navigation.navigate('Profile', user)}
 				>
-					Edit Profile
+					My Profile
 				</Button>
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						user.role === 'client' ? navigation.navigate('ClientList') : navigation.navigate('CaretakerList');
+						user.role === "client" ? navigation.navigate('NeedDone') : navigation.navigate('CaretakerList');
 					}}
 				>
-					My Lists
+					Things I Need Done
 				</Button>
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						navigation.navigate('Tasks');
+						navigation.navigate('NeedToDo');
 					}}
 				>
-					Assigned Lists
+					Things I Need To Do
 				</Button>
 			</View>
 		);

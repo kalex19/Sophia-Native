@@ -17,11 +17,15 @@ export class AddListForm extends Component {
 		list_edit_input: '',
 		displayEdit: '',
 		caretaker_id: 0,
-		caretakers: []
+		caretakers: [],
+		client_id: 0,
+		clients: []
 	};
 	componentDidMount = async () => {
 		const caretakers = await fetchCaretakers();
 		this.setState({ caretakers });
+		const caretakers = await fetchClients();
+		this.setState({ clients });
 	};
 	saveRecordedText = text => {
 		this.setState({ list_title: text });
@@ -33,19 +37,28 @@ export class AddListForm extends Component {
 		this.setState({ list_edit_input: input });
 	};
 	handleSubmit = async () => {
-		const { list_title, caretaker_id } = this.state;
+		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
-		let listData = {
-			name: list_title,
-			caretaker_id,
-			client_id: user.id,
-			key: user.id
-		};
+		if (this.props.user.role === 'client') {
+			let listData = {
+				name: list_title,
+				caretaker_id,
+				client_id: user.id,
+				key: user.id
+			};
+		} else {
+			let listData = {
+				name: list_title,
+				caretaker_id: user.id,
+				client_id,
+				key: user.id
+			};
+		}
 		try {
 			const list = await postClientList(listData);
 			this.setState({ list_title: '', caretaker_id: 0 });
 			this.props.addList(list);
-			this.props.navigation.navigate('ClientList');
+			this.props.navigation.navigate('NeedDone');
 		} catch (error) {
 			console.log(error);
 		}

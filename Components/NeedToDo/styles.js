@@ -12,11 +12,6 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
-	listItem: {
-		fontSize: 25,
-		color: theme.accentOne,
-		padding: 5
-	},
 	align: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -24,49 +19,12 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: theme.accentOne
 	},
-	lists: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		backgroundColor: theme.primary,
-		alignItems: 'center',
-		margin: 10,
-		padding: 10
-	},
-	listName: {
-		color: theme.accentOne,
-		fontSize: 40,
-		fontFamily: theme.textTwo
-	},
 	container: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		alignSelf: 'stretch'
-	},
-	noPermissionsText: {
-		textAlign: 'center'
-	},
-	recordingContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		alignSelf: 'stretch',
-		backgroundColor: theme.primary,
-		borderRadius: 50,
-		width: '90%',
-		margin: 10,
-		height: '100%'
-	},
-	recordingDataContainer: {
-		backgroundColor: theme.primary,
-		width: '90%',
-		height: 60,
-		marginLeft: 10,
-		marginRight: 10,
-		borderRadius: 50,
-		textAlign: 'center'
 	},
 	text: {
 		color: theme.accentOne,
