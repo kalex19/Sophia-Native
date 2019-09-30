@@ -55,7 +55,7 @@ const AppNavigator = createStackNavigator(
 		NeedToDoTasks
 	},
 	{
-		initialRouteName: 'Login'
+		initialRouteName: 'Home'
 	}
 );
 
