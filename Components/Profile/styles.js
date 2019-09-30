@@ -26,7 +26,7 @@ export default StyleSheet.create({
 		padding: 10
 	},
 	image: {
-		borderRadius: '50%',
+		borderRadius: 50,
 		borderColor: theme.primary,
 		width: '50%',
 		height: 50,

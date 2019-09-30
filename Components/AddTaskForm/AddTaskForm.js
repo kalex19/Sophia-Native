@@ -11,10 +11,13 @@ import Input from '../common/Input/Input';
 import SpeechToText from '../common/SpeechToText/SpeechToText';
 import Header from '../common/Header/Header';
 
-export class AddListForm extends Component {
+export class AddTaskForm extends Component {
 	state = {
-		list_title: '',
-		list_edit_input: '',
+    task_title: '',
+    task_note: '',
+    task_due_date: '',
+    completed: false,
+		task_edit_input: '',
 		displayEdit: '',
 		caretaker_id: 0,
 		caretakers: [],
@@ -37,43 +40,43 @@ export class AddListForm extends Component {
 		this.setState({ list_edit_input: input });
 	};
 	handleSubmit = async () => {
-		const { list_title, caretaker_id, client_id } = this.state;
+		const { task_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
 		if (this.props.user.role === 'client') {
-			let listData = {
-				name: list_title,
+			let taskData = {
+				name: task_title,
 				caretaker_id,
 				client_id: user.id,
 				key: user.id
 			};
 		} else {
-			let listData = {
-				name: list_title,
+			let taskData = {
+				name: task_title,
 				caretaker_id: user.id,
 				client_id,
 				key: user.id
 			};
 		}
 		try {
-			const list = await postClientList(listData);
-			this.setState({ list_title: '', caretaker_id: 0 });
-			this.props.addList(list);
+			const task = await postClienttask(taskData);
+			this.setState({ task_title: '', caretaker_id: 0 });
+			this.props.addtask(task);
 			this.props.navigation.navigate('NeedDone');
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	createNewList = () => {
+	createNewtask = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
 			return <Picker.Item label={caretaker.name} value={caretaker.id} key={caretaker.id} />;
 		});
 		return (
 			<View style={{ justifyContent: 'center' }}>
 				<Input
-					placeholder="List name"
-					value={this.state.list_title}
+					placeholder="task name"
+					value={this.state.task_title}
 					onChangeText={text => this.handleChange(text)}
-					accessibilityLabel="List Name Input"
+					accessibilityLabel="task Name Input"
 				/>
 				<SpeechToText saveRecordedText={this.saveRecordedText} />
 				<View>
@@ -87,11 +90,11 @@ export class AddListForm extends Component {
 					</Picker>
 				</View>
 				<Button
-					accessibilityLabel="Tap me to submit the title of your list."
+					accessibilityLabel="Tap me to submit the title of your task."
 					disabled={this.state.isLoading}
 					onPress={this.handleSubmit}
 				>
-					Submit List
+					Submit task
 				</Button>
 			</View>
 		);
@@ -99,9 +102,9 @@ export class AddListForm extends Component {
 	render() {
 		return (
 			<View>
-				<Header>Add New List +</Header>
+				<Header>Add New task +</Header>
 				<ScrollView>
-					{this.createNewList()}
+					{this.createNewTask()}
 					<View style={{ height: 550 }}></View>
 				</ScrollView>
 			</View>
@@ -109,18 +112,18 @@ export class AddListForm extends Component {
 	}
 }
 export const mapStateToProps = state => ({
-	lists: state.lists,
+	tasks: state.tasks,
 	user: state.userAccount
 });
 export const mapDispatchToProps = dispatch => ({
-	addList: list => dispatch(addList(list))
+	addTask: task => dispatch(addTask(task))
 });
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(AddListForm);
+)(AddTaskForm);
 
-AddListForm.propTypes = {
-	lists: PropTypes.array,
+AddTaskForm.propTypes = {
+	tasks: PropTypes.array,
 	user: PropTypes.object
 };

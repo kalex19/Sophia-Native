@@ -8,10 +8,14 @@ import CreateAccount from './Components/CreateAccount/CreateAccount';
 import EditProfile from './Components/EditProfile/EditProfile';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import NeedToDoTasks from './Components/NeedToDoTasks';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
 import { Provider } from 'react-redux';
+import NeedDone from './Components/NeedDone/NeedDone';
+import NeedDoneTasks from './Components/NeedDoneTasks/NeedDoneTasks';
+import NeedToDo from './Components/NeedToDo/NeedToDo';
+import NeedToDoTasks from './Components/NeedToDoTasks/NeedToDoTasks';
+import AddTaskForm from './Components/AddTaskForm/AddTaskForm';
 
 export const store = createStore(rootReducer);
 

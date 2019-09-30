@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Input } from 'react-native';
+import { ScrollView, View} from 'react-native';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
@@ -9,27 +9,33 @@ import Input from '../common/Input/Input';
 import { patchClientProfile } from '../../Utils/clientApiCalls';
 import { patchCaretakerProfile } from '../../Utils/caretakerApiCalls';
 
-const { user } = this.props;
+
 
 const initialState = {
-	name: user.name,
-	username: user.username,
-	password: user.password,
-	email: user.email,
-	phone: user.phone,
-	address: user.address || null,
-	city: user.city || null,
-	state: user.state || null,
-	zip: user.zip || null,
-	allergies: user.allergies || null,
-	needs: user.needs || null,
-	diet_restrictions: user.diet_restrictions || null,
-	medications: user.medications || null,
-	abilities: user.abilities || null
+name: '',
+	username: '',
+	password: '',
+	email: '',
+	phone: '',
+	address: '',
+	city: '',
+	state: '',
+	zip: '',
+	allergies: [],
+	needs: [],
+	diet_restrictions:[],
+	medications: [],
+	abilities: []
 };
 
-export class Profile extends Component {
+export class EditProfile extends Component {
 	state = initialState;
+
+	componentDidMount(){
+		this.setState({
+			initialState
+		})
+	}
 
 	handleChange = (name, value) => {
 		const multiResponseInputs = ['needs', 'allergies', 'diet', 'medications', 'abilities'];
@@ -40,7 +46,6 @@ export class Profile extends Component {
 	};
 
 	handleSubmitEdit = async () => {
-		const { user } = this.props;
 		if (this.props.user.role === 'client') {
 			const updatedProfile = {
 				username: this.state.username,

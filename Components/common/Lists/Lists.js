@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import styles from './styles';
 
+
 export const Lists = () => {
 	return (
 		<View style={styles.lists} key={list.id} accessible={true}>
