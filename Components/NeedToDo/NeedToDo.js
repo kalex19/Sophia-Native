@@ -6,9 +6,6 @@ import { loadLists } from '../../actions';
 import { fetchClientLists } from '../../Utils/clientApiCalls';
 import { fetchCaretakerLists } from '../../Utils/caretakerApiCalls';
 import { PropTypes } from 'prop-types';
-import { fetchCaretakers } from '../../Utils/clientApiCalls';
-// import { fetchClients } from "../../Utils/clientApiCalls";
-// Need to be able to get all clients
 import Header from '../common/Header/Header';
 import { List } from '../common/List/List';
 
@@ -31,7 +28,7 @@ export class NeedToDo extends Component {
 		const { lists, user, navigation } = this.props;
 		return lists
 			.map(list => {
-				list = { ...list, client_id: user.id };
+				list = { ...list, client_id: user.id, role: 'client'};
 				return <List list={list} navigation={navigation}/>;
 			})
 			.reverse();
@@ -41,7 +38,7 @@ export class NeedToDo extends Component {
 		const { lists, user, navigation } = this.props;
 		return lists
 			.map(list => {
-				list = { ...list, caretaker_id: user.id };
+				list = { ...list, caretaker_id: user.id, role: 'caretaker' };
 				return <List list={list} navigation={navigation}/>;
 			})
 			.reverse();
@@ -50,7 +47,7 @@ export class NeedToDo extends Component {
 	render() {
 		return (
 			<View style={theme.container}>
-				<Header accessibilityLabel="My Todo Lists">Lists Assigned To Me</Header>
+				<Header accessibilityLabel="Lists for me to complete">Lists Assigned To Me</Header>
 				<ScrollView>
 					{this.props.user.role === 'client' && this.getClientLists()}
 					{this.props.user.role === 'caretaker' && this.getCaretakerLists()}

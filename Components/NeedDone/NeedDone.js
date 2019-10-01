@@ -5,7 +5,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { fetchClientLists, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';
-import { Audio } from 'expo-av';
 import { PropTypes } from 'prop-types';
 import { fetchCaretakers } from '../../Utils/clientApiCalls';
 import Button from '../common/Button/Button';

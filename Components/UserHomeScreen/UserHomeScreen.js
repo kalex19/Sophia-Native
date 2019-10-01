@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Header } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { PropTypes } from 'prop-types';
@@ -9,6 +8,7 @@ import theme from '../../theme';
 import Button from '../common/Button/Button';
 import { logOut } from '../../actions';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import Header from '../common/Header/Header';
 
 export class UserHomeScreen extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -25,7 +25,7 @@ export class UserHomeScreen extends Component {
 	componentDidMount = () => {
 		this.props.navigation.setParams({ logout: this.logOut });
 	};
-	
+
 	logOut = () => {
 		this.props.logOut();
 		this.props.navigation.navigate('Home');
@@ -35,7 +35,9 @@ export class UserHomeScreen extends Component {
 		const { user, navigation } = this.props;
 		return (
 			<View style={theme.container}>
-				<Header accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Header>
+				<Header style={{ fontSize: 60 }} accessibilityLabel="Speech Operated Personal Household Interactive Assistant">
+					SOPHIA
+				</Header>
 				<Text style={styles.greeting}>Welcome Back, {'\n' + user.name}!</Text>
 				<Button
 					accessibilityLabel="Tap me to navigate to your profile. From there, view your personal information"
@@ -46,7 +48,7 @@ export class UserHomeScreen extends Component {
 				<Button
 					accessibilityLabel="Tap me to navigate to your todo lists. From there view or create your tasks."
 					onPress={() => {
-						user.role === "client" ? navigation.navigate('NeedDone') : navigation.navigate('CaretakerList');
+						navigation.navigate('NeedDone');
 					}}
 				>
 					Things I Need Done
