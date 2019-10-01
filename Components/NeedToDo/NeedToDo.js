@@ -10,7 +10,7 @@ import { fetchCaretakers } from '../../Utils/clientApiCalls';
 // import { fetchClients } from "../../Utils/clientApiCalls";
 // Need to be able to get all clients
 import Header from '../common/Header/Header';
-import List from '../common/Lists/Lists';
+import { List } from '../common/List/List';
 
 export class NeedToDo extends Component {
 
@@ -21,12 +21,8 @@ export class NeedToDo extends Component {
 	renderLists = async () => {
 		if (this.props.user.role === 'client') {
 			lists = await fetchClientLists(this.props.user.id);
-			const caretakers = await fetchCaretakers();
-			this.setState({ caretakers });
 		} else {
 			lists = await fetchCaretakerLists(this.props.user.id);
-			const clients = await fetchClient();
-			this.setState({ clients });
 		}
 		this.props.loadLists(lists);
 	};
@@ -46,7 +42,7 @@ export class NeedToDo extends Component {
 		return lists
 			.map(list => {
 				list = { ...list, caretaker_id: user.id };
-				return <List {...props.list} />;
+				return <List list={list}/>;
 			})
 			.reverse();
 	};
