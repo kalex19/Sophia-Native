@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import theme from '../../theme';
+import theme from '../../../theme';
 
 export default StyleSheet.create({
 	listItem: {
@@ -8,7 +8,7 @@ export default StyleSheet.create({
 		padding: 5
 	},
 	lists: {
-		flexDirection: 'row',
+		flexDirection: 'column',
 		justifyContent: 'space-between',
 		backgroundColor: theme.primary,
 		alignItems: 'center',
@@ -19,5 +19,9 @@ export default StyleSheet.create({
 		color: theme.accentOne,
 		fontSize: 40,
 		fontFamily: theme.textTwo
+	},
+	name: {
+		color: "white",
+		fontSize: 25
 	}
 });
