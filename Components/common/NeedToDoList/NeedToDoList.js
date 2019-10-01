@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import styles from './styles';
 import Button from '../Button/Button';
 
-export const List = ({ list, navigation, user }) => {
+export const NeedToDoList = ({ list, navigation}) => {
 	return (
 		<View style={styles.container} key={list.id}>
 			{list.role === 'client' && <Text style={styles.name}>{list.caretaker_name}'s list</Text>}
