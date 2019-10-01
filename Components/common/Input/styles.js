@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 import theme from '../../../theme';
 export default StyleSheet.create({
 	container: {
-		width: '100%'
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'space-evenly'
 	},
 	input: {
 		alignSelf: 'flex-start',

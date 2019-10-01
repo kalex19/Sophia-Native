@@ -11,7 +11,6 @@ import Header from '../common/Header/Header';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import theme from '../../theme';
-import SpeechToText from '../common/SpeechToText/SpeechToText';
 
 const initialState = {
 	page: 1,
@@ -177,28 +176,28 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Address Input. Please type your address"
 					value={this.state.address}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="City"
 					onChangeText={value => this.handleChange('city', value)}
 					accessibilityLabel="City Input. Please type your city"
 					value={this.state.city}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="State"
 					onChangeText={value => this.handleChange('state', value)}
 					accessibilityLabel="State Input. Please type your state"
 					value={this.state.state}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Zip Code"
 					onChangeText={value => this.handleChange('zip', value)}
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Button
 					accessibilityLabel="Tap me to continue creating your client account"
 					onPress={() => this.setState({ page: 4 })}
@@ -224,28 +223,28 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
 					value={this.state.needs.join(', ')}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Allergies"
 					onChangeText={value => this.handleChange('allergies', value)}
 					accessibilityLabel="Allergies Input. Please type the names of your allergies"
 					value={this.state.allergies.join(', ')}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Dietary Restrictions"
 					onChangeText={value => this.handleChange('diet', value)}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names of your dietary restrictions"
 					value={this.state.diet.join(', ')}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Medications"
 					onChangeText={value => this.handleChange('medications', value)}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
 					value={this.state.medications.join(', ')}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleClientSubmit}>
 					Register Client
 				</Button>
@@ -269,7 +268,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('abilities', value)}
 					value={this.state.abilities.join(', ')}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleCaretakerSubmit}>
 					Register Caretaker
 				</Button>
@@ -284,24 +283,20 @@ export class CreateAccount extends Component {
 
 	renderGenericForm = () => {
 		return (
-			<ScrollView style={{ flex: 1, width: '100%', }}>
-				<View style={{ flex: 1, flexDirection: 'row'}} >
-					<Input
-          style={{width: '50%'}}
-						placeholder="Your Name"
-						onChangeText={value => this.handleChange('name', value)}
-						accessibilityLabel="Name Input. Please type in your full name"
-						value={this.state.name}
-					/>
-					<SpeechToText  style={{width: '20%'}} saveRecordedText={this.saveRecordedText} />
-				</View>
+			<ScrollView style={{ flex: 1, width: '100%' }}>
+				<Input
+					placeholder="Your Name"
+					onChangeText={value => this.handleChange('name', value)}
+					accessibilityLabel="Name Input. Please type in your full name"
+					value={this.state.name}
+				/>
 				<Input
 					placeholder="Email"
 					onChangeText={value => this.handleChange('email', value)}
 					accessibilityLabel="Email Input. Please type in your email"
 					value={this.state.email}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Phone"
 					onChangeText={value => this.handleChange('phone', value)}
@@ -309,14 +304,14 @@ export class CreateAccount extends Component {
 					accessibilityLabel="Phone Input. Please type your phone number without dashes"
 					value={this.state.phone}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Username"
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input. Please make a username"
 					value={this.state.username}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Password"
 					onChangeText={value => this.handleChange('password', value)}
@@ -325,7 +320,7 @@ export class CreateAccount extends Component {
 					secureTextEntry={true}
 					value={this.state.password}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Input
 					placeholder="Password Confirmation"
 					onChangeText={value => this.handleChange('password_confirmation', value)}
@@ -334,7 +329,7 @@ export class CreateAccount extends Component {
 					secureTextEntry={true}
 					value={this.state.password_confirmation}
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+
 				<Button
 					accessibilityLabel="Tap me to continue creating a caretaker account."
 					onPress={() => this.setState({ role: 'caretaker', page: 2 })}
