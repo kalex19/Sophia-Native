@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 
 export const List = ({ list, navigation, user }) => {
 	return (
-		<View style={styles.cotainer} key={list.id}>
+		<View style={styles.container} key={list.id}>
 			{list.role === 'client' && <Text style={styles.name}>{list.caretaker_name}'s list</Text>}
 			{list.role === 'caretaker' && <Text style={styles.name}>{list.client_name}'s list</Text>}
 			<Button
@@ -13,9 +13,9 @@ export const List = ({ list, navigation, user }) => {
 				onPress={() => {
 					navigation.navigate('NeedToDoTasks', list);
 				}}
-				>
+			>
 				{list.name}
 			</Button>
-				</View>
+		</View>
 	);
 };

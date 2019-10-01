@@ -5,13 +5,13 @@ import { loadTasks } from '../../actions';
 import { ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
-import { Task } from '../common/Task/Task'
+import { Task } from '../common/Task/Task';
 import Header from '../common/Header/Header';
-import {fetchAllTasks} from '../../Utils/fetchAllTasks';
+import { fetchAllTasks } from '../../Utils/fetchAllTasks';
 
 export class NeedToDoTasks extends Component {
 	componentDidMount = async () => {
-		await this.fetchTasks()
+		await this.fetchTasks();
 	};
 
 	fetchTasks = async () => {
@@ -22,11 +22,11 @@ export class NeedToDoTasks extends Component {
 
 	render() {
 		const { name } = this.props.navigation.state.params;
-		const { tasks } = this.props;
+		const { tasks, navigation, loadTasks} = this.props;
 		const allTasks = tasks.map(task => {
 			return (
 				<View style={styles.lists} key={task.id}>
-					<Task task={task} />
+					<Task task={task} navigation={navigation} loadTasks={loadTasks}/>
 				</View>
 			);
 		});
