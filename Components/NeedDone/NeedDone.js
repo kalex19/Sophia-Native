@@ -73,7 +73,7 @@ export class NeedDone extends Component {
 								<Text
 									style={styles.listName}
 									onPress={() => {
-										this.props.navigation.navigate('Tasks', list);
+										this.props.navigation.navigate('NeedDoneTasks', list);
 									}}
 								>
 									{list.name}

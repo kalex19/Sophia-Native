@@ -4,7 +4,6 @@ import { TouchableHighlight} from "react-native-gesture-handler";
 import { styles } from "./styles";
 
 export const Task = ({task}) => {
-  console.log(task)
   return <View>
     <View style={styles.taskNoteDue}>
     {task.name.length > 0 && (

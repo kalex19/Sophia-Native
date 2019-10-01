@@ -28,11 +28,11 @@ export class NeedToDo extends Component {
 	};
 
 	getClientLists = () => {
-		const { lists, user } = this.props;
+		const { lists, user, navigation } = this.props;
 		return lists
 			.map(list => {
 				list = { ...list, client_id: user.id };
-				return <List {...props.list} />;
+				return <List list={list} navigation={navigation}/>;
 			})
 			.reverse();
 	};

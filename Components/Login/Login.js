@@ -11,7 +11,7 @@ import Header from '../common/Header/Header';
 import theme from '../../theme';
 
 const initialState = {
-	username: 'AndreeaTestCaretaker',
+	username: 'AndreeaTestClient',
 	password: 'pass',
 	message: '',
 	error: ''
