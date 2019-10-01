@@ -8,10 +8,11 @@ import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 import styles from './styles';
 import Header from '../common/Header/Header';
+import theme from '../../theme';
 
 const initialState = {
-	username: '',
-	password: '',
+	username: 'AndreeaTestClient',
+	password: 'pass',
 	message: '',
 	error: ''
 };
@@ -53,7 +54,7 @@ export class Login extends Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView style={{ ...styles.container }} behavior="padding" enabled accessibile={true}>
+			<KeyboardAvoidingView style={theme.container} behavior="padding" enabled accessibile={true}>
 				<Header style={{ fontSize: 60 }}>Log In</Header>
 				<Input
 					value={this.state.username}

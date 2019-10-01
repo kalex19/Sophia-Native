@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Tasks } from "./Tasks";
+import { Task } from "./Task";
 import "react-native";
 import { loadTasks } from "../../actions";
-import { mapStateToProps, mapDispatchToProps } from "./Tasks";
+import { mapStateToProps, mapDispatchToProps } from "./Task";
 import { fetchTasks, postTask, patchTask, deleteTask } from '../../Utils/clientApicalls';
 
 

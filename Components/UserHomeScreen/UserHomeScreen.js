@@ -5,25 +5,27 @@ import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
+import theme from '../../theme';
 import Button from '../common/Button/Button';
 import { logOut } from '../../actions';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export class UserHomeScreen extends Component {
-
 	static navigationOptions = ({ navigation }) => {
 		const { params = {} } = navigation.state;
 		const headerRight = (
-			<Button accessibilityLabel="Tap to log out" onPress={params.logOut} style={{ borderRadius: 5, height: 20, width: '20%' }}>
-			Log Out
-		</Button>
+			<TouchableHighlight accessibilityLabel="Tap to log out" onPress={params.logOut}>
+				<Text>Log Out</Text>
+			</TouchableHighlight>
 		);
 
 		return headerRight;
 	};
 
 	componentDidMount = () => {
-		this.props.navigation.setParams({logout: this.logOut})
-	}
+		this.props.navigation.setParams({ logout: this.logOut });
+	};
+	
 	logOut = () => {
 		this.props.logOut();
 		this.props.navigation.navigate('Home');
@@ -32,7 +34,7 @@ export class UserHomeScreen extends Component {
 	render() {
 		const { user, navigation } = this.props;
 		return (
-			<View style={{...styles.container}}>
+			<View style={theme.container}>
 				<Header accessibilityLabel="Speech Operated Personal Household Interactive Assistant">SOPHIA</Header>
 				<Text style={styles.greeting}>Welcome Back, {'\n' + user.name}!</Text>
 				<Button
@@ -63,7 +65,7 @@ export class UserHomeScreen extends Component {
 }
 export const mapStateToProps = state => ({
 	user: state.userAccount,
-	lists: state.lists,
+	lists: state.lists
 });
 export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists)),
@@ -76,5 +78,5 @@ export default connect(
 
 UserHomeScreen.propTypes = {
 	userAccount: PropTypes.object,
-	lists: PropTypes.array,
+	lists: PropTypes.array
 };

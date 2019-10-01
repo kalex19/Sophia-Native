@@ -13,10 +13,10 @@ import Header from '../common/Header/Header';
 
 export class AddTaskForm extends Component {
 	state = {
-    task_title: '',
-    task_note: '',
-    task_due_date: '',
-    completed: false,
+		task_title: '',
+		task_note: '',
+		task_due_date: '',
+		completed: false,
 		task_edit_input: '',
 		displayEdit: '',
 		caretaker_id: 0,
