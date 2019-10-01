@@ -1,56 +1,58 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
-import theme from '../../theme';
+import { View, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
-import { fetchClientLists } from '../../Utils/clientApiCalls';
-import { fetchCaretakerLists } from '../../Utils/caretakerApiCalls';
+import { fetchAllLists } from '../../Utils/fetchAllLists';
 import { PropTypes } from 'prop-types';
-import { fetchCaretakers } from '../../Utils/clientApiCalls';
-// import { fetchClients } from "../../Utils/clientApiCalls";
-// Need to be able to get all clients
 import Header from '../common/Header/Header';
 import { List } from '../common/List/List';
+import styles from './styles';
 
 export class NeedToDo extends Component {
-
 	componentDidMount = async () => {
-		await this.renderLists();
+		await this.fetchLists();
 	};
 
-	renderLists = async () => {
-		if (this.props.user.role === 'client') {
-			lists = await fetchClientLists(this.props.user.id);
-		} else {
-			lists = await fetchCaretakerLists(this.props.user.id);
-		}
+	fetchLists = async () => {
+		lists = await fetchAllLists(this.props.user.role, this.props.user.id);
 		this.props.loadLists(lists);
 	};
 
 	getClientLists = () => {
 		const { lists, user, navigation } = this.props;
-		return lists
-			.map(list => {
-				list = { ...list, client_id: user.id };
-				return <List list={list} navigation={navigation}/>;
-			})
-			.reverse();
+		const filteredLists = lists.filter(list => list.created_for === 'client');
+		console.log('filteredLists', filteredLists);
+		if (filteredLists.length) {
+			return filteredLists
+				.map(list => {
+					list = { ...list, client_id: user.id, role: 'client' };
+					return <List list={list} navigation={navigation} />;
+				})
+				.reverse();
+		} else {
+			return <Text style={styles.text}>No Assigned Lists Yet!</Text>;
+		}
 	};
 
 	getCaretakerLists = () => {
 		const { lists, user, navigation } = this.props;
-		return lists
-			.map(list => {
-				list = { ...list, caretaker_id: user.id };
-				return <List list={list} navigation={navigation}/>;
-			})
-			.reverse();
+		const filteredLists = lists.filter(list => list.created_for === 'caretaker');
+		if (filteredLists.length) {
+			return filteredLists
+				.map(list => {
+					list = { ...list, client_id: user.id, role: 'client' };
+					return <List list={list} navigation={navigation} />;
+				})
+				.reverse();
+		} else {
+			return <Text style={styles.text}>No Assigned Lists Yet!</Text>;
+		}
 	};
 
 	render() {
 		return (
-			<View style={theme.container}>
-				<Header accessibilityLabel="My Todo Lists">Lists Assigned To Me</Header>
+			<View style={styles.container}>
+				<Header accessibilityLabel="Lists for me to complete">Lists Assigned To Me</Header>
 				<ScrollView>
 					{this.props.user.role === 'client' && this.getClientLists()}
 					{this.props.user.role === 'caretaker' && this.getCaretakerLists()}

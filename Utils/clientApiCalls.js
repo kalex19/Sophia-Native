@@ -1,13 +1,3 @@
-export const fetchClientLists = async client_id => {
-	const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists?client_id=${client_id}`);
-	if (!response.ok) {
-		throw new Error('Could not fetch lists');
-	} else {
-		const lists = response.json();
-		return lists;
-	}
-};
-
 export const postClientList = async newList => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?client_id=${newList.client_id}`;
 	const options = {
@@ -48,16 +38,6 @@ export const patchClientList = async updatedList => {
 	}
 	const list = await response.json();
 	return list;
-};
-
-export const fetchClientTasks = async (list_id, client_id) => {
-	const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks`);
-	if (!response.ok) {
-		throw new Error('Could not fetch tasks');
-	} else {
-		const lists = response.json();
-		return lists;
-	}
 };
 
 export const postClientTask = async (newTask, list_id, client_id) => {

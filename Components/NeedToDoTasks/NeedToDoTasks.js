@@ -2,33 +2,23 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
-import { fetchClientTasks } from '../../Utils/clientApiCalls';
-import { fetchCaretakerTasks } from '../../Utils/caretakerApiCalls';
 import { ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
 import { Task } from '../common/Task/Task'
 import Header from '../common/Header/Header';
+import {fetchAllTasks} from '../../Utils/fetchAllTasks';
 
 export class NeedToDoTasks extends Component {
 	componentDidMount = async () => {
-		this.props.user.role === 'caretaker' ? await this.returnUpdatedCaretakerTask() : this.returnUpdatedTask();
+		await this.fetchTasks()
 	};
 
-	returnUpdatedCaretakerTask = async () => {
+	fetchTasks = async () => {
 		const list = this.props.navigation.state.params;
-		const tasks = await fetchCaretakerTasks(list.id);
+		const tasks = await fetchAllTasks(list.id);
 		this.props.loadTasks(tasks);
 	};
-
-	returnUpdatedTask = async () => {
-		const list = this.props.navigation.state.params;
-		const { user } = this.props;
-		const tasks = await fetchClientTasks(list.id, user.id);
-		this.props.loadTasks(tasks);
-	};
-
-	// check functionality & fetches
 
 	render() {
 		const { name } = this.props.navigation.state.params;

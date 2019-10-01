@@ -2,11 +2,13 @@ import { StyleSheet } from 'react-native';
 import theme from '../../../theme';
 export default StyleSheet.create({
 	container: {
-		width: '100%'
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'space-evenly'
 	},
 	input: {
-		alignSelf: 'center',
-		width: '85%',
+		alignSelf: 'flex-start',
+		width: '65%',
 		borderRadius: 5,
 		height: 70,
 		fontSize: 30,

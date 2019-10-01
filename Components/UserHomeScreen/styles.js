@@ -3,6 +3,7 @@ import theme from '../../theme';
 
 export default StyleSheet.create({
 	greeting: {
-		fontSize: 30
+		fontSize: 30,
+		margin: 10,
 	}
 });
