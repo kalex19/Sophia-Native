@@ -83,7 +83,7 @@ const AppNavigator = createStackNavigator(
       }
 		},
     AddTaskForm: {
-			screen: AddListForm,
+			screen: AddTaskForm,
       navigationOptions: {
         headerRight: (<LogOutButton />)
       }
