@@ -5,8 +5,8 @@ export default StyleSheet.create({
 		width: '100%'
 	},
 	input: {
-		alignSelf: 'center',
-		width: '85%',
+		alignSelf: 'flex-start',
+		width: '65%',
 		borderRadius: 5,
 		height: 70,
 		fontSize: 30,

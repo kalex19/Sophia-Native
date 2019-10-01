@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { styles } from './styles';
 import { Text, View, ScrollView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-=======
-import { Text, View, TextInput, TouchableHighlight, ScrollView } from 'react-native';
-import styles from './styles';
->>>>>>> c370d070e70847cfd58f358b436c497c7b6e0a43
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
 import { fetchClientLists, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';

@@ -3,14 +3,13 @@
  */
 
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableHighlight } from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { postBlob } from '../../../Utils/postBlob';
-import Button from '../Button/Button';
 import styles from './styles';
 
 export class SpeechToText extends Component {
@@ -164,13 +163,16 @@ export class SpeechToText extends Component {
 			);
 		}
 		return (
-			<Button
-				onPress={this._onRecordPressed}
-				disabled={this.state.isLoading}
-				accessibilityLabel="Tap me to record the name of your list"
-			>
-				{this.state.isRecording ? 'Stop' : 'Start'} Recording
-			</Button>
+			<View style={styles.container}>
+				<TouchableHighlight
+					onPress={this._onRecordPressed}
+					disabled={this.state.isLoading}
+					accessibilityLabel="Tap me to record the name of your list"
+					style={styles.button}
+				>
+					<Text>{this.state.isRecording ? '🔴' : '✅'}</Text>
+				</TouchableHighlight>
+			</View>
 		);
 	}
 }
