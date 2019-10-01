@@ -97,10 +97,11 @@ export class Profile extends Component {
 		return (
 			<View>
 				<View style={styles.addressContainer}>
-					<Text style={styles.userInfo}>{this.props.user.address}</Text>
-					<Text style={styles.userInfo}>{this.props.user.city}</Text>
-					<Text style={styles.userInfo}>{this.props.user.state}</Text>
-					<Text style={styles.userInfo}>{this.props.user.zip}</Text>
+					<Text style={styles.userInfo}>Address:</Text>
+					<Text style={styles.userInfo}>{this.props.user.street_address}</Text>
+					<Text style={styles.userInfo}>
+						{this.props.user.city}, {this.props.user.state} {this.props.user.zip}
+					</Text>
 				</View>
 				<View style={styles.infoContainer}>
 					<Text style={styles.userInfo}>Needs:</Text>
