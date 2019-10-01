@@ -18,8 +18,9 @@ export const loadTasks = tasks => ({
 	tasks
 });
 
-export const logOut = () => ({
-	type: 'LOG_OUT'
+export const logOut = (user) => ({
+	type: 'LOG_OUT',
+	user
 });
 
 export const togglecomplete = bool => ({

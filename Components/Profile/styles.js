@@ -1,34 +1,44 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 export default StyleSheet.create({
+	userInfoHeader: {
+		fontSize: 30,
+		fontFamily: theme.textMain,
+		margin: 5,
+		alignSelf: 'center',
+		textAlign: 'center',
+		width: '100%'
+	},
 	userInfo: {
 		fontSize: 20,
 		fontFamily: theme.textTwo,
-		marginTop: 10,
-		marginBottom: 10,
-		textAlign: 'center',
+		margin: 5,
 		alignSelf: 'center',
-		width: '85%',
-		borderColor: theme.primary,
-		borderBottomWidth: 1,
-		display: 'flex',
-		flexDirection: 'column'
+		textAlign: 'center',
+		width: '100%'
 	},
 	addressContainer: {
 		display: 'flex',
 		flexDirection: 'column'
 	},
 	infoContainer: {
-		backgroundColor: theme.primary,
-		marginTop: 10,
-		marginBottom: 10,
-		padding: 10
+		borderColor: theme.primary,
+		borderRadius: 5,
+		borderWidth: 2,
+		margin: 10,
+		width: '90%',
+		textAlign: 'center',
+		alignSelf: 'center',
 	},
 	image: {
 		borderRadius: 50,
 		borderColor: theme.primary,
 		width: '50%',
-		height: 50,
+		height: 200,
+		margin: 5,
 		alignSelf: 'center'
+	},
+	scrollContainer: {
+		width: '90%'
 	}
 });
