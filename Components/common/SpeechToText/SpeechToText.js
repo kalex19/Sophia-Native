@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableHighlight, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
@@ -11,6 +11,8 @@ import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { postBlob } from '../../../Utils/postBlob';
 import styles from './styles';
+import mic_off from '../../../assets/mic-off.png';
+import mic_on from '../../../assets/mic-on.png';
 
 export class SpeechToText extends Component {
 	constructor(props) {
@@ -56,12 +58,12 @@ export class SpeechToText extends Component {
 	_updateScreenForRecordingStatus = status => {
 		if (status.canRecord) {
 			this.setState({
-				isRecording: status.isRecording,
+				isRecording: !this.state.isRecording,
 				recordingDuration: status.durationMillis
 			});
 		} else if (status.isDoneRecording) {
 			this.setState({
-				isRecording: false,
+				isRecording: this.state.isRecording,
 				recordingDuration: status.durationMillis
 			});
 			if (!this.state.isLoading) {
@@ -170,7 +172,7 @@ export class SpeechToText extends Component {
 					accessibilityLabel="Tap me to record the name of your list"
 					style={styles.button}
 				>
-					<Text>{this.state.isRecording ? '🔴' : '✅'}</Text>
+					<Image source={this.state.isRecording ? mic_off : mic_on} style={styles.mic}></Image>
 				</TouchableHighlight>
 			</View>
 		);

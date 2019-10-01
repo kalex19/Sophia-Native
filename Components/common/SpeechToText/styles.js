@@ -16,4 +16,8 @@ export default StyleSheet.create({
 		margin: 10,
     width: '100%',
 	},
+	mic: {
+    height: 20,
+    width: 20
+  }
 });
