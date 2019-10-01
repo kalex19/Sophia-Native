@@ -4,11 +4,11 @@ import theme from '../../../theme';
 export default StyleSheet.create({
 	container: {
 		width: '100%',
-		flexDirection: 'column',
-		justifyContent: 'space-between',
 		alignItems: 'center',
 		alignSelf: 'center',
 		margin: 10,
+		borderColor: theme.primary,
+		borderWidth: 2,
 	},
 	name: {
 		color: theme.accentTwo,

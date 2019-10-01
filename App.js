@@ -46,9 +46,9 @@ const AppNavigator = createStackNavigator(
 		},
 		User: {
 			screen: UserHomeScreen,
-			navigationOptions: {
-				headerLeft: false
-			}
+			// navigationOptions: {
+			// 	header: null
+			// }
 		},
 		Profile,
 		EditProfile,
