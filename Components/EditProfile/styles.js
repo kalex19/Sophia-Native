@@ -1,24 +1,23 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 export default StyleSheet.create({
-	userInfo: {
-		fontSize: 20,
-		fontFamily: theme.textTwo,
-		marginTop: 10,
-		marginBottom: 10,
-		color: theme.accentOne,
-		textAlign: 'left',
-		alignSelf: 'center',
-		width: '85%',
-		borderColor: theme.primary,
-		borderBottomWidth: 1,
-		display: 'flex',
-		flexDirection: 'column'
+	scrollContainer: {
+		width: '100%'
 	},
 	infoContainer: {
-		backgroundColor: theme.primary,
-		marginTop: 10,
-		marginBottom: 10,
-		padding: 10
+		backgroundColor: theme.accentOne,
+		borderColor: theme.primary,
+		borderRadius: 5,
+		borderWidth: 5,
+		margin: 10,
+		padding: 10,
+		width: '90%',
+		alignSelf: 'center',
+		textAlign: 'center'
 	},
+	text: {
+		color: theme.accentTwo,
+		fontSize: 30,
+		fontFamily: theme.textMain
+	}
 });
