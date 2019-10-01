@@ -38,11 +38,11 @@ export class NeedToDo extends Component {
 	};
 
 	getCaretakerLists = () => {
-		const { lists, user } = this.props;
+		const { lists, user, navigation } = this.props;
 		return lists
 			.map(list => {
 				list = { ...list, caretaker_id: user.id };
-				return <List list={list}/>;
+				return <List list={list} navigation={navigation}/>;
 			})
 			.reverse();
 	};

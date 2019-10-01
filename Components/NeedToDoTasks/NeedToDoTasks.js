@@ -7,6 +7,7 @@ import { fetchCaretakerTasks } from '../../Utils/caretakerApiCalls';
 import { ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
+import { Task } from '../common/Task/Task'
 import Header from '../common/Header/Header';
 
 export class NeedToDoTasks extends Component {
@@ -35,7 +36,7 @@ export class NeedToDoTasks extends Component {
 		const allTasks = tasks.map(task => {
 			return (
 				<View style={styles.lists} key={task.id}>
-					<Task {...props.task} />
+					<Task task={task} />
 				</View>
 			);
 		});

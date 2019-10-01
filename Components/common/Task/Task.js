@@ -1,11 +1,18 @@
-import Reactfrom "react";
+import React from "react";
 import { View, Text } from "react-native";
 import { TouchableHighlight} from "react-native-gesture-handler";
-import { styles } from "./styleTasks";
+import { styles } from "./styles";
 
-export const Tasks = () => {
+export const Task = ({task}) => {
+  console.log(task)
   return <View>
     <View style={styles.taskNoteDue}>
+    {task.name.length > 0 && (
+        <Text style={styles.listItemSecond}>
+          {task.name}
+        </Text>
+      )}
+      <Text>Priority: {task.priority}</Text>
       {task.description.length > 0 && (
         <Text style={styles.listItemSecond}>
           Notes: {task.description}
