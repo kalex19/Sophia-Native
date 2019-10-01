@@ -52,14 +52,54 @@ const AppNavigator = createStackNavigator(
         headerRight: (<LogOutButton />)
       }
     },
-    Profile,
-    EditProfile,
-    NeedDone,
-    AddListForm,
-    NeedDoneTasks,
-    AddTaskForm,
-    NeedToDo,
-		NeedToDoTasks,
+    Profile: {
+			screen: Profile,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    EditProfile: {
+			screen: EditProfile,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    NeedDone: {
+			screen: NeedDone,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    AddListForm: {
+			screen: AddListForm,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    NeedDoneTasks: {
+			screen: NeedDoneTasks,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    AddTaskForm: {
+			screen: AddListForm,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+    NeedToDo: {
+			screen: NeedToDo,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
+		NeedToDoTasks: {
+			screen: NeedToDoTasks,
+      navigationOptions: {
+        headerRight: (<LogOutButton />)
+      }
+		},
 		LogOutButton
   },
   {
