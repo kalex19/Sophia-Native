@@ -27,8 +27,8 @@ export class UserHomeScreen extends Component {
 	};
 
 	logOut = () => {
-		this.props.logOut();
-		this.props.navigation.navigate('Home');
+		this.props.logOut({})
+		this.props.navigation.navigate('Login');
 	};
 
 	render() {
@@ -63,9 +63,7 @@ export class UserHomeScreen extends Component {
 				</Button>
 				<Button
 					accessibilityLabel="Tap me to log out."
-					onPress={() => {
-						navigation.navigate('LogIn');
-					}}
+					onPress={this.logOut}
 				>
 					Log Out
 				</Button>
@@ -79,7 +77,7 @@ export const mapStateToProps = state => ({
 });
 export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists)),
-	logOut: () => dispatch(logOut())
+	logOut: (user) => dispatch(logOut(user))
 });
 export default connect(
 	mapStateToProps,
