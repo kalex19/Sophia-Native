@@ -7,8 +7,8 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		alignSelf: 'center',
 		margin: 10,
-		padding: 10
 	},
 	name: {
 		color: theme.accentTwo,

@@ -61,6 +61,14 @@ export class UserHomeScreen extends Component {
 				>
 					Things I Need To Do
 				</Button>
+				<Button
+					accessibilityLabel="Tap me to log out."
+					onPress={() => {
+						navigation.navigate('LogIn');
+					}}
+				>
+					Log Out
+				</Button>
 			</View>
 		);
 	}
