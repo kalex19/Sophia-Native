@@ -5,7 +5,7 @@ import { loadLists } from '../../actions';
 import { fetchAllLists } from '../../Utils/fetchAllLists';
 import { PropTypes } from 'prop-types';
 import Header from '../common/Header/Header';
-import { List } from '../common/List/List';
+import { NeedToDoList } from '../common/NeedToDoList/NeedToDoList';
 import styles from './styles';
 
 export class NeedToDo extends Component {
@@ -25,8 +25,8 @@ export class NeedToDo extends Component {
 		if (filteredLists.length) {
 			return filteredLists
 				.map(list => {
-					list = { ...list, client_id: user.id, role: 'client' };
-					return <List list={list} navigation={navigation} />;
+					list = { ...list, role: 'client' };
+					return <NeedToDoList list={list} navigation={navigation} />;
 				})
 				.reverse();
 		} else {
@@ -40,8 +40,8 @@ export class NeedToDo extends Component {
 		if (filteredLists.length) {
 			return filteredLists
 				.map(list => {
-					list = { ...list, client_id: user.id, role: 'client' };
-					return <List list={list} navigation={navigation} />;
+					list = { ...list, role: 'caretaker' };
+					return <NeedToDoList list={list} navigation={navigation} />;
 				})
 				.reverse();
 		} else {

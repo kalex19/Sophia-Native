@@ -1,5 +1,5 @@
-export const postClientList = async newList => {
-	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?client_id=${newList.client_id}`;
+export const postList = async (newList, user) => {
+	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?${user}_id=${newList}.${user}_id}`;
 	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -13,7 +13,7 @@ export const postClientList = async newList => {
 	return list;
 };
 
-export const deleteClientList = async (client_id, list_id) => {
+export const deleteList = async (list_id) => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}`;
 	const options = {
 		method: 'DELETE',
@@ -25,7 +25,7 @@ export const deleteClientList = async (client_id, list_id) => {
 	}
 };
 
-export const patchClientList = async updatedList => {
+export const patchList = async updatedList => {
 	const options = {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
@@ -76,6 +76,16 @@ export const fetchCaretakers = async () => {
 	} else {
 		const caretakers = response.json();
 		return caretakers;
+	}
+};
+
+export const fetchClients = async () => {
+	const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients`);
+	if (!response.ok) {
+		throw new Error('Could not fetch clients');
+	} else {
+		const clients = response.json();
+		return clients;
 	}
 };
 

@@ -1,29 +1,45 @@
 import React, { Component } from 'react';
-import { styles } from './styles';
+import styles from './styles';
 import { Text, View, ScrollView } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { loadLists } from '../../actions';
-import { fetchClientLists, deleteClientList, patchClientList } from '../../Utils/clientApiCalls';
+import { fetchAllLists } from '../../Utils/fetchAllLists';
 import { PropTypes } from 'prop-types';
-import { fetchCaretakers } from '../../Utils/clientApiCalls';
 import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
+import { NeedDoneList } from '../common/NeedDoneList/NeedDoneList';
+import { deleteList, patchList } from '../../Utils/caretakerApiCalls';
 
 export class NeedDone extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	componentDidMount = async () => {
-		await this.returnUpdatedList();
-		const caretakers = await fetchCaretakers();
-		this.setState({ caretakers });
+	state = {
+		displayEdit: false,
+		list_edit_input: ''
 	};
 
-	returnUpdatedList = async () => {
-		const lists = await fetchClientLists(this.props.user.id);
+	componentDidMount = async () => {
+		await this.fetchLists();
+	};
+
+	fetchLists = async () => {
+		const { user } = this.props;
+		lists = await fetchAllLists(user.role, user.id);
 		this.props.loadLists(lists);
+	};
+
+	getCaretakerCreatedLists = () => {
+		const { lists, navigation } = this.props;
+		const filteredLists = lists.filter(list => list.created_for === 'client');
+		if (filteredLists.length) {
+			return filteredLists
+				.map(list => {
+					list = { ...list, role: 'caretaker' };
+					return <NeedDoneList list={list} navigation={navigation} />;
+				})
+				.reverse();
+		} else {
+			return <Text style={styles.text}>No Lists Yet!</Text>;
+		}
 	};
 
 	toggleEditName = list_id => {
@@ -36,79 +52,86 @@ export class NeedDone extends Component {
 
 	eraseList = async listId => {
 		const { user } = this.props;
-		await deleteClientList(user.id, listId);
-		this.returnUpdatedList();
+		await deleteList(user.id, listId);
+		this.fetchLists();
 	};
 
 	handleSubmitEdit = async listId => {
 		const { list_edit_input } = this.state;
 		const { user } = this.props;
-		const updatedList = {
-			name: list_edit_input,
-			list_id: listId,
-			client_id: user.id
-		};
-		await patchClientList(updatedList);
-		this.returnUpdatedList();
+		if (user.role === 'client') {
+			const updatedList = {
+				name: list_edit_input,
+				list_id: listId,
+				client_id: user.id
+			};
+		} else {
+			const updatedList = {
+				name: list_edit_input,
+				list_id: listId,
+				caretaker_id: user.id
+			};
+		}
+		await patchList(updatedList);
+		this.fetchLists();
 		this.setState({ list_edit_input: '', displayEdit: false });
 	};
 
-	getClientLists = () => {
-		const { lists, user } = this.props;
-		return lists
-			.map(list => {
-				list = { ...list, client_id: user.id };
-				return (
-					<View style={styles.lists} key={list.id} accessible={true}>
-						<TouchableHighlight
-							underlayColor="black"
-							accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
-							accessible={true}
-						>
-							{this.state.displayEdit !== list.id && (
-								<Text
-									style={styles.listName}
-									onPress={() => {
-										this.props.navigation.navigate('NeedDoneTasks', list);
-									}}
-								>
-									{list.name}
-								</Text>
-							)}
-						</TouchableHighlight>
-						{this.state.displayEdit === list.id && (
-							<View style={styles.align}>
-								<TextInput
-									style={styles.input}
-									placeholder="New name"
-									value={this.state.list_edit_input}
-									onChangeText={this.handleEditList}
-								/>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to submit your edited list name."
-									onPress={() => this.handleSubmitEdit(list.id)}
-								>
-									<Text style={styles.listItem}>✔︎</Text>
-								</TouchableHighlight>
-							</View>
-						)}
-						<View style={styles.vertically}>
+	getClientCreatedLists = () => {
+		const { lists, user, navigation } = this.props;
+		const filteredLists = lists.filter(list => list.created_for === 'caretaker');
+		if (filteredLists.length) {
+			return filteredLists
+				.map(list => {
+					list = { ...list, role: 'client' };
+					return (
+						<View style={styles.lists} key={list.id} accessible={true}>
 							<TouchableHighlight
 								underlayColor="black"
-								accessibilityLabel="Tap me to open form and edit your list name."
-								onPress={() => this.toggleEditName(list.id)}
+								accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
+								accessible={true}
 							>
-								<Text style={styles.editItem}>✏️</Text>
+								{this.state.displayEdit !== list.id && (
+									<Text
+										style={styles.listName}
+										onPress={() => {
+											this.props.navigation.navigate('NeedDoneTasks', list);
+										}}
+									>
+										{list.name}
+									</Text>
+								)}
 							</TouchableHighlight>
-							<TouchableHighlight onPress={() => this.eraseList(list.id)}>
-								<Text style={styles.editItem}>DEL</Text>
-							</TouchableHighlight>
+							{this.state.displayEdit === list.id && (
+								<View style={styles.align}>
+									<Input placeholder="New name" value={this.state.list_edit_input} onChangeText={this.handleEditList} />
+									<Button
+										accessibilityLabel="Tap me to submit your edited list name."
+										onPress={() => this.handleSubmitEdit(list.id)}
+									>
+										✔︎
+									</Button>
+								</View>
+							)}
+							<View style={styles.vertically}>
+								<TouchableHighlight
+									underlayColor="black"
+									accessibilityLabel="Tap me to open form and edit your list name."
+									onPress={() => this.toggleEditName(list.id)}
+								>
+									<Text style={styles.editItem}>✏️ EDIT</Text>
+								</TouchableHighlight>
+								<TouchableHighlight onPress={() => this.eraseList(list.id)}>
+									<Text style={styles.editItem}>🗑 DELETE</Text>
+								</TouchableHighlight>
+							</View>
 						</View>
-					</View>
-				);
-			})
-			.reverse();
+					);
+				})
+				.reverse();
+		} else {
+			return <Text style={styles.text}>No Lists Yet!</Text>;
+		}
 	};
 
 	render() {
@@ -117,7 +140,8 @@ export class NeedDone extends Component {
 				<Header accessibilityLabel="My Todo Lists">My Todo Lists</Header>
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
-					{this.getClientLists()}
+					{this.props.user.role === 'client' && this.getClientCreatedLists()}
+					{this.props.user.role === 'caretaker' && this.getCaretakerCreatedLists()}
 					<View style={{ height: 550 }} />
 				</ScrollView>
 			</View>
@@ -143,4 +167,3 @@ NeedDone.propTypes = {
 	lists: PropTypes.array,
 	user: PropTypes.object
 };
-
