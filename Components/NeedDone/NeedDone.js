@@ -47,7 +47,7 @@ export class NeedDone extends Component {
 					list = { ...list, role: 'caretaker' };
 					return (
 					<View>
-					<NeedDoneList list={list} navigation={navigation} eraseList={this.eraseList} toggleEditName={this.toggleEditName} />
+					<NeedDoneList list={list} navigation={navigation} targetId={this.state.targetId} eraseList={this.eraseList} toggleEditName={this.toggleEditName} list_edit_input={this.state.list_edit_input} displayEdit={this.state.displayEdit} handleSubmitEdit={this.handleSubmitEdit} handleEditList={this.handleEditList} />
 					</View>
 						);
 				})
