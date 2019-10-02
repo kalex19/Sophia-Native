@@ -85,13 +85,16 @@ export const styles = StyleSheet.create({
 		margin: 10
 	},
 	priorityLevels: {
-		flexDirection: 'row'
+		flexDirection: 'row',
+		width: '60%',
+		margin: 5,
+    alignSelf: 'center',
 	},
 	editItem: {
 		fontSize: 20,
 		color: theme.accentOne,
 		fontFamily: theme.textTwo,
-		marginRight: 15
+		margin: 10
 	},
 	vertically: {
 		flexDirection: 'row',
