@@ -9,7 +9,7 @@ import { PropTypes } from 'prop-types';
 import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 import { NeedDoneList } from '../common/NeedDoneList/NeedDoneList';
-import { deleteList, patchList } from '../../Utils/caretakerApiCalls';
+import { deleteList, patchList } from '../../Utils/clientApiCalls';
 
 export class NeedDone extends Component {
 	state = {
@@ -34,7 +34,23 @@ export class NeedDone extends Component {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'caretaker' };
-					return <NeedDoneList list={list} navigation={navigation} />;
+					return (
+					<View>
+					<NeedDoneList list={list} navigation={navigation} />
+							<View style={styles.vertically}>
+								<TouchableHighlight
+									underlayColor="black"
+									accessibilityLabel="Tap me to open form and edit your list name."
+									onPress={() => this.toggleEditName(list.id)}
+								>
+									<Text style={styles.editItem}>✏️ EDIT</Text>
+								</TouchableHighlight>
+								<TouchableHighlight onPress={() => this.eraseList(list.id)}>
+									<Text style={styles.editItem}>🗑 DELETE</Text>
+								</TouchableHighlight>
+							</View>
+					</View>
+						);
 				})
 				.reverse();
 		} else {
@@ -52,7 +68,7 @@ export class NeedDone extends Component {
 
 	eraseList = async listId => {
 		const { user } = this.props;
-		await deleteList(user.id, listId);
+		await deleteList(listId);
 		this.fetchLists();
 	};
 
