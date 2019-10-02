@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
 import { postClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
@@ -11,6 +11,8 @@ import { PropTypes } from 'prop-types';
 import { styles } from './styles';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
+import Header from '../common/Header/Header';
+import theme from '../../theme';
 
 export class Tasks extends Component {
 	constructor() {
@@ -196,7 +198,6 @@ export class Tasks extends Component {
 						{this.state.displayEdit === task.id && (
 							<View style={styles.alignEdit}>
 								<Input
-									style={styles.inputEdit}
 									label="Edit task"
 									value={this.state.task_edit_input}
 									onChangeText={this.handleEditTask}
@@ -232,10 +233,9 @@ export class Tasks extends Component {
 		});
 		return (
 			<View>
-				<View style={styles.listHeader}>
-					<Text style={styles.listName}>{name}</Text>
-				</View>
+				<Header>{name}</Header>
 				<ScrollView>
+					<View style={theme.container}>
 						<View style={styles.addTaskContainer}>
 							<View style={styles.align}>
 								<Text style={styles.label}>Task Name:</Text>
@@ -276,13 +276,14 @@ export class Tasks extends Component {
 								Submit New Task
 							</Button>
 						</View>
-					{tasks.length < 1 && (
-						<View>
-							<Text>No tasks yet!</Text>
-						</View>
-					)}
-					<View>{allTasks}</View>
-					<View style={{ height: 200 }}></View>
+						{tasks.length < 1 && (
+							<View>
+								<Text style={styles.label}>No tasks yet!</Text>
+							</View>
+						)}
+						<View style={{ width: '90%' }}>{allTasks}</View>
+						<View style={{ height: 200 }}></View>
+					</View>
 				</ScrollView>
 			</View>
 		);

@@ -19,13 +19,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
   },
-  listItemHeaderContainerDONE: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "green",
-    alignItems: "center",
-    width: "100%"
-  },
   listItemHeader: {
     textAlign: "center",
     fontSize: 40,
@@ -65,12 +58,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.accentOne
   },
-  inputEdit: {
-    width: "85%",
-    backgroundColor: theme.accentOne,
-    fontSize: 38,
-    fontFamily: theme.textMain
-  },
   editCheck: {
     fontSize: 40,
     color: theme.accentOne,
@@ -84,62 +71,23 @@ export const styles = StyleSheet.create({
     color: theme.accentOne,
     fontFamily: theme.textTwo
   },
-  listHeader: {
-    borderColor: theme.primary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
-    padding: 10
-  },
-  listName: {
-    fontSize: 40,
-    fontFamily: theme.textMain,
-    textAlign: "center"
-  },
   addTaskContainer: {
-    backgroundColor: theme.primary,
+    backgroundColor: theme.accentOne,
     alignItems: "center",
     margin: 10,
     justifyContent: "space-evenly",
     flexDirection: "column",
-    width: '95%',
-  },
-  align: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  input: {
-    backgroundColor: theme.accentOne,
-    borderColor: theme.accentThree,
-    borderWidth: 1,
-    margin: 2,
-    fontSize: 25,
-    fontFamily: theme.textMain,
-    textAlign: "center",
-    width: '100%',
-    paddingLeft: 30,
-    paddingRight: 30,
+    width: '90%',
+    borderRadius: 5,
+    borderColor: theme.primary,
+    borderWidth: 5,
+    alignSelf: 'center'
   },
   label: {
-    color: theme.accentOne,
-    fontSize: 20,
-    fontFamily: theme.textTwo,
-    margin: 10,
-  },
-  submitBtnContainer: {
-    backgroundColor: theme.primary,
-    width: "90%",
-    height: 50,
-    margin: 10,
-    borderRadius: 50,
-    textAlign: 'center',
-    backgroundColor: theme.accentOne,
-  },
-  submitBtn: {
     color: theme.primary,
     fontSize: 30,
-    fontFamily: theme.textTwo,
-    textAlign: "center",
-    paddingTop: 10,
+    fontFamily: theme.textMain,
+    margin: 10,
   },
   priorityLevels: {
     flexDirection: "row"
