@@ -192,12 +192,13 @@ export class Tasks extends Component {
 						)}
 						{this.state.displayEdit === task.id && (
 							<View style={styles.alignEdit}>
-								<TextInput
+								<Input
 									style={styles.inputEdit}
 									label="Edit task"
 									value={this.state.task_edit_input}
 									onChangeText={this.handleEditTask}
-								></TextInput>
+									saveRecordedText={text => this.handleEditTask(text)}
+								/>
 								<TouchableHighlight
 									underlayColor="black"
 									accessibilityLabel="Tap me to submit your edited todo task."
@@ -209,25 +210,6 @@ export class Tasks extends Component {
 							</View>
 						)}
 						<View style={styles.vertically}>
-							{/* {this.props.user.role === "client" && <View>
-              <TouchableHighlight
-                underlayColor="black"
-                accessibilityLabel="Tap me to open form and edit your list name."
-                accessible={true}
-                onPress={() => this.toggleEditName(task.id)}
-              >
-                <Text style={styles.editItem}>✏️</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                underlayColor="black"
-                accessibilityLabel="Tap me to delete your todo task."
-                accessible={true}
-                onPress={() => this.eraseTask(task.id)}
-              >
-                <Text style={styles.editItem}>DEL</Text>
-              </TouchableHighlight>
-                <Text style={styles.listComplete}>{task.completed ? "TASK WAS COMPLETED" : "NOT COMPLETED YET"}</Text>
-              </View>} */}
 							{this.props.user.role === 'caretaker' && (
 								<TouchableHighlight
 									underlayColor="black"
@@ -255,52 +237,42 @@ export class Tasks extends Component {
 						<View style={styles.addTaskContainer}>
 							<View style={styles.align}>
 								<Text style={styles.label}>Task Name:</Text>
-								<TextInput
-									style={styles.input}
+								<Input
 									value={this.state.task_input}
 									onChangeText={this.handleChangeTask}
 									label="Add Task Name"
 									accessibilityLabel="Add your task name"
-								></TextInput>
+									saveRecordedText={text => this.handleChangeTask(text)}
+								/>
 								{this.state.displayExtraInputs === true && (
 									<View>
 										<Text style={styles.label}>Add Note:</Text>
-										<TextInput
-											style={styles.input}
+										<Input
 											value={this.state.description_input}
 											onChangeText={this.handleChangeNote}
 											label="Add Note"
 											accessibilityLabel="Add a note providing more details about your task"
-										></TextInput>
+											saveRecordedText={text => this.handleChangeNote(text)}
+										/>
 										<Text style={styles.label}>Due Date:</Text>
-										<TextInput
+										<Input
+											placeholder="mm/dd"
 											style={styles.input}
 											label="mm/dd"
 											value={this.state.due_date}
 											onChangeText={this.handleChangeDate}
 											accessibilityLabel="Add to due date to communicate when the task needs to be completed by"
-										></TextInput>
+											saveRecordedText={text => this.handleChangeDate(text)}
+										/>
 									</View>
 								)}
-								<TouchableHighlight
-									accessibilityLabel="Press to add more details about your task"
-									onPress={this.expandInputField}
-								>
-									<Text style={styles.label}>
-										{this.state.displayExtraInputs === false ? 'Add more details' : 'Hide details'}
-									</Text>
-								</TouchableHighlight>
 							</View>
-							<View style={styles.submitBtnContainer}>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to submit your task."
-									accessible={true}
-									onPress={() => this.handleSubmit()}
-								>
-									<Text style={styles.submitBtn}>Submit New Task </Text>
-								</TouchableHighlight>
-							</View>
+							<Button accessibilityLabel="Press to add more details about your task" onPress={this.expandInputField}>
+								{this.state.displayExtraInputs === false ? 'Add more details' : 'Hide details'}
+							</Button>
+							<Button accessibilityLabel="Tap me to submit your task." onPress={() => this.handleSubmit()}>
+								Submit New Task
+							</Button>
 						</View>
 					)}
 					{this.state.displayEdit !== task.id && (
@@ -311,14 +283,12 @@ export class Tasks extends Component {
 					)}
 
 					{this.props.user.role === 'caretaker' && (
-						<TouchableHighlight
-							underlayColor="black"
+						<Button
 							accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
-							accessible={true}
 							onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
 						>
-							<Text style={styles.listComplete}>{task.completed ? 'TASK HAS BEEN COMPLETED' : 'MARK COMPLETED'}</Text>
-						</TouchableHighlight>
+							{task.completed ? 'TASK HAS BEEN COMPLETED' : 'MARK COMPLETED'}
+						</Button>
 					)}
 
 					{tasks.length < 1 && (

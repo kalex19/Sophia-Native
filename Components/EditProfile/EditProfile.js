@@ -88,8 +88,9 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.address}
 						onChangeText={value => this.handleChange('address', value)}
-						label="Address"
 					>
+						Address: {this.state.address}
+						label="Address"
 					</Input>
 				</View>
 				<View>
@@ -97,8 +98,9 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.city}
 						onChangeText={value => this.handleChange('city', value)}
-						label="City"
 					>
+						City: {this.state.city}
+						label="City"
 					</Input>
 				</View>
 				<View>
@@ -106,8 +108,9 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.state}
 						onChangeText={value => this.handleChange('state', value)}
-						label="State"
 					>
+						State: {this.state.state}
+						label="State"
 					</Input>
 				</View>
 				<View>
@@ -115,8 +118,10 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.zip}
 						onChangeText={value => this.handleChange('zip', value)}
-						label="Zip Code"
+						saveRecordedText={text => this.handleChange('zip', text)}
 					>
+						Zip Code: {this.state.zip}
+						label="Zip Code"
 					</Input>
 				</View>
 				<View style={styles.infoContainer}>
@@ -126,6 +131,8 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.needs}
 						onChangeText={value => this.handleChange('needs', value)}
+						placeholder="Edit your needs"
+						saveRecordedText={text => this.handleChange('needs', text)}
 						label="Edit your needs"
 					/>
 				</View>
@@ -136,6 +143,8 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.allergies}
 						onChangeText={value => this.handleChange('allergies', value)}
+						placeholder="Edit your allergies"
+						saveRecordedText={text => this.handleChange('allergies', text)}
 						label="Edit your allergies"
 					/>
 				</View>
@@ -146,6 +155,8 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.diet_restrictions}
 						onChangeText={value => this.handleChange('diet_restrictions', value)}
+						placeholder="Edit your diet restrictions"
+						saveRecordedText={text => this.handleChange('diet_restrictions', text)}
 						label="Edit your diet restrictions"
 					/>
 				</View>
@@ -156,6 +167,8 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.medications}
 						onChangeText={value => this.handleChange('medications', value)}
+						placeholder="Edit your medications"
+						saveRecordedText={text => this.handleChange('medications', text)}
 						label="Edit your medications"
 					/>
 				</View>
@@ -172,6 +185,8 @@ export class EditProfile extends Component {
 					key={Math.random()}
 					value={this.state.abilities}
 					onChangeText={value => this.handleChange('abilities', value)}
+					placeholder="Edit your abilities"
+					saveRecordedText={text => this.handleChange('abilities', text)}
 					label="Edit your abilities"
 				/>
 			</View>
@@ -190,43 +205,55 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.name}
 						onChangeText={value => this.handleChange('name', value)}
-						label="Name"
+						saveRecordedText={text => this.handleChange('name', text)}
 					>
+						Name: {this.state.name}
+						label="Name"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.username}
 						onChangeText={value => this.handleChange('username', value)}
-						label="Username"
+						saveRecordedText={text => this.handleChange('username', text)}
 					>
+						Username: {this.state.username}
+						label="Username"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password}
 						onChangeText={value => this.handleChange('password', value)}
-						label="Password"
+						saveRecordedText={text => this.handleChange('password', text)}
 					>
+						Password: {this.state.password}
+						label="Password"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password_confirmation}
-						onChangeText={value => this.handleChange('password', value)}
-						label="Password Confirmation"
+						onChangeText={value => this.handleChange('password_confirmation', value)}
+						saveRecordedText={text => this.handleChange('password_confirmation', text)}
 					>
+						Password Confirmation: {this.state.password}
+						label="Password Confirmation"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.email}
 						onChangeText={value => this.handleChange('email', value)}
-						label="Email"
+						saveRecordedText={text => this.handleChange('email', text)}
 					>
+						Email: {this.state.email}
+						label="Email"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.phone}
 						onChangeText={value => this.handleChange('phone', value)}
-						label="Phone Number"
+						saveRecordedText={text => this.handleChange('phone', text)}
 					>
+						Phone Number: {this.state.phone}
+						label="Phone Number"
 					</Input>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}

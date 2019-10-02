@@ -174,6 +174,7 @@ export class CreateAccount extends Component {
 					placeholder="Street Address"
 					onChangeText={value => this.handleChange('address', value)}
 					accessibilityLabel="Address Input. Please type your address"
+					saveRecordedText={text => this.handleChange('address', text)}
 					value={this.state.address}
 				/>
 
@@ -182,6 +183,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('city', value)}
 					accessibilityLabel="City Input. Please type your city"
 					value={this.state.city}
+					saveRecordedText={text => this.handleChange('city', text)}
 				/>
 
 				<Input
@@ -189,6 +191,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('state', value)}
 					accessibilityLabel="State Input. Please type your state"
 					value={this.state.state}
+					saveRecordedText={text => this.handleChange('state', text)}
 				/>
 
 				<Input
@@ -196,6 +199,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('zip', value)}
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
+					saveRecordedText={text => this.handleChange('zip', text)}
 				/>
 
 				<Button
@@ -222,6 +226,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('needs', value)}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
 					value={this.state.needs.join(', ')}
+					saveRecordedText={text => this.handleChange('needs', text)}
 				/>
 
 				<Input
@@ -229,6 +234,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('allergies', value)}
 					accessibilityLabel="Allergies Input. Please type the names of your allergies"
 					value={this.state.allergies.join(', ')}
+					saveRecordedText={text => this.handleChange('allergies', text)}
 				/>
 
 				<Input
@@ -236,6 +242,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('diet', value)}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names of your dietary restrictions"
 					value={this.state.diet.join(', ')}
+					saveRecordedText={text => this.handleChange('diet', text)}
 				/>
 
 				<Input
@@ -243,6 +250,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('medications', value)}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
 					value={this.state.medications.join(', ')}
+					saveRecordedText={text => this.handleChange('medications', text)}
 				/>
 
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleClientSubmit}>
@@ -267,6 +275,7 @@ export class CreateAccount extends Component {
 					placeholder="Caretaking Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
 					value={this.state.abilities.join(', ')}
+					saveRecordedText={text => this.handleChange('abilities', text)}
 				/>
 
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleCaretakerSubmit}>
@@ -289,12 +298,14 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('name', value)}
 					accessibilityLabel="Name Input. Please type in your full name"
 					value={this.state.name}
+					saveRecordedText={text => this.handleChange('name', text)}
 				/>
 				<Input
 					placeholder="Email"
 					onChangeText={value => this.handleChange('email', value)}
 					accessibilityLabel="Email Input. Please type in your email"
 					value={this.state.email}
+					saveRecordedText={text => this.handleChange('email', text)}
 				/>
 
 				<Input
@@ -303,6 +314,7 @@ export class CreateAccount extends Component {
 					dataDetectorTypes={'phoneNumber'}
 					accessibilityLabel="Phone Input. Please type your phone number without dashes"
 					value={this.state.phone}
+					saveRecordedText={text => this.handleChange('phone', text)}
 				/>
 
 				<Input
@@ -310,6 +322,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input. Please make a username"
 					value={this.state.username}
+					saveRecordedText={text => this.handleChange('username', text)}
 				/>
 
 				<Input
@@ -319,6 +332,7 @@ export class CreateAccount extends Component {
 					minLength={8}
 					secureTextEntry={true}
 					value={this.state.password}
+					saveRecordedText={text => this.handleChange('password', text)}
 				/>
 
 				<Input
@@ -328,6 +342,7 @@ export class CreateAccount extends Component {
 					minLength={8}
 					secureTextEntry={true}
 					value={this.state.password_confirmation}
+					saveRecordedText={text => this.handleChange('password_confirmation', text)}
 				/>
 
 				<Button

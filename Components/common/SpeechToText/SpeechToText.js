@@ -37,7 +37,7 @@ export class SpeechToText extends Component {
 			shouldCorrectPitch: true,
 			volume: 1.0,
 			rate: 1.0,
-			data: ''
+			data: {}, 
 		};
 	}
 
@@ -95,7 +95,6 @@ export class SpeechToText extends Component {
 		}
 
 		const recording = new Audio.Recording();
-		// console.log('new recording', recording);
 		await recording.prepareToRecordAsync(this.recordingSettings);
 		recording.setOnRecordingStatusUpdate(this._updateScreenForRecordingStatus);
 
@@ -108,18 +107,15 @@ export class SpeechToText extends Component {
 		this.setState({ isLoading: true });
 		try {
 			await this.recording.stopAndUnloadAsync();
-			// console.log(recording.createNewLoadedSoundAsync());
+			console.log(recording.createNewLoadedSoundAsync());
 		} catch (error) {}
 		const info = await FileSystem.getInfoAsync(this.recording.getURI());
-		// console.log('recording', this.recording);
-		// console.log(`FILE INFO: ${JSON.stringify(info)}`);
+		console.log('recording', this.recording);
+		console.log(`FILE INFO: ${JSON.stringify(info)}`);
 		const response = await fetch(info.uri);
 		const blob = await response.blob();
 		const data = await postBlob(blob);
-		this.setState({
-			data
-		});
-		console.log('data', data);
+		console.log("speech data", this.state.data.text)
 		await Audio.setAudioModeAsync({
 			allowsRecordingIOS: false,
 			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,

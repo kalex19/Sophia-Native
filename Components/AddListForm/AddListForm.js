@@ -45,7 +45,7 @@ export class AddListForm extends Component {
 			key: user.id
 		};
 		try {
-			const list = await postList(listData, user);
+			const list = await postList(listData, this.props.user);
 			this.setState({ list_title: '', caretaker_id: 0, client_id: 0 });
 			this.props.addList(list);
 			this.props.navigation.navigate('NeedDone');
@@ -68,13 +68,14 @@ export class AddListForm extends Component {
 					value={this.state.list_title}
 					onChangeText={text => this.handleChange(text)}
 					accessibilityLabel="List Name Input"
+					saveRecordedText={text => this.handleChange(text)}
 				/>
 				<View>
 					{this.props.user.role === 'client' && (
 						<Picker
 							selectedValue={this.state.caretaker_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ caretaker_id: itemValue, client_id: user.id })}
+							onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
 						>
 							<Picker.Item label="-- Select A Caretaker --" value={0} />
 							{allCaretakers}
@@ -84,7 +85,7 @@ export class AddListForm extends Component {
 						<Picker
 							selectedValue={this.state.client_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ client_id: itemValue, caretaker_id: user.id })}
+							onValueChange={itemValue => this.setState({ client_id: itemValue })}
 						>
 							<Picker.Item label="-- Select A Client --" value={0} />
 							{allClients}
