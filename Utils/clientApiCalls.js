@@ -1,7 +1,6 @@
-export const postList = async (newList, user) => {
-	console.log('newList', newList)
-	console.log('user', user)
-	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?${user}_id=${newList}.${user}_id}`;
+export const postList = async (newList) => {
+	console.log('newList', newList);
+	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists`;
 	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -15,7 +14,7 @@ export const postList = async (newList, user) => {
 	return list;
 };
 
-export const deleteList = async (list_id) => {
+export const deleteList = async list_id => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}`;
 	const options = {
 		method: 'DELETE',
@@ -55,7 +54,6 @@ export const postClientTask = async (newTask, list_id, client_id) => {
 	const task = await response.json();
 	return task;
 };
-
 
 export const deleteClientTask = async (list_id, task_id) => {
 	const options = {

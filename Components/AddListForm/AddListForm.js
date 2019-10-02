@@ -35,18 +35,37 @@ export class AddListForm extends Component {
 	handleEditList = input => {
 		this.setState({ list_edit_input: input });
 	};
-	handleSubmit = async () => {
+	handleClientSubmit = async () => {
 		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
 		let listData = {
 			name: list_title,
 			caretaker_id,
-			client_id,
-			key: user.id
+			client_id: user.id,
+			created_for: 'caretaker'
 		};
 		try {
-			const list = await postList(listData, this.props.user);
-			this.setState({ list_title: '', caretaker_id: 0, client_id: 0 });
+			const list = await postList(listData);
+			this.setState({ list_title: '', caretaker_id: 0 });
+			this.props.addList(list);
+			this.props.navigation.navigate('NeedDone');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	handleCaretakerSubmit = async () => {
+		const { list_title, caretaker_id, client_id } = this.state;
+		const { user } = this.props;
+		let listData = {
+			name: list_title,
+			caretaker_id: user.id,
+			client_id,
+			created_for: 'client'
+		};
+		try {
+			const list = await postList(listData);
+			this.setState({ list_title: '', client_id: 0 });
 			this.props.addList(list);
 			this.props.navigation.navigate('NeedDone');
 		} catch (error) {
@@ -92,13 +111,24 @@ export class AddListForm extends Component {
 						</Picker>
 					)}
 				</View>
+				{this.props.user.role === 'caretaker' && (
 				<Button
 					accessibilityLabel="Tap me to submit the title of your list."
 					disabled={this.state.isLoading}
-					onPress={this.handleSubmit}
+					onPress={this.handleCaretakerSubmit}
 				>
 					Submit List
 				</Button>
+				)}
+				{this.props.user.role === 'client' && (
+				<Button
+					accessibilityLabel="Tap me to submit the title of your list."
+					disabled={this.state.isLoading}
+					onPress={this.handleClientSubmit}
+				>
+					Submit List
+				</Button>
+				)}
 			</View>
 		);
 	};
