@@ -38,14 +38,15 @@ export class AddListForm extends Component {
 	handleSubmit = async () => {
 		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
+		const userType = (user.role === "client") ? "caretaker" : "client"
 		let listData = {
 			name: list_title,
-			caretaker_id,
-			client_id,
-			key: user.id
+			client_id: user.id,
+			caretaker_id: caretaker_id,
+			created_for: userType
 		};
 		try {
-			const list = await postList(listData, this.props.user);
+			const list = await postList(listData);
 			this.setState({ list_title: '', caretaker_id: 0, client_id: 0 });
 			this.props.addList(list);
 			this.props.navigation.navigate('NeedDone');

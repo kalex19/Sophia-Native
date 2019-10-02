@@ -1,5 +1,5 @@
-export const postList = async (newList, user) => {
-	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists?${user}_id=${newList}.${user}_id}`;
+export const postList = async (newList) => {
+	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists`;
 	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },

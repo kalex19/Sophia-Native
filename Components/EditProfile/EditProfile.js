@@ -127,7 +127,6 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.needs}
 						onChangeText={value => this.handleChange('needs', value)}
-						placeholder="Edit your needs"
 						saveRecordedText={text => this.handleChange('needs', text)}
 						label="Edit your needs"
 					/>
@@ -139,7 +138,6 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.allergies}
 						onChangeText={value => this.handleChange('allergies', value)}
-						placeholder="Edit your allergies"
 						saveRecordedText={text => this.handleChange('allergies', text)}
 						label="Edit your allergies"
 					/>
@@ -151,7 +149,6 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.diet_restrictions}
 						onChangeText={value => this.handleChange('diet_restrictions', value)}
-						placeholder="Edit your diet restrictions"
 						saveRecordedText={text => this.handleChange('diet_restrictions', text)}
 						label="Edit your diet restrictions"
 					/>
@@ -163,7 +160,6 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.medications}
 						onChangeText={value => this.handleChange('medications', value)}
-						placeholder="Edit your medications"
 						saveRecordedText={text => this.handleChange('medications', text)}
 						label="Edit your medications"
 					/>
@@ -181,7 +177,6 @@ export class EditProfile extends Component {
 					key={Math.random()}
 					value={this.state.abilities}
 					onChangeText={value => this.handleChange('abilities', value)}
-					placeholder="Edit your abilities"
 					saveRecordedText={text => this.handleChange('abilities', text)}
 					label="Edit your abilities"
 				/>
