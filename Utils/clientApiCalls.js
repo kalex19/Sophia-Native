@@ -1,5 +1,4 @@
 export const postList = async (newList) => {
-	console.log('newList', newList);
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists`;
 	const options = {
 		method: 'POST',

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
 import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
 import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerApiCalls';
-import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
+import { TouchableHighlight, ScrollView, Button } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
 import Input from '../common/Input/Input';
@@ -275,22 +275,6 @@ export class Tasks extends Component {
 							</Button>
 						</View>
 					)}
-					{this.state.displayEdit !== task.id && (
-						<View style={styles.taskNoteDue}>
-							{task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
-							{task.due_date != null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
-						</View>
-					)}
-
-					{this.props.user.role === 'caretaker' && (
-						<Button
-							accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
-							onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
-						>
-							{task.completed ? 'TASK HAS BEEN COMPLETED' : 'MARK COMPLETED'}
-						</Button>
-					)}
-
 					{tasks.length < 1 && (
 						<View>
 							<Text>No tasks yet!</Text>

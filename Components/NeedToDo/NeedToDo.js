@@ -41,7 +41,7 @@ export class NeedToDo extends Component {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'caretaker' };
-					return <NeedToDoList list={list} navigation={navigation} />;
+					return <NeedToDoList list={list} navigation={navigation} key={Math.random()}/>;
 				})
 				.reverse();
 		} else {

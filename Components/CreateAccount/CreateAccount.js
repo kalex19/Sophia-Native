@@ -199,7 +199,6 @@ export class CreateAccount extends Component {
 			const newCaretaker = await postCaretaker(newCaretakerProfile);
 			const user = await logInUser(newCaretaker.username, newCaretaker.password);
 			this.props.logIn(user);
-			console.log('USER MESSAGE', user);
 			this.setState({ message: '', error: user.message });
 		}
 		if (!this.state.error && username && password && password_confirmation && name && email && phone && abilities) {

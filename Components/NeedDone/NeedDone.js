@@ -9,7 +9,8 @@ import { PropTypes } from 'prop-types';
 import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 import { NeedDoneList } from '../common/NeedDoneList/NeedDoneList';
-import { deleteList, patchList } from '../../Utils/caretakerApiCalls';
+import { deleteList, patchList } from '../../Utils/clientApiCalls';
+import Input from '../common/Input/Input';
 import theme from '../../theme';
 
 export class NeedDone extends Component {
@@ -35,7 +36,11 @@ export class NeedDone extends Component {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'caretaker' };
-					return <NeedDoneList list={list} navigation={navigation} />;
+					return (
+					<View>
+					<NeedDoneList list={list} navigation={navigation} />
+					</View>
+						);
 				})
 				.reverse();
 		} else {
@@ -53,7 +58,7 @@ export class NeedDone extends Component {
 
 	eraseList = async listId => {
 		const { user } = this.props;
-		await deleteList(user.id, listId);
+		await deleteList(listId);
 		this.fetchLists();
 	};
 

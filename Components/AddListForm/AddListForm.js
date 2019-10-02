@@ -35,18 +35,20 @@ export class AddListForm extends Component {
 	handleEditList = input => {
 		this.setState({ list_edit_input: input });
 	};
-	handleClientSubmit = async () => {
+	handleSubmit = async () => {
 		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
+		const userType = (user.role === "client") ? "caretaker" : "client"
+		
 		let listData = {
 			name: list_title,
-			caretaker_id,
-			client_id: user.id,
-			created_for: 'caretaker'
+			client_id: client_id,
+			caretaker_id: caretaker_id,
+			created_for: userType
 		};
 		try {
 			const list = await postList(listData);
-			this.setState({ list_title: '', caretaker_id: 0 });
+			this.setState({ list_title: '', caretaker_id: 0, client_id: 0 });
 			this.props.addList(list);
 			this.props.navigation.navigate('NeedDone');
 		} catch (error) {
@@ -54,24 +56,11 @@ export class AddListForm extends Component {
 		}
 	};
 
-	handleCaretakerSubmit = async () => {
-		const { list_title, caretaker_id, client_id } = this.state;
-		const { user } = this.props;
-		let listData = {
-			name: list_title,
-			caretaker_id: user.id,
-			client_id,
-			created_for: 'client'
-		};
-		try {
-			const list = await postList(listData);
-			this.setState({ list_title: '', client_id: 0 });
-			this.props.addList(list);
-			this.props.navigation.navigate('NeedDone');
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	handleValueChange = (user_id) => {
+		const { user } = this.props
+		this.props.user.role === 'caretaker' ? this.setState({ client_id: user_id, caretaker_id: user.id }) : this.setState({ caretaker_id: user_id, client_id: user.id })
+
+	}
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
@@ -94,7 +83,7 @@ export class AddListForm extends Component {
 						<Picker
 							selectedValue={this.state.caretaker_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
+							onValueChange={itemValue => this.handleValueChange(itemValue)}
 						>
 							<Picker.Item label="-- Select A Caretaker --" value={0} />
 							{allCaretakers}
@@ -104,31 +93,20 @@ export class AddListForm extends Component {
 						<Picker
 							selectedValue={this.state.client_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ client_id: itemValue })}
+							onValueChange={itemValue => this.handleValueChange(itemValue)}
 						>
 							<Picker.Item label="-- Select A Client --" value={0} />
 							{allClients}
 						</Picker>
 					)}
 				</View>
-				{this.props.user.role === 'caretaker' && (
 				<Button
 					accessibilityLabel="Tap me to submit the title of your list."
 					disabled={this.state.isLoading}
-					onPress={this.handleCaretakerSubmit}
+					onPress={this.handleSubmit}
 				>
 					Submit List
 				</Button>
-				)}
-				{this.props.user.role === 'client' && (
-				<Button
-					accessibilityLabel="Tap me to submit the title of your list."
-					disabled={this.state.isLoading}
-					onPress={this.handleClientSubmit}
-				>
-					Submit List
-				</Button>
-				)}
 			</View>
 		);
 	};
