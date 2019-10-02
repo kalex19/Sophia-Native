@@ -37,7 +37,6 @@ export class SpeechToText extends Component {
 			shouldCorrectPitch: true,
 			volume: 1.0,
 			rate: 1.0,
-			data: {}, 
 		};
 	}
 
@@ -115,7 +114,7 @@ export class SpeechToText extends Component {
 		const response = await fetch(info.uri);
 		const blob = await response.blob();
 		const data = await postBlob(blob);
-		console.log("speech data", this.state.data.text)
+		console.log('speech data', data.text);
 		await Audio.setAudioModeAsync({
 			allowsRecordingIOS: false,
 			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,

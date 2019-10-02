@@ -26,9 +26,6 @@ export class AddListForm extends Component {
 		const clients = await fetchClients();
 		this.setState({ clients });
 	};
-	saveRecordedText = text => {
-		this.setState({ list_title: text });
-	};
 	handleChange = input => {
 		this.setState({ list_title: input });
 	};
@@ -38,8 +35,8 @@ export class AddListForm extends Component {
 	handleSubmit = async () => {
 		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
-		const userType = (user.role === "client") ? "caretaker" : "client"
-		
+		const userType = user.role === 'client' ? 'caretaker' : 'client';
+
 		let listData = {
 			name: list_title,
 			client_id: client_id,
@@ -56,11 +53,12 @@ export class AddListForm extends Component {
 		}
 	};
 
-	handleValueChange = (user_id) => {
-		const { user } = this.props
-		this.props.user.role === 'caretaker' ? this.setState({ client_id: user_id, caretaker_id: user.id }) : this.setState({ caretaker_id: user_id, client_id: user.id })
-
-	}
+	handleValueChange = user_id => {
+		const { user } = this.props;
+		this.props.user.role === 'caretaker'
+			? this.setState({ client_id: user_id, caretaker_id: user.id })
+			: this.setState({ caretaker_id: user_id, client_id: user.id });
+	};
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
