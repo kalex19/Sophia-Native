@@ -22,7 +22,8 @@ export class AddTaskForm extends Component {
 		caretaker_id: 0,
 		caretakers: [],
 		client_id: 0,
-		clients: []
+		clients: [],
+		task_title: ''
 	};
 	componentDidMount = async () => {
 		const caretakers = await fetchCaretakers();
@@ -31,10 +32,10 @@ export class AddTaskForm extends Component {
 		this.setState({ clients });
 	};
 	saveRecordedText = text => {
-		this.setState({ list_title: text });
+		this.setState({ task_title: text });
 	};
 	handleChange = input => {
-		this.setState({ list_title: input });
+		this.setState({ task_title: input });
 	};
 	handleEditList = input => {
 		this.setState({ list_edit_input: input });

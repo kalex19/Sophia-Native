@@ -8,7 +8,7 @@ const Input = props => {
 	return (
 		<View style={styles.container}>
 			<TextInput {...props} style={{ ...styles.input, ...props.style }} placeholderTextColor={theme.primary} />
-			<SpeechToText saveRecordedText={this.saveRecordedText} />
+			<SpeechToText saveRecordedText={props.saveRecordedText} />
 		</View>
 	);
 };

@@ -172,8 +172,8 @@ export class CreateAccount extends Component {
 			<ScrollView style={{ flex: 1, width: '100%' }}>
 				<Input
 					placeholder="Street Address"
-					onChangeText={value => this.handleChange('address', value)}
 					accessibilityLabel="Address Input. Please type your address"
+					saveRecordedText={text => this.handleChange('address', text)}
 					value={this.state.address}
 				/>
 
