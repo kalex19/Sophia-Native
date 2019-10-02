@@ -158,7 +158,6 @@ export class CreateAccount extends Component {
 			const newCaretaker = await postCaretaker(newCaretakerProfile);
 			const user = await logInUser(newCaretaker.username, newCaretaker.password);
 			this.props.logIn(user);
-			console.log('USER MESSAGE', user);
 			this.setState({ message: '', error: user.message });
 		}
 		if (!this.state.error && username && password && password_confirmation && name && email && phone && abilities) {
@@ -171,7 +170,7 @@ export class CreateAccount extends Component {
 		return (
 			<ScrollView style={{ flex: 1, width: '100%' }}>
 				<Input
-					placeholder="Street Address"
+					label="Street Address"
 					onChangeText={value => this.handleChange('address', value)}
 					accessibilityLabel="Address Input. Please type your address"
 					saveRecordedText={text => this.handleChange('address', text)}
@@ -179,7 +178,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="City"
+					label="City"
 					onChangeText={value => this.handleChange('city', value)}
 					accessibilityLabel="City Input. Please type your city"
 					value={this.state.city}
@@ -187,7 +186,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="State"
+					label="State"
 					onChangeText={value => this.handleChange('state', value)}
 					accessibilityLabel="State Input. Please type your state"
 					value={this.state.state}
@@ -195,7 +194,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Zip Code"
+					label="Zip Code"
 					onChangeText={value => this.handleChange('zip', value)}
 					accessibilityLabel="Zip Code Input. Please type your zip code"
 					value={this.state.zip}
@@ -222,7 +221,7 @@ export class CreateAccount extends Component {
 			<ScrollView style={{ flex: 1, width: '100%' }}>
 				<Text style={styles.text}>Separate multiple input values by commas</Text>
 				<Input
-					placeholder="Caretaking Needs"
+					label="Caretaking Needs"
 					onChangeText={value => this.handleChange('needs', value)}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
 					value={this.state.needs.join(', ')}
@@ -230,7 +229,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Allergies"
+					label="Allergies"
 					onChangeText={value => this.handleChange('allergies', value)}
 					accessibilityLabel="Allergies Input. Please type the names of your allergies"
 					value={this.state.allergies.join(', ')}
@@ -238,7 +237,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Dietary Restrictions"
+					label="Dietary Restrictions"
 					onChangeText={value => this.handleChange('diet', value)}
 					accessibilityLabel="Dietary Restrictions Input. Please type the names of your dietary restrictions"
 					value={this.state.diet.join(', ')}
@@ -246,7 +245,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Medications"
+					label="Medications"
 					onChangeText={value => this.handleChange('medications', value)}
 					accessibilityLabel="Medications Input. Please type the names of your medications"
 					value={this.state.medications.join(', ')}
@@ -272,7 +271,7 @@ export class CreateAccount extends Component {
 					Separate multiple input values with commas
 				</Text>
 				<Input
-					placeholder="Caretaking Abilities"
+					label="Caretaking Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
 					value={this.state.abilities.join(', ')}
 					saveRecordedText={text => this.handleChange('abilities', text)}
@@ -294,14 +293,14 @@ export class CreateAccount extends Component {
 		return (
 			<ScrollView style={{ flex: 1, width: '100%' }}>
 				<Input
-					placeholder="Your Name"
+					label="Your Name"
 					onChangeText={value => this.handleChange('name', value)}
 					accessibilityLabel="Name Input. Please type in your full name"
 					value={this.state.name}
 					saveRecordedText={text => this.handleChange('name', text)}
 				/>
 				<Input
-					placeholder="Email"
+					label="Email"
 					onChangeText={value => this.handleChange('email', value)}
 					accessibilityLabel="Email Input. Please type in your email"
 					value={this.state.email}
@@ -309,7 +308,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Phone"
+					label="Phone"
 					onChangeText={value => this.handleChange('phone', value)}
 					dataDetectorTypes={'phoneNumber'}
 					accessibilityLabel="Phone Input. Please type your phone number without dashes"
@@ -318,7 +317,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Username"
+					label="Username"
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input. Please make a username"
 					value={this.state.username}
@@ -326,7 +325,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Password"
+					label="Password"
 					onChangeText={value => this.handleChange('password', value)}
 					accessibilityLabel="Password Input. Please make a password"
 					minLength={8}
@@ -336,7 +335,7 @@ export class CreateAccount extends Component {
 				/>
 
 				<Input
-					placeholder="Password Confirmation"
+					label="Password Confirmation"
 					onChangeText={value => this.handleChange('password_confirmation', value)}
 					accessibilityLabel="Password Confirmation Input. Please type your new password again"
 					minLength={8}
