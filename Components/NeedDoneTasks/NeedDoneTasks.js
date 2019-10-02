@@ -140,93 +140,59 @@ export class Tasks extends Component {
 		const { tasks } = this.props;
 		const allTasks = tasks.map(task => {
 			return (
-				<View style={styles.lists} key={task.id}>
-					<View style={styles.listItemHeaderContainer}>
-						<Text style={styles.listItemHeader}>{task.name}</Text>
-						<View style={styles.priorityLevels}>
-							{this.props.user.role === 'client' && (
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to lower the priority level of the task."
-									accessible={true}
-									onPress={() => this.lowerPriority(task.id, task.priority)}
-								>
-									<Text>🔽</Text>
-								</TouchableHighlight>
-							)}
-							<Text style={styles.priorityFont}>Priority: {task.priority}</Text>
-							{this.props.user.role === 'client' && (
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to increase the priority level of the task."
-									accessible={true}
-									onPress={() => this.increasePriority(task.id, task.priority)}
-								>
-									<Text>🔼</Text>
-								</TouchableHighlight>
-							)}
+				<View style={styles.task} key={task.id}>
+					<Text style={styles.taskHeader}>{task.name}</Text>
+					<View style={styles.priorityLevels}>
+						<TouchableHighlight
+							accessibilityLabel="Tap me to lower the priority level of the task."
+							onPress={() => this.lowerPriority(task.id, task.priority)}
+						>
+							<Text>🔺</Text>
+						</TouchableHighlight>
+						<Text style={styles.editItem}>Priority: {task.priority}</Text>
+						<TouchableHighlight
+							accessibilityLabel="Tap me to increase the priority level of the task."
+							onPress={() => this.increasePriority(task.id, task.priority)}
+						>
+							<Text>🔻</Text>
+						</TouchableHighlight>
+					</View>
+					{this.state.displayEdit !== task.id && (
+						<View style={styles.taskNoteDue}>
+							{task.description.length > 0 && <Text style={styles.taskItemSecond}>Notes: {task.description}</Text>}
+							{task.due_date != null && <Text style={styles.taskItemSecond}>Due: {task.due_date}</Text>}
 						</View>
-						{this.props.user.role === 'client' && (
-							<Text style={styles.listComplete}>{task.completed ? 'TASK WAS COMPLETED' : 'NOT COMPLETED YET'}</Text>
-						)}
-						{this.props.user.role === 'client' && (
-							<View>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to open form and edit your list name."
-									accessible={true}
-									onPress={() => this.toggleEditName(task.id)}
-								>
-									<Text style={styles.editItem}>✏️</Text>
-								</TouchableHighlight>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to delete your todo task."
-									accessible={true}
-									onPress={() => this.eraseTask(task.id)}
-								>
-									<Text style={styles.editItem}>DEL</Text>
-								</TouchableHighlight>
-							</View>
-						)}
-						{this.state.displayEdit !== task.id && (
-							<View style={styles.taskNoteDue}>
-								{task.description.length > 0 && <Text style={styles.listItemSecond}>Notes: {task.description}</Text>}
-								{task.due_date != null && <Text style={styles.listItemSecond}>Due: {task.due_date}</Text>}
-							</View>
-						)}
-						{this.state.displayEdit === task.id && (
-							<View style={styles.alignEdit}>
-								<Input
-									label="Edit task"
-									value={this.state.task_edit_input}
-									onChangeText={this.handleEditTask}
-									saveRecordedText={text => this.handleEditTask(text)}
-								/>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to submit your edited todo task."
-									accessible={true}
-									onPress={() => this.handleSubmitEdit(task.id)}
-								>
-									<Text style={styles.editCheck}>✔︎</Text>
-								</TouchableHighlight>
-							</View>
-						)}
-						<View style={styles.vertically}>
-							{this.props.user.role === 'caretaker' && (
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
-									accessible={true}
-									onPress={() => this.completeTaskByCaretaker(task.id, task.completed)}
-								>
-									<Text style={styles.listComplete}>
-										{task.completed ? 'TASK HAS BEEN COMPLETED' : 'MARK COMPLETED'}
-									</Text>
-								</TouchableHighlight>
-							)}
+					)}
+					{this.state.displayEdit === task.id && (
+						<View style={styles.alignEdit}>
+							<Input
+								label="Edit task"
+								value={this.state.task_edit_input}
+								onChangeText={this.handleEditTask}
+								saveRecordedText={text => this.handleEditTask(text)}
+							/>
+							<TouchableHighlight
+								underlayColor="black"
+								accessibilityLabel="Tap me to submit your edited todo task."
+								accessible={true}
+								onPress={() => this.handleSubmitEdit(task.id)}
+							>
+								<Text style={styles.editCheck}>✔︎</Text>
+							</TouchableHighlight>
 						</View>
+					)}
+					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
+					<View style={styles.vertically}>
+						<TouchableHighlight
+							underlayColor="black"
+							accessibilityLabel="Tap me to open form and edit your list name."
+							onPress={() => toggleEditName(list.id)}
+						>
+							<Text style={styles.editItem}>✏️ EDIT</Text>
+						</TouchableHighlight>
+						<TouchableHighlight onPress={() => eraseTask(list.id)}>
+							<Text style={styles.editItem}>🗑 DELETE</Text>
+						</TouchableHighlight>
 					</View>
 				</View>
 			);
