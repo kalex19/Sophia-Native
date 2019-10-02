@@ -33,8 +33,14 @@ class Input extends Component {
         inputRange: [0, 1],
         outputRange: [18, 0],
       }),
-      fontSize: !isFocused ? 25 : 14,
-			color: !isFocused ? "#aaa" : "#000",
+      fontSize: this._animatedIsFocused.interpolate({
+        inputRange: [0, 1],
+        outputRange: [20, 14],
+      }),
+			color: this._animatedIsFocused.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['#aaa', '#000'],
+      }),
 			margin: 25,
 			// zIndex: 2
     };
