@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
-import { postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
+import { postClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
+import { patchTask } from '../../Utils/patchTask';
 import { fetchAllTasks } from '../../Utils/fetchAllTasks';
 import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerApiCalls';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
@@ -67,7 +68,7 @@ export class Tasks extends Component {
 		const { user } = this.props;
 		const { task_edit_input } = this.state;
 		const modifiedTask = { name: task_edit_input };
-		await patchClientTask(modifiedTask, list.id, taskId, user.id);
+		await patchTask(modifiedTask, list.id, taskId, user.id);
 		await this.returnUpdatedTask();
 		this.setState({ task_edit_input: '', displayEdit: false });
 	};
@@ -96,7 +97,7 @@ export class Tasks extends Component {
 		const list = this.props.navigation.state.params;
 		taskCompleted = !taskCompleted;
 		const completedTask = { completed: taskCompleted };
-		await patchCaretakerTask(completedTask, list.id, taskId);
+		await patchTask(completedTask, list.id, taskId);
 		await this.returnUpdatedCaretakerTask();
 	};
 
@@ -110,7 +111,7 @@ export class Tasks extends Component {
 		}
 		const list = this.props.navigation.state.params;
 		const changedPriority = { priority: taskPriority };
-		await patchClientTask(changedPriority, list.id, taskId);
+		await patchTask(changedPriority, list.id, taskId);
 		await this.returnUpdatedTask();
 	};
 
@@ -124,7 +125,7 @@ export class Tasks extends Component {
 		}
 		const list = this.props.navigation.state.params;
 		const changedPriority = { priority: taskPriority };
-		await patchClientTask(changedPriority, list.id, taskId);
+		await patchTask(changedPriority, list.id, taskId);
 		await this.returnUpdatedTask();
 	};
 

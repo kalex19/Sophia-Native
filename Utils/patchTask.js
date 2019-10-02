@@ -16,7 +16,7 @@
 // 	return task;
 // };
 
-export const patchCompletedTask = async (object, list_id, task_id) => {
+export const patchTask = async (object, list_id, task_id) => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}/tasks/${task_id}`;
 	const options = {
 		method: 'PATCH',

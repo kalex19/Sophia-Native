@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './styles';
 import Button from '../Button/Button';
-import { patchCompletedTask } from '../../../Utils/patchCompletedTask';
+import { patchTask } from '../../../Utils/patchTask';
 import { fetchAllTasks } from '../../../Utils/fetchAllTasks';
 
 export const Task = ({ task, navigation, loadTasks }) => {
@@ -10,7 +10,7 @@ export const Task = ({ task, navigation, loadTasks }) => {
 		const list = navigation.state.params;
 		taskCompleted = !taskCompleted;
 		const completedTask = { completed: taskCompleted };
-		await patchCompletedTask(completedTask, list.id, taskId);
+		await patchTask(completedTask, list.id, taskId);
 		await this.returnUpdatedTask();
 	};
 
