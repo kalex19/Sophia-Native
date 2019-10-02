@@ -39,9 +39,10 @@ export class AddListForm extends Component {
 		const { list_title, caretaker_id, client_id } = this.state;
 		const { user } = this.props;
 		const userType = (user.role === "client") ? "caretaker" : "client"
+		
 		let listData = {
 			name: list_title,
-			client_id: user.id,
+			client_id: client_id,
 			caretaker_id: caretaker_id,
 			created_for: userType
 		};
@@ -54,6 +55,12 @@ export class AddListForm extends Component {
 			console.log(error);
 		}
 	};
+
+	handleValueChange = (user_id) => {
+		const { user } = this.props
+		this.props.user.role === 'caretaker' ? this.setState({ client_id: user_id, caretaker_id: user.id }) : this.setState({ caretaker_id: user_id, client_id: user.id })
+
+	}
 
 	createNewList = () => {
 		const allCaretakers = this.state.caretakers.map(caretaker => {
@@ -76,7 +83,7 @@ export class AddListForm extends Component {
 						<Picker
 							selectedValue={this.state.caretaker_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ caretaker_id: itemValue })}
+							onValueChange={itemValue => this.handleValueChange(itemValue)}
 						>
 							<Picker.Item label="-- Select A Caretaker --" value={0} />
 							{allCaretakers}
@@ -86,7 +93,7 @@ export class AddListForm extends Component {
 						<Picker
 							selectedValue={this.state.client_id}
 							style={{ width: '85%', borderColor: 'maroon', borderWidth: 1, alignSelf: 'center' }}
-							onValueChange={itemValue => this.setState({ client_id: itemValue })}
+							onValueChange={itemValue => this.handleValueChange(itemValue)}
 						>
 							<Picker.Item label="-- Select A Client --" value={0} />
 							{allClients}
@@ -104,6 +111,7 @@ export class AddListForm extends Component {
 		);
 	};
 	render() {
+		console.log("CLIENT", this.state.client_id, "CARETAKER", this.state.caretaker_id)
 		return (
 			<View>
 				<Header>Add New List</Header>
