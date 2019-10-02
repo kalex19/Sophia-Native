@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
-import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
+import { postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
+import { fetchAllTasks } from '../../Utils/fetchAllTasks';
 import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerApiCalls';
-import { TouchableHighlight, ScrollView, Button } from 'react-native-gesture-handler';
+import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
 import Input from '../common/Input/Input';
+import Button from '../common/Button/Button';
 
 export class Tasks extends Component {
 	constructor() {
@@ -36,7 +38,7 @@ export class Tasks extends Component {
 	returnUpdatedTask = async () => {
 		const list = this.props.navigation.state.params;
 		const { user } = this.props;
-		const tasks = await fetchClientTasks(list.id, user.id);
+		const tasks = await fetchAllTasks(list.id, user.id);
 		this.props.loadTasks(tasks);
 	};
 
@@ -233,7 +235,6 @@ export class Tasks extends Component {
 					<Text style={styles.listName}>{name}</Text>
 				</View>
 				<ScrollView>
-					{this.props.user.role === 'client' && (
 						<View style={styles.addTaskContainer}>
 							<View style={styles.align}>
 								<Text style={styles.label}>Task Name:</Text>
@@ -274,13 +275,11 @@ export class Tasks extends Component {
 								Submit New Task
 							</Button>
 						</View>
-					)}
 					{tasks.length < 1 && (
 						<View>
 							<Text>No tasks yet!</Text>
 						</View>
 					)}
-
 					<View>{allTasks}</View>
 					<View style={{ height: 200 }}></View>
 				</ScrollView>
