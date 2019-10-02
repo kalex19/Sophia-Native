@@ -48,8 +48,8 @@ const AppNavigator = createStackNavigator(
     User: {
       screen: UserHomeScreen,
       navigationOptions: {
-        headerLeft: false,
-        headerRight: (<LogOutButton />)
+        headerLeft: null,
+        headerRight: (<LogOutButton />),
       }
     },
     Profile: {

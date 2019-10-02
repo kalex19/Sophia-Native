@@ -13,7 +13,7 @@ export const postList = async (newList) => {
 	return list;
 };
 
-export const deleteList = async (list_id) => {
+export const deleteList = async list_id => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists/${list_id}`;
 	const options = {
 		method: 'DELETE',
@@ -53,7 +53,6 @@ export const postClientTask = async (newTask, list_id, client_id) => {
 	const task = await response.json();
 	return task;
 };
-
 
 export const deleteClientTask = async (list_id, task_id) => {
 	const options = {

@@ -257,7 +257,7 @@ export class Tasks extends Component {
 										/>
 										<Text style={styles.label}>Due Date:</Text>
 										<Input
-											placeholder="mm/dd"
+											label="mm/dd"
 											style={styles.input}
 											label="mm/dd"
 											value={this.state.due_date}
