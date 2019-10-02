@@ -15,7 +15,6 @@ import NeedDone from "./Components/NeedDone/NeedDone";
 import NeedDoneTasks from "./Components/NeedDoneTasks/NeedDoneTasks";
 import NeedToDo from "./Components/NeedToDo/NeedToDo";
 import NeedToDoTasks from "./Components/NeedToDoTasks/NeedToDoTasks";
-import AddTaskForm from "./Components/AddTaskForm/AddTaskForm";
 import LogOutButton from "./LogOutButton";
 
 export const store = createStore(rootReducer);
@@ -78,12 +77,6 @@ const AppNavigator = createStackNavigator(
 		},
     NeedDoneTasks: {
 			screen: NeedDoneTasks,
-      navigationOptions: {
-        headerRight: (<LogOutButton />)
-      }
-		},
-    AddTaskForm: {
-			screen: AddTaskForm,
       navigationOptions: {
         headerRight: (<LogOutButton />)
       }
