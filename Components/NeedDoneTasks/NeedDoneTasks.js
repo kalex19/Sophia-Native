@@ -27,13 +27,7 @@ export class Tasks extends Component {
 	}
 
 	componentDidMount = async () => {
-		this.props.user.role === 'caretaker' ? await this.returnUpdatedCaretakerTask() : this.returnUpdatedTask();
-	};
-
-	returnUpdatedCaretakerTask = async () => {
-		const list = this.props.navigation.state.params;
-		const tasks = await fetchCaretakerTasks(list.id);
-		this.props.loadTasks(tasks);
+		await this.returnUpdatedTask();
 	};
 
 	returnUpdatedTask = async () => {
