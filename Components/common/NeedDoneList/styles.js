@@ -25,4 +25,11 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
+	align: {
+		backgroundColor: "blue",
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "center",
+		width: "80%"
+	}
 });

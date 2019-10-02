@@ -16,6 +16,7 @@ import theme from '../../theme';
 export class NeedDone extends Component {
 	state = {
 		displayEdit: false,
+		targetId: '',
 		list_edit_input: ''
 	};
 
@@ -29,6 +30,14 @@ export class NeedDone extends Component {
 		this.props.loadLists(lists);
 	};
 
+	toggleEditName = list_id => {
+		this.setState({ displayEdit: !this.state.displayEdit, targetId: list_id });
+	};
+
+	handleEditList = input => {
+		this.setState({ list_edit_input: input });
+	};
+
 	getCaretakerCreatedLists = () => {
 		const { lists, navigation } = this.props;
 		const filteredLists = lists.filter(list => list.created_for === 'client');
@@ -38,7 +47,7 @@ export class NeedDone extends Component {
 					list = { ...list, role: 'caretaker' };
 					return (
 					<View>
-					<NeedDoneList list={list} navigation={navigation} />
+					<NeedDoneList list={list} navigation={navigation} eraseList={this.eraseList} toggleEditName={this.toggleEditName} />
 					</View>
 						);
 				})
@@ -48,13 +57,6 @@ export class NeedDone extends Component {
 		}
 	};
 
-	toggleEditName = list_id => {
-		this.setState({ displayEdit: list_id });
-	};
-
-	handleEditList = input => {
-		this.setState({ list_edit_input: input });
-	};
 
 	eraseList = async listId => {
 		const { user } = this.props;
@@ -64,21 +66,10 @@ export class NeedDone extends Component {
 
 	handleSubmitEdit = async listId => {
 		const { list_edit_input } = this.state;
-		const { user } = this.props;
-		if (user.role === 'client') {
 			const updatedList = {
 				name: list_edit_input,
-				list_id: listId,
-				client_id: user.id
 			};
-		} else {
-			const updatedList = {
-				name: list_edit_input,
-				list_id: listId,
-				caretaker_id: user.id
-			};
-		}
-		await patchList(updatedList);
+		await patchList(updatedList, listId);
 		this.fetchLists();
 		this.setState({ list_edit_input: '', displayEdit: false });
 	};
@@ -90,7 +81,7 @@ export class NeedDone extends Component {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'client' };
-					return <NeedDoneList list={list} navigation={navigation} />
+					return <NeedDoneList list={list} navigation={navigation} targetId={this.state.targetId} eraseList={this.eraseList} toggleEditName={this.toggleEditName} list_edit_input={this.state.list_edit_input} displayEdit={this.state.displayEdit} handleSubmitEdit={this.handleSubmitEdit} handleEditList={this.handleEditList} />
 				})
 		} else {
 			return <Text style={styles.text}>No Lists Yet!</Text>;
@@ -105,22 +96,6 @@ export class NeedDone extends Component {
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.props.user.role === 'client' && this.getClientCreatedLists()}
 					{this.props.user.role === 'caretaker' && this.getCaretakerCreatedLists()}
-					{/* {this.state.displayEdit === list.id && (
-								<View style={styles.align}>
-									<Input
-										label="New name"
-										value={this.state.list_edit_input}
-										onChangeText={this.handleEditList}
-										saveRecordedText={text => this.handleEditList(text)}
-									/>
-									<Button
-										accessibilityLabel="Tap me to submit your edited list name."
-										onPress={() => this.handleSubmitEdit(list.id)}
-									>
-										✔︎
-									</Button>
-								</View>
-							)} */}
 					<View style={{ height: 550 }} />
 				</ScrollView>
 			</View>
