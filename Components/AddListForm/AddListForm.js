@@ -68,6 +68,7 @@ export class AddListForm extends Component {
 					value={this.state.list_title}
 					onChangeText={text => this.handleChange(text)}
 					accessibilityLabel="List Name Input"
+					saveRecordedText={text => this.handleChange(text)}
 				/>
 				<View>
 					{this.props.user.role === 'client' && (

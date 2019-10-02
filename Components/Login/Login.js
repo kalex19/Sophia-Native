@@ -62,6 +62,7 @@ export class Login extends Component {
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input"
 					placeholder="Username"
+					saveRecordedText={text => this.handleChange('username', text)}
 				/>
 				<Input
 					value={this.state.password}
@@ -70,6 +71,7 @@ export class Login extends Component {
 					minLength={8}
 					secureTextEntry={true}
 					placeholder="Password"
+					saveRecordedText={text => this.handleChange('password', text)}
 				/>
 				<Button accessibilityLabel="Tap me to log into your account." onPress={this.handleSubmit}>
 					Log In

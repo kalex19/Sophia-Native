@@ -115,6 +115,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.zip}
 						onChangeText={value => this.handleChange('zip', value)}
+						saveRecordedText={text => this.handleChange('zip', text)}
 					>
 						Zip Code: {this.state.zip}
 					</Input>
@@ -127,6 +128,7 @@ export class EditProfile extends Component {
 						value={this.state.needs}
 						onChangeText={value => this.handleChange('needs', value)}
 						placeholder="Edit your needs"
+						saveRecordedText={text => this.handleChange('needs', text)}
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -137,6 +139,7 @@ export class EditProfile extends Component {
 						value={this.state.allergies}
 						onChangeText={value => this.handleChange('allergies', value)}
 						placeholder="Edit your allergies"
+						saveRecordedText={text => this.handleChange('allergies', text)}
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -147,6 +150,7 @@ export class EditProfile extends Component {
 						value={this.state.diet_restrictions}
 						onChangeText={value => this.handleChange('diet_restrictions', value)}
 						placeholder="Edit your diet restrictions"
+						saveRecordedText={text => this.handleChange('diet_restrictions', text)}
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -157,6 +161,7 @@ export class EditProfile extends Component {
 						value={this.state.medications}
 						onChangeText={value => this.handleChange('medications', value)}
 						placeholder="Edit your medications"
+						saveRecordedText={text => this.handleChange('medications', text)}
 					/>
 				</View>
 			</View>
@@ -173,6 +178,7 @@ export class EditProfile extends Component {
 					value={this.state.abilities}
 					onChangeText={value => this.handleChange('abilities', value)}
 					placeholder="Edit your abilities"
+					saveRecordedText={text => this.handleChange('abilities', text)}
 				/>
 			</View>
 		);
@@ -190,6 +196,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.name}
 						onChangeText={value => this.handleChange('name', value)}
+						saveRecordedText={text => this.handleChange('name', text)}
 					>
 						Name: {this.state.name}
 					</Input>
@@ -197,6 +204,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.username}
 						onChangeText={value => this.handleChange('username', value)}
+						saveRecordedText={text => this.handleChange('username', text)}
 					>
 						Username: {this.state.username}
 					</Input>
@@ -204,13 +212,15 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.password}
 						onChangeText={value => this.handleChange('password', value)}
+						saveRecordedText={text => this.handleChange('password', text)}
 					>
 						Password: {this.state.password}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password_confirmation}
-						onChangeText={value => this.handleChange('password', value)}
+						onChangeText={value => this.handleChange('password_confirmation', value)}
+						saveRecordedText={text => this.handleChange('password_confirmation', text)}
 					>
 						Password Confirmation: {this.state.password}
 					</Input>
@@ -218,6 +228,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.email}
 						onChangeText={value => this.handleChange('email', value)}
+						saveRecordedText={text => this.handleChange('email', text)}
 					>
 						Email: {this.state.email}
 					</Input>
@@ -225,6 +236,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.phone}
 						onChangeText={value => this.handleChange('phone', value)}
+						saveRecordedText={text => this.handleChange('phone', text)}
 					>
 						Phone Number: {this.state.phone}
 					</Input>

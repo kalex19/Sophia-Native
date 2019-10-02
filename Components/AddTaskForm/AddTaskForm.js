@@ -78,6 +78,7 @@ export class AddTaskForm extends Component {
 					value={this.state.task_title}
 					onChangeText={text => this.handleChange(text)}
 					accessibilityLabel="task Name Input"
+					saveRecordedText={text => this.handleChange(text)}
 				/>
 				<SpeechToText saveRecordedText={this.saveRecordedText} />
 				<View>
