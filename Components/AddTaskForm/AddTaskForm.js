@@ -73,7 +73,7 @@ export class AddTaskForm extends Component {
 		return (
 			<View style={{ justifyContent: 'center' }}>
 				<Input
-					placeholder="task name"
+					label="task name"
 					value={this.state.task_title}
 					onChangeText={text => this.handleChange(text)}
 					accessibilityLabel="task Name Input"

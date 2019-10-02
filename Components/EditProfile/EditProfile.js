@@ -88,8 +88,8 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.address}
 						onChangeText={value => this.handleChange('address', value)}
+						label="Address"
 					>
-						Address: {this.state.address}
 					</Input>
 				</View>
 				<View>
@@ -97,8 +97,8 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.city}
 						onChangeText={value => this.handleChange('city', value)}
+						label="City"
 					>
-						City: {this.state.city}
 					</Input>
 				</View>
 				<View>
@@ -106,8 +106,8 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.state}
 						onChangeText={value => this.handleChange('state', value)}
+						label="State"
 					>
-						State: {this.state.state}
 					</Input>
 				</View>
 				<View>
@@ -115,8 +115,8 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.zip}
 						onChangeText={value => this.handleChange('zip', value)}
+						label="Zip Code"
 					>
-						Zip Code: {this.state.zip}
 					</Input>
 				</View>
 				<View style={styles.infoContainer}>
@@ -126,7 +126,7 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.needs}
 						onChangeText={value => this.handleChange('needs', value)}
-						placeholder="Edit your needs"
+						label="Edit your needs"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -136,7 +136,7 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.allergies}
 						onChangeText={value => this.handleChange('allergies', value)}
-						placeholder="Edit your allergies"
+						label="Edit your allergies"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -146,7 +146,7 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.diet_restrictions}
 						onChangeText={value => this.handleChange('diet_restrictions', value)}
-						placeholder="Edit your diet restrictions"
+						label="Edit your diet restrictions"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -156,7 +156,7 @@ export class EditProfile extends Component {
 						key={Math.random()}
 						value={this.state.medications}
 						onChangeText={value => this.handleChange('medications', value)}
-						placeholder="Edit your medications"
+						label="Edit your medications"
 					/>
 				</View>
 			</View>
@@ -172,7 +172,7 @@ export class EditProfile extends Component {
 					key={Math.random()}
 					value={this.state.abilities}
 					onChangeText={value => this.handleChange('abilities', value)}
-					placeholder="Edit your abilities"
+					label="Edit your abilities"
 				/>
 			</View>
 		);
@@ -190,43 +190,43 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.name}
 						onChangeText={value => this.handleChange('name', value)}
+						label="Name"
 					>
-						Name: {this.state.name}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.username}
 						onChangeText={value => this.handleChange('username', value)}
+						label="Username"
 					>
-						Username: {this.state.username}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password}
 						onChangeText={value => this.handleChange('password', value)}
+						label="Password"
 					>
-						Password: {this.state.password}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password_confirmation}
 						onChangeText={value => this.handleChange('password', value)}
+						label="Password Confirmation"
 					>
-						Password Confirmation: {this.state.password}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.email}
 						onChangeText={value => this.handleChange('email', value)}
+						label="Email"
 					>
-						Email: {this.state.email}
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.phone}
 						onChangeText={value => this.handleChange('phone', value)}
+						label="Phone Number"
 					>
-						Phone Number: {this.state.phone}
 					</Input>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}

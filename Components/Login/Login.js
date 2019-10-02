@@ -12,8 +12,8 @@ import theme from '../../theme';
 import SpeechToText from '../common/SpeechToText/SpeechToText';
 
 const initialState = {
-	username: 'AndreeaTestCaretaker',
-	password: 'pass',
+	username: '',
+	password: '',
 	message: '',
 	error: ''
 };
@@ -61,7 +61,7 @@ export class Login extends Component {
 					value={this.state.username}
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input"
-					placeholder="Username"
+					label="Username"
 				/>
 				<Input
 					value={this.state.password}
@@ -69,7 +69,7 @@ export class Login extends Component {
 					accessibilityLabel="Password Input"
 					minLength={8}
 					secureTextEntry={true}
-					placeholder="Password"
+					label="Password"
 				/>
 				<Button accessibilityLabel="Tap me to log into your account." onPress={this.handleSubmit}>
 					Log In
