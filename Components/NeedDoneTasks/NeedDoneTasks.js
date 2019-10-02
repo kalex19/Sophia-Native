@@ -194,7 +194,7 @@ export class Tasks extends Component {
 							<View style={styles.alignEdit}>
 								<TextInput
 									style={styles.inputEdit}
-									placeholder="Edit task"
+									label="Edit task"
 									value={this.state.task_edit_input}
 									onChangeText={this.handleEditTask}
 								></TextInput>
@@ -259,7 +259,7 @@ export class Tasks extends Component {
 									style={styles.input}
 									value={this.state.task_input}
 									onChangeText={this.handleChangeTask}
-									placeholder="Add Task Name"
+									label="Add Task Name"
 									accessibilityLabel="Add your task name"
 								></TextInput>
 								{this.state.displayExtraInputs === true && (
@@ -269,13 +269,13 @@ export class Tasks extends Component {
 											style={styles.input}
 											value={this.state.description_input}
 											onChangeText={this.handleChangeNote}
-											placeholder="Add Note"
+											label="Add Note"
 											accessibilityLabel="Add a note providing more details about your task"
 										></TextInput>
 										<Text style={styles.label}>Due Date:</Text>
 										<TextInput
 											style={styles.input}
-											placeholder="mm/dd"
+											label="mm/dd"
 											value={this.state.due_date}
 											onChangeText={this.handleChangeDate}
 											accessibilityLabel="Add to due date to communicate when the task needs to be completed by"

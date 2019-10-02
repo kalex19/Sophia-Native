@@ -64,7 +64,7 @@ export class AddListForm extends Component {
 		return (
 			<View style={{ justifyContent: 'center' }}>
 				<Input
-					placeholder="List Name"
+					label="List Name"
 					value={this.state.list_title}
 					onChangeText={text => this.handleChange(text)}
 					accessibilityLabel="List Name Input"
