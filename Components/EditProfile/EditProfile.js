@@ -90,6 +90,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('address', value)}
 					>
 						Address: {this.state.address}
+						label="Address"
 					</Input>
 				</View>
 				<View>
@@ -99,6 +100,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('city', value)}
 					>
 						City: {this.state.city}
+						label="City"
 					</Input>
 				</View>
 				<View>
@@ -108,6 +110,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('state', value)}
 					>
 						State: {this.state.state}
+						label="State"
 					</Input>
 				</View>
 				<View>
@@ -118,6 +121,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('zip', text)}
 					>
 						Zip Code: {this.state.zip}
+						label="Zip Code"
 					</Input>
 				</View>
 				<View style={styles.infoContainer}>
@@ -129,6 +133,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('needs', value)}
 						placeholder="Edit your needs"
 						saveRecordedText={text => this.handleChange('needs', text)}
+						label="Edit your needs"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -140,6 +145,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('allergies', value)}
 						placeholder="Edit your allergies"
 						saveRecordedText={text => this.handleChange('allergies', text)}
+						label="Edit your allergies"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -151,6 +157,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('diet_restrictions', value)}
 						placeholder="Edit your diet restrictions"
 						saveRecordedText={text => this.handleChange('diet_restrictions', text)}
+						label="Edit your diet restrictions"
 					/>
 				</View>
 				<View style={styles.infoContainer}>
@@ -162,6 +169,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('medications', value)}
 						placeholder="Edit your medications"
 						saveRecordedText={text => this.handleChange('medications', text)}
+						label="Edit your medications"
 					/>
 				</View>
 			</View>
@@ -179,6 +187,7 @@ export class EditProfile extends Component {
 					onChangeText={value => this.handleChange('abilities', value)}
 					placeholder="Edit your abilities"
 					saveRecordedText={text => this.handleChange('abilities', text)}
+					label="Edit your abilities"
 				/>
 			</View>
 		);
@@ -199,6 +208,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('name', text)}
 					>
 						Name: {this.state.name}
+						label="Name"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
@@ -207,6 +217,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('username', text)}
 					>
 						Username: {this.state.username}
+						label="Username"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
@@ -215,6 +226,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('password', text)}
 					>
 						Password: {this.state.password}
+						label="Password"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
@@ -223,6 +235,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('password_confirmation', text)}
 					>
 						Password Confirmation: {this.state.password}
+						label="Password Confirmation"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
@@ -231,6 +244,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('email', text)}
 					>
 						Email: {this.state.email}
+						label="Email"
 					</Input>
 					<Input
 						style={{ fontSize: 25 }}
@@ -239,6 +253,7 @@ export class EditProfile extends Component {
 						saveRecordedText={text => this.handleChange('phone', text)}
 					>
 						Phone Number: {this.state.phone}
+						label="Phone Number"
 					</Input>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}

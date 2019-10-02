@@ -61,6 +61,12 @@ export class UserHomeScreen extends Component {
 				>
 					Things I Need To Do
 				</Button>
+				<Button
+					accessibilityLabel="Tap me to log out."
+					onPress={this.logOut}
+				>
+					Log Out
+				</Button>
 			</View>
 		);
 	}

@@ -11,7 +11,6 @@ export class LogOutButton extends Component {
 	};
 
   render() {
-    console.log(this.props)
     return (
       <Button
         color="red"
