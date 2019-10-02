@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
 import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
@@ -7,6 +7,7 @@ import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerAp
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
+import Input from '../common/Input/Input';
 
 export class Tasks extends Component {
 	constructor() {
@@ -17,7 +18,6 @@ export class Tasks extends Component {
 			due_date: '',
 			displayEdit: true,
 			task_edit_input: '',
-			// completed: false,
 			priority: '',
 			displayExtraInputs: false
 		};

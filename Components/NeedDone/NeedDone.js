@@ -85,51 +85,8 @@ export class NeedDone extends Component {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'client' };
-					return (
-						<View style={styles.lists} key={list.id} accessible={true}>
-							<TouchableHighlight
-								underlayColor="black"
-								accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
-								accessible={true}
-							>
-								{this.state.displayEdit !== list.id && (
-									<Text
-										style={styles.listName}
-										onPress={() => {
-											this.props.navigation.navigate('NeedDoneTasks', list);
-										}}
-									>
-										{list.name}
-									</Text>
-								)}
-							</TouchableHighlight>
-							{this.state.displayEdit === list.id && (
-								<View style={styles.align}>
-									<Input label="New name" value={this.state.list_edit_input} onChangeText={this.handleEditList} saveRecordedText={text => this.handleEditList(text)}/>
-									<Button
-										accessibilityLabel="Tap me to submit your edited list name."
-										onPress={() => this.handleSubmitEdit(list.id)}
-									>
-										✔︎
-									</Button>
-								</View>
-							)}
-							<View style={styles.vertically}>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to open form and edit your list name."
-									onPress={() => this.toggleEditName(list.id)}
-								>
-									<Text style={styles.editItem}>✏️ EDIT</Text>
-								</TouchableHighlight>
-								<TouchableHighlight onPress={() => this.eraseList(list.id)}>
-									<Text style={styles.editItem}>🗑 DELETE</Text>
-								</TouchableHighlight>
-							</View>
-						</View>
-					);
+					return <NeedDoneList list={list} navigation={navigation} />
 				})
-				.reverse();
 		} else {
 			return <Text style={styles.text}>No Lists Yet!</Text>;
 		}
@@ -143,6 +100,22 @@ export class NeedDone extends Component {
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
 					{this.props.user.role === 'client' && this.getClientCreatedLists()}
 					{this.props.user.role === 'caretaker' && this.getCaretakerCreatedLists()}
+					{/* {this.state.displayEdit === list.id && (
+								<View style={styles.align}>
+									<Input
+										label="New name"
+										value={this.state.list_edit_input}
+										onChangeText={this.handleEditList}
+										saveRecordedText={text => this.handleEditList(text)}
+									/>
+									<Button
+										accessibilityLabel="Tap me to submit your edited list name."
+										onPress={() => this.handleSubmitEdit(list.id)}
+									>
+										✔︎
+									</Button>
+								</View>
+							)} */}
 					<View style={{ height: 550 }} />
 				</ScrollView>
 			</View>

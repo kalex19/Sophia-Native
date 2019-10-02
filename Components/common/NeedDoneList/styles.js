@@ -14,5 +14,15 @@ export default StyleSheet.create({
 		color: theme.accentTwo,
 		fontSize: 25,
 		fontFamily: theme.textMain
-	}
+	},
+	editItem: {
+		fontSize: 20,
+		color: theme.accentTwo,
+		fontFamily: theme.textTwo,
+		marginRight: 15
+	},
+	vertically: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
 });
