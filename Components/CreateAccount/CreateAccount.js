@@ -314,6 +314,7 @@ export class CreateAccount extends Component {
 					dataDetectorTypes={'phoneNumber'}
 					accessibilityLabel="Phone Input. Please type your phone number without dashes"
 					value={this.state.phone}
+					minLength={10}
 					saveRecordedText={text => this.handleChange('phone', text)}
 				/>
 
@@ -322,6 +323,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input. Please make a username"
 					value={this.state.username}
+					minLength={4}
 					saveRecordedText={text => this.handleChange('username', text)}
 				/>
 
