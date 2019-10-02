@@ -6,7 +6,6 @@ import { PropTypes } from 'prop-types';
 import styles from './styles';
 import theme from '../../theme';
 import Button from '../common/Button/Button';
-import { logOut } from '../../actions';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import Header from '../common/Header/Header';
 
@@ -24,11 +23,6 @@ export class UserHomeScreen extends Component {
 
 	componentDidMount = () => {
 		this.props.navigation.setParams({ logout: this.logOut });
-	};
-
-	logOut = () => {
-		this.props.logOut({})
-		this.props.navigation.navigate('Login');
 	};
 
 	render() {
@@ -61,12 +55,6 @@ export class UserHomeScreen extends Component {
 				>
 					Things I Need To Do
 				</Button>
-				<Button
-					accessibilityLabel="Tap me to log out."
-					onPress={this.logOut}
-				>
-					Log Out
-				</Button>
 			</View>
 		);
 	}
@@ -77,7 +65,6 @@ export const mapStateToProps = state => ({
 });
 export const mapDispatchToProps = dispatch => ({
 	loadLists: lists => dispatch(loadLists(lists)),
-	logOut: (user) => dispatch(logOut(user))
 });
 export default connect(
 	mapStateToProps,
