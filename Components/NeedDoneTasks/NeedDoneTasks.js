@@ -136,21 +136,7 @@ export class Tasks extends Component {
 			return (
 				<View style={styles.task} key={task.id}>
 					<Text style={styles.taskHeader}>{task.name}</Text>
-					<View style={styles.priorityLevels}>
-						<TouchableHighlight
-							accessibilityLabel="Tap me to lower the priority level of the task."
-							onPress={() => this.lowerPriority(task.id, task.priority)}
-						>
-							<Text>🔺</Text>
-						</TouchableHighlight>
-						<Text style={styles.editItem}>Priority: {task.priority}</Text>
-						<TouchableHighlight
-							accessibilityLabel="Tap me to increase the priority level of the task."
-							onPress={() => this.increasePriority(task.id, task.priority)}
-						>
-							<Text>🔻</Text>
-						</TouchableHighlight>
-					</View>
+					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
 					{this.state.displayEdit !== task.id && (
 						<View style={styles.taskNoteDue}>
 							{task.description.length > 0 && <Text style={styles.taskItemSecond}>Notes: {task.description}</Text>}
@@ -175,7 +161,6 @@ export class Tasks extends Component {
 							</TouchableHighlight>
 						</View>
 					)}
-					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
 					<View style={styles.vertically}>
 						<TouchableHighlight
 							underlayColor="black"
@@ -186,6 +171,23 @@ export class Tasks extends Component {
 						</TouchableHighlight>
 						<TouchableHighlight onPress={() => eraseTask(list.id)}>
 							<Text style={styles.editItem}>🗑 DELETE</Text>
+						</TouchableHighlight>
+					</View>
+					<View style={styles.priorityLevels}>
+						<TouchableHighlight
+							accessibilityLabel="Tap me to lower the priority level of the task."
+							onPress={() => this.lowerPriority(task.id, task.priority)}
+							style={{ width: 30, height: 30 }}
+						>
+							<Text>🔻</Text>
+						</TouchableHighlight>
+						<Text style={styles.editItem}>{task.priority} priority</Text>
+						<TouchableHighlight
+							accessibilityLabel="Tap me to increase the priority level of the task."
+							onPress={() => this.increasePriority(task.id, task.priority)}
+							style={{ width: 30, height: 30 }}
+						>
+							<Text>🔺</Text>
 						</TouchableHighlight>
 					</View>
 				</View>
