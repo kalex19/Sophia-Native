@@ -10,6 +10,7 @@ import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 import { NeedDoneList } from '../common/NeedDoneList/NeedDoneList';
 import { deleteList, patchList } from '../../Utils/caretakerApiCalls';
+import theme from '../../theme';
 
 export class NeedDone extends Component {
 	state = {
@@ -104,7 +105,7 @@ export class NeedDone extends Component {
 							</TouchableHighlight>
 							{this.state.displayEdit === list.id && (
 								<View style={styles.align}>
-									<Input placeholder="New name" value={this.state.list_edit_input} onChangeText={this.handleEditList} saveRecordedText={text => this.handleEditList(text)}/>
+									<Input label="New name" value={this.state.list_edit_input} onChangeText={this.handleEditList} saveRecordedText={text => this.handleEditList(text)}/>
 									<Button
 										accessibilityLabel="Tap me to submit your edited list name."
 										onPress={() => this.handleSubmitEdit(list.id)}
@@ -136,7 +137,7 @@ export class NeedDone extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={theme.container}>
 				<Header accessibilityLabel="My Todo Lists">My Todo Lists</Header>
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>

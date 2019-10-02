@@ -10,17 +10,15 @@ export default StyleSheet.create({
 	input: {
 		alignSelf: 'flex-start',
 		width: '65%',
-		// zIndex: 1,
 		borderRadius: 5,
 		height: 70,
 		fontSize: 30,
 		fontFamily: theme.textTwo,
 		paddingLeft: 15,
 		margin: 10,
-		// backgroundColor: theme.accentThree,
 		backgroundColor: "transparent",
-		color: theme.accentTwo,
-		borderColor: "black",
+		color: theme.primary,
+		borderColor: theme.accentTwo,
 		borderStyle: "solid",
 		borderBottomWidth: 2
 	}
