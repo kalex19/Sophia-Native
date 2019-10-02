@@ -111,7 +111,6 @@ export class AddListForm extends Component {
 		);
 	};
 	render() {
-		console.log("CLIENT", this.state.client_id, "CARETAKER", this.state.caretaker_id)
 		return (
 			<View>
 				<Header>Add New List</Header>

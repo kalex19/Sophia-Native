@@ -10,6 +10,7 @@ import Button from '../common/Button/Button';
 import Header from '../common/Header/Header';
 import { NeedDoneList } from '../common/NeedDoneList/NeedDoneList';
 import { deleteList, patchList } from '../../Utils/clientApiCalls';
+import Input from '../common/Input/Input';
 
 export class NeedDone extends Component {
 	state = {
@@ -37,18 +38,6 @@ export class NeedDone extends Component {
 					return (
 					<View>
 					<NeedDoneList list={list} navigation={navigation} />
-							<View style={styles.vertically}>
-								<TouchableHighlight
-									underlayColor="black"
-									accessibilityLabel="Tap me to open form and edit your list name."
-									onPress={() => this.toggleEditName(list.id)}
-								>
-									<Text style={styles.editItem}>✏️ EDIT</Text>
-								</TouchableHighlight>
-								<TouchableHighlight onPress={() => this.eraseList(list.id)}>
-									<Text style={styles.editItem}>🗑 DELETE</Text>
-								</TouchableHighlight>
-							</View>
 					</View>
 						);
 				})
@@ -106,13 +95,13 @@ export class NeedDone extends Component {
 								underlayColor="black"
 								accessibilityLabel={`Tap me to navigate to your ${list.name} list. From there view or create your tasks.`}
 								accessible={true}
+										onPress={() => {
+											navigation.navigate('NeedDoneTasks', list);
+										}}
 							>
 								{this.state.displayEdit !== list.id && (
 									<Text
 										style={styles.listName}
-										onPress={() => {
-											this.props.navigation.navigate('NeedDoneTasks', list);
-										}}
 									>
 										{list.name}
 									</Text>
