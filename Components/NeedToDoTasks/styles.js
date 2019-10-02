@@ -14,5 +14,12 @@ export const styles = StyleSheet.create({
 	listHeader: {
 		marginBottom: 20,
 		padding: 10
+	},
+	text: {
+		color: theme.primary,
+		fontSize: 20,
+		margin: 5,
+		fontFamily: theme.textTwo,
+		textAlign: 'center'
 	}
 });

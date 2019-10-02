@@ -38,7 +38,7 @@ export class NeedToDoTasks extends Component {
 				<ScrollView>
 					{tasks.length < 1 && (
 						<View>
-							<Text>No tasks yet!</Text>
+							<Text style={styles.text}>No tasks yet!</Text>
 						</View>
 					)}
 

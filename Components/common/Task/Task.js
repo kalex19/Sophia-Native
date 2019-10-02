@@ -38,7 +38,7 @@ export const Task = ({ task, navigation, loadTasks }) => {
 				onPress={() => this.completeTask(task.id, task.completed)}
 				accessibilityLabel="Tap me to mark your todo task as complete/incomplete."
 			>
-				{task.completed ? '✔︎' : 'Ⅹ'}
+				{task.completed ? '✔︎ DONE' : 'Ⅹ NOT DONE'}
 			</Button>
 		</View>
 	);
