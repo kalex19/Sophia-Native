@@ -88,9 +88,7 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.address}
 						onChangeText={value => this.handleChange('address', value)}
-						label="Address"
-					>
-					</Input>
+						label="Address"/>
 				</View>
 				<View>
 					<Input
@@ -98,8 +96,7 @@ export class EditProfile extends Component {
 						value={this.state.city}
 						onChangeText={value => this.handleChange('city', value)}
 						label="City"
-					>
-					</Input>
+					/>
 				</View>
 				<View>
 					<Input
@@ -107,8 +104,7 @@ export class EditProfile extends Component {
 						value={this.state.state}
 						onChangeText={value => this.handleChange('state', value)}
 						label="State"
-					>
-					</Input>
+					/>
 				</View>
 				<View>
 					<Input
@@ -117,8 +113,7 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('zip', value)}
 						saveRecordedText={text => this.handleChange('zip', text)}
 						label="Zip Code"
-					>
-					</Input>
+					/>
 				</View>
 				<View style={styles.infoContainer}>
 					<Text style={styles.text}>Needs:</Text>
@@ -198,48 +193,42 @@ export class EditProfile extends Component {
 						onChangeText={value => this.handleChange('name', value)}
 						saveRecordedText={text => this.handleChange('name', text)}
 						label="Name"
-					>
-					</Input>
+					/>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.username}
 						onChangeText={value => this.handleChange('username', value)}
 						saveRecordedText={text => this.handleChange('username', text)}
 						label="Username"
-					>
-					</Input>
+					/>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password}
 						onChangeText={value => this.handleChange('password', value)}
 						saveRecordedText={text => this.handleChange('password', text)}
 						label="Password"
-					>
-					</Input>
+					/>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.password_confirmation}
 						onChangeText={value => this.handleChange('password_confirmation', value)}
 						saveRecordedText={text => this.handleChange('password_confirmation', text)}
 						label="Password Confirmation"
-					>
-					</Input>
+					/>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.email}
 						onChangeText={value => this.handleChange('email', value)}
 						saveRecordedText={text => this.handleChange('email', text)}
 						label="Email"
-					>
-					</Input>
+					/>
 					<Input
 						style={{ fontSize: 25 }}
 						value={this.state.phone}
 						onChangeText={value => this.handleChange('phone', value)}
 						saveRecordedText={text => this.handleChange('phone', text)}
 						label="Phone Number"
-					>
-					</Input>
+					/>
 					{this.props.user.role === 'client' && this.renderClientInfo()}
 					{this.props.user.role === 'caretaker' && this.renderCaretakerInfo()}
 					<View style={{ height: 150 }}></View>

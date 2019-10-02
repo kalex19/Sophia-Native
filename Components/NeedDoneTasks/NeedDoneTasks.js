@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import { loadTasks } from '../../actions';
 import { fetchClientTasks, postClientTask, patchClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
@@ -18,7 +18,6 @@ export class Tasks extends Component {
 			due_date: '',
 			displayEdit: true,
 			task_edit_input: '',
-			// completed: false,
 			priority: '',
 			displayExtraInputs: false
 		};

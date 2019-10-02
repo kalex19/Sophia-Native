@@ -11,6 +11,7 @@ import Header from '../common/Header/Header';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import theme from '../../theme';
+import { CheckBox } from 'react-native-elements';
 
 const initialState = {
 	page: 1,
@@ -31,7 +32,17 @@ const initialState = {
 	medications: [],
 	abilities: [],
 	error: '',
-	message: ''
+	message: '',
+	cleaningChecked: false,
+	groceryChecked: false,
+	errandsChecked: false,
+	yardworkChecked: false,
+	adminChecked: false,
+	cleaningCheck: false,
+	groceryCheck: false,
+	errandsCheck: false,
+	yardworkCheck: false,
+	adminCheck: false
 };
 
 export class CreateAccount extends Component {
@@ -46,6 +57,21 @@ export class CreateAccount extends Component {
 	};
 
 	handleClientSubmit = async () => {
+		if (cleaningChecked) {
+			this.state.needs.push('cleaning');
+		}
+		if (groceryChecked) {
+			this.state.needs.push('grocery shopping');
+		}
+		if (errandsChecked) {
+			this.state.needs.push('errands');
+		}
+		if (yardworkChecked) {
+			this.state.needs.push('yardwork');
+		}
+		if (adminChecked) {
+			this.state.needs.push('administrative assistance');
+		}
 		const {
 			username,
 			password,
@@ -129,6 +155,21 @@ export class CreateAccount extends Component {
 	};
 
 	handleCaretakerSubmit = async () => {
+		if (cleaningCheck) {
+			this.state.needs.push('cleaning');
+		}
+		if (groceryCheck) {
+			this.state.needs.push('grocery shopping');
+		}
+		if (errandsCheck) {
+			this.state.needs.push('errands');
+		}
+		if (yardworkCheck) {
+			this.state.needs.push('yardwork');
+		}
+		if (adminCheck) {
+			this.state.needs.push('administrative assistance');
+		}
 		const {
 			username,
 			password,
@@ -220,14 +261,44 @@ export class CreateAccount extends Component {
 		return (
 			<ScrollView style={{ flex: 1, width: '100%' }}>
 				<Text style={styles.text}>Separate multiple input values by commas</Text>
+				<Text style={styles.text}>My Caretaking Needs</Text>
+				<CheckBox
+					center
+					title="Cleaning"
+					checked={this.state.cleaningChecked}
+					onPress={() => this.setState({ cleaningChecked: !this.state.cleaningChecked })}
+				/>
+				<CheckBox
+					center
+					title="Grocery Shopping"
+					checked={this.state.groceryChecked}
+					onPress={() => this.setState({ groceryChecked: !this.state.groceryChecked })}
+				/>
+				<CheckBox
+					center
+					title="Errands"
+					checked={this.state.errandsChecked}
+					onPress={() => this.setState({ errandsChecked: !this.state.errandsChecked })}
+				/>
+				<CheckBox
+					center
+					title="Yardwork"
+					checked={this.state.yardworkChecked}
+					onPress={() => this.setState({ yardworkChecked: !this.state.yardworkChecked })}
+				/>
+				<CheckBox
+					center
+					title="Administrative Assistance"
+					checked={this.state.adminChecked}
+					onPress={() => this.setState({ adminChecked: !this.state.adminChecked })}
+				/>
 				<Input
-					label="Caretaking Needs"
+					label="Other Needs"
 					onChangeText={value => this.handleChange('needs', value)}
 					accessibilityLabel="Needs Input. Please type out your needs such as grocery shopping. yardwork, house cleaning and so on"
 					value={this.state.needs.join(', ')}
 					saveRecordedText={text => this.handleChange('needs', text)}
 				/>
-
 				<Input
 					label="Allergies"
 					onChangeText={value => this.handleChange('allergies', value)}
@@ -235,7 +306,6 @@ export class CreateAccount extends Component {
 					value={this.state.allergies.join(', ')}
 					saveRecordedText={text => this.handleChange('allergies', text)}
 				/>
-
 				<Input
 					label="Dietary Restrictions"
 					onChangeText={value => this.handleChange('diet', value)}
@@ -243,7 +313,6 @@ export class CreateAccount extends Component {
 					value={this.state.diet.join(', ')}
 					saveRecordedText={text => this.handleChange('diet', text)}
 				/>
-
 				<Input
 					label="Medications"
 					onChangeText={value => this.handleChange('medications', value)}
@@ -251,7 +320,6 @@ export class CreateAccount extends Component {
 					value={this.state.medications.join(', ')}
 					saveRecordedText={text => this.handleChange('medications', text)}
 				/>
-
 				<Button accessibilityLabel="Tap me to create your client account" onPress={this.handleClientSubmit}>
 					Register Client
 				</Button>
@@ -270,8 +338,39 @@ export class CreateAccount extends Component {
 				<Text style={styles.text} accessibilityLabel="Separate multiple input values with commas">
 					Separate multiple input values with commas
 				</Text>
+				<Text style={styles.text}>My Caretaking Abilities</Text>
+				<CheckBox
+					center
+					title="Cleaning"
+					checked={this.state.cleaningCheck}
+					onPress={() => this.setState({ cleaningCheck: !this.state.cleaningCheck })}
+				/>
+				<CheckBox
+					center
+					title="Grocery Shopping"
+					checked={this.state.groceryCheck}
+					onPress={() => this.setState({ groceryCheck: !this.state.groceryCheck })}
+				/>
+				<CheckBox
+					center
+					title="Errands"
+					checked={this.state.errandsCheck}
+					onPress={() => this.setState({ errandsCheck: !this.state.errandsCheck })}
+				/>
+				<CheckBox
+					center
+					title="Yardwork"
+					checked={this.state.yardworkCheck}
+					onPress={() => this.setState({ yardworkCheck: !this.state.yardworkCheck })}
+				/>
+				<CheckBox
+					center
+					title="Administrative Assistance"
+					checked={this.state.adminCheck}
+					onPress={() => this.setState({ adminCheck: !this.state.adminCheck })}
+				/>
 				<Input
-					label="Caretaking Abilities"
+					label="Other Abilities"
 					onChangeText={value => this.handleChange('abilities', value)}
 					value={this.state.abilities.join(', ')}
 					saveRecordedText={text => this.handleChange('abilities', text)}
@@ -313,6 +412,7 @@ export class CreateAccount extends Component {
 					dataDetectorTypes={'phoneNumber'}
 					accessibilityLabel="Phone Input. Please type your phone number without dashes"
 					value={this.state.phone}
+					minLength={10}
 					saveRecordedText={text => this.handleChange('phone', text)}
 				/>
 
@@ -321,6 +421,7 @@ export class CreateAccount extends Component {
 					onChangeText={value => this.handleChange('username', value)}
 					accessibilityLabel="Username Input. Please make a username"
 					value={this.state.username}
+					minLength={4}
 					saveRecordedText={text => this.handleChange('username', text)}
 				/>
 
