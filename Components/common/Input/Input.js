@@ -54,7 +54,7 @@ class Input extends Component {
 					onBlur={this.handleBlur}
 					blurOnSubmit
 				/>
-				<SpeechToText saveRecordedText={this.saveRecordedText} />
+				<SpeechToText saveRecordedText={props.saveRecordedText} />
 			</View>
 		);
 	}
