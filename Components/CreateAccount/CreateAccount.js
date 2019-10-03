@@ -109,6 +109,7 @@ export class CreateAccount extends Component {
 			medications,
 			role
 		};
+		console.log('newclientprofile', newClientProfile);
 		if (
 			!username ||
 			!password ||
@@ -156,19 +157,19 @@ export class CreateAccount extends Component {
 
 	handleCaretakerSubmit = async () => {
 		if (this.state.cleaningCheck) {
-			this.state.needs.push('cleaning');
+			this.state.abilities.push('cleaning');
 		}
 		if (this.state.groceryCheck) {
-			this.state.needs.push('grocery shopping');
+			this.state.abilities.push('grocery shopping');
 		}
 		if (this.state.errandsCheck) {
-			this.state.needs.push('errands');
+			this.state.abilities.push('errands');
 		}
 		if (this.state.yardworkCheck) {
-			this.state.needs.push('yardwork');
+			this.state.abilities.push('yardwork');
 		}
 		if (this.state.adminCheck) {
-			this.state.needs.push('administrative assistance');
+			this.state.abilities.push('administrative assistance');
 		}
 		const {
 			username,
@@ -193,6 +194,7 @@ export class CreateAccount extends Component {
 			abilities,
 			role
 		};
+		console.log('newcaretakerprofile', newCaretakerProfile);
 		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
 			this.setState({ message: 'Please fill out all input fields' });
 		} else {
@@ -342,6 +344,7 @@ export class CreateAccount extends Component {
 				<CheckBox
 					center
 					title="Cleaning"
+					style={{backgroundColor: 'orange'}}
 					checked={this.state.cleaningCheck}
 					onPress={() => this.setState({ cleaningCheck: !this.state.cleaningCheck })}
 				/>
