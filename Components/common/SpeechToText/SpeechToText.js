@@ -58,12 +58,12 @@ export class SpeechToText extends Component {
 	_updateScreenForRecordingStatus = status => {
 		if (status.canRecord) {
 			this.setState({
-				isRecording: !this.state.isRecording,
+				isRecording: true,
 				recordingDuration: status.durationMillis
 			});
 		} else if (status.isDoneRecording) {
 			this.setState({
-				isRecording: this.state.isRecording,
+				isRecording: false,
 				recordingDuration: status.durationMillis
 			});
 			if (!this.state.isLoading) {
@@ -137,7 +137,7 @@ export class SpeechToText extends Component {
 		);
 		this.sound = sound;
 		this.props.saveRecordedText(data.text);
-		this.setState({ isLoading: false });
+		this.setState({ isLoading: false, isRecording: false });
 	}
 
 	_onRecordPressed = () => {

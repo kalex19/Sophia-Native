@@ -25,7 +25,8 @@ export class NeedToDoTasks extends Component {
 		const { tasks, navigation, loadTasks} = this.props;
 		let complete = tasks.filter(task => task.completed === true).length
 		let percent = parseInt((complete / tasks.length)*100)
-		const allTasks = tasks.map(task => {
+		const allTasks = tasks.sort(task => (task.completed) ? 1 : -1)
+		const allSortedTasks = allTasks.map(task => {
 			return (
 				<View style={styles.lists} key={task.id}>
 					<Task task={task} navigation={navigation} loadTasks={loadTasks}/>
@@ -51,7 +52,7 @@ export class NeedToDoTasks extends Component {
 						</View>
 					)}
 
-					<View>{allTasks}</View>
+					<View>{allSortedTasks}</View>
 					<View style={{ height: 200 }}></View>
 				</ScrollView>
 			</View>

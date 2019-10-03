@@ -10,32 +10,24 @@ import { patchClientProfile } from '../../Utils/clientApiCalls';
 import { patchCaretakerProfile } from '../../Utils/caretakerApiCalls';
 import theme from '../../theme';
 
-const initialState = {
-	name: '',
-	username: '',
-	password: '',
-	password_confirmation: '',
-	email: '',
-	phone: '',
-	address: '',
-	city: '',
-	state: '',
-	zip: '',
-	allergies: [],
-	needs: [],
-	diet_restrictions: [],
-	medications: [],
-	abilities: []
-};
-
 export class EditProfile extends Component {
-	state = initialState;
-
-	componentDidMount() {
-		this.setState({
-			initialState
-		});
-	}
+	state = {
+		name: this.props.user.name || null,
+		username: this.props.user.username || null,
+		password: '',
+		password_confirmation: '',
+		email: this.props.user.email || null,
+		phone: this.props.user.phone_number || null,
+		address: this.props.user.street_address || null,
+		city: this.props.user.city || null,
+		state: this.props.user.state || null,
+		zip: this.props.user.zip || null,
+		allergies: [],
+		needs: [],
+		diet_restrictions: [],
+		medications: [],
+		abilities: []
+	};
 
 	handleChange = (name, value) => {
 		const multiResponseInputs = ['needs', 'allergies', 'diet', 'medications', 'abilities'];
@@ -50,32 +42,32 @@ export class EditProfile extends Component {
 		if (this.props.user.role === 'client') {
 			const updatedProfile = {
 				username: this.state.username,
-				password: this.state.password,
 				name: this.state.name,
-				email: this.state.email,
-				phone: this.state.phone,
 				street_address: this.state.address,
 				city: this.state.city,
 				state: this.state.state,
 				zip: this.state.zip,
-				allergies: this.state.allergies,
+				password: this.state.password,
+				password_confirmation: this.state.password_confirmation,
+				email: this.state.email,
+				phone_number: this.state.phone,
 				needs: this.state.needs,
-				diet_restrictions: this.state.diet_restrictions,
+				allergies: this.state.allergies,
 				medications: this.state.medications,
-				client_id: user.id
+				diet_restrictions: this.state.diet_restrictions
 			};
-			await patchClientProfile(updatedProfile);
+			await patchClientProfile(updatedProfile, user.id);
 		} else {
 			const updatedProfile = {
 				username: this.state.username,
-				password: this.state.password,
 				name: this.state.name,
+				password: this.state.password,
+				password_confirmation: this.state.password_confirmation,
 				email: this.state.email,
 				phone: this.state.phone,
-				abilities: this.state.abilities,
-				caretaker_id: user.id
+				abilities: this.state.abilities
 			};
-			await patchCaretakerProfile(updatedProfile);
+			await patchCaretakerProfile(updatedProfile, user.id);
 		}
 		this.props.navigation.navigate('Profile');
 	};
@@ -88,7 +80,8 @@ export class EditProfile extends Component {
 						style={{ fontSize: 25 }}
 						value={this.state.address}
 						onChangeText={value => this.handleChange('address', value)}
-						label="Address"/>
+						label="Address"
+					/>
 				</View>
 				<View>
 					<Input
@@ -206,7 +199,7 @@ export class EditProfile extends Component {
 						value={this.state.password}
 						onChangeText={value => this.handleChange('password', value)}
 						saveRecordedText={text => this.handleChange('password', text)}
-						label="Password"
+						label="New Password"
 					/>
 					<Input
 						style={{ fontSize: 25 }}
@@ -237,6 +230,7 @@ export class EditProfile extends Component {
 		);
 	}
 }
+
 const mapStateToProps = state => ({
 	user: state.userAccount
 });

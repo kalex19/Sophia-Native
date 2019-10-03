@@ -57,19 +57,19 @@ export class CreateAccount extends Component {
 	};
 
 	handleClientSubmit = async () => {
-		if (cleaningChecked) {
+		if (this.state.cleaningChecked) {
 			this.state.needs.push('cleaning');
 		}
-		if (groceryChecked) {
+		if (this.state.groceryChecked) {
 			this.state.needs.push('grocery shopping');
 		}
-		if (errandsChecked) {
+		if (this.state.errandsChecked) {
 			this.state.needs.push('errands');
 		}
-		if (yardworkChecked) {
+		if (this.state.ardworkChecked) {
 			this.state.needs.push('yardwork');
 		}
-		if (adminChecked) {
+		if (this.state.adminChecked) {
 			this.state.needs.push('administrative assistance');
 		}
 		const {
@@ -109,6 +109,7 @@ export class CreateAccount extends Component {
 			medications,
 			role
 		};
+		console.log('newclientprofile', newClientProfile);
 		if (
 			!username ||
 			!password ||
@@ -155,20 +156,20 @@ export class CreateAccount extends Component {
 	};
 
 	handleCaretakerSubmit = async () => {
-		if (cleaningCheck) {
-			this.state.needs.push('cleaning');
+		if (this.state.cleaningCheck) {
+			this.state.abilities.push('cleaning');
 		}
-		if (groceryCheck) {
-			this.state.needs.push('grocery shopping');
+		if (this.state.groceryCheck) {
+			this.state.abilities.push('grocery shopping');
 		}
-		if (errandsCheck) {
-			this.state.needs.push('errands');
+		if (this.state.errandsCheck) {
+			this.state.abilities.push('errands');
 		}
-		if (yardworkCheck) {
-			this.state.needs.push('yardwork');
+		if (this.state.yardworkCheck) {
+			this.state.abilities.push('yardwork');
 		}
-		if (adminCheck) {
-			this.state.needs.push('administrative assistance');
+		if (this.state.adminCheck) {
+			this.state.abilities.push('administrative assistance');
 		}
 		const {
 			username,
@@ -193,6 +194,7 @@ export class CreateAccount extends Component {
 			abilities,
 			role
 		};
+		console.log('newcaretakerprofile', newCaretakerProfile);
 		if (!username || !password || !password_confirmation || !name || !email || !phone || !abilities) {
 			this.setState({ message: 'Please fill out all input fields' });
 		} else {
@@ -342,6 +344,7 @@ export class CreateAccount extends Component {
 				<CheckBox
 					center
 					title="Cleaning"
+					style={{backgroundColor: 'orange'}}
 					checked={this.state.cleaningCheck}
 					onPress={() => this.setState({ cleaningCheck: !this.state.cleaningCheck })}
 				/>
