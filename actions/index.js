@@ -33,6 +33,11 @@ export const addList = list => ({
 	list
 });
 
+export const loadInitialState = initialState => ({
+	type: "LOAD_STATE",
+	initialState
+})
+
 // export const isLoading = (bool) => ({
 //       type: 'IS_LOADING',
 //       bool

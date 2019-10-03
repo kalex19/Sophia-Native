@@ -91,15 +91,16 @@ export const fetchClients = async () => {
 };
 
 export const patchClientProfile = async (updatedProfile, user_id) => {
-	console.log('updated profile', updatedProfile);
-	console.log('user id', user_id);
+	// console.log('updated profile', updatedProfile);
+	// console.log('user id', user_id);
 	const options = {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(updatedProfile)
 	};
+	console.log(options.body)
 	const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${user_id}`, options);
-	console.log('response', response)
+	console.log('response', response.status)
 
 	if (!response.ok) {
 		throw new Error('Could not edit the client profile');

@@ -9,6 +9,7 @@ import Input from '../common/Input/Input';
 import { patchClientProfile } from '../../Utils/clientApiCalls';
 import { patchCaretakerProfile } from '../../Utils/caretakerApiCalls';
 import theme from '../../theme';
+import { loadProfile } from '../../actions';
 
 export class EditProfile extends Component {
 	state = {
@@ -22,17 +23,17 @@ export class EditProfile extends Component {
 		city: this.props.user.city || null,
 		state: this.props.user.state || null,
 		zip: this.props.user.zip || null,
-		allergies: [],
-		needs: [],
-		diet_restrictions: [],
-		medications: [],
-		abilities: []
+		allergies: this.props.user.allergies || [],
+		needs: this.props.user.needs || [],
+		diet_restrictions: this.props.user.diet_restrictions || [],
+		medications: this.props.user.medications || [],
+		abilities: this.props.user.abilities || []
 	};
 
 	handleChange = (name, value) => {
 		const multiResponseInputs = ['needs', 'allergies', 'diet', 'medications', 'abilities'];
 		if (multiResponseInputs.includes(name)) {
-			value = value.split(', ');
+			value = value.split(',');
 		}
 		this.setState({ [name]: value });
 	};
@@ -41,8 +42,8 @@ export class EditProfile extends Component {
 		const { user } = this.props;
 		if (this.props.user.role === 'client') {
 			const updatedProfile = {
-				username: this.state.username,
 				name: this.state.name,
+				username: this.state.username,
 				street_address: this.state.address,
 				city: this.state.city,
 				state: this.state.state,
@@ -56,7 +57,24 @@ export class EditProfile extends Component {
 				medications: this.state.medications,
 				diet_restrictions: this.state.diet_restrictions
 			};
+			// let update = 
 			await patchClientProfile(updatedProfile, user.id);
+			// this.setState({
+			// 	name: update.name,
+			// 	username: update.username,
+			// 	street_address: update.address,
+			// 	city: update.city,
+			// 	state: update.state,
+			// 	zip: update.zip,
+			// 	password: update.password,
+			// 	email: update.email,
+			// 	phone_number: update.phone,
+			// 	needs: update.needs,
+			// 	allergies: update.allergies,
+			// 	medications: update.medications,
+			// 	diet_restrictions: update.diet_restrictions
+			// })
+			this.props.navigation.navigate('Profile');
 		} else {
 			const updatedProfile = {
 				username: this.state.username,
@@ -69,7 +87,6 @@ export class EditProfile extends Component {
 			};
 			await patchCaretakerProfile(updatedProfile, user.id);
 		}
-		this.props.navigation.navigate('Profile');
 	};
 
 	renderClientInfo = () => {
@@ -232,10 +249,13 @@ export class EditProfile extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.userAccount
+	user: state.userAccount,
+	profile: state.profile
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+	loadProfile: profile => dispatch(loadProfile(profile))
+});
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
