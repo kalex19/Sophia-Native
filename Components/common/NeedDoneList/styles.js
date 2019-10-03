@@ -26,7 +26,6 @@ export default StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	align: {
-		backgroundColor: "blue",
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",

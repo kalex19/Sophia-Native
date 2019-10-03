@@ -5,7 +5,6 @@ import { loadTasks } from '../../actions';
 import { postClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
 import { patchTask } from '../../Utils/patchTask';
 import { fetchAllTasks } from '../../Utils/fetchAllTasks';
-import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerApiCalls';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
@@ -21,10 +20,11 @@ export class Tasks extends Component {
 			task_input: '',
 			description_input: '',
 			due_date: '',
-			displayEdit: true,
+			displayEdit: false,
 			task_edit_input: '',
 			priority: '',
-			displayExtraInputs: false
+			displayExtraInputs: false,
+			targetId: ''
 		};
 	}
 
@@ -40,7 +40,7 @@ export class Tasks extends Component {
 	};
 
 	toggleEditName = task_id => {
-		this.setState({ displayEdit: task_id });
+		this.setState({ displayEdit: !this.state.displayEdit, targetId: task_id });
 	};
 
 	handleChangeTask = input => {
@@ -131,27 +131,28 @@ export class Tasks extends Component {
 
 	render() {
 		let complete = this.props.tasks.filter(task => task.completed === true).length
-		let percent = (complete / this.props.tasks.length)*100
-		const { name } = this.props.navigation.state.params;
+		let percent = parseInt((complete / this.props.tasks.length)*100)
+		const list = this.props.navigation.state.params;
 		const { tasks } = this.props;
 		const allTasks = tasks.map(task => {
 			return (
 				<View style={styles.task} key={task.id}>
 					<Text style={styles.taskHeader}>{task.name}</Text>
 					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
-					{this.state.displayEdit !== task.id && (
+					{this.state.displayEdit === false && (
 						<View style={styles.taskNoteDue}>
 							{task.description.length > 0 && <Text style={styles.taskItemSecond}>Notes: {task.description}</Text>}
 							{task.due_date != null && <Text style={styles.taskItemSecond}>Due: {task.due_date}</Text>}
 						</View>
 					)}
-					{this.state.displayEdit === task.id && (
+					{(this.state.displayEdit === true && this.state.targetId === task.id) && (
 						<View style={styles.alignEdit}>
 							<Input
 								label="Edit task"
 								value={this.state.task_edit_input}
 								onChangeText={this.handleEditTask}
 								saveRecordedText={text => this.handleEditTask(text)}
+								style={styles.fonts}
 							/>
 							<TouchableHighlight
 								underlayColor="black"
@@ -167,11 +168,11 @@ export class Tasks extends Component {
 						<TouchableHighlight
 							underlayColor="black"
 							accessibilityLabel="Tap me to open form and edit your list name."
-							onPress={() => toggleEditName(list.id)}
+							onPress={() => this.toggleEditName(task.id)}
 						>
 							<Text style={styles.editItem}>✏️ EDIT</Text>
 						</TouchableHighlight>
-						<TouchableHighlight onPress={() => eraseTask(list.id)}>
+						<TouchableHighlight onPress={() => this.eraseTask(task.id)}>
 							<Text style={styles.editItem}>🗑 DELETE</Text>
 						</TouchableHighlight>
 					</View>
@@ -197,7 +198,7 @@ export class Tasks extends Component {
 		});
 		return (
 			<View>
-				<Header>{name}</Header>
+				<Header>{list.name}</Header>
 				<ScrollView>
 					<View style={theme.container}>
 						<View style={styles.addTaskContainer}>
@@ -242,8 +243,8 @@ export class Tasks extends Component {
 						</View>
 								<Text>{percent}% of the list completed</Text>
 							<View style={{flexDirection: "row", width: "90%"}}>
-							<View style={{height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
-							<View style={{height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
 							</View>
 						{tasks.length < 1 && (
 							<View>

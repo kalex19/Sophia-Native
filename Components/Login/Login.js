@@ -12,8 +12,8 @@ import theme from '../../theme';
 import SpeechToText from '../common/SpeechToText/SpeechToText';
 
 const initialState = {
-	username: 'AndreeaTestClient',
-	password: 'pass',
+	username: 'Noah',
+	password: 'password',
 	message: '',
 	error: ''
 };

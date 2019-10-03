@@ -99,5 +99,8 @@ export const styles = StyleSheet.create({
 	vertically: {
 		flexDirection: 'row',
 		justifyContent: 'space-between'
+	},
+	fonts: {
+		color: "black"
 	}
 });
