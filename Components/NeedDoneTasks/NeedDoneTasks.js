@@ -180,15 +180,15 @@ export class Tasks extends Component {
 						<TouchableHighlight
 							accessibilityLabel="Tap me to lower the priority level of the task."
 							onPress={() => this.lowerPriority(task.id, task.priority)}
-							style={{ width: 30, height: 30 }}
+							style={{ width: 30, height: 30, padding: 6}}
 						>
 							<Text>🔻</Text>
 						</TouchableHighlight>
-						<Text style={styles.editItem}>{task.priority} priority</Text>
+						<Text style={styles.editPriority}>{task.priority} priority</Text>
 						<TouchableHighlight
 							accessibilityLabel="Tap me to increase the priority level of the task."
 							onPress={() => this.increasePriority(task.id, task.priority)}
-							style={{ width: 30, height: 30 }}
+							style={{ width: 30, height: 30, padding: 6 }}
 						>
 							<Text>🔺</Text>
 						</TouchableHighlight>

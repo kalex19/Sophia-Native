@@ -27,7 +27,7 @@ export const Task = ({ task, navigation, loadTasks }) => {
 					{task.name}
 				</Text>
 			)}
-			<Text style={styles.taskText}>Priority: {task.priority}</Text>
+			<Text style={styles.taskText}>Priority: {task.priority}</Text> 
 			{task.description.length > 0 && (
 				<Text numberOfLines={3} style={styles.taskText}>
 					{task.description}
