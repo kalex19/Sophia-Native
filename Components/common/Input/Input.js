@@ -39,7 +39,7 @@ class Input extends Component {
 			}),
 			color: this._animatedIsFocused.interpolate({
 				inputRange: [0, 1],
-				outputRange: ['#aaa', 'maroon']
+				outputRange: ['black', 'maroon']
 			}),
 			margin: 25
 		};
