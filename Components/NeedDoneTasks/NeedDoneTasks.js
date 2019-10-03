@@ -242,8 +242,8 @@ export class Tasks extends Component {
 						</View>
 								<Text>{percent}% of the list completed</Text>
 							<View style={{flexDirection: "row", width: "90%"}}>
-							<View style={{height: 10, backgroundColor: "blue", width: `${percent}%`}}></View>
-							<View style={{height: 10, backgroundColor: "red", width: `${100-percent}%`}}></View>
+							<View style={{height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
+							<View style={{height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
 							</View>
 						{tasks.length < 1 && (
 							<View>
