@@ -1,4 +1,4 @@
-export const postList = async (newList) => {
+export const postList = async newList => {
 	const url = `https://evening-dusk-50121.herokuapp.com/api/v1/lists`;
 	const options = {
 		method: 'POST',
@@ -37,7 +37,7 @@ export const patchList = async (updatedList, list_id) => {
 		throw new Error('Could not edit the name of the list');
 	}
 	const list = await response.json();
-	console.log("LIST RESPONSE", list)
+	console.log('LIST RESPONSE', list);
 	return list;
 };
 
@@ -89,16 +89,16 @@ export const fetchClients = async () => {
 	}
 };
 
-export const patchClientProfile = async updatedProfile => {
+export const patchClientProfile = async (updatedProfile, user_id) => {
+	console.log('updated profile', updatedProfile);
+	console.log('user id', user_id);
 	const options = {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(updatedProfile)
 	};
-	const response = await fetch(
-		`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${updatedProfile.client_id}`,
-		options
-	);
+	const response = await fetch(`https://evening-dusk-50121.herokuapp.com/api/v1/clients/${user_id}`, options);
+	console.log('response', response)
 
 	if (!response.ok) {
 		throw new Error('Could not edit the client profile');

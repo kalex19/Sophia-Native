@@ -29,42 +29,7 @@ const initialState = {
 export class Profile extends Component {
 	state = initialState;
 
-	toggleEdit = () => {
-		this.setState({ displayEdit: !this.state.displayEdit });
-	};
 
-	handleEdit = value => {
-		this.setState({ [name]: value });
-	};
-
-	handleSubmitEdit = async () => {
-		const { user } = this.props;
-		if (this.props.user.role === 'client') {
-			const updatedProfile = {
-				username: this.state.username,
-				password: this.state.password,
-				street_address: this.state.street_address,
-				city: this.state.city,
-				state: this.state.state,
-				zip: this.state.zip,
-				allergies: this.state.allergies,
-				needs: this.state.needs,
-				diet_restrictions: this.state.diet_restrictions,
-				medications: this.state.medications,
-				client_id: this.props.user.id
-			};
-			await patchClientProfile(updatedProfile);
-		} else {
-			const updatedProfile = {
-				username: this.state.username,
-				password: this.state.password,
-				abilities: this.state.abilities
-			};
-			await patchCaretakerProfile(updatedProfile);
-		}
-		this.returnUpdatedProfile();
-		this.setState({ initialState });
-	};
 	renderClientInfo = () => {
 		let allNeeds = this.props.user.needs.map(need => {
 			return (
@@ -138,27 +103,6 @@ export class Profile extends Component {
 			</View>
 		);
 	};
-
-	renderEditButton() {
-		if (!this.state.displayEdit) {
-			return (
-				<Button
-					accessibilityLabel="Tap me to edit your profile."
-					onPress={() => this.toggleEditName(this.props.user.id)}
-				>
-					Edit Profile
-				</Button>
-			);
-		}
-		return (
-			<Button
-				accessibilityLabel="Tap me to submit your edited profile."
-				onPress={() => this.handleSubmitEdit(this.props.user.id)}
-			>
-				Save Profile
-			</Button>
-		);
-	}
 
 	render() {
 		const { navigation } = this.props;
