@@ -56,6 +56,7 @@ export const postClientTask = async (newTask, list_id, client_id) => {
 };
 
 export const deleteClientTask = async (list_id, task_id) => {
+	console.log("LIST ID", list_id, "TASK ID", task_id)
 	const options = {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' }

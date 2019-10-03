@@ -131,7 +131,7 @@ export class Tasks extends Component {
 	render() {
 		let complete = this.props.tasks.filter(task => task.completed === true).length
 		let percent = parseInt((complete / this.props.tasks.length)*100)
-		const { name } = this.props.navigation.state.params;
+		const list = this.props.navigation.state.params;
 		const { tasks } = this.props;
 		const allTasks = tasks.map(task => {
 			return (
@@ -166,11 +166,11 @@ export class Tasks extends Component {
 						<TouchableHighlight
 							underlayColor="black"
 							accessibilityLabel="Tap me to open form and edit your list name."
-							onPress={() => toggleEditName(list.id)}
+							onPress={() => this.toggleEditName(task.id)}
 						>
 							<Text style={styles.editItem}>✏️ EDIT</Text>
 						</TouchableHighlight>
-						<TouchableHighlight onPress={() => eraseTask(list.id)}>
+						<TouchableHighlight onPress={() => this.eraseTask(task.id)}>
 							<Text style={styles.editItem}>🗑 DELETE</Text>
 						</TouchableHighlight>
 					</View>
@@ -196,7 +196,7 @@ export class Tasks extends Component {
 		});
 		return (
 			<View>
-				<Header>{name}</Header>
+				<Header>{list.name}</Header>
 				<ScrollView>
 					<View style={theme.container}>
 						<View style={styles.addTaskContainer}>
