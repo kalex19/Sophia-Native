@@ -20,10 +20,11 @@ export class Tasks extends Component {
 			task_input: '',
 			description_input: '',
 			due_date: '',
-			displayEdit: true,
+			displayEdit: false,
 			task_edit_input: '',
 			priority: '',
-			displayExtraInputs: false
+			displayExtraInputs: false,
+			targetId: ''
 		};
 	}
 
@@ -39,7 +40,7 @@ export class Tasks extends Component {
 	};
 
 	toggleEditName = task_id => {
-		this.setState({ displayEdit: task_id });
+		this.setState({ displayEdit: !this.state.displayEdit, targetId: task_id });
 	};
 
 	handleChangeTask = input => {
@@ -138,13 +139,13 @@ export class Tasks extends Component {
 				<View style={styles.task} key={task.id}>
 					<Text style={styles.taskHeader}>{task.name}</Text>
 					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
-					{this.state.displayEdit !== task.id && (
+					{this.state.displayEdit === false && (
 						<View style={styles.taskNoteDue}>
 							{task.description.length > 0 && <Text style={styles.taskItemSecond}>Notes: {task.description}</Text>}
 							{task.due_date != null && <Text style={styles.taskItemSecond}>Due: {task.due_date}</Text>}
 						</View>
 					)}
-					{this.state.displayEdit === task.id && (
+					{(this.state.displayEdit === true && this.state.targetId === task.id) && (
 						<View style={styles.alignEdit}>
 							<Input
 								label="Edit task"
