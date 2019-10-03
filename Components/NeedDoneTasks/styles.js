@@ -49,9 +49,9 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		width: '90%',
+		width: '80%',
 		borderWidth: 1,
-		borderColor: theme.accentOne
+		borderColor: theme.accentOne,
 	},
 	editCheck: {
 		fontSize: 40,
@@ -113,6 +113,9 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	fonts: {
-		color: "black"
+		color: "black",
+		backgroundColor: "white",
+		borderRadius: 0,
+		margin: 0
 	}
 });
