@@ -151,6 +151,7 @@ export class Tasks extends Component {
 								value={this.state.task_edit_input}
 								onChangeText={this.handleEditTask}
 								saveRecordedText={text => this.handleEditTask(text)}
+								style={styles.fonts}
 							/>
 							<TouchableHighlight
 								underlayColor="black"
