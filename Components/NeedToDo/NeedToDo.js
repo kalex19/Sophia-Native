@@ -21,12 +21,11 @@ export class NeedToDo extends Component {
 	getClientLists = () => {
 		const { lists, user, navigation } = this.props;
 		const filteredLists = lists.filter(list => list.created_for === 'client');
-		console.log('filteredLists', filteredLists);
 		if (filteredLists.length) {
 			return filteredLists
 				.map(list => {
 					list = { ...list, role: 'client' };
-					return <NeedToDoList list={list} navigation={navigation} />;
+					return <NeedToDoList list={list} navigation={navigation} key={Math.random()}/>;
 				})
 				.reverse();
 		} else {

@@ -23,6 +23,8 @@ export class NeedToDoTasks extends Component {
 	render() {
 		const { name } = this.props.navigation.state.params;
 		const { tasks, navigation, loadTasks} = this.props;
+		let complete = tasks.filter(task => task.completed === true).length
+		let percent = parseInt((complete / tasks.length)*100)
 		const allTasks = tasks.map(task => {
 			return (
 				<View style={styles.lists} key={task.id}>
@@ -34,6 +36,13 @@ export class NeedToDoTasks extends Component {
 			<View>
 				<View style={styles.listHeader}>
 					<Header>{name}</Header>
+				</View>
+				<View style={{alignSelf: "center"}}>
+				{tasks.length > 0 && <Text>{percent}% of the list completed</Text>}
+							<View style={{flexDirection: "row", width: "90%"}}>
+							<View style={{height: 10, backgroundColor: "blue", width: `${percent}%`}}></View>
+							<View style={{height: 10, backgroundColor: "red", width: `${100-percent}%`}}></View>
+				</View>
 				</View>
 				<ScrollView>
 					{tasks.length < 1 && (

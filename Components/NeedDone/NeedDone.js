@@ -94,6 +94,7 @@ export class NeedDone extends Component {
 				<Header accessibilityLabel="My Todo Lists">My Todo Lists</Header>
 				<ScrollView>
 					<Button onPress={() => this.props.navigation.navigate('AddListForm')}>Add New List +</Button>
+					<View style={{borderBottomColor: "black", borderBottomWidth: `{}`}}></View>
 					{this.props.user.role === 'client' && this.getClientCreatedLists()}
 					{this.props.user.role === 'caretaker' && this.getCaretakerCreatedLists()}
 					<View style={{ height: 550 }} />
