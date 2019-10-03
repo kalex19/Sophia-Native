@@ -5,7 +5,6 @@ import { loadTasks } from '../../actions';
 import { postClientTask, deleteClientTask } from '../../Utils/clientApiCalls';
 import { patchTask } from '../../Utils/patchTask';
 import { fetchAllTasks } from '../../Utils/fetchAllTasks';
-import { fetchCaretakerTasks, patchCaretakerTask } from '../../Utils/caretakerApiCalls';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import { PropTypes } from 'prop-types';
 import { styles } from './styles';
@@ -131,7 +130,7 @@ export class Tasks extends Component {
 
 	render() {
 		let complete = this.props.tasks.filter(task => task.completed === true).length
-		let percent = (complete / this.props.tasks.length)*100
+		let percent = parseInt((complete / this.props.tasks.length)*100)
 		const { name } = this.props.navigation.state.params;
 		const { tasks } = this.props;
 		const allTasks = tasks.map(task => {
@@ -242,8 +241,8 @@ export class Tasks extends Component {
 						</View>
 								<Text>{percent}% of the list completed</Text>
 							<View style={{flexDirection: "row", width: "90%"}}>
-							<View style={{height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
-							<View style={{height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
 							</View>
 						{tasks.length < 1 && (
 							<View>

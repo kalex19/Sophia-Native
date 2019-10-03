@@ -41,8 +41,8 @@ export class NeedToDoTasks extends Component {
 				<View style={{alignSelf: "center"}}>
 				{tasks.length > 0 && <Text>{percent}% of the list completed</Text>}
 							<View style={{flexDirection: "row", width: "90%"}}>
-							<View style={{height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
-							<View style={{height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "maroon", width: `${percent}%`}}></View>
+							<View style={{marginBottom: 10, height: 20, backgroundColor: "gray", width: `${100-percent}%`}}></View>
 				</View>
 				</View>
 				<ScrollView>

@@ -28,6 +28,5 @@ export const patchTask = async (object, list_id, task_id) => {
 		throw new Error('Could not modify the task');
 	}
 	const task = await response.json();
-	console.log('PATCHED TASK');
 	return task;
 };
