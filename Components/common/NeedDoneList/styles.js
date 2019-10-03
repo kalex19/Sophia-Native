@@ -29,6 +29,6 @@ export default StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
-		width: "80%"
+		width: 200
 	}
 });

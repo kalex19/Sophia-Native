@@ -49,9 +49,9 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		width: '90%',
+		width: '80%',
 		borderWidth: 1,
-		borderColor: theme.accentOne
+		borderColor: theme.accentOne,
 	},
 	editCheck: {
 		fontSize: 40,
@@ -86,9 +86,14 @@ export const styles = StyleSheet.create({
 	},
 	priorityLevels: {
 		flexDirection: 'row',
-		width: '60%',
+		width: '80%',
 		margin: 5,
-    alignSelf: 'center',
+		alignSelf: 'center',
+		backgroundColor: "gray",
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 5,
+		shadowOpacity: 10
 	},
 	editItem: {
 		fontSize: 20,
@@ -96,11 +101,21 @@ export const styles = StyleSheet.create({
 		fontFamily: theme.textTwo,
 		margin: 10
 	},
+	editPriority: {
+		fontSize: 20,
+		color: theme.accentOne,
+		fontFamily: theme.textTwo,
+		textAlign: "center",
+		width: 140
+	},
 	vertically: {
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
 	fonts: {
-		color: "black"
+		color: "black",
+		backgroundColor: "white",
+		borderRadius: 0,
+		margin: 0
 	}
 });

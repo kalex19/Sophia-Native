@@ -13,7 +13,7 @@ import SpeechToText from '../common/SpeechToText/SpeechToText';
 
 const initialState = {
 	username: 'Noah',
-	password: 'password',
+	password: 'pass',
 	message: '',
 	error: ''
 };

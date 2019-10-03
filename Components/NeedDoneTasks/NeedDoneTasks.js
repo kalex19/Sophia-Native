@@ -139,12 +139,10 @@ export class Tasks extends Component {
 				<View style={styles.task} key={task.id}>
 					<Text style={styles.taskHeader}>{task.name}</Text>
 					<Text style={styles.taskComplete}>{task.completed ? ' COMPLETED' : ' NOT DONE YET'}</Text>
-					{this.state.displayEdit === false && (
 						<View style={styles.taskNoteDue}>
 							{task.description.length > 0 && <Text style={styles.taskItemSecond}>Notes: {task.description}</Text>}
 							{task.due_date != null && <Text style={styles.taskItemSecond}>Due: {task.due_date}</Text>}
 						</View>
-					)}
 					{(this.state.displayEdit === true && this.state.targetId === task.id) && (
 						<View style={styles.alignEdit}>
 							<Input
@@ -180,15 +178,15 @@ export class Tasks extends Component {
 						<TouchableHighlight
 							accessibilityLabel="Tap me to lower the priority level of the task."
 							onPress={() => this.lowerPriority(task.id, task.priority)}
-							style={{ width: 30, height: 30 }}
+							style={{ width: 30, height: 30, padding: 6}}
 						>
 							<Text>🔻</Text>
 						</TouchableHighlight>
-						<Text style={styles.editItem}>{task.priority} priority</Text>
+						<Text style={styles.editPriority}>{task.priority} priority</Text>
 						<TouchableHighlight
 							accessibilityLabel="Tap me to increase the priority level of the task."
 							onPress={() => this.increasePriority(task.id, task.priority)}
-							style={{ width: 30, height: 30 }}
+							style={{ width: 30, height: 30, padding: 6 }}
 						>
 							<Text>🔺</Text>
 						</TouchableHighlight>
