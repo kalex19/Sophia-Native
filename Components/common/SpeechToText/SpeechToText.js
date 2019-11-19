@@ -11,8 +11,8 @@ import * as Permissions from 'expo-permissions';
 import { PropTypes } from 'prop-types';
 import { postBlob } from '../../../Utils/postBlob';
 import styles from './styles';
-import mic_off from '../../../assets/mic-off.png';
-import mic_on from '../../../assets/mic-on.png';
+// import mic_off from '../../../assets/mic-off.png';
+// import mic_on from '../../../assets/mic-on.png';
 
 export class SpeechToText extends Component {
 	constructor(props) {

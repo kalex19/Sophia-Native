@@ -19,5 +19,30 @@ describe('taskReducer', () => {
     const result = taskReducer(undefined, actionObject)
 
     expect(result).toEqual(tasks)
+  });
+
+  it('should clear the tasks on LOG_OUT', () => {
+    const tasks = [{ name: "apples" }]
+    const actionObject = {
+      type: 'LOG_OUT',
+      tasks: []
+    }
+
+    const result = taskReducer(tasks, actionObject)
+
+    expect(result).toEqual([])
+  });
+
+  it('should toggle complete true and false on TOGGLE_COMPLETE', () => {
+    let complete_initial = false;
+    let complete_toggled = true;
+    const actionObject = {
+      type: 'TOGGLE_COMPLETE',
+      complete: complete_toggled
+    }
+
+    const result = taskReducer(complete_initial, actionObject);
+
+    expect(result).toEqual(complete_toggled)
   })
 })
