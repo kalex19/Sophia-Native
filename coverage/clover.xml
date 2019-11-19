@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1574124180970" clover="3.2.0">
-  <project timestamp="1574124180970" name="All files">
-    <metrics statements="125" coveredstatements="93" conditionals="45" coveredconditionals="26" methods="25" coveredmethods="19" elements="195" coveredelements="138" complexity="0" loc="125" ncloc="125" packages="3" files="9" classes="9"/>
+<coverage generated="1574124481482" clover="3.2.0">
+  <project timestamp="1574124481482" name="All files">
+    <metrics statements="125" coveredstatements="94" conditionals="45" coveredconditionals="27" methods="25" coveredmethods="19" elements="195" coveredelements="140" complexity="0" loc="125" ncloc="125" packages="3" files="9" classes="9"/>
     <package name="Utils">
       <metrics statements="72" coveredstatements="55" conditionals="16" coveredconditionals="9" methods="11" coveredmethods="9"/>
       <file name="clientApiCalls.js" path="/Users/andreeahanson/Workspace/sophia/Utils/clientApiCalls.js">
@@ -103,11 +103,11 @@
       </file>
     </package>
     <package name="reducers">
-      <metrics statements="46" coveredstatements="31" conditionals="29" coveredconditionals="17" methods="7" coveredmethods="6"/>
+      <metrics statements="46" coveredstatements="32" conditionals="29" coveredconditionals="18" methods="7" coveredmethods="6"/>
       <file name="ListsReducer.js" path="/Users/andreeahanson/Workspace/sophia/reducers/ListsReducer.js">
-        <metrics statements="23" coveredstatements="18" conditionals="13" coveredconditionals="8" methods="3" coveredmethods="3"/>
+        <metrics statements="23" coveredstatements="19" conditionals="13" coveredconditionals="9" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="2" count="4" type="cond" truecount="4" falsecount="0"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -127,7 +127,7 @@
         <line num="25" count="0" type="stmt"/>
         <line num="27" count="2" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
       <file name="ProfileReducer.js" path="/Users/andreeahanson/Workspace/sophia/reducers/ProfileReducer.js">

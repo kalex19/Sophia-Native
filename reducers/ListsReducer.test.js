@@ -37,9 +37,14 @@ describe('listsReducer', () => {
   });
 
   it('should log out and empty stat on LOG_OUT', () => {
+    const initialLists = [{task: "apples"}, {task: "oranges"}];
     const actionObject = {
       type: 'LOG_OUT',
       lists: []
     }
+
+    const result = listsReducer(initialLists, actionObject);
+
+    expect(result).toEqual([])
   });
 })
