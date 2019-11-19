@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">43.48% </span>
+        <span class="strong">78.26% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/23</span>
+        <span class='fraction'>18/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">38.46% </span>
+        <span class="strong">61.54% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/13</span>
+        <span class='fraction'>8/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/3</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">43.48% </span>
+        <span class="strong">78.26% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>10/23</span>
+        <span class='fraction'>18/23</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -82,34 +82,34 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,20 +131,20 @@
 					return 0;
 				}).reverse()
 			return action.lists;
-<span class="branch-1 cbranch-no" title="branch not covered" >		case 'ADD_LIST':</span>
-			const newState = <span class="cstat-no" title="statement not covered" >[...state, action.list]</span>
-<span class="cstat-no" title="statement not covered" >			newState.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; {</span>
-				let nameA = <span class="cstat-no" title="statement not covered" >a.created_at;</span>
-				let nameB = <span class="cstat-no" title="statement not covered" >b.created_at;</span>
-<span class="cstat-no" title="statement not covered" >				if (nameA &lt; nameB) {</span>
+		case 'ADD_LIST':
+			const newState = [...state, action.list]
+			newState.sort((a, b) =&gt; {
+				let nameA = a.created_at;
+				let nameB = b.created_at;
+				<span class="missing-if-branch" title="if path not taken" >I</span>if (nameA &lt; nameB) {
 <span class="cstat-no" title="statement not covered" >					return -1;</span>
 				}
-<span class="cstat-no" title="statement not covered" >				if (nameA &gt; nameB) {</span>
+				<span class="missing-if-branch" title="if path not taken" >I</span>if (nameA &gt; nameB) {
 <span class="cstat-no" title="statement not covered" >					return 1;</span>
 				}
-<span class="cstat-no" title="statement not covered" >				return 0;</span>
+				return 0;
 			}).reverse()
-<span class="cstat-no" title="statement not covered" >			return newState;</span>
+			return newState;
 <span class="branch-2 cbranch-no" title="branch not covered" >		case 'LOG_OUT':</span>
 <span class="cstat-no" title="statement not covered" >			return [];</span>
 		default:
@@ -157,7 +157,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 18 2019 15:57:29 GMT-0700 (Mountain Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 18 2019 17:43:00 GMT-0700 (Mountain Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
